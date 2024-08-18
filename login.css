@@ -12,15 +12,17 @@ body{
     overflow-x: hidden;
     padding-top: 20px;
 }
-
 .left{
     left: 0;
 }
 
 img{
-    position: fixed;
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
 }
 
 .right{
@@ -35,6 +37,13 @@ img{
     transform: translate(-50%,-50%);
 }
 
+.title{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 60px;
+    font-weight: bolder;
+}
+
 .username,.password{
     text-align: left;
 }
@@ -43,10 +52,11 @@ img{
     position:0;
     width: 90%;
     padding: 10px 20px;
-    margin: 6px 0;
+    margin: 12px 0;
     display: inline-block;
     border: 1px solid #FFFFFF;
     border-radius: 12px 12px 12px 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .forgot{
@@ -66,10 +76,18 @@ button{
     text-align: center;
     border:none;
     cursor: pointer;
-    padding: 12px 20px;
-    margin: 6px;
+    padding: 12px;
+    margin: 20px 0;
     border-radius: 12px 12px 12px 12px;
-    width: 100%;
+    width: 50%;
+    position: relative;
+    left: 25%;
+}
+
+.login{
+    text-align: center;
+    text-decoration: solid;
+    font-weight: bolder;
 }
 
 .signup{
@@ -79,7 +97,20 @@ button{
 
 .signup a{
     text-decoration: none;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bolder;
     text-align: center;
     color: #F1C232;
-    float:
+}
+
+@media screen and (max-width: 600px) {
+    .side{
+        width: 100%;
+    }
+
+    .forgot a{
+        margin: 2px;
+        float: right;
+    }
+
 }
