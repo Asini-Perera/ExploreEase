@@ -1,6 +1,6 @@
 -- Create the ExploreEase Database
-Create Database ExploreEase;
-Use ExploreEase;
+Create Database exploreease
+Use exploreease;
 
 -- Create the Traveler table
 CREATE TABLE Traveler (
