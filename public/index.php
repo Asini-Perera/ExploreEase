@@ -1,10 +1,6 @@
 <?php
-
 // Start session
 session_start();
-
-// Store user session data
-$_SESSION['user_id'] = 1;
 
 // Load the config file
 require_once __DIR__ . '/../config/config.php';
@@ -12,6 +8,11 @@ require_once __DIR__ . '/../config/config.php';
 // Load the router and other core files
 require_once __DIR__ . '/../core/Router.php';
 
-// Initialize the router and route the request
+// Instantiate the router
 $router = new Router();
+
+// Load routes from the web.php file
+require_once __DIR__ . '/../routes/web.php';
+
+// Route the request
 $router->route();

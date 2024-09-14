@@ -1,4 +1,4 @@
 <?php
 
-$router->add('', 'HomeController@index');
-$router->add('about', 'HomeController@about');
+$router->add('', 'HomeController@index');  // Home route for users
+$router->add('admin', 'AdminController@index');  // Admin dashboard
