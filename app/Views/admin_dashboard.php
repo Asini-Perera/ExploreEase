@@ -7,5 +7,8 @@
 </head>
 <body>
     <h1>Welcome to the Admin Dashboard</h1>
+
+    <p>Here you can manage users, posts, and other resources.</p>
+
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class User {
+class UserModel {
     protected $conn;
 
     public function __construct($conn) {
@@ -13,7 +13,9 @@ class User {
         $stmt = $this->conn->prepare("SELECT * FROM traveler WHERE TravelerID = ?");
         $stmt->bind_param("s", $id);  // "s" indicates that the parameter is a string
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
     
+
 }
