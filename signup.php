@@ -22,6 +22,14 @@
         <div class="container">
             <h2 class="title">Join with us as a service provider!</h2>
             <p class="content">We are here to help you reach out to the world.</p>
+            <label for="serviceprovider">Choose your service type:</label>
+            <select name="serviceprovider" id="serviceprovider">
+                <option value="hotel">Hotel</option>
+                <option value="restaurant">Restaurant</option>
+                <option value="heritagemarket">Heritage Market</option>
+                <option value="culturaleventorg">Cultural Event Organizer</option>
+            </select><br>
+
             <button>Sign up</button>
         </div>
     <img src="serviceprovider.svg" alt="service provider img">
