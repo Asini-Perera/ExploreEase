@@ -37,5 +37,6 @@
             <li><?php echo $traveler['FirstName'] . ' - ' . $traveler['Email']; ?></li>
         <?php endforeach; ?>
     </ul>
+    <img src="assets/images/virat.jpg" alt="abc1" width="400" height="600">
 </body>
 </html>
