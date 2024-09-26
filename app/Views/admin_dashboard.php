@@ -9,6 +9,23 @@
     <h1>Welcome to the Admin Dashboard</h1>
 
     <p>Here you can manage users, posts, and other resources.</p>
+
+    <a href="../public">Home</a>
+
+    <?php
+    require_once __DIR__ . '/../models/UserModel.php';
+    
+    use app\models\UserModel;
+
+    global $conn;
+    
+    $userModel = new UserModel($conn);
+
+    $user = $userModel->getUserById("T000001");
+
+    echo $user['FirstName'] . ' - ' . $user['Email'];
+
+    ?>
     
 </body>
 </html>

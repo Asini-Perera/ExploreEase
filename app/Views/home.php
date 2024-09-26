@@ -9,8 +9,6 @@
     <a href="admin">Admin Dashboard</a>
 
     <?php
-    // Database connection
-    require_once __DIR__ . '/../../config/config.php';
     
     global $conn;
 
@@ -38,5 +36,7 @@
         <?php endforeach; ?>
     </ul>
     <img src="assets/images/virat.jpg" alt="abc1" width="400" height="600">
+
+    <a href="login.php">Login</a>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-// Start session
+
 session_start();
 
 // Load the config file
