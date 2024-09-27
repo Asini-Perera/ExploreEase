@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Form</title>
-    <link rel="stylesheet" href="signupform.css">
+    <link rel="stylesheet" href="../assets/css/signupform.css">
 </head>
 <body>
     <h2>Signup Form</h2>
     <p>provide your details correctly to create an account</p>
 
-    <form action="restaurant_signupform.php" method="post">
+    <form action="cultural_event_organizer.php" method="post">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br><br>
 

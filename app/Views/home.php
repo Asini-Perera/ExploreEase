@@ -5,9 +5,7 @@
 </head>
 <body>
     <h1>Welcome to the Home Page</h1>
-
-    <a href="admin">Admin Dashboard</a>
-
+    
     <?php
     
     global $conn;
@@ -35,8 +33,10 @@
             <li><?php echo $traveler['FirstName'] . ' - ' . $traveler['Email']; ?></li>
         <?php endforeach; ?>
     </ul>
-    <img src="assets/images/virat.jpg" alt="abc1" width="400" height="600">
 
-    <a href="login.php">Login</a>
+        <a href="../public/login">Login</a>
+
+    <p>Don't have an account?</p>
+        <a href="../public/signup">Signup</a>
 </body>
 </html>

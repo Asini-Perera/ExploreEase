@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="assets/css/signup.css">
 </head>
 <body>
     <div class="side left">
         <div class="container">
             <h2 class="title">Are you a traveler?</h2>
             <p class="content">Join us and explore the world with us.</p>
-            <button>Sign up</button>
+            <button onclick="window.location.href='signup/traveler'">Sign up</button>
         </div>
-        <img src="traveler.svg" alt="traveler img">
+        <img src="assets/images/traveler.svg" alt="traveler img">
 
     </div>
     <div class="side right">
@@ -30,9 +30,10 @@
                 <option value="culturaleventorg">Cultural Event Organizer</option>
             </select><br>
 
-            <button>Sign up</button>
+            <button id="signupButton">Sign up</button>
+            <script src="assets/js/signup.js"></script>
         </div>
-    <img src="serviceprovider.svg" alt="service provider img">
+    <img src="assets/images/serviceprovider.svg" alt="service provider img">
     </div>
 </body>
 </html>
