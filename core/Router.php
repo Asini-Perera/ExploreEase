@@ -10,8 +10,8 @@ class Router {
     public function route() {
         // Get the requested URI
         $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-
-        // Define the base path (adjust this based on your actual setup)
+        
+        // Define the base path 
         $basePath = 'ExploreEase/public';
 
         // If the URI starts with the base path, remove it
@@ -21,7 +21,7 @@ class Router {
 
         // Remove any leading/trailing slashes after removing the base path
         $uri = trim($uri, '/');
-
+    
         // Check if route exists
         if (array_key_exists($uri, $this->routes)) {
             list($controller, $method) = explode('@', $this->routes[$uri]);
