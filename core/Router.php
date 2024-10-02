@@ -12,7 +12,7 @@ class Router {
         $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         
         // Define the base path 
-        $basePath = 'ExploreEase/public';
+        $basePath = 'ExploreEase';
 
         // If the URI starts with the base path, remove it
         if (strpos($uri, $basePath) === 0) {
