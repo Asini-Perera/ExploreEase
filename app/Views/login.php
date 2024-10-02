@@ -1,16 +1,14 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
-    <link rel="stylesheet" href="assets/css/login.css">   
+    <link rel="stylesheet" href="public/css/login.css">   
 </head>
 <body>
     <div class="side left">
-        <img src="assets/images/logo.jpeg" alt="logo">
+        <img src="public/images/logo.jpeg" alt="logo">
     </div>
 
     <div class="side right">
@@ -36,7 +34,7 @@
 
             <div class="signup">
                 <p>Don't have an account?</p>
-                <a href="../public/signup">Sign up</a>
+                <a href="signup">Sign up</a>
             </div>
 
         </div>

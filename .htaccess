@@ -1,7 +1,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect all requests to /public but keep the URL clean
-    RewriteCond %{REQUEST_URI} !^/public/
-    RewriteRule ^(.*)$ public/$1 [L]
+    # Deny access to sensitive directories like /app, /config, etc.
+    #RewriteRule ^(app|config|core|database|routes|public)($|/) - [F,L]
+
+    # Ensure requests are handled by index.php in /ExploreEase
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>
+
+# Deny access to hidden files (e.g., .env, .htaccess)
+# <FilesMatch "^\.">
+#     Require all denied
+# </FilesMatch>
