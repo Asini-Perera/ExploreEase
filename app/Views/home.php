@@ -3,6 +3,7 @@
 <head>
     <title>Home</title>
 </head>
+
 <body>
     <h1>Welcome to the Home Page</h1>
     
@@ -34,9 +35,10 @@
         <?php endforeach; ?>
     </ul>
 
-        <a href="../public/login">Login</a>
+        <a href="login">Login</a>
 
     <p>Don't have an account?</p>
-        <a href="../public/signup">Signup</a>
+        <a href="signup">Signup</a>
 </body>
+
 </html>

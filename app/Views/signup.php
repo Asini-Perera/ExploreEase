@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <link rel="stylesheet" href="assets/css/signup.css">
+    <link rel="stylesheet" href="public/css/signup.css">
 </head>
 <body>
     <div class="side left">
@@ -15,7 +15,7 @@
             <p class="content">Join us and explore the world with us.</p>
             <button onclick="window.location.href='signup/traveler'">Sign up</button>
         </div>
-        <img src="assets/images/traveler.svg" alt="traveler img">
+        <img src="public/images/traveler.svg" alt="traveler img">
 
     </div>
     <div class="side right">
@@ -31,9 +31,9 @@
             </select><br>
 
             <button id="signupButton">Sign up</button>
-            <script src="assets/js/signup.js"></script>
+            <script src="public/js/signup.js"></script>
         </div>
-    <img src="assets/images/serviceprovider.svg" alt="service provider img">
+    <img src="public/images/serviceprovider.svg" alt="service provider img">
     </div>
 </body>
 </html>

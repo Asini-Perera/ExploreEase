@@ -10,7 +10,7 @@
 
     <p>Here you can manage users, posts, and other resources.</p>
 
-    <a href="../public">Home</a>
+    <a href="../ExploreEase">Home</a>
 
     <?php
     require_once __DIR__ . '/../models/UserModel.php';
