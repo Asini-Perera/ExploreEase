@@ -10,14 +10,14 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Admin Login</h2>
-            <p>Please enter your email and password to continue</p>
+            <p>Please enter your username and password to continue</p>
             <form action="" method="POST">
                 <div class="input-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="username">Username:</label>
+                    <input type="username" id="username" name="username" required>
                 </div>
                 <div class="input-group">
-                    <label for="password">Password</label>
+                    <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="remember-group">
