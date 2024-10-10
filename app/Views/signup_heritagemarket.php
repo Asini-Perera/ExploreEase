@@ -29,7 +29,7 @@
         <label for="smlink">Social Media Link:</label><br>
         <input type="url" id="smlink" name="smlink" value=""><br><br>
 
-        <input type="submit" value="Next">
+        <button type="submit" formaction="../keyword/serviceprovider">Next</button>
     </form>
 </body>
 </html>
