@@ -10,19 +10,24 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Admin Login</h2>
-            <p>Please enter your username and password to continue</p>
-            <form action="" method="POST">
+            <?php if (isset($error)) : ?>
+                <p class="error"><?php echo $error; ?></p>
+            <?php endif; ?>
+            <p>Please enter your AdminID and password to continue</p>
+            
+            <form action="admin/login" method="POST">
                 <div class="input-group">
-                    <label for="username">Username:</label>
-                    <input type="username" id="username" name="username" required>
+                    <label for="AdminID">AdminID:</label>
+                    <input type="text" id="AdminID" name="AdminID" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="remember-group">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">Remember Me</label>
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember"> Remember Me
+                    </label>
                     <a href="#" class="forgot-password">Forget Password?</a>
                 </div>
                 <button type="submit" class="login-btn">Log In</button>

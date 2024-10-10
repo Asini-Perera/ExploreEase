@@ -4,28 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
-    <h1>Welcome to the Admin Dashboard</h1>
-
-    <p>Here you can manage users, posts, and other resources.</p>
-
-    <a href="../ExploreEase">Home</a>
-
-    <?php
-    require_once __DIR__ . '/../models/UserModel.php';
-    
-    use app\models\UserModel;
-
-    global $conn;
-    
-    $userModel = new UserModel($conn);
-
-    $user = $userModel->getUserById("T000001");
-
-    echo $user['FirstName'] . ' - ' . $user['Email'];
-
-    ?>
+<?php
+    echo "Welcome to the Admin Dashboard, Admin ID: " . $_SESSION['AdminID'];
+    echo "<br>";
+    echo "Name: " . $_SESSION['Name'];
+?>
     
 </body>
-</html>
+</html></ul>

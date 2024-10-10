@@ -1,7 +1,9 @@
 <?php
 
 $router->add('', 'HomeController@index');  // Home route for users
-$router->add('admin', 'AdminController@index');  // Admin dashboard
+$router->add('admin', 'AdminController@index');  // Admin login page
+$router->add('admin/login', 'AdminController@login');  // Admin login
+$router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('signup', 'SignupController@index');  // Signup page
 $router->add('signup/traveler', 'SignupController@traveler');  // Signup page for travelers
