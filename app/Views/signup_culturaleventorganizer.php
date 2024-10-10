@@ -38,7 +38,7 @@
         <label for="cuisine_types">Cuisine Type:</label><br>
         <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
 
-        <input type="submit" value="Next">
+        <button type="submit" formaction="../keyword/serviceprovider">Next</button>
     </form>
 </body>
 </html>
