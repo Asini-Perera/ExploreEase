@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
