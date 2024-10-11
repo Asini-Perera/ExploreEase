@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
