@@ -50,9 +50,13 @@ class AdminController {
         }
     }
 
+    public function signup() {
+        // Logic for admin signup page
+        require_once __DIR__ . '/../views/admin_signup.php';
+    }
+
     public function dashboard() {
         // Logic for admin dashboard
-        //session_start();
         if (isset($_SESSION['AdminID'])) {
             require_once __DIR__ . '/../views/admin_dashboard.php';
         } else {
