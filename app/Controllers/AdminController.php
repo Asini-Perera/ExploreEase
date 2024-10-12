@@ -38,13 +38,20 @@ class AdminController {
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Name'] = $admin['FirstName'];
 
+                if (isset($_POST['remember'])) {
+                    // Set cookie for admin login
+                    setcookie('AdminID', $admin['AdminID'], time() + (3600 * 24 * 30), "/");
+                } else {
+                    // Unset the cookie
+                    setcookie('AdminID', "", time() - 1, "/");
+                }
+
                 // Redirect to admin dashboard
                 header('Location: ../admin/dashboard');
                 exit();
             } else {
                 // If login fails, redirect back to login page and show an error message
                 $error = "Invalid AdminID or password";
-                // Redirect to admin login page
                 header('Location: ../admin');
             }
         }
