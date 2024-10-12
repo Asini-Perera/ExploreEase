@@ -35,7 +35,7 @@
                 </div>
                 <button type="submit">Log In</button>
             </form>
-            <p>Don't have an account? <a href="admin/signup">Create Account</a></p>
+            <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
 </body>

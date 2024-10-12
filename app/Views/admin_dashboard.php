@@ -12,6 +12,7 @@
     echo "Welcome to the Admin Dashboard, Admin ID: " . $_SESSION['AdminID'];
     echo "<br>";
     echo "Name: " . $_SESSION['Name'];
+    echo __DIR__;
 ?>
     
 </body>
