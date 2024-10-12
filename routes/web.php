@@ -2,7 +2,10 @@
 
 $router->add('', 'HomeController@index');  // Home route for users
 $router->add('admin', 'AdminController@index');  // Admin login page
-$router->add('admin/login', 'AdminController@login');  // Admin login
+$router->add('admin/login', 'AdminController@login');  // Admin login process
+$router->add('admin/create', 'AdminController@create');  // Admin signup page
+$router->add('admin/signup', 'AdminController@signup');  // Admin signup process
+$router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('signup', 'SignupController@index');  // Signup page

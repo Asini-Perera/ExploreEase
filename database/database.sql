@@ -440,3 +440,6 @@ CREATE TABLE HeritageMarketKeyword (
     FOREIGN KEY (ShopID) REFERENCES HeritageMarket(ShopID),
     FOREIGN KEY (KeywordID) REFERENCES Keyword(KeywordID)
 );
+
+-- Add IsVerified column to Admin table
+ALTER TABLE Admin ADD COLUMN IsVerified TINYINT(1) DEFAULT 0;
