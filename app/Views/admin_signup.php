@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Signup</title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../public/css/signupform.css">
+    <link rel="stylesheet" href="../public/css/admin_signup.css">
 </head>
 <body>
     <h2>Admin Signup Form</h2>
@@ -28,12 +28,12 @@
     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
     <label for="contactNo">Contact Number:</label>
-    <input type="text" id="contactNo" name="contactNo"><br><br>
+    <input type="tel" id="contactNo" name="contactNo"><br><br>
 
     <label for="profile_image">Profile Image:</label>
     <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
 
-    <button type="submit" formaction="../keyword/traveler">Next</button>
+    <button type="submit" formaction="">Submit</button>
 </form>
 
 </body>

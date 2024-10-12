@@ -11,9 +11,6 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Admin Login</h2>
-            <?php if (isset($error)) : ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
             <p>Please enter your AdminID and password to continue</p>
             
             <form action="admin/login" method="POST">
@@ -31,7 +28,7 @@
                     </label>
                     <a href="#" class="forgot-password">Forget Password?</a>
                 </div>
-                <button type="submit" class="login-btn">Log In</button>
+                <button type="submit">Log In</button>
             </form>
             <p>Don't have an account? <a href="admin/signup">Create Account</a></p>
         </div>
