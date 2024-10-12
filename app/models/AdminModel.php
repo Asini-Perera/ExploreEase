@@ -21,9 +21,12 @@ class AdminModel {
     public function setImgPath($AdminID, $fileName) {
         // Get temp image path
         $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
         
         // Get the file extention
-        $extention = pathinfo($fileName, PATHINFO_EXTENSION);
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
         // Create a new file name
         $newFileName = $AdminID . '.' . $extention;
@@ -37,10 +40,13 @@ class AdminModel {
         }
 
         // Create the image path
-        $imgPath = $targetDir . $newFileName;
+        $imgDir = $targetDir . $newFileName;
 
         // Move the image to the target directory
-        $moving = move_uploaded_file($tempImgPath, $imgPath);
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/admin/' . $newFileName;
 
         // Enter the image path to the database
         if ($moving) {
@@ -54,14 +60,19 @@ class AdminModel {
     public function createAdmin($firstName, $lastName, $email, $password, $contactNo) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO admin (FirstName, LastName, Email, Password, ContactNo, IsVerified) 
-                VALUES (?, ?, ?, ?, ?, 0)";
+        $sql = "INSERT INTO admin (FirstName, LastName, Email, Password, ContactNo) 
+                VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sssss', $firstName, $lastName, $email, $hashedPassword, $contactNo);
         $stmt->execute();
 
         // Get the AdminID of the newly created admin
-        $AdminID = $this->conn->insert_id;
+        $sql = "SELECT AdminID FROM admin WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $AdminID = $stmt->get_result()->fetch_assoc()['AdminID'];
+
         return $AdminID;
     }
 

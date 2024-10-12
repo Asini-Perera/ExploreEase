@@ -31,8 +31,7 @@ class AdminController {
             $admin = $adminModel->getAdminByID($AdminID);
 
             // Verify the password
-            // if ($admin && password_verify($password, $admin['Password'])) {
-            if ($admin && $password == $admin['Password']) {
+             if ($admin && password_verify($password, $admin['Password'])) {
                 // Start session and save admin details
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
@@ -71,8 +70,8 @@ class AdminController {
 
     public function signup() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
+            $firstName = $_POST['firstname'];
+            $lastName = $_POST['lastname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $contactNo = $_POST['contactNo'];
@@ -80,7 +79,7 @@ class AdminController {
 
             $adminModel = new AdminModel($this->conn);
             $AdminID = $adminModel->createAdmin($firstName, $lastName, $email, $password, $contactNo);
-
+            
             // If image is uploaded, set the image path
             if ($AdminID && $profileImage['name']) {
                 $adminModel->setImgPath($AdminID, $profileImage);
@@ -96,7 +95,7 @@ class AdminController {
             } else {
                 // If signup fails, redirect back to signup page and show an error message
                 $error = "Admin signup failed";
-                require_once __DIR__ . '/../views/admin_signup.php';
+                header('Location: ../admin/create');
             }
         }
     } 

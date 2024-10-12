@@ -11,7 +11,7 @@
     <h2>Admin Signup Form</h2>
     <p>provide your details correctly to create an account</p>
 
-    <form action="" method="post">
+    <form action="../admin/signup" method="post" enctype="multipart/form-data">
         <label for="firstname">First Name:</label>
         <input type="text" id="firstname" name="firstname" required><br><br>
 
@@ -33,7 +33,7 @@
         <label for="profile_image">Profile Image:</label>
         <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
 
-        <button type="submit" formaction="">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>
