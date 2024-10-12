@@ -11,15 +11,17 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Admin Login</h2>
-            <?php if (isset($error)) : ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
             <p>Please enter your AdminID and password to continue</p>
             
+            <?php
+                $AdminID = isset($_COOKIE['AdminID']) ? $_COOKIE['AdminID'] : '';
+                $password = isset($_COOKIE['Password']) ? $_COOKIE['Password'] : '';
+            ?>
+
             <form action="admin/login" method="POST">
                 <div class="input-group">
                     <label for="AdminID">AdminID:</label>
-                    <input type="text" id="AdminID" name="AdminID" required>
+                    <input type="text" id="AdminID" name="AdminID" value="<?php echo htmlspecialchars($AdminID); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
@@ -27,13 +29,13 @@
                 </div>
                 <div class="remember-group">
                     <label for="remember">
-                        <input type="checkbox" id="remember" name="remember"> Remember Me
+                        <input type="checkbox" id="remember" name="remember" <?php if($AdminID) echo 'checked'; ?>> Remember Me
                     </label>
                     <a href="#" class="forgot-password">Forget Password?</a>
                 </div>
-                <button type="submit" class="login-btn">Log In</button>
+                <button type="submit">Log In</button>
             </form>
-            <p>Don't have an account? <a href="#">Create Account</a></p>
+            <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
 </body>
