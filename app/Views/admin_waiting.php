@@ -5,6 +5,7 @@ $userName = $_SESSION['Name'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@ $userName = $_SESSION['Name'];
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/admin_waiting.css">
 </head>
+
 <body>
     <div class="container">
         <div class="verification-box">
@@ -22,9 +24,11 @@ $userName = $_SESSION['Name'];
 
             <h1>Welcome to ExploreEase, <?php echo htmlspecialchars($userName); ?>!</h1>
             <p>Your account has been successfully created, but it needs to be verified by an admin.</p>
-            <p>This process can take up to <strong>2-3 business days</strong>. Please be patient, and you'll receive an email notification once your account is verified.</p>
-            <p>If you have any urgent concerns, feel free to contact us at <a href="mailto:support@yourwebsite.com">support@yourwebsite.com</a>.</p>
-            
+            <p>This process can take up to <strong>2-3 business days</strong>. Please be patient, and you'll receive an
+                email notification once your account is verified.</p>
+            <p>If you have any urgent concerns, feel free to contact us at <a
+                    href="mailto:support@yourwebsite.com">support@yourwebsite.com</a>.</p>
+
             <!-- Logout Button -->
             <form action="../admin/logout" method="POST">
                 <button type="submit">Log Out</button>
@@ -32,4 +36,5 @@ $userName = $_SESSION['Name'];
         </div>
     </div>
 </body>
+
 </html>

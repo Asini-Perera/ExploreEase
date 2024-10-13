@@ -2,14 +2,17 @@
 
 namespace app\models;
 
-class AdminModel {
+class AdminModel
+{
     private $conn;
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function getAdminByID($AdminID) {
+    public function getAdminByID($AdminID)
+    {
         $sql = "SELECT * FROM admin WHERE AdminID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $AdminID);
@@ -17,14 +20,15 @@ class AdminModel {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    
-    public function setImgPath($AdminID, $fileName) {
+
+    public function setImgPath($AdminID, $fileName)
+    {
         // Get temp image path
         $tempImgPath = $fileName['tmp_name'];
 
         // Get the file name (original file name from the upload)
         $originalFileName = $fileName['name'];
-        
+
         // Get the file extention
         $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
@@ -56,8 +60,9 @@ class AdminModel {
             $stmt->execute();
         }
     }
-    
-    public function createAdmin($firstName, $lastName, $email, $password, $contactNo) {
+
+    public function createAdmin($firstName, $lastName, $email, $password, $contactNo)
+    {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO admin (FirstName, LastName, Email, Password, ContactNo) 
@@ -76,13 +81,15 @@ class AdminModel {
         return $AdminID;
     }
 
-    public function getUnverifiedAdmins() {
+    public function getUnverifiedAdmins()
+    {
         $sql = "SELECT * FROM admin WHERE IsVerified = 0";
         $result = $this->conn->query($sql);
         return $result->fetch_assoc();
     }
 
-    public function verifyAdmin($AdminID) {
+    public function verifyAdmin($AdminID)
+    {
         $sql = "UPDATE admin SET IsVerified = 1 WHERE AdminID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $AdminID);

@@ -1,3 +1,4 @@
+/* Body and background setup */
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
@@ -10,17 +11,20 @@ body {
     height: 100vh;
 }
 
+/* Headline styling */
 h2 {
     font-size: 28px;
     color: #45a049;
     margin-bottom: 1px;
 }
 
+/* Text styling */
 p {
     font-style: italic;
     margin-bottom: 20px;
 }
 
+/* Form styling */
 form {
     background-color: rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -30,6 +34,7 @@ form {
     max-width: 500px;
 }
 
+/* Input group styling */
 label {
     font-weight: bold;
     display: block;
@@ -37,6 +42,7 @@ label {
     color: #000;
 }
 
+/* Input styling */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -50,6 +56,7 @@ input[type="file"] {
     box-sizing: border-box;
 }
 
+/* Button styling */
 button {
     width: 100%;
     background-color: #4CAF50;
@@ -62,13 +69,15 @@ button {
     transition: background-color 0.3s ease;
 }
 
+/* Hover effect for the button */
 button:hover {
     background-color: #45a049;
 }
 
+/* Error message styling */
 .error {
-    background-color: #ffcccc; 
-    color: #d8000c; 
+    background-color: #ffcccc;
+    color: #d8000c;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;

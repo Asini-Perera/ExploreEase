@@ -8,7 +8,7 @@
 /* Body and background setup */
 body {
     font-family: Arial, sans-serif;
-    background-color: #D9D9D9; /* Soft gray background */
+    background-color: #D9D9D9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,75 +27,74 @@ body {
 
 /* Box containing the verification message */
 .verification-box {
-    background-color: #F9F6F7; /* Light background for the box */
+    background-color: #F9F6F7;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Added shadow for a subtle elevation effect */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
 }
 
 /* Logo styling */
 .logo {
-    margin-bottom: 20px; /* Adds some space between the logo and the rest of the content */
+    margin-bottom: 20px;
 }
 
+/* Logo image styling */
 .logo img {
-    width: 150px; /* Adjust this value based on the logo size */
-    height: auto; /* Ensures the aspect ratio is maintained */
+    width: 150px;
+    height: auto;
 }
 
 /* Headline styling */
 .verification-box h1 {
     font-size: 28px;
-    color: #225522; /* Dark green for headings */
+    color: #225522;
     margin-bottom: 15px;
 }
 
 /* Paragraphs styling */
 .verification-box p {
     font-size: 16px;
-    color: #000000; /* Black for text */
+    color: #000000;
     line-height: 1.6;
     margin-bottom: 15px;
 }
 
 /* Emphasized text */
 .verification-box strong {
-    color: #225522; /* Dark green for emphasis */
+    color: #225522;
     font-size: 18px;
 }
 
 /* Link styling */
 .verification-box a {
-    color: #6FA857; /* Medium green for links */
+    color: #6FA857;
     text-decoration: none;
 }
 
+/* Hover effect for the link */
 .verification-box a:hover {
     text-decoration: underline;
 }
 
 /* Button styling */
 .verification-box button {
-    background-color: #F1C232; /* Yellow from the logo for the button */
-    color: #000000; /* Black text */
+    background-color: #F1C232;
+    color: #000000;
     border: none;
-    padding: 12px 25px; /* More padding for better click area */
+    padding: 12px 25px;
     font-size: 16px;
-    font-weight: bold; /* Bold text */
-    /* text-transform: uppercase; */
-    letter-spacing: 1px; /* Adds space between letters for a modern look */
-    border-radius: 6px; /* Slightly more rounded corners */
+    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transition */
-    margin-top: 20px; /* Spacing before the button */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Hover effect for the button */
 .verification-box button:hover {
-    background-color: #6FA857; /* Green on hover */
-    color: #FFFFFF; /* White text on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhances the shadow effect on hover */
+    background-color: #6FA857;
+    color: #FFFFFF;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

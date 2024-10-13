@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,17 @@
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/admin_signup.css">
 </head>
+
 <body>
     <h2>Admin Signup Form</h2>
     <p>provide your details correctly to create an account</p>
 
     <?php
-        // Display error message if login fails
-        if (isset($_SESSION['error'])) {
-            echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
-            unset($_SESSION['error']); // Clear the error message
-        }
+    // Display error message if login fails
+    if (isset($_SESSION['error'])) {
+        echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+        unset($_SESSION['error']); // Clear the error message
+    }
     ?>
 
     <form action="../admin/signup" method="post" enctype="multipart/form-data">
@@ -46,4 +48,5 @@
 
     <script src="../public/js/admin_signup.js"></script>
 </body>
+
 </html>

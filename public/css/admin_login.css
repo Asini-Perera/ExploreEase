@@ -1,3 +1,4 @@
+/* Reset some basic elements */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Body and background setup */
 body {
     background-color: #225522;
     display: flex;
@@ -13,12 +15,14 @@ body {
     height: 100vh;
 }
 
+/* Main container setup */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Box containing the login form */
 .login-box {
     background-color: white;
     padding: 30px;
@@ -28,22 +32,26 @@ body {
     width: 400px;
 }
 
+/* Headline styling */
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
+/* Text styling */
 p {
     font-size: 14px;
     color: #666;
     margin-bottom: 20px;
 }
 
+/* Form styling */
 .input-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
+/* Label styling */
 label {
     display: block;
     font-size: 14px;
@@ -51,6 +59,7 @@ label {
     margin-bottom: 5px;
 }
 
+/* Input styling */
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -61,10 +70,7 @@ input[type="password"] {
     font-size: 14px;
 }
 
-input[type="checkbox"] {
-    margin-right: 1px;
-}
-
+/* Remember me checkbox styling */
 .remember-group {
     display: flex;
     justify-content: space-between;
@@ -72,21 +78,25 @@ input[type="checkbox"] {
     margin-bottom: 20px;
 }
 
+/* Remember me label styling */
 .remember-group label {
     font-size: 12px;
     color: #666;
 }
 
+/* Forgot password link styling */
 .forgot-password {
     font-size: 12px;
     color: #666;
     text-decoration: none;
 }
 
+/* Hover effect for the forgot password link */
 .forgot-password:hover {
     color: #000;
 }
 
+/* Login button styling */
 button {
     width: 100%;
     padding: 10px;
@@ -99,19 +109,23 @@ button {
     font-weight: bold;
 }
 
+/* Hover effect for the login button */
 button:hover {
     background-color: #E5B728;
 }
 
+/* Create account link styling */
 a {
     color: #5a67d8;
     text-decoration: none;
 }
 
+/* Hover effect for the create account link */
 a:hover {
     text-decoration: underline;
 }
 
+/* Error message styling */
 .error {
     background-color: #ffcccc;
     color: #d8000c;
