@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
-class KeywordController {
-    public function traveler() {
+class KeywordController
+{
+    public function traveler()
+    {
         require_once __DIR__ . '/../views/keyword_traveler.php';
     }
 
-    public function serviceprovider() {
+    public function serviceprovider()
+    {
         require_once __DIR__ . '/../views/keyword_serviceprovider.php';
     }
 }
