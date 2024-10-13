@@ -57,8 +57,9 @@ class AdminController {
                 exit();
             } else {
                 // If login fails, redirect back to login page and show an error message
-                $error = "Invalid AdminID or password";
+                $_SESSION['error'] = "Invalid AdminID or Password";
                 header('Location: ../admin');
+                exit();
             }
         }
     }
@@ -94,8 +95,9 @@ class AdminController {
                 exit();
             } else {
                 // If signup fails, redirect back to signup page and show an error message
-                $error = "Admin signup failed";
+                $_SESSION['error'] = "Failed to create an account";
                 header('Location: ../admin/create');
+                exit();
             }
         }
     } 

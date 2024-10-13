@@ -14,8 +14,14 @@
             <p>Please enter your AdminID and password to continue</p>
             
             <?php
+                // Display error message if login fails
+                if (isset($_SESSION['error'])) {
+                echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                    unset($_SESSION['error']); // Clear the error message
+                }
+
+                // Check if the AdminID is stored in cookies
                 $AdminID = isset($_COOKIE['AdminID']) ? $_COOKIE['AdminID'] : '';
-                $password = isset($_COOKIE['Password']) ? $_COOKIE['Password'] : '';
             ?>
 
             <form action="admin/login" method="POST">

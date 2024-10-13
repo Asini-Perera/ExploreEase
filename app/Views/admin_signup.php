@@ -11,6 +11,14 @@
     <h2>Admin Signup Form</h2>
     <p>provide your details correctly to create an account</p>
 
+    <?php
+        // Display error message if login fails
+        if (isset($_SESSION['error'])) {
+            echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+            unset($_SESSION['error']); // Clear the error message
+        }
+    ?>
+
     <form action="../admin/signup" method="post" enctype="multipart/form-data">
         <label for="firstname">First Name:</label>
         <input type="text" id="firstname" name="firstname" required><br><br>
@@ -35,5 +43,7 @@
 
         <button type="submit">Submit</button>
     </form>
+
+    <script src="../public/js/admin_signup.js"></script>
 </body>
 </html>

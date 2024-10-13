@@ -65,3 +65,14 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.error {
+    background-color: #ffcccc; 
+    color: #d8000c; 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
