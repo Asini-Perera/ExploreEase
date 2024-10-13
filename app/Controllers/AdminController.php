@@ -4,10 +4,12 @@ namespace app\controllers;
 
 use app\models\AdminModel;
 
-class AdminController {
+class AdminController
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         require_once __DIR__ . '/../../config/config.php';
         global $conn;
         $this->conn = $conn;
@@ -15,23 +17,25 @@ class AdminController {
         // Include the AdminModel
         require_once __DIR__ . '/../models/AdminModel.php';
     }
-    
-    public function index() {
+
+    public function index()
+    {
         // Logic for admin login page
         require_once __DIR__ . '/../views/admin_login.php';
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $AdminID = $_POST['AdminID'];
             $password = $_POST['password'];
-            
+
             // Use the AdminModel to get the admin data by AdminID
             $adminModel = new AdminModel($this->conn);
             $admin = $adminModel->getAdminByID($AdminID);
 
             // Verify the password
-             if ($admin && password_verify($password, $admin['Password'])) {
+            if ($admin && password_verify($password, $admin['Password'])) {
                 // Start session and save admin details
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
@@ -57,18 +61,21 @@ class AdminController {
                 exit();
             } else {
                 // If login fails, redirect back to login page and show an error message
-                $error = "Invalid AdminID or password";
+                $_SESSION['error'] = "Invalid AdminID or Password";
                 header('Location: ../admin');
+                exit();
             }
         }
     }
 
-    public function create() {
+    public function create()
+    {
         // Logic for admin signup page
         require_once __DIR__ . '/../views/admin_signup.php';
     }
 
-    public function signup() {
+    public function signup()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $firstName = $_POST['firstname'];
             $lastName = $_POST['lastname'];
@@ -79,7 +86,7 @@ class AdminController {
 
             $adminModel = new AdminModel($this->conn);
             $AdminID = $adminModel->createAdmin($firstName, $lastName, $email, $password, $contactNo);
-            
+
             // If image is uploaded, set the image path
             if ($AdminID && $profileImage['name']) {
                 $adminModel->setImgPath($AdminID, $profileImage);
@@ -94,13 +101,15 @@ class AdminController {
                 exit();
             } else {
                 // If signup fails, redirect back to signup page and show an error message
-                $error = "Admin signup failed";
+                $_SESSION['error'] = "Failed to create an account";
                 header('Location: ../admin/create');
+                exit();
             }
         }
-    } 
+    }
 
-    public function waiting() {
+    public function waiting()
+    {
         // Logic for admin waiting page
         if (isset($_SESSION['AdminID'])) {
             require_once __DIR__ . '/../views/admin_waiting.php';
@@ -110,7 +119,8 @@ class AdminController {
         }
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         // Logic for admin dashboard
         if (isset($_SESSION['AdminID'])) {
             require_once __DIR__ . '/../views/admin_dashboard.php';
@@ -118,5 +128,15 @@ class AdminController {
             header('Location: admin');
             exit();
         }
+    }
+
+    public function logout()
+    {
+        // Logic for admin logout
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: ../admin');
+        exit();
     }
 }
