@@ -10,8 +10,11 @@
 </head>
 
 <body>
-    <div class="login-container">
+    <div class="container">
         <div class="login-box">
+            <div class="logo">
+                <img src="public/images/logoexplore.png" alt="ExploreEase Logo">
+            </div>
             <h2>Admin Login</h2>
             <p>Please enter your AdminID and password to continue</p>
 
@@ -29,8 +32,7 @@
             <form action="admin/login" method="POST">
                 <div class="input-group">
                     <label for="AdminID">AdminID:</label>
-                    <input type="text" id="AdminID" name="AdminID" value="<?php echo htmlspecialchars($AdminID); ?>"
-                        required>
+                    <input type="text" id="AdminID" name="AdminID" value="<?php echo htmlspecialchars($AdminID); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
@@ -38,8 +40,7 @@
                 </div>
                 <div class="remember-group">
                     <label for="remember">
-                        <input type="checkbox" id="remember" name="remember" <?php if ($AdminID)
-                                                                                    echo 'checked'; ?>>
+                        <input type="checkbox" id="remember" name="remember" <?php if ($AdminID) echo 'checked'; ?>>
                         Remember Me
                     </label>
                     <a href="#" class="forgot-password">Forget Password?</a>
