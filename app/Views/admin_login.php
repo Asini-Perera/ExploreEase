@@ -50,6 +50,7 @@
             <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
+    <script src="public/js/admin_login.js"></script>
 </body>
 
 </html>
