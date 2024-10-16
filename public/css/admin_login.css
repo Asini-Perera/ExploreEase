@@ -7,12 +7,15 @@
 
 /* Body and background setup */
 body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    transition: background-image 2s ease-in-out;
     font-family: Arial, sans-serif;
-    background-color: #D9D9D9;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 /* Main container setup */
@@ -21,15 +24,15 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 450px;
 }
 
 /* Box containing the login form */
 .login-box {
-    background-color: #F9F6F7;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 100%;
 }
@@ -96,19 +99,19 @@ input[type="password"] {
 /* Remember me label styling */
 .remember-group label {
     font-size: 12px;
-    color: #666;
+    color: #000;
 }
 
 /* Forgot password link styling */
 .forgot-password {
     font-size: 12px;
-    color: #666;
+    color: #000;
     text-decoration: none;
 }
 
 /* Hover effect for the forgot password link */
 .forgot-password:hover {
-    color: #000;
+    color: #666;
 }
 
 /* Login button styling */
@@ -132,7 +135,7 @@ button:hover {
 
 /* Create account link styling */
 a {
-    color: #6FA857;
+    color: #225522;
     text-decoration: none;
 }
 
