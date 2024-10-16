@@ -35,6 +35,7 @@ $userName = $_SESSION['Name'];
             </form>
         </div>
     </div>
+    <script src="../public/js/admin_waiting.js"></script>
 </body>
 
 </html>

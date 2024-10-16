@@ -16,7 +16,7 @@
                 <img src="public/images/logoexplore.png" alt="ExploreEase Logo">
             </div>
             <h2>Admin Login</h2>
-            <p>Please enter your AdminID and password to continue</p>
+            <p>Please enter your AdminID and Password to continue</p>
 
             <?php
             // Display error message if login fails

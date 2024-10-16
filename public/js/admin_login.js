@@ -1,7 +1,14 @@
 const images = [
     'public/images/a.avif',
     'public/images/b.jpg',
-    'public/images/c.jpg'
+    'public/images/c.jpg',
+    'public/images/d.jpg',
+    'public/images/e.avif',
+    'public/images/f.avif',
+    'public/images/g.jpeg',
+    'public/images/h.webp',
+    'public/images/i.jpg',
+    'public/images/k.webp'
 ];
 
 let index = 0;
