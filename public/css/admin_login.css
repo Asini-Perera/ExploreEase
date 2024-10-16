@@ -39,7 +39,7 @@ body {
 
 /* Logo styling */
 .logo {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 /* Logo image styling */
@@ -52,7 +52,7 @@ body {
 h2 {
     font-size: 28px;
     color: #225522;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 /* Text styling */
@@ -60,7 +60,7 @@ p {
     font-size: 14px;
     color: #000000;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 /* Form styling */
