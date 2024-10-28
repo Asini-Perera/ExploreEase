@@ -1,3 +1,235 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+header{
+    background-color: #225522;
+    height:100vh;
+    color: #F9F6F7;
+    
+}
+
+.logo{
+    width:7vw;
+    height:7vh;
+}
+
+ul {
+    display:flex;
+    gap: 20px;
+    list-style:none;
+    padding-right: 20px;
+    
+}
+
+.navbar{
+    /* background: ; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:20px;
+    background: #ffffff;
+    
+}
+
+
+.nav-link{
+    color: #000000;
+    text-decoration: none;
+    padding: 10px 10px;
+    transition: 0.2;
+    font-size: 26px;
+    
+}
+
+.main{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;   
+}
+
+.main h2{
+    font-size: 75px;
+    margin-left: 60px;
+    color: #Ffffff;
+    /* justify-content: center; */
+}
+
+.main p{
+    font-size: 35px;
+    margin-left: 60px;
+    color: #ffffff;
+    margin-top: 30px;
+   
+}
+
+.main img{
+    width:35vw;  
+    height:70vh; 
+    
+    margin-top:100px;
+    margin-left: 280px;
+}
+
+.main button{
+    cursor:pointer;
+    border: none;
+    background: #F1C232;
+    padding: 10px 30px 10px;
+    margin-left: 60px;
+    margin-top: 45px;
+    font-size: 25px;
+    border-radius: 30px;
+   
+}
+
+ /* features */
+ .services-title{
+    font-size: 60px;
+    margin-top: 40px;
+    margin-left: 60px;
+    color: #000000;
+    
+ }
+
+ .serve-image{
+    width: 20vw;
+    height: 30vh;
+    margin-left: 60px;
+    /* margin-top: 2px; */
+ }
+
+ .services{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 60px;
+ }
+
+ .service-one{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 180px;
+    margin-right: 200px; 
+    gap:80px;
+    box-sizing: border-box;
+ }
+
+ .service-two{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 140px;
+    margin-right:200px; 
+    gap:80px;
+    box-sizing:border-box;
+ }
+
+ .service img{
+    width: 7vw;
+    height: 10vh;
+    padding-left: 60px;
+ }
+
+ .services p{
+    font-size: 16px;
+    color: #000000;
+    padding-left: 10px;
+ }
+
+ .services h3{
+    font-size: 30px;
+    padding-left: 10px;
+    color: #000000;
+ }
+
+ /* service-features */
+
+ .features-title{
+    font-size: 60px;
+    margin-top: 180px;
+    margin-left: 60px;
+    color: #000000;
+ }
+
+
+
+ .fea-2 h3{
+    font-size: 32px;
+    color: #000000;
+    margin-right: 60px;
+ }
+
+ 
+ .features img{
+    width:18vw;
+    /* height: 20vh; */
+ }
+
+.fea-1{
+    display: flex;
+    gap:30px;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.fea-1 h3{
+    font-size: 32px;
+    color: #000000;
+    margin-left: 60px;
+ }
+ 
+ .fea-1 p{
+    font-size: 28px;
+    color: #000000;
+    margin-left: 60px;
+    margin-top: 10px;
+ }
+
+.fea-1 button{
+    cursor:pointer;
+    border: none;
+    background: #225522;
+    padding: 10px 30px 10px;
+    margin-left: 60px;
+    margin-top: 15px;
+    font-size: 25px;
+    border-radius: 30px;
+    color: #ffffff;
+}
+
+.fea-2{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 600px;
+    margin-right: 60px;
+}
+
+.fea-2 p{
+    font-size: 28px;
+    color: #000000;
+    margin-right: 60px;
+    margin-top: 10px;
+}
+
+.fea-2 button{
+    cursor:pointer;
+    border: none;
+    background: #F1C232;
+    padding: 10px 30px 10px;
+    margin-top: 15px;
+    font-size: 25px;
+    border-radius: 30px;
+   
+}
+
 .img-container{
     max-width: 1600px;
     width:95%;
