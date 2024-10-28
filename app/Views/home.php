@@ -12,7 +12,7 @@
         <div class="navigation">
         <div class="wrapper">
             <nav class="navbar">
-                <img class="logo" src="../img/logo.png" >
+                <img class="logo" src="../images/logo.png" >
                 <ul>
                     <li class="nav-item">
                         <a href="#home" class="nav-link">Home</a>
@@ -54,7 +54,7 @@
                 <button >Explore</button>
             </div>
             <div>
-                <img src="../img/travel_women.png" >
+                <img src="../images/travel_women.png" >
             </div>
             <!-- <h1 class="welcome">Welcome to ExploreEase</h1>
              <h3 class="description">Make your journey easier on our platform....</h3> 
@@ -67,16 +67,16 @@
         <div class="img-container">
             <div class="slider-wrap">
                 <div class="slider">
-                    <img src="img/1.jpeg" alt="image1" class="image-item">
-                    <img src="img/2.jpg" alt="image2" class="image-item">
-                    <img src="img/3.jpg" alt="image3" class="image-item">
-                    <img src="img/4.jpg" alt="image4" class="image-item">
-                    <img src="img/5.jpg" alt="image5" class="image-item">
-                    <img src="img/6.jpg" alt="image6" class="image-item">
-                    <img src="img/7.jpg" alt="image7" class="image-item">
-                    <img src="img/8.jpg" alt="image8" class="image-item">
-                    <img src="img/9.jpg" alt="image9" class="image-item">
-                    <img src="img/10.jpg" alt="image10" class="image-item">
+                    <img src="images/1.jpeg" alt="image1" class="image-item">
+                    <img src="images/2.jpg" alt="image2" class="image-item">
+                    <img src="images/3.jpg" alt="image3" class="image-item">
+                    <img src="images/4.jpg" alt="image4" class="image-item">
+                    <img src="images/5.jpg" alt="image5" class="image-item">
+                    <img src="images/6.jpg" alt="image6" class="image-item">
+                    <img src="images/7.jpg" alt="image7" class="image-item">
+                    <img src="images/8.jpg" alt="image8" class="image-item">
+                    <img src="images/9.jpg" alt="image9" class="image-item">
+                    <img src="images/10.jpg" alt="image10" class="image-item">
                 </div>
             
             </div>
@@ -99,20 +99,20 @@
         <div class="services">
 
             <div class="serve-image">
-                <img src="../img/Travel-PNG-Photos.png" alt="image here">
+                <img src="../images/Travel-PNG-Photos.png" alt="image here">
             </div>
 
             <div class="serives">
 
                     <div class="service-one">
                         <div class="service">
-                            <img src="../img/hotel1-image.png" alt="hotels">
+                            <img src="../images/hotel1-image.png" alt="hotels">
                             <h3>Hotels</h3>
                             <p>Find the best hotels in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="../img/restuarant-image.png" alt="resturants">
+                            <img src="../images/restuarant-image.png" alt="resturants">
                             <h3>Resturants</h3>
                             <p>Find the best resturants in Sri Lanka</p>
                         </div>
@@ -121,13 +121,13 @@
 
                     <div class="service-two">
                         <div class="service">
-                            <img src="../img/cultural-event.png" alt="cultural events">
+                            <img src="../images/cultural-event.png" alt="cultural events">
                             <h3>Cultural Events</h3>
                             <p>Find the best cultural events in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="../img/shop-image.png" alt="heritage">
+                            <img src="../images/shop-image.png" alt="heritage">
                             <h3>Heritage</h3>
                             <p>Find the best heritage sites in Sri Lanka</p>
                         </div>
@@ -143,7 +143,7 @@
                 <div class="fea-1">
 
                     <div>
-                    <img src="../img/location.png" alt="location icon">
+                    <img src="../images/location.png" alt="location icon">
                     </div>
 
                     <div class="details">
