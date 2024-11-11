@@ -25,13 +25,13 @@
             }
 
             // Check if the AdminID is stored in cookies
-            $AdminID = isset($_COOKIE['AdminID']) ? $_COOKIE['AdminID'] : '';
+            $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
             ?>
 
             <form action="admin/login" method="POST">
                 <div class="input-group">
-                    <label for="AdminID">AdminID:</label>
-                    <input type="text" id="AdminID" name="AdminID" value="<?php echo htmlspecialchars($AdminID); ?>" required>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="remember-group">
                     <label for="remember">
-                        <input type="checkbox" id="remember" name="remember" <?php if ($AdminID) echo 'checked'; ?>>
+                        <input type="checkbox" id="remember" name="remember" <?php if ($email) echo 'checked'; ?>>
                         Remember Me
                     </label>
                     <a href="#" class="forgot-password">Forget Password?</a>
