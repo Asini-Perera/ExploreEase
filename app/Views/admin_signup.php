@@ -14,7 +14,7 @@
     <p>provide your details correctly to create an account</p>
 
     <?php
-    // Display error message if login fails
+    // Display error message if failed to sign up
     if (isset($_SESSION['error'])) {
         echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
         unset($_SESSION['error']); // Clear the error message

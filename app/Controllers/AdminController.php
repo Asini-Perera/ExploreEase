@@ -98,6 +98,7 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $AdminID;
                 $_SESSION['Name'] = $firstName;
+                $_SESSION['Email'] = $email;
                 header('Location: ../admin/waiting');
                 exit();
             } else {
@@ -129,6 +130,12 @@ class AdminController
             header('Location: admin');
             exit();
         }
+    }
+
+    public function forgot()
+    {
+        // Logic for admin forgot password
+        require_once __DIR__ . '/../views/admin_forgot.php';
     }
 
     public function logout()
