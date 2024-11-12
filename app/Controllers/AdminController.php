@@ -132,12 +132,6 @@ class AdminController
         }
     }
 
-    public function forgot()
-    {
-        // Logic for admin forgot password
-        require_once __DIR__ . '/../views/admin_forgot.php';
-    }
-
     public function logout()
     {
         // Logic for admin logout
