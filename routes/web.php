@@ -8,6 +8,7 @@ $router->add('admin/signup', 'AdminController@signup');  // Admin signup process
 $router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
 $router->add('admin/forgot', 'AdminController@forgot');  // Admin forgot password page
+$router->add('admin/request', 'AdminController@request');  // Admin forgot password process
 $router->add('admin/logout', 'AdminController@logout');  // Admin logout
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('signup', 'SignupController@index');  // Signup page

@@ -19,6 +19,12 @@
         echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
         unset($_SESSION['error']); // Clear the error message
     }
+
+    // Display success message if email is sent
+    if (isset($_SESSION['success'])) {
+        echo '<div class="success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+        unset($_SESSION['success']); // Clear the success message
+    }
     ?>
 
     <form action="../admin/request" method="POST">
