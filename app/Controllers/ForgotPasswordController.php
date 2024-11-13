@@ -107,7 +107,7 @@ class ForgotPasswordController
 
             if ($tokenData) {
                 // Update the password
-                $forgotPasswordModel->updatePassword($tokenData['Email'], $newPassword, $tokenData['User_Type']);
+                $forgotPasswordModel->updatePassword($tokenData['Email'], $newPassword, $tokenData['UserType']);
 
                 // Delete the token
                 $forgotPasswordModel->deleteToken($token);
@@ -116,9 +116,9 @@ class ForgotPasswordController
                 $_SESSION['success'] = "Password reset successfully.";
 
                 // Redirect to login page
-                switch ($tokenData['Table']) {
+                switch ($tokenData['UserType']) {
                     case 'admin':
-                        header('Location: ../admin');
+                        header('Location: admin');
                         break;
                     case 'traveler':
                         header('Location: ../login');

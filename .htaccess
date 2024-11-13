@@ -2,7 +2,7 @@
     RewriteEngine On
 
     # Deny access to sensitive directories like /app, /config, etc.
-    RewriteRule ^(app|config|core|database|routes)($|/) - [F,L]
+    RewriteRule ^(app|config|core|database|routes|libs)($|/) - [F,L]
 
     # Ensure requests are handled by index.php in /ExploreEase
     RewriteCond %{REQUEST_FILENAME} !-f

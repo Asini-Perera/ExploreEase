@@ -30,9 +30,16 @@ class ForgotPasswordModel
 
     public function storeToken($email, $token, $type)
     {
+        // Delete any existing tokens for the user
+        $sql = "DELETE FROM passwordreset WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        // Store the token in the database
         date_default_timezone_set('Asia/Colombo');
         $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-        $sql = "INSERT INTO password_reset (Email, Token, Expiry, UserType) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO passwordreset (Email, Token, Expiry, UserType) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssss', $email, $token, $expiry, $type);
         $stmt->execute();
@@ -41,7 +48,7 @@ class ForgotPasswordModel
     public function validateToken($token)
     {
         date_default_timezone_set('Asia/Colombo');
-        $sql = "SELECT * FROM password_reset WHERE Token = ? AND Expiry > NOW()";
+        $sql = "SELECT * FROM passwordreset WHERE Token = ? AND Expiry > NOW()";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $token);
         $stmt->execute();
@@ -60,7 +67,7 @@ class ForgotPasswordModel
 
     public function deleteToken($token)
     {
-        $sql = "DELETE FROM password_reset WHERE Token = ?";
+        $sql = "DELETE FROM passwordreset WHERE Token = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $token);
         $stmt->execute();

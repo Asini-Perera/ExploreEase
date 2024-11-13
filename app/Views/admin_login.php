@@ -24,6 +24,12 @@
                 unset($_SESSION['error']); // Clear the error message
             }
 
+            // Display success message if password reset successful
+            if (isset($_SESSION['success'])) {
+                echo '<div class="success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']); // Clear the success message
+            }
+
             // Check if the AdminID is stored in cookies
             $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
             ?>
