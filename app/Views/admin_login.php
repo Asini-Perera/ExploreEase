@@ -16,7 +16,6 @@
                 <img src="public/images/logoexplore.png" alt="ExploreEase Logo">
             </div>
             <h2>Admin Login</h2>
-            <p>Please enter your AdminID and Password to continue</p>
 
             <?php
             // Display error message if login fails
@@ -25,14 +24,20 @@
                 unset($_SESSION['error']); // Clear the error message
             }
 
+            // Display success message if password reset successful
+            if (isset($_SESSION['success'])) {
+                echo '<div class="success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']); // Clear the success message
+            }
+
             // Check if the AdminID is stored in cookies
-            $AdminID = isset($_COOKIE['AdminID']) ? $_COOKIE['AdminID'] : '';
+            $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
             ?>
 
             <form action="admin/login" method="POST">
                 <div class="input-group">
-                    <label for="AdminID">AdminID:</label>
-                    <input type="text" id="AdminID" name="AdminID" value="<?php echo htmlspecialchars($AdminID); ?>" required>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
@@ -40,10 +45,10 @@
                 </div>
                 <div class="remember-group">
                     <label for="remember">
-                        <input type="checkbox" id="remember" name="remember" <?php if ($AdminID) echo 'checked'; ?>>
+                        <input type="checkbox" id="remember" name="remember" <?php if ($email) echo 'checked'; ?>>
                         Remember Me
                     </label>
-                    <a href="#" class="forgot-password">Forget Password?</a>
+                    <a href="forgot" class="forgot-password">Forget Password?</a>
                 </div>
                 <button type="submit">Log In</button>
             </form>

@@ -27,26 +27,27 @@ class AdminController
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $AdminID = $_POST['AdminID'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
 
             // Use the AdminModel to get the admin data by AdminID
             $adminModel = new AdminModel($this->conn);
-            $admin = $adminModel->getAdminByID($AdminID);
+            $admin = $adminModel->getAdminByEmail($email);
 
             // Verify the password
             if ($admin && password_verify($password, $admin['Password'])) {
                 // Start session and save admin details
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
+                $_SESSION['Email'] = $admin['Email'];
                 $_SESSION['Name'] = $admin['FirstName'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
-                    setcookie('AdminID', $admin['AdminID'], time() + (3600 * 24 * 30), "/");
+                    setcookie('Email', $admin['Email'], time() + (3600 * 24 * 30), "/");
                 } else {
                     // Unset the cookie
-                    setcookie('AdminID', "", time() - 1, "/");
+                    setcookie('Email', "", time() - 1, "/");
                 }
 
                 // Check if the admin is verified
@@ -61,7 +62,7 @@ class AdminController
                 exit();
             } else {
                 // If login fails, redirect back to login page and show an error message
-                $_SESSION['error'] = "Invalid AdminID or Password";
+                $_SESSION['error'] = "Invalid Email or Password.";
                 header('Location: ../admin');
                 exit();
             }
@@ -97,6 +98,7 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $AdminID;
                 $_SESSION['Name'] = $firstName;
+                $_SESSION['Email'] = $email;
                 header('Location: ../admin/waiting');
                 exit();
             } else {
