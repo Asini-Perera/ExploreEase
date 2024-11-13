@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,24 +9,63 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            display: flex; 
+            display: flex;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
         }
 
         .navbar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
             background-color: #225522;
-            color: white;
-        }
-        .navbar-nav {
-            flex-direction: column;
-        }
-        .navbar-nav .nav-item {
-            margin-top: 0;
             padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .content h1 {
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar .content p {
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            text-align:left;
+        }
+
+        .navbar-nav .nav-item {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #F1C232;
+            margin-left: 0;
+            padding: 10px 20px;
+            width: 100%;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #cccccc;
         }
 
         .card {
@@ -79,14 +120,15 @@
 <body>
     <nav class="navbar navbar-dark">
         <div class="content">
-            <h1>Welcome to the Service Provider Dashboard</h1>
+            <h1>Service Provider Dashboard</h1>
+            <p>Welcome to the Dashboard</p>
         </div>   
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
+                    <a class="nav-link" href="#">Settings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Logout</a>
