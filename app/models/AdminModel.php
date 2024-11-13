@@ -11,11 +11,11 @@ class AdminModel
         $this->conn = $conn;
     }
 
-    public function getAdminByID($AdminID)
+    public function getAdminByEmail($email)
     {
-        $sql = "SELECT * FROM admin WHERE AdminID = ?";
+        $sql = "SELECT * FROM admin WHERE Email = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('s', $AdminID);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();

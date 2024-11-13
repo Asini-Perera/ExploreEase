@@ -443,3 +443,25 @@ CREATE TABLE HeritageMarketKeyword (
 
 -- Add IsVerified column to Admin table
 ALTER TABLE Admin ADD COLUMN IsVerified TINYINT(1) DEFAULT 0;
+
+-- Create the PasswordReset table
+CREATE TABLE PasswordReset (
+    Email VARCHAR(100) PRIMARY KEY,
+    Token VARCHAR(255) NOT NULL,
+    Expiry TIMESTAMP NOT NULL,
+    UserType ENUM('admin', 'traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer') NOT NULL
+);
+
+-- Delete token after expiry
+DELIMITER //
+CREATE EVENT IF NOT EXISTS delete_expired_tokens
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+    DELETE FROM PasswordReset WHERE Expiry < NOW();
+END;
+//
+DELIMITER ;
+
+-- Enable the event scheduler
+SET GLOBAL event_scheduler = ON;
