@@ -1,7 +1,7 @@
 /* Body and background setup */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #f9f6f7;
     margin: 0;
     padding: 0;
     display: flex;
@@ -14,7 +14,7 @@ body {
 /* Headline styling */
 h2 {
     font-size: 28px;
-    color: #45a049;
+    color: #225522;
     margin-bottom: 1px;
 }
 
@@ -26,7 +26,7 @@ p {
 
 /* Form styling */
 form {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #d9d9d9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -59,7 +59,7 @@ input[type="file"] {
 /* Button styling */
 button {
     width: 100%;
-    background-color: #4CAF50;
+    background-color: #6fa857;
     color: white;
     padding: 10px;
     border: none;
@@ -71,7 +71,7 @@ button {
 
 /* Hover effect for the button */
 button:hover {
-    background-color: #45a049;
+    background-color: #225522;
 }
 
 /* Error message styling */
