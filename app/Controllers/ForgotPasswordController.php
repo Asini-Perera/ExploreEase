@@ -47,7 +47,7 @@ class ForgotPasswordController
 
                 // Send reset link with email
                 $resetLink = "http://localhost/ExploreEase/reset?token=" . $token;
-                
+
                 $mail = new PHPMailer(true); // Create a new PHPMailer instance
 
                 try {
@@ -99,7 +99,7 @@ class ForgotPasswordController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $token = $_POST['token'];
             $newPassword = $_POST['password'];
-            
+
 
             // Validate the token
             $forgotPasswordModel = new ForgotPasswordModel($this->conn);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/signupform.css">
 </head>
+
 <body>
     <h2>Signup Form</h2>
     <p>provide your details correctly to create an account</p>
@@ -20,23 +22,24 @@
 
         <label for="contactNo">Contact Number:</label><br>
         <input type="text" id="contactNo" name="contactNo"><br><br>
-        
+
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" required><br><br>
 
         <label for="website">Website:</label><br>
         <input type="url" id="website" name="website" value=""><br><br>
-        
+
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required><br><br>
-        
+
         <label for="confirm_password">Confirm Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
         <label for="smlink">Social Media Link:</label><br>
         <input type="url" id="smlink" name="smlink" value=""><br><br>
-        
+
         <button type="submit" formaction="../keyword/serviceprovider">Next</button>
     </form>
 </body>
+
 </html>
