@@ -84,19 +84,23 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
-    margin-left: 250px; 
-    width: calc(100% - 250px); 
     overflow-y: auto;
+    margin-left: 250px; 
+    width: 100%;
 }
 
 .card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     padding: 20px;
-    width: 300px;
-    transition: transform 0.2s;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 350px;
+    height: 100px;
+    cursor: pointer;
+    background-color: #ddd;
+
 }
 
 .card:hover {
@@ -123,5 +127,4 @@ body {
     color: #225522;
     text-align: right;
     text-decoration: none;
-    border-radius: 5px;
 }

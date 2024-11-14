@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,6 @@
         </div>
     </nav>
     <div class="container" style="background-image: url('/public/images/map.svg'); background-size: cover; background-position: center;">
-        <div class="row">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Photos/Videos</h5>
@@ -58,8 +59,6 @@
                         <a href="#" class="btn btn-primary">See More...</a>
                     </div>
                 </div>
-        </div>
-
     </div>
     </body>
 </html>
