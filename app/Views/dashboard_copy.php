@@ -33,13 +33,6 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Bookings & Orders</h5>
-                        <p class="card-text">View and manage your bookings and orders here.</p>
-                        <a href="#" class="btn btn-primary">See More...</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
                         <h5 class="card-title">Ratings</h5>
                         <p class="card-text">Check your ratings and reviews here.</p>
                         <a href="#" class="btn btn-primary">See More...</a>
