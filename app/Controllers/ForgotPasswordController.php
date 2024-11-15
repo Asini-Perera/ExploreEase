@@ -48,6 +48,13 @@ class ForgotPasswordController
                 // Send reset link with email
                 $resetLink = "http://localhost/ExploreEase/reset?token=" . $token;
 
+                // Get the user's name
+                if ($user['Type'] === 'admin' || $user['Type'] === 'traveler') {
+                    $name = $user['FirstName'];
+                } else {
+                    $name = $user['Name'];
+                }
+
                 $mail = new PHPMailer(true); // Create a new PHPMailer instance
 
                 try {
@@ -67,7 +74,14 @@ class ForgotPasswordController
                     // Content
                     $mail->isHTML(true); // Set email format to HTML
                     $mail->Subject = 'Reset your password';
-                    $mail->Body = "Click <a href='$resetLink'>here</a> to reset your password.";
+                    $mail->Body = "
+                                    <p>Dear $name,</p>
+                                    <p>We received a request to reset your password for your ExploreEase account. If you didn't make this request, you can safely ignore this email.</p>
+                                    <p>Otherwise, you can reset your password by clicking the link below:</p>
+                                    <p><a href='$resetLink' style='color: #007BFF; text-decoration: none;'>Reset Your Password</a></p>
+                                    <p><em>This link will expire in 1 hour. If you have any issues, feel free to contact us at <a href='mailto:exploreease10@gmail.com'>exploreease10@gmail.com</a>.</em></p>
+                                    <p>Safe travels,<br>The ExploreEase Team</p>
+                                    ";
 
                     $mail->send();
 
