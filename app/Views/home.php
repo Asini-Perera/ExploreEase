@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
@@ -7,9 +8,9 @@
 
 <body>
     <h1>Welcome to the Home Page</h1>
-    
+
     <?php
-    
+
     global $conn;
 
     // Fetch travelers data
@@ -19,7 +20,7 @@
     $travelers = [];
     if ($result->num_rows > 0) {
         // Output data of each row
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $travelers[] = $row;
         }
     } else {
@@ -36,10 +37,10 @@
         <?php endforeach; ?>
     </ul>
 
-        <a href="login">Login</a>
+    <a href="login">Login</a>
 
     <p>Don't have an account?</p>
-        <a href="signup">Signup</a>
+    <a href="signup">Signup</a>
 </body>
 
 </html>
