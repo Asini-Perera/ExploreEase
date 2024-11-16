@@ -10,12 +10,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 100vh;
     transition: background-image 2s ease-in-out;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Main container setup */
@@ -162,4 +166,79 @@ a:hover {
     border-radius: 5px;
     margin-bottom: 15px;
     font-size: 14px;
+}
+
+/* Responsive styling for smaller devices */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 22px; 
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .login-box {
+        padding: 30px; 
+    }
+
+    label {
+        font-size: 14px; 
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 8px;
+        font-size: 14px; 
+    }
+
+    button {
+        padding: 8px; 
+        font-size: 14px; 
+    }
+
+    .error {
+        font-size: 14px;
+    }
+
+    .success {
+        font-size: 14px;    
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 20px; 
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .login-box {
+        padding: 20px; 
+    }
+
+    label {
+        font-size: 12px; 
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 6px; 
+        font-size: 12px; 
+    }
+
+    button {
+        font-size: 12px; 
+        padding: 6px; 
+    }
+
+    .error {
+        font-size: 12px; 
+    }
+
+    .success {
+        font-size: 12px; 
+    }
 }

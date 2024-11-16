@@ -16,9 +16,11 @@
             <h2><span class="exploreease">ExploreEase</span><span class="admin">Admin</span></h2>
             <nav>
                 <ul>
-                    <li><a href="#" class="nav-link active" data-page="dashboard">Dashboard</a></li>
-                    <li><a href="#" class="nav-link" data-page="manage-users">Manage Users</a></li>
-                    <li><a href="#" class="nav-link" data-page="settings">Settings</a></li>
+                    <li><a href="#" class="nav-link active">Dashboard</a></li>
+                    <li><a href="#" class="nav-link">To Verify</a></li>
+                    <li><a href="#" class="nav-link">Admin</a></li>
+                    <li><a href="#" class="nav-link">Traveler</a></li>
+                    <li><a href="#" class="nav-link">Restaurant</a></li> 
                 </ul>
             </nav>
         </aside>

@@ -73,8 +73,14 @@ body {
     color: #fff;
     /* padding: 10px 15px; */
     border-radius: 10px;
-    /* font-weight: bold; */
+    font-weight: bold;
     text-align: center;
+}
+
+/* Active item in the sidebar hover */
+.sidebar nav ul li a.active:hover {
+    background-color: #6fa857;
+    color: #fff;
 }
 
 /* Main Content Area */
@@ -119,4 +125,10 @@ body {
 /* Content Section */
 .content {
     padding: 20px;
+}
+
+/* Welcome Message */
+.content h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
 }
