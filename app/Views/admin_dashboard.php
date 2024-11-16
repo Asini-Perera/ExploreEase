@@ -10,38 +10,17 @@
 </head>
 
 <body>
-    <div class="dashboard">
+    <!-- Header -->
+    <?php include 'templates/admin_header.php'; ?>
+
+    <div class="container">
         <!-- Sidebar -->
-        <aside class="sidebar">
-            <h2><span class="exploreease">ExploreEase</span><span class="admin">Admin</span></h2>
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-link active">Dashboard</a></li>
-                    <li><a href="#" class="nav-link">To Verify</a></li>
-                    <li><a href="#" class="nav-link">Admin</a></li>
-                    <li><a href="#" class="nav-link">Traveler</a></li>
-                    <li><a href="#" class="nav-link">Restaurant</a></li> 
-                </ul>
-            </nav>
-        </aside>
+        <?php include 'templates/admin_sidebar.php'; ?>
 
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Top Bar -->
-            <header class="top-bar">
-                <div class="admin-profile">
-                    <span class="admin-name">Admin Name</span>
-                    <img src="admin-image.jpg" alt="Admin Image" class="profile-image">
-                </div>
-            </header>
-
-            <!-- Content Section -->
-            <section class="content">
-                <h1>Welcome to the Admin Dashboard</h1>
-                <!-- Add dashboard content here -->
-            </section>
-        </main>
+        <!-- Main Content -->
+        <div class="main-content">
+            <?php include  __DIR__ . "/$mainContent.php"; ?>
+        </div>
     </div>
 </body>
 
