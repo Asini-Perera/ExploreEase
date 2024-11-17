@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../public/css/admin_dashboard.css">
+    <link rel="stylesheet" href="../public/css/admin_dashboard/admin_main.css">
 </head>
 
 <body>

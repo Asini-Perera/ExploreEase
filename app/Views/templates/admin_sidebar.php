@@ -1,13 +1,12 @@
-<?php
-$page = isset($_GET['page']) ? $_GET['page'] : 'admin_main';
-?>
-
 <div class="sidebar">
     <ul>
-        <li><a href="?page=dashboard" class="<?= $page == 'dashboard' ? 'active' : '' ?>">Dashboard</a></li>
-        <li><a href="?page=verify" class="<?= $page == 'verify' ? 'active' : '' ?>">To Verify</a></li>
-        <li><a href="?page=admin_admin" class="<?= $page == 'admin_admin' ? 'active' : '' ?>">Admin</a></li>
-        <li><a href="?page=admin_traveler" class="<?= $page == 'admin_traveler' ? 'active' : '' ?>">Traveler</a></li>
-        <li><a href="?page=admin_restaurant" class="<?= $page == 'admin_restaurant' ? 'active' : '' ?>">Restaurant</a></li>
+        <li><a href="?page=dashboard" class="<?= $mainContent == 'dashboard' ? 'active' : '' ?>">Dashboard</a></li>
+        <li><a href="?page=verify" class="<?= $mainContent == 'verify' ? 'active' : '' ?>">To Verify</a></li>
+        <li><a href="?page=admin" class="<?= $mainContent == 'admin' ? 'active' : '' ?>">Admin</a></li>
+        <li><a href="?page=traveler" class="<?= $mainContent == 'traveler' ? 'active' : '' ?>">Travelers</a></li>
+        <li><a href="?page=restaurant" class="<?= $mainContent == 'restaurant' ? 'active' : '' ?>">Restaurants</a></li>
+        <li><a href="?page=hotel" class="<?= $mainContent == 'hotel' ? 'active' : '' ?>">Hotels</a></li>
+        <li><a href="?page=heritagemarket" class="<?= $mainContent == 'heritagemarket' ? 'active' : '' ?>">Heritage Markets</a></li>
+        <li><a href="?page=culturaleventorganizer" class="<?= $mainContent == 'culturaleventorganizer' ? 'active' : '' ?>">Cultural Event Organizers</a></li>
     </ul>
 </div>

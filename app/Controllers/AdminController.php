@@ -124,9 +124,9 @@ class AdminController
     public function dashboard()
     {
         if (isset($_SESSION['AdminID'])) {
-            $page = isset($_GET['page']) ? $_GET['page'] : 'admin_main';
-            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant'];
-            $mainContent = in_array($page, $allowedPages) ? $page : 'dashboard';
+            $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+            $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Load the main dashboard layout
             require_once __DIR__ . '/../views/admin_dashboard/main.php';
