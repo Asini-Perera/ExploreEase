@@ -11,15 +11,15 @@
 
 <body>
     <!-- Header -->
-    <?php include 'templates/admin_header.php'; ?>
+    <?php include_once __DIR__ . '/../templates/admin_header.php'; ?>
 
     <div class="container">
         <!-- Sidebar -->
-        <?php include 'templates/admin_sidebar.php'; ?>
+        <?php include_once __DIR__ . '/../templates/admin_sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php include  __DIR__ . "/$mainContent.php"; ?>
+            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
         </div>
     </div>
 </body>

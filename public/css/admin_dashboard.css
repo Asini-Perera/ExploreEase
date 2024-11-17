@@ -8,7 +8,7 @@
 /* Body and background setup */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f6f7;
+    /* background-color: #f9f6f7; */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -56,9 +56,12 @@ body {
 
 .sidebar ul li a.active {
     background-color: #F1C232;
-    color: #225522;
-    font-weight: bold;
-    text-align: center;
+    color: #fff;
+}
+
+.sidebar ul li a.active:hover {
+    background-color: #6fa857;
+    color: #fff;
 }
 
 /* Header styling */
@@ -68,7 +71,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
 }
 
 .header h2 {
@@ -107,9 +109,8 @@ body {
 .main-content {
     flex: 1;
     padding: 20px;
-    background-color: #fff;
+    background-color: #f9f6f7;
     overflow-y: auto;
-    border-left: 1px solid #ddd;
 }
 
 .main-content h1 {

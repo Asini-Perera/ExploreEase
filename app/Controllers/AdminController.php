@@ -125,38 +125,15 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'admin_main';
-            $allowedPages = ['admin_main', 'admin_verify', 'admin', 'traveler', 'restaurant'];
-            $mainContent = in_array($page, $allowedPages) ? $page : 'admin_main';
-
-            // Pass data to the view
-            $data = [
-                'mainContent' => $mainContent,
-                'adminName' => $_SESSION['Name']
-            ];
+            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant'];
+            $mainContent = in_array($page, $allowedPages) ? $page : 'dashboard';
 
             // Load the main dashboard layout
-            $this->render('admin_dashboard', $data);
+            require_once __DIR__ . '/../views/admin_dashboard/main.php';
         } else {
             header('Location: admin');
             exit();
         }
-
-        // Logic for admin dashboard
-        // if (isset($_SESSION['AdminID'])) {
-        //     require_once __DIR__ . '/../views/admin_dashboard.php';
-        // } else {
-        //     header('Location: admin');
-        //     exit();
-        // }
-    }
-
-    private function render($view, $data = [])
-    {
-        // Extract the data array to variables
-        extract($data);
-
-        // Load the view file
-        require_once __DIR__ . '/../views/' . $view . '.php';
     }
 
     public function logout()
