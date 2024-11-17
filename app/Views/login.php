@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/css/login.css">   
+    <link rel="stylesheet" href="public/css/login.css">
 </head>
+
 <body>
     <div class="side left">
-        <img src="public/images/logo.jpeg" alt="logo">
+        <a href="../ExploreEase"><img src="public/images/logo.jpeg" alt="logo"></a>
     </div>
 
     <div class="side right">
@@ -21,7 +23,7 @@
             <label for="psswd" class="username">Password:</label>
             <input type="password" id="password" placeholder="Enter the password" name="psswd" required>
 
-            
+
             <div class="forgot">
                 <label>
                     <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -42,6 +44,5 @@
     </div>
     </div>
 </body>
+
 </html>
-
-
