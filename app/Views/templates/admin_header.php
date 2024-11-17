@@ -4,6 +4,6 @@
     </h2>
     <div class="admin-profile">
         <span class="admin-name">Admin Name</span>
-        <img src="admin-image.jpg" alt="Admin Image" class="profile-image">
+        <img src="../public/images/user.jpg" alt="Admin Image" class="profile-image">
     </div>
 </div>
