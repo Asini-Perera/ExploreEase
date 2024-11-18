@@ -19,7 +19,14 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
+            <?php
+            if ($mainContent === 'verify') {
+                require_once  __DIR__ . "/verify_nav.php";
+                require_once  __DIR__ . "/$mainContent" . "_" . "$verifyUser.php";
+            } else {
+                require_once  __DIR__ . "/$mainContent.php";
+            }
+            ?>
         </div>
     </div>
 </body>
