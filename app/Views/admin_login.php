@@ -48,7 +48,7 @@
                         <input type="checkbox" id="remember" name="remember" <?php if ($email) echo 'checked'; ?>>
                         Remember Me
                     </label>
-                    <a href="forgot" class="forgot-password">Forget Password?</a>
+                    <a href="forgot?user=admin" class="forgot-password">Forget Password?</a>
                 </div>
                 <button type="submit">Log In</button>
             </form>

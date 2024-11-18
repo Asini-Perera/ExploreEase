@@ -15,7 +15,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Main container setup */
@@ -35,6 +37,7 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* Logo styling */
@@ -100,4 +103,51 @@ body {
     background-color: #6FA857;
     color: #FFFFFF;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styling for smaller devices */
+@media (max-width: 768px) {
+    .verification-box h1 {
+        font-size: 24px;
+    }
+
+    .verification-box p {
+        font-size: 14px;
+    }
+
+    .verification-box strong {
+        font-size: 16px;
+    }
+
+    .verification-box {
+        padding: 25px;
+    }
+
+    .verification-box button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .verification-box h1 {
+        font-size: 20px;
+    }
+
+    .verification-box p {
+        font-size: 12px;
+    }
+
+    .verification-box strong {
+        font-size: 14px;
+    }
+
+    .verification-box {
+        padding: 15px;
+    }
+
+    .verification-box button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
 }

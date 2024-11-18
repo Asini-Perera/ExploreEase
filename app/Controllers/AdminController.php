@@ -123,9 +123,13 @@ class AdminController
 
     public function dashboard()
     {
-        // Logic for admin dashboard
         if (isset($_SESSION['AdminID'])) {
-            require_once __DIR__ . '/../views/admin_dashboard.php';
+            $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+            $mainContent = in_array($page, $allowedPages) ? $page : '404';
+
+            // Load the main dashboard layout
+            require_once __DIR__ . '/../views/admin_dashboard/main.php';
         } else {
             header('Location: admin');
             exit();
