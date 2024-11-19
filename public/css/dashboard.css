@@ -1,0 +1,130 @@
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+.navbar {
+    background-color: #225522;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.navbar .content h1 {
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    font-size: 38px;
+}
+
+.navbar .buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.navbar a {
+    display: flex;
+    color: #F1C232;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    border-radius: 100px;
+    margin: 8px;
+}
+
+.navbar a:hover {
+    color: #858ace;
+}
+
+.navbar a.dashboardbtn::before {
+    content: url('/public/images/dashboard.png');
+    margin-right: 10px;
+}
+
+.navbar a.profilebtn::before {
+    content: url('/public/images/profile.png');
+    margin-right: 10px;
+}
+
+.navbar a.helpbtn::before {
+    content: url('/public/images/help.png');
+    margin-right: 10px;
+}
+
+.navbar a.logoutbtn::before {
+    content: url('/public/images/logout.png');
+    margin-right: 10px;
+}
+
+.navbar .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 6px 0;
+    color: #ffffff;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    overflow-y: auto;
+    margin-left: 250px; 
+    width: 100%;
+}
+
+.card {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 350px;
+    height: 100px;
+    cursor: pointer;
+    background-color: #ddd;
+
+}
+
+.card:hover {
+    background-color: #F1C232;
+    transform: scale(1.05);
+}
+
+.card h5 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    color: #000000;
+}
+
+.card p {
+    margin: 0;
+    font-size: 16px;
+    color: #666666;
+}
+
+.card a {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #225522;
+    text-align: right;
+    text-decoration: none;
+}
