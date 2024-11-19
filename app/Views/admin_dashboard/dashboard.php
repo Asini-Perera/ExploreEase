@@ -16,17 +16,6 @@
     <div class="tile">
         <div class="tile-content">
             <div class="tile-text">
-                <h2>New Travelers in this month</h2>
-                <h1>200</h1>
-            </div>
-            <div class="tile-image">
-                <img src="../public/images/traveler2.webp" alt="Traveler">
-            </div>
-        </div>
-    </div>
-    <div class="tile">
-        <div class="tile-content">
-            <div class="tile-text">
                 <h2>Total Restaurants</h2>
                 <h1>300</h1>
             </div>
@@ -43,6 +32,17 @@
             </div>
             <div class="tile-image">
                 <img src="../public/images/hotel.jpg" alt="Hotel">
+            </div>
+        </div>
+    </div>
+    <div class="tile">
+        <div class="tile-content">
+            <div class="tile-text">
+                <h2>New Travelers in this month</h2>
+                <h1>200</h1>
+            </div>
+            <div class="tile-image">
+                <img src="../public/images/traveler2.webp" alt="Traveler">
             </div>
         </div>
     </div>
