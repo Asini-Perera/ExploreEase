@@ -1,5 +1,6 @@
 -- Create the ExploreEase Database
 Create Database ExploreEase;
+
 Use ExploreEase;
 
 -- Create the Traveler table
@@ -8,7 +9,7 @@ CREATE TABLE Traveler (
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Email VARCHAR(100) UNIQUE,
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     Gender ENUM('Male', 'Female', 'Other'),
     DOB DATE,
     ContactNo VARCHAR(15),
@@ -20,19 +21,26 @@ CREATE TABLE Traveler (
 );
 
 -- Trigger to auto-generate TravelerID in the format 'T000001'
-DELIMITER //
-CREATE TRIGGER trg_TravelerID BEFORE INSERT ON Traveler
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(8);
-    
-    SELECT MAX(CAST(SUBSTRING(TravelerID, 2) AS UNSIGNED)) INTO maxID FROM Traveler;
-    SET newID = CONCAT('T', LPAD(IFNULL(maxID, 0) + 1, 6, '0'));
-    SET NEW.TravelerID = newID;
+DELIMITER / / CREATE TRIGGER trg_TravelerID BEFORE
+INSERT
+    ON Traveler FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(8);
+
+SELECT
+    MAX(CAST(SUBSTRING(TravelerID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    Traveler;
+
+SET
+    newID = CONCAT('T', LPAD(IFNULL(maxID, 0) + 1, 6, '0'));
+
+SET
+    NEW.TravelerID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the TravelerImages table
 CREATE TABLE TravelerImages (
@@ -54,25 +62,32 @@ CREATE TABLE Admin (
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Email VARCHAR(100) UNIQUE,
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     ContactNo VARCHAR(15),
     ImgPath VARCHAR(255)
 );
 
 -- Trigger to auto-generate AdminID in the format 'A0001'
-DELIMITER //
-CREATE TRIGGER trg_AdminID BEFORE INSERT ON Admin
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(6);
-    
-    SELECT MAX(CAST(SUBSTRING(AdminID, 2) AS UNSIGNED)) INTO maxID FROM Admin;
-    SET newID = CONCAT('A', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
-    SET NEW.AdminID = newID;
+DELIMITER / / CREATE TRIGGER trg_AdminID BEFORE
+INSERT
+    ON Admin FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(6);
+
+SELECT
+    MAX(CAST(SUBSTRING(AdminID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    Admin;
+
+SET
+    newID = CONCAT('A', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
+
+SET
+    NEW.AdminID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the Hotel table
 CREATE TABLE Hotel (
@@ -83,26 +98,33 @@ CREATE TABLE Hotel (
     Email VARCHAR(100) UNIQUE,
     Description TEXT,
     Website VARCHAR(255),
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     SMLink VARCHAR(255),
     AdminID VARCHAR(8),
     FOREIGN KEY (AdminID) REFERENCES Admin(AdminID)
 );
 
 -- Trigger to auto-generate HotelID in the format 'H0001'
-DELIMITER //
-CREATE TRIGGER trg_HotelID BEFORE INSERT ON Hotel
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(6);
-    
-    SELECT MAX(CAST(SUBSTRING(HotelID, 2) AS UNSIGNED)) INTO maxID FROM Hotel;
-    SET newID = CONCAT('H', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
-    SET NEW.HotelID = newID;
+DELIMITER / / CREATE TRIGGER trg_HotelID BEFORE
+INSERT
+    ON Hotel FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(6);
+
+SELECT
+    MAX(CAST(SUBSTRING(HotelID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    Hotel;
+
+SET
+    newID = CONCAT('H', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
+
+SET
+    NEW.HotelID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the HotelImages table
 CREATE TABLE HotelImages (
@@ -172,7 +194,7 @@ CREATE TABLE CulturalEventOrganizer (
     ContactNo VARCHAR(15),
     Email VARCHAR(100) UNIQUE,
     Description TEXT,
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     SMLink VARCHAR(255),
     ImgPath VARCHAR(255),
     AdminID VARCHAR(8),
@@ -180,19 +202,26 @@ CREATE TABLE CulturalEventOrganizer (
 );
 
 -- Trigger to auto-generate OrganizerID in the format 'O0001'
-DELIMITER //
-CREATE TRIGGER trg_OrganizerID BEFORE INSERT ON CulturalEventOrganizer
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(6);
-    
-    SELECT MAX(CAST(SUBSTRING(OrganizerID, 2) AS UNSIGNED)) INTO maxID FROM CulturalEventOrganizer;
-    SET newID = CONCAT('O', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
-    SET NEW.OrganizerID = newID;
+DELIMITER / / CREATE TRIGGER trg_OrganizerID BEFORE
+INSERT
+    ON CulturalEventOrganizer FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(6);
+
+SELECT
+    MAX(CAST(SUBSTRING(OrganizerID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    CulturalEventOrganizer;
+
+SET
+    newID = CONCAT('O', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
+
+SET
+    NEW.OrganizerID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the CulturalEventOrganizerFeedback table
 CREATE TABLE CulturalEventOrganizerFeedback (
@@ -260,7 +289,7 @@ CREATE TABLE HeritageMarket (
     Email VARCHAR(100) UNIQUE,
     Description TEXT,
     Website VARCHAR(255),
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     SMLink VARCHAR(255),
     OpenHours VARCHAR(100),
     AdminID VARCHAR(8),
@@ -268,19 +297,26 @@ CREATE TABLE HeritageMarket (
 );
 
 -- Trigger to auto-generate ShopID in the format 'S0001'
-DELIMITER //
-CREATE TRIGGER trg_ShopID BEFORE INSERT ON HeritageMarket
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(6);
-    
-    SELECT MAX(CAST(SUBSTRING(ShopID, 2) AS UNSIGNED)) INTO maxID FROM HeritageMarket;
-    SET newID = CONCAT('S', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
-    SET NEW.ShopID = newID;
+DELIMITER / / CREATE TRIGGER trg_ShopID BEFORE
+INSERT
+    ON HeritageMarket FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(6);
+
+SELECT
+    MAX(CAST(SUBSTRING(ShopID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    HeritageMarket;
+
+SET
+    newID = CONCAT('S', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
+
+SET
+    NEW.ShopID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the HeritageMarketImages table
 CREATE TABLE HeritageMarketImages (
@@ -328,7 +364,7 @@ CREATE TABLE Restaurant (
     Email VARCHAR(100) UNIQUE,
     Description TEXT,
     Website VARCHAR(255),
-    Password VARCHAR(100),
+    Password VARCHAR(255),
     OpenHours VARCHAR(100),
     CuisineType VARCHAR(100),
     AdminID VARCHAR(8),
@@ -336,19 +372,26 @@ CREATE TABLE Restaurant (
 );
 
 -- Trigger to auto-generate RestaurantID in the format 'R0001'
-DELIMITER //
-CREATE TRIGGER trg_RestaurantID BEFORE INSERT ON Restaurant
-FOR EACH ROW
-BEGIN
-    DECLARE maxID INT;
-    DECLARE newID VARCHAR(6);
-    
-    SELECT MAX(CAST(SUBSTRING(RestaurantID, 2) AS UNSIGNED)) INTO maxID FROM Restaurant;
-    SET newID = CONCAT('R', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
-    SET NEW.RestaurantID = newID;
+DELIMITER / / CREATE TRIGGER trg_RestaurantID BEFORE
+INSERT
+    ON Restaurant FOR EACH ROW BEGIN DECLARE maxID INT;
+
+DECLARE newID VARCHAR(6);
+
+SELECT
+    MAX(CAST(SUBSTRING(RestaurantID, 2) AS UNSIGNED)) INTO maxID
+FROM
+    Restaurant;
+
+SET
+    newID = CONCAT('R', LPAD(IFNULL(maxID, 0) + 1, 4, '0'));
+
+SET
+    NEW.RestaurantID = newID;
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Create the RestaurantImages table
 CREATE TABLE RestaurantImages (
@@ -440,3 +483,39 @@ CREATE TABLE HeritageMarketKeyword (
     FOREIGN KEY (ShopID) REFERENCES HeritageMarket(ShopID),
     FOREIGN KEY (KeywordID) REFERENCES Keyword(KeywordID)
 );
+
+-- Add IsVerified column to Admin table
+ALTER TABLE
+    Admin
+ADD
+    COLUMN IsVerified TINYINT(1) DEFAULT 0;
+
+-- Create the PasswordReset table
+CREATE TABLE PasswordReset (
+    Email VARCHAR(100) PRIMARY KEY,
+    Token VARCHAR(255) NOT NULL,
+    Expiry TIMESTAMP NOT NULL,
+    UserType ENUM(
+        'admin',
+        'traveler',
+        'hotel',
+        'restaurant',
+        'heritagemarket',
+        'culturaleventorganizer'
+    ) NOT NULL
+);
+
+-- Delete token after expiry
+DELIMITER / / CREATE EVENT IF NOT EXISTS delete_expired_tokens ON SCHEDULE EVERY 1 DAY DO BEGIN
+DELETE FROM
+    PasswordReset
+WHERE
+    Expiry < NOW();
+
+END;
+
+/ / DELIMITER;
+
+-- Enable the event scheduler
+SET
+    GLOBAL event_scheduler = ON;

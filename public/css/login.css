@@ -1,9 +1,9 @@
-body{
+body {
     font-family: sans-serif;
     color: white;
 }
 
-.side{
+.side {
     height: 100%;
     width: 50%;
     position: fixed;
@@ -12,33 +12,34 @@ body{
     overflow-x: hidden;
     padding-top: 20px;
 }
-.left{
+
+.left {
     left: 0;
 }
 
-img{
+img {
     height: auto;
     width: 50%;
     top: 50%;
     left: 50%;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
-.right{
+.right {
     right: 0;
     background-color: #225522;
 }
 
-.content{
+.content {
     top: 50%;
     left: 50%;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     display: flexbox;
 }
 
-.title{
+.title {
     text-align: center;
     font-family: monospace;
     font-size: 60px;
@@ -51,16 +52,23 @@ img{
 }
 
 @keyframes typing {
-    from { width: 0 }
-    to { width: 90% }
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
 }
 
-.username,.password{
+.username,
+.password {
     text-align: left;
 }
 
-#username,#password{
-    position:0;
+#username,
+#password {
+    position: 0;
     width: 90%;
     padding: 10px 20px;
     margin: 12px 0;
@@ -70,22 +78,22 @@ img{
     font-family: Verdana, sans-serif;
 }
 
-.forgot{
+.forgot {
     display: inline-flexbox;
 }
 
-.forgot a{
+.forgot a {
     text-decoration: none;
     text-align: right;
     color: #F1C232;
     float: right;
 }
 
-button{
+button {
     background-color: #F1C232;
     color: black;
     text-align: center;
-    border:none;
+    border: none;
     cursor: pointer;
     padding: 12px;
     margin: 20px 0;
@@ -94,31 +102,29 @@ button{
     left: 40%;
 }
 
-.login{
+.login {
     text-align: center;
     text-decoration: solid;
     font-weight: bolder;
     font-family: 'Times New Roman';
 }
 
-.signup{
+.signup {
     text-align: center;
     color: #FFFFFF;
 }
 
-.signup a{
+.signup a {
     text-decoration: none;
-    font-family:'Times New Roman';
+    font-family: 'Times New Roman';
     font-weight: bolder;
     text-align: center;
     color: #F1C232;
 }
 
 @media screen and (max-width: 960px) {
-    .side{
+    .side {
         width: 100%;
         float: right;
     }
-
-
 }

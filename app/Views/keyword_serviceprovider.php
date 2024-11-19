@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Form</title>
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/keyword.css">
 </head>
+
 <body>
     <h2>Signup Form</h2>
     <p>select keywords according to your preferences</p>
@@ -35,8 +38,11 @@
         <input type="checkbox" id="traditional-clothing2" name="cultural_items_shops" value="Traditional Clothing Stores" title="Traditional Clothing Stores"> Traditional Clothing Stores<br>
         <input type="checkbox" id="antique-shops2" name="cultural_items_shops" value="Antique Shops" title="Antique Shops"> Antique Shops<br><br>
 
+
         <button type="submit" formaction="">Save</button>
+
 
     </form>
 </body>
+
 </html>
