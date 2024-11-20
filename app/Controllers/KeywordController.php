@@ -13,4 +13,9 @@ class KeywordController
     {
         require_once __DIR__ . '/../views/keyword_serviceprovider.php';
     }
+
+    public function keywordsearch()
+    {
+        require_once __DIR__ . '/../views/keyword_search.php';
+    }
 }
