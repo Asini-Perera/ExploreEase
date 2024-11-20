@@ -11,11 +11,11 @@
 
 <body>
     <!-- Header -->
-    <?php include_once __DIR__ . '/../templates/admin_header.php'; ?>
+    <?php include_once __DIR__ . '/header.php'; ?>
 
     <div class="container">
         <!-- Sidebar -->
-        <?php include_once __DIR__ . '/../templates/admin_sidebar.php'; ?>
+        <?php include_once __DIR__ . '/sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="main-content">
