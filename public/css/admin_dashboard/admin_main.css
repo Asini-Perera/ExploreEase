@@ -8,7 +8,6 @@
 /* Body and background setup */
 body {
     font-family: Arial, sans-serif;
-    /* background-color: #f9f6f7; */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -23,6 +22,12 @@ body {
 
 /* Sidebar styling */
 .sidebar {
+    position: fixed;
+    top: 80px; /* Align with the header's height */
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y: auto;
     width: 270px;
     background-color: #fff;
     color: #fff;
@@ -67,11 +72,17 @@ body {
 
 /* Header styling */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: #fff;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
+    height: 80px;
 }
 
 .topic {
@@ -122,7 +133,10 @@ body {
     flex: 1;
     padding: 20px;
     background-color: #f9f6f7;
+    overflow-x: auto;
     overflow-y: auto;
+    margin-top: 80px;
+    margin-left: 270px;
 }
 
 /* 
