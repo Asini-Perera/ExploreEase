@@ -131,7 +131,7 @@ class AdminController
             // Get user for verify page
             if ($mainContent == 'verify') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
-                $allowedUsers = ['admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
             }
 

@@ -68,22 +68,33 @@ body {
 /* Header styling */
 .header {
     background-color: #fff;
-    padding: 15px 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header h2 {
+.topic {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.topic .logo {
+    width: 60px;
+    height: 60px;
+}
+
+.topic h2 {
     margin: 0;
     font-size: 20px;
 }
 
-.header .exploreease {
+.topic .exploreease {
     color: #225522;
 }
 
-.header .admin {
+.topic .admin {
     color: #F1C232;
 }
 
@@ -114,8 +125,12 @@ body {
     overflow-y: auto;
 }
 
-.main-content h1 {
-    font-size: 28px;
-    color: #000;
-    margin-bottom: 20px;
-}
+/* 
+#225522 
+#6fa857
+#f1c232
+#f9f6f7
+#d9d9d9
+#fff
+#000 
+*/
