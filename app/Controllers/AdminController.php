@@ -21,7 +21,7 @@ class AdminController
     public function index()
     {
         // Logic for admin login page
-        require_once __DIR__ . '/../views/admin_login.php';
+        require_once __DIR__ . '/../views/admin_login.php'; 
     }
 
     public function login()
@@ -127,6 +127,13 @@ class AdminController
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
             $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
+
+            // Get user for verify page
+            if ($mainContent == 'verify') {
+                $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
+                $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
+            }
 
             // Load the main dashboard layout
             require_once __DIR__ . '/../views/admin_dashboard/main.php';

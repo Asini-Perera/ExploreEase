@@ -1,0 +1,94 @@
+/* Navbar Container */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Navbar background */
+    color: white;
+    padding: 5px 20px;
+    /* Reduced padding for smaller height */
+    position: fixed;
+    /* Fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    height: 60px;
+    /* Set explicit height for smaller navbar */
+}
+
+/* Menu Items */
+.menu-items {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* Logo Styling */
+.menu-item.logo {
+    margin-right: auto;
+    /* Push logo to the far left */
+    margin-left: 0;
+    /* Ensure no extra left margin */
+}
+
+.menu-item.logo img {
+    height: 100px;
+    /* Fit logo height to navbar height */
+    object-fit: contain;
+}
+
+/* Links Styling */
+.menu-item {
+    margin-left: 20px;
+    /* Maintain consistent spacing between items */
+}
+
+.menu-item a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* User Icon Styling */
+.menu-item.user img {
+    height: 25px;
+    /* Smaller user icon */
+    width: 25px;
+    /* Maintain square aspect ratio */
+    object-fit: contain;
+}
+
+/* Hover Effect */
+/*.menu-item.home a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}*/
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .menu-items {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .menu-item.logo img {
+        height: 50px;
+        /* Adjust logo size for mobile */
+    }
+
+    .menu-item.user img {
+        height: 15px;
+        /* Smaller user icon for mobile */
+    }
+}
