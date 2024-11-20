@@ -26,14 +26,16 @@
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" required><br><br>
 
-        <label for="website">Website:</label><br>
-        <input type="url" id="website" name="website" value=""><br><br>
 
+        <label for="smlink">Social Media Link:</label><br>
+        <input type="url" id="smlink" name="smlink" value=""><br><br>
+        
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required><br><br>
 
         <label for="confirm_password">Confirm Password:</label><br>
         <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
 
         <label for="open_hours">Open Hours:</label><br>
         <input type="text" id="open_hours" name="openhours" value=""><br><br>
@@ -41,7 +43,9 @@
         <label for="cuisine_types">Cuisine Type:</label><br>
         <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
 
+
         <button type="submit" formaction="../keyword/serviceprovider">Next</button>
+
     </form>
 </body>
 
