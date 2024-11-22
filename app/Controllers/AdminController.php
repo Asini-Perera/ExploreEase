@@ -125,7 +125,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+            $allowedPages = ['dashboard', 'verify', 'keyword', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
@@ -133,6 +133,10 @@ class AdminController
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
+            } elseif ($mainContent == 'keyword') {
+                $action = isset($_GET['action']) ? $_GET['action'] : 'add';
+                $allowedActions = ['add', 'view', 'delete'];
+                $keywordAction = in_array($action, $allowedActions) ? $action : '404';
             }
 
             // Load the main dashboard layout

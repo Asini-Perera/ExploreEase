@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../public/css/admin_dashboard/verify_nav.css">
+<link rel="stylesheet" href="../public/css/admin_dashboard/sub_nav.css">
 
 <div class="navbar">
     <a href="?page=verify&user=admin" class="<?= $verifyUser == 'admin' ? 'active' : '' ?>">Admin</a>

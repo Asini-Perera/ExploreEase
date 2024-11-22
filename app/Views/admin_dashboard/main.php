@@ -23,6 +23,9 @@
             if ($mainContent === 'verify') {
                 require_once  __DIR__ . "/verify_nav.php";
                 require_once  __DIR__ . "/$mainContent" . "_" . "$verifyUser.php";
+            } elseif ($mainContent === 'keyword') {
+                require_once  __DIR__ . "/keyword_nav.php";
+                require_once  __DIR__ . "/$mainContent" . "_" . "$keywordAction.php";
             } else {
                 require_once  __DIR__ . "/$mainContent.php";
             }
