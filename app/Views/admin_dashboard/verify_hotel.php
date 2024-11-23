@@ -52,6 +52,16 @@
                     <button class="reject-btn">Reject</button>
                 </td>
             </tr>
+            <tr>
+                <td>City Lights Hotel</td>
+                <td>contact@citylights.lk</td>
+                <td>No. 15, City Road, Colombo 07, Sri Lanka</td>
+                <td>+94 77 543 2109</td>
+                <td class="action-buttons">
+                    <button class="verify-btn">Verify</button>
+                    <button class="reject-btn">Reject</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
