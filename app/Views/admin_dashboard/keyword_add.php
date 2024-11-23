@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../public/css/admin_dashboard/keyword_add.css">
+<link rel="stylesheet" href="../public/css/admin_dashboard/keyword_add_delete.css">
 
 <div class="form-content">
     <form method="post" action="">
@@ -8,6 +8,6 @@
         <label for="keyword">Keyword:</label>
         <input type="text" id="keyword" name="keyword" required><br><br>
         
-        <button type="submit">Add Keyword</button>
+        <button class="add" type="submit">Add Keyword</button>
     </form>
 </div>

@@ -8,14 +8,6 @@
 
 }
 
-h1 {
-    font-family: Arial, sans-serif;
-    padding: 10px;
-    font-size: 28px;
-    color: #000;
-    margin-bottom: 20px;
-}
-
 form {
     background: #d9d9d9;
     padding: 20px;
@@ -42,7 +34,6 @@ input[type="text"] {
 }
 
 button {
-    background-color: #6fa857;
     color: #fff;
     padding: 10px;
     border: none;
@@ -50,6 +41,18 @@ button {
     width: 100%;
 }
 
-button:hover {
+.add {
+    background-color: #6fa857;
+}
+
+.add:hover {
     background-color: #225522;
+}
+
+.delete {
+    background-color: #d9534f;
+}
+
+.delete:hover {
+    background-color: #c9302c;
 }

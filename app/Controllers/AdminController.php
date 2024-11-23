@@ -133,10 +133,16 @@ class AdminController
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
+                if ($verifyUser === '404') {
+                    $mainContent = '404';
+                }
             } elseif ($mainContent == 'keyword') {
-                $action = isset($_GET['action']) ? $_GET['action'] : 'add';
+                $action = isset($_GET['action']) ? $_GET['action'] : 'view';
                 $allowedActions = ['add', 'view', 'delete'];
                 $keywordAction = in_array($action, $allowedActions) ? $action : '404';
+                if ($keywordAction === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout

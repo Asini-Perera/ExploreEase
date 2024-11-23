@@ -12,13 +12,14 @@
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
     height: 250px; /* Increase height */
 }
 
 .tile:hover {
     box-shadow: none;
+    transform: scale(0.98);
 }
 
 .tile-content {
