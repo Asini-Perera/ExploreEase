@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Section</title>
-    <link rel="stylesheet" href="../public/css/navbar.css?v=1">
-    <link rel="stylesheet" href="../public/css/footer.css?v=1">
+    
+   
     <link rel="stylesheet" href="../public/css/searchbykeyword.css?v=1">
 </head>
 <body>

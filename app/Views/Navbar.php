@@ -1,4 +1,5 @@
 <!-- navbar.php -->
+ <link rel="stylesheet" href="../public/css/navbar.css?v=1">
 <nav class="nav-container" aria-label="Main Navigation">
     <ul class="menu-items">
         <!-- Logo as a list item -->

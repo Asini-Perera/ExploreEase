@@ -1,4 +1,5 @@
 <!-- footer.php -->
+  <link rel="stylesheet" href="../public/css/footer.css?v=1">
 <footer>
     <div class="footer-content">
         <div class="footer-section">
