@@ -1,0 +1,236 @@
+footer {
+    background-color: rgba(34, 85, 34, 0.933);
+    color: #ffffff;
+    padding: 50px 40px;
+    /* Reduced padding to minimize height */
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows wrapping for smaller screens */
+    gap: 15px;
+    /* Reduced gap between sections */
+    max-width: 1200px;
+    /* Reduced maximum width for better alignment */
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 10px;
+    /* Added slight margins for spacing */
+}
+
+.footer-section h2 {
+    font-size: 24px;
+    /* Reduced font size */
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    /* Reduced margin */
+}
+
+.footer-section:first-child {
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: left;
+    /* Ensure alignment consistency */
+    margin-left: 20px;
+    /* Add consistent left margin */
+}
+
+.footer-section:first-child h2 {
+    color: #daab30;
+    font-size: 30px;
+    /* Reduced font size */
+    margin-bottom: 10px;
+    /* Adjust spacing */
+    text-align: left;
+    /* Ensure alignment consistency */
+    margin-left: 0;
+    /* Remove default margin to inherit parent */
+}
+
+.footer-section:first-child p {
+    font-size: 14px;
+    /* Smaller font size for description */
+    color: #d9d9d9;
+    line-height: 1.4;
+    /* Adjusted for better readability */
+    margin-left: 0;
+    /* Consistent alignment with h2 */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 10;
+    margin: 10px 10px;
+}
+
+.footer-section li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Reduced gap */
+    margin-bottom: 20px;
+    /* Reduced margin */
+    font-size: 14px;
+    /* Smaller font size */
+    color: #e6e6e6;
+}
+
+.footer-section li img {
+    width: 20px;
+    /* Reduced icon size */
+    height: 20px;
+}
+
+.sign-up,
+.login {
+    display: block;
+    font-size: 18px;
+    /* Reduced button font size */
+    font-weight: 500;
+    text-align: center;
+    border-radius: 100px;
+    padding: 10px 15px;
+    /* Reduced padding */
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.sign-up {
+    background-color: #f1c232;
+    color: #000000;
+    border: none;
+    text-shadow: none;
+    /* Removed shadow for cleaner look */
+}
+
+.login {
+    background-color: rgba(217, 217, 217, 0.1);
+    color: #ffffff;
+    border: 2px solid #000000;
+    /* Reduced border thickness */
+    box-shadow: none;
+    /* Removed shadow for cleaner look */
+}
+
+.footer-line {
+    width: 100%;
+    max-width: 650px;
+    height: 2px;
+    background-color: #ffffff;
+    margin: 10px 0;
+    /* Removed auto to align it with the left margin */
+    margin-left: 0;
+    /* Align with the left edge */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.social-icons {
+    display: flex;
+    gap: 45px;
+    margin-top: 15px;
+    margin-left: 0;
+    
+    /* Align with the left edge */
+}
+
+.social-icons a img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-icons a img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2) invert(1);
+}
+@media (max-width: 991px) {
+    footer {
+        padding: 30px 20px;
+        /* Reduced padding for mobile */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        /* Center align for smaller screens */
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+        /* Space between sections */
+    }
+
+    .footer-section h2 {
+        font-size: 20px;
+        /* Smaller font size for headings */
+    }
+
+    .footer-section:first-child h2 {
+        font-size: 24px;
+    }
+
+    .sign-up,
+    .login {
+        padding: 8px 10px;
+        /* Reduced padding */
+        font-size: 16px;
+        /* Smaller font size for buttons */
+    }
+}
+
+
+
+.signup-text {
+  color: white; /* White text color */
+  font-size: 14px; /* Adjust size */
+  
+}
+
+
+
+
+
+.footer-login {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    margin-top: 10px;
+   
+}
+
+.footer-login button {
+    padding: 10px 20px;
+    /* Adjusted padding for smaller button */
+    font-size: 16px;
+    /* Smaller font size for the button */
+    font-weight: bold;
+    /* Bold text inside button */
+    color: #ffffff;
+    /* White text color */
+    background-color: rgba(217, 217, 217, 0.1);
+    /* Background color for button */
+    border: 2px solid #000000;
+    /* Border for the button */
+    border-radius: 100px;
+    /* Rounded button */
+    width: auto;
+    /* Reduced length for the button */
+    text-align: center;
+    /* Center the text inside the button */
+    cursor: pointer;
+    margin-bottom: 10px;
+    /* Pointer cursor on hover */
+}
+
+.footer-login button:hover {
+    background-color: rgba(217, 217, 217, 0.3);
+    /* Slightly darker background on hover */
+}

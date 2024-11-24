@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #45a049;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    z-index: -1;
 }
 
 body::before {
@@ -22,39 +23,38 @@ body::before {
 h2 {
     margin-bottom: 1px;
     font-size: 28px;
-    color: #45a049;
+    color: #e9b825;
 }
 
 p {
     font-style: italic;
-}
-
-h3 {
-    color: #caa32f;
+    color: #fff;
 }
 
 form {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 500px;
+    z-index: 1;
 }
 
-input[type="submit"] {
+button {
     width: 100%;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #e9b825;
+    color: #fff;
     padding: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: bolder;
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
+button:hover {
+    background-color: #cfa31e;
 }
 
 label {

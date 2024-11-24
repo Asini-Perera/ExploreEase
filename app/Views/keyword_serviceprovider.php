@@ -14,7 +14,6 @@
     <p>select keywords according to your preferences</p>
 
     <form action="keywords.php">
-        <h3>For Service Providers</h3>
         <label for="accommodation">1.What type of accommodation do you serve?</label><br>
         <input type="checkbox" id="hotel2" name="accommodation" value="Hotel" title="Hotel"> Hotel<br>
         <input type="checkbox" id="cabana2" name="accommodation" value="Cabana" title="Cabana"> Cabana<br>
@@ -39,7 +38,9 @@
         <input type="checkbox" id="traditional-clothing2" name="cultural_items_shops" value="Traditional Clothing Stores" title="Traditional Clothing Stores"> Traditional Clothing Stores<br>
         <input type="checkbox" id="antique-shops2" name="cultural_items_shops" value="Antique Shops" title="Antique Shops"> Antique Shops<br><br>
 
-        <input type="submit" value="Submit">
+
+        <button type="submit" formaction="">Save</button>
+
 
     </form>
 </body>
