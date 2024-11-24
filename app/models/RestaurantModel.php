@@ -1,0 +1,12 @@
+<?php
+
+namespace app\models;
+
+class ReataurantModel
+{
+    private $conn;
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+}
