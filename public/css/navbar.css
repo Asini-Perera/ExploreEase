@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.4);
     /* Navbar background */
     color: white;
     padding: 5px 20px;
@@ -50,7 +50,7 @@
 }
 
 .menu-item a {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 16px;
     padding: 10px 15px;
@@ -68,11 +68,13 @@
 }
 
 /* Hover Effect */
-/*.menu-item.home a:hover {
+.menu-item a:hover {
     background-color: rgba(255, 255, 255, 0.2);
-}*/
-
-
+}
+.menu-item.logo a:hover,
+.menu-item.user a:hover {
+    background-color: transparent;
+}
 
 /* Responsive Design */
 @media screen and (max-width: 600px) {
