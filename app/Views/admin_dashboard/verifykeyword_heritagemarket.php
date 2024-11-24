@@ -35,6 +35,19 @@
                     <button class="reject-btn">Reject</button>
                 </div>
             </div>
+            <div class="category-keywords">
+                <h3>Category: Traditional Clothing</h3>
+                <div class="keyword-actions">
+                    <p>Handloom Sarees</p>
+                    <button class="verify-btn">Verify</button>
+                    <button class="reject-btn">Reject</button>
+                </div>
+                <div class="keyword-actions">
+                    <p>Embroidered Kurtas</p>
+                    <button class="verify-btn">Verify</button>
+                    <button class="reject-btn">Reject</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="verification-item">
