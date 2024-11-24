@@ -30,7 +30,7 @@
                 unset($_SESSION['success']); // Clear the success message
             }
 
-            // Check if the AdminID is stored in cookies
+            // Check if Email is stored in cookies
             $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
             ?>
 
