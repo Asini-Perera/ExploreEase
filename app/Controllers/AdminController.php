@@ -30,7 +30,7 @@ class AdminController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Use the AdminModel to get the admin data by AdminID
+            // Use the AdminModel to get the admin data by Email
             $adminModel = new AdminModel($this->conn);
             $admin = $adminModel->getAdminByEmail($email);
 
