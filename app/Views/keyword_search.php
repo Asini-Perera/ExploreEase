@@ -4,32 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Section</title>
-    <link rel="stylesheet" href="../public/css/navbar.css?v=1">
-    <link rel="stylesheet" href="../public/css/footer.css?v=1">
+    
+   
     <link rel="stylesheet" href="../public/css/searchbykeyword.css?v=1">
 </head>
 <body>
-    <header>
-        <nav class="nav-container" aria-label="Main Navigation">
-            <ul class="menu-items">
-                <!-- Logo as a list item -->
-                <li class="menu-item logo">
-                    <a href="#home">
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b864e43f0e40c7710ad7e60a0cb8ca31709d797ffc7d234befdf0016bb5d211e?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Logo" class="logo-background">
-                    </a>
-                </li>
-                <li class="menu-item home"><a href="#home">Home</a></li>
-                <li class="menu-item about-us"><a href="#about">About Us</a></li>
-                <li class="menu-item contact-us"><a href="#contact">Contact Us</a></li>
-                <li class="menu-item services"><a href="#services">Services</a></li>
-                <li class="menu-item user">
-                    <a href="#user">
-                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6e57bb49f95aa90ea03c94c662f8934a585a46bc433e82d0060c589915ab3de?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Social Media Icon" class="social-icon" />
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <?php require_once __DIR__ . '/Navbar.php'; ?>
      <main>
         <section class="search-by-keywords" aria-label="Explore Sri Lanka">
             <div class="content-wrapper">
@@ -94,52 +74,6 @@
             </div>
         </section>
     </main>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h2>EXPLOREEASE</h2>
-                <p>ExploreEase - Discover Sri Lanka's rich cultural and natural wonders with personalized travel experiences. Empowering journeys with innovation and inclusivity.</p>
-                <div class="footer-line"></div>
-                <div class="social-icons">
-                    <a href="#" aria-label="WhatsApp">
-                   <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7510df809a49db08e78e3f30e23f8a388fb9311a3ac9d2881704c4bc55195c3?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="social-icon">
-                    </a>
-                    <a href="#" aria-label="Instagram">
-                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/95dde310184cb1c8dc68a34effe61e6b5b9b0a716afe154cce2ae3428ca459ad?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="social-icon">
-                    </a>
-                    <a href="#" aria-label="Facebook">
-                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/905d49602e5d707c38dc48933db44cd90b9de27184a738ef5da864cd7d7501c9?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="social-icon">
-                    </a>
-                </div>
-
-            </div>
-            
-            <div class="footer-section">
-                <h2>Contact Us</h2>
-                <ul>
-                    <li>
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee67620b24b43c9846562ce33aad9e31cc2572d18deb06ade4faf9243787b730?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Phone" width="30" height="30">
-                        <span>+94 XXXX XXX</span>
-                    </li>
-                    <li>
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/739813035819fd1b301dce02ba6fbd55efc8c72cd7212000be1123d81c44e955?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Email" width="30" height="30">
-                        <span>ExploreEaseContact@gmail.com</span>
-                    </li>
-                    <li>
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/541f6aac4c422e172c811a09594b7929f42e471a828ae3594e47976a6001ca61?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Address" width="30" height="30">
-                        <span>UCSC Building Complex, 35 Reid Ave, Colombo 00700</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h2>Join Us Today</h2>
-                <button type="button" class="sign-up">Sign Up &gt;</button>
-                <div class="footer-login">
-                <h4>Signed up already?</h4>
-                <button type="button" class="login-button">Login</button>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php require_once __DIR__ . '/Footer.php'; ?>
 </body>
 </html>
