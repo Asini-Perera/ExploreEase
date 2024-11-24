@@ -14,10 +14,10 @@
             <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
-                    John Doe
+                    Nuwan Samarasinghe
                 </td>
-                <td>john.doe@example.com</td>
-                <td>+123 456 7890</td>
+                <td>nuwan.samarasinghe@example.com</td>
+                <td>+94 77 345 6789</td>
                 <td class="action-buttons">
                     <button class="verify-btn">Verify</button>
                     <button class="reject-btn">Reject</button>
@@ -26,10 +26,10 @@
             <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
-                    Jane Smith
+                    Amaya Wickramaratne
                 </td>
-                <td>jane.smith@example.com</td>
-                <td>+987 654 3210</td>
+                <td>amaya.wickramaratne@example.com</td>
+                <td>+94 76 876 5432</td>
                 <td class="action-buttons">
                     <button class="verify-btn">Verify</button>
                     <button class="reject-btn">Reject</button>
@@ -38,10 +38,10 @@
             <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
-                    Alice Johnson
+                    Dilan Fernando
                 </td>
-                <td>alice.johnson@example.com</td>
-                <td>+456 789 1230</td>
+                <td>dilan.fernando@example.com</td>
+                <td>+94 71 123 4567</td>
                 <td class="action-buttons">
                     <button class="verify-btn">Verify</button>
                     <button class="reject-btn">Reject</button>

@@ -6,7 +6,7 @@
         </h2>
     </div>
     <div class="admin-profile">
-        <span class="admin-name">Admin Name</span>
+        <span class="admin-name">Kasun Silva</span>
         <img src="../public/images/user.jpg" alt="Admin Image" class="profile-image">
     </div>
 </div>
