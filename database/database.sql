@@ -377,3 +377,44 @@ DELIMITER ;
 
 -- Enable the event scheduler
 SET GLOBAL event_scheduler = ON;
+
+-- Insert into the Category table
+INSERT INTO Category (CategoryName) VALUES
+    ('Location'),
+    ('Customer Experience'),
+    ('Accesibility'),
+    ('Price Range'),
+    ('Features & Highlights');
+
+-- Insert into the Keyword table
+INSERT INTO Keyword (KName, CategoryID) VALUES
+    ('Beachside', 1),
+    ('City Center', 1),
+    ('Mountain View', 1),
+    ('Rural Area', 1),
+    ('Near Public Transport', 1),
+    ('Family-Friendly', 2),
+    ('Pet-Friendly', 2),
+    ('Eco-Friendly', 2),
+    ('Kid-Friendly', 2),
+    ('Romantic', 2),
+    ('Budget-Friendly', 2),
+    ('Luxury Experience', 2),
+    ('Wheelchair Accessible', 3),
+    ('Sinhala Language Support', 3),
+    ('Tamil Language Support', 3),
+    ('English Language Support', 3),
+    ('Parking Available', 3),
+    ('Walking Distance from Landmarks', 3),
+    ('Easy Access from Major Cities', 3),
+    ('Hiking Trails Nearby', 3),
+    ('Free WiFi', 3),
+    ('Budget', 4),
+    ('Mid-Range', 4),
+    ('Luxury', 4),
+    ('Wildlife Experience', 5),
+    ('Historical Sites', 5),
+    ('Cultural Experience', 5),
+    ('Adventure Activities', 5);
+    
+    
