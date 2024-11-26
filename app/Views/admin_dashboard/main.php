@@ -20,9 +20,15 @@
         <!-- Main Content -->
         <div class="main-content">
             <?php
-            if ($mainContent === 'verify') {
-                require_once  __DIR__ . "/verify_nav.php";
+            if ($mainContent === 'verifyuser') {
+                require_once  __DIR__ . "/verifyuser_nav.php";
                 require_once  __DIR__ . "/$mainContent" . "_" . "$verifyUser.php";
+            } elseif ($mainContent === 'keyword') {
+                require_once  __DIR__ . "/keyword_nav.php";
+                require_once  __DIR__ . "/$mainContent" . "_" . "$keywordAction.php";
+            } elseif($mainContent === 'verifykeyword') {
+                require_once __DIR__ . "/verifykeyword_nav.php";
+                require_once __DIR__ . "/$mainContent" . "_" . "$verifyKeyword.php";
             } else {
                 require_once  __DIR__ . "/$mainContent.php";
             }
