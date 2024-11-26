@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
 // Include PHPMailer classes
 require_once __DIR__ . '/../../libs/PHPMailer/src/PHPMailer.php';
@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../libs/PHPMailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-use app\models\ForgotPasswordModel;
+use app\Models\ForgotPasswordModel;
 
 class ForgotPasswordController
 {

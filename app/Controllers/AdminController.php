@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
-use app\models\AdminModel;
+use app\Models\AdminModel;
 
 class AdminController
 {
