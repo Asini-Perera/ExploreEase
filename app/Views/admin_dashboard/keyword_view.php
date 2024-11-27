@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../public/css/admin_dashboard/keyword_view.css">
 
 <div class="keyword-content">
-    <div class="category">
+    <div class="categorytile">
         <h2>Travel</h2>
         <div class="keywords">
             <p>Adventure</p>
@@ -11,7 +11,7 @@
             <p>Travel Tips</p>
         </div>
     </div>
-    <div class="category">
+    <div class="categorytile">
         <h2>Accommodation</h2>
         <div class="keywords">
             <p>Hotels</p>
@@ -21,7 +21,7 @@
             <p>Luxury Stays</p>
         </div>
     </div>
-    <div class="category">
+    <div class="categorytile">
         <h2>Transportation</h2>
         <div class="keywords">
             <p>Flights</p>
@@ -31,7 +31,7 @@
             <p>Bike Rentals</p>
         </div>
     </div>
-    <div class="category">
+    <div class="categorytile">
         <h2>Food & Drink</h2>
         <div class="keywords">
             <p>Local Cuisine</p>
@@ -41,7 +41,7 @@
             <p>Cafes</p>
         </div>
     </div>
-    <div class="category">
+    <div class="categorytile">
         <h2>Activities</h2>
         <div class="keywords">
             <p>Hiking</p>

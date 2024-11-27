@@ -1,5 +1,6 @@
 <?php
 $router->add('login', 'LoginController@index');  // Login page
+$router->add('login/process', 'LoginController@login');  // Login process
 $router->add('signup', 'SignupController@index');  // Signup page
 
 $router->add('', 'HomeController@index');  // Home route for users
@@ -22,3 +23,8 @@ $router->add('update', 'ForgotPasswordController@update');  // Update new passwo
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
 $router->add('restaurant/logout','RestaurantController@logout');// Restaurant logout
 
+$router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
+
+$router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
+
+$router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard

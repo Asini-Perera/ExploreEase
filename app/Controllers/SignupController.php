@@ -11,9 +11,9 @@ class SignupController
         $user = in_array($user, $allowedUsers) ? $user : null;
 
         if ($user) {
-            require_once __DIR__ . '/../views/signup_' . $user . '.php';
+            require_once __DIR__ . '/../Views/signup/signup_' . $user . '.php';
         } else {
-            require_once __DIR__ . '/../views/signup.php';
+            require_once __DIR__ . '/../Views/signup/signup.php';
         }
     }
 }

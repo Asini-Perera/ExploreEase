@@ -23,7 +23,7 @@ body {
 /* Sidebar styling */
 .sidebar {
     position: fixed;
-    top: 80px; /* Align with the header's height */
+    top: 80px;
     left: 0;
     bottom: 0;
     z-index: 1000;
@@ -101,28 +101,28 @@ body {
     font-size: 20px;
 }
 
-.topic .exploreease {
+.topic .first {
     color: #225522;
 }
 
-.topic .admin {
+.topic .second {
     color: #F1C232;
 }
 
-/* Admin profile in the header */
-.admin-profile {
+/* User profile in the header */
+.user-profile {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.admin-profile .admin-name {
+.user-profile .user-name {
     font-size: 16px;
     font-weight: bold;
     color: #000;
 }
 
-.admin-profile .profile-image {
+.user-profile .user-image {
     width: 40px;
     height: 40px;
     border-radius: 50%;
