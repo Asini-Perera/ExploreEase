@@ -17,29 +17,46 @@
     <div class="side right">
         <div class="content">
             <p class="title">ExploreEase</p>
-            <label for="name" class="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter the username" name="name" required>
 
-            <label for="psswd" class="username">Password:</label>
-            <input type="password" id="password" placeholder="Enter the password" name="psswd" required>
+            <?php
+            // Display error message if login fails
+            if (isset($_SESSION['error'])) {
+                echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']); // Clear the error message
+            }
 
+            // Display success message if password reset successful
+            if (isset($_SESSION['success'])) {
+                echo '<div class="success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']); // Clear the success message
+            }
 
-            <div class="forgot">
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-                <a href="">Forgot Password?</a>
-            </div>
+            // Check if Email is stored in cookies
+            $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
+            ?>
 
-            <button class="login">Log in</button>
+            <form action="login/process" method="POST">
+                <label for="name" class="username">Email:</label>
+                <input type="text" id="email" placeholder="Enter the email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
 
+                <label for="psswd" class="username">Password:</label>
+                <input type="password" id="password" placeholder="Enter the password" name="psswd" required>
+
+                <div class="forgot">
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember" <?php if ($email) echo 'checked'; ?>> Remember me
+                    </label>
+                    <a href="">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login">Log in</button>
+            </form>
             <hr color="white" width="100%">
 
             <div class="signup">
                 <p>Don't have an account?</p>
                 <a href="signup">Sign up</a>
             </div>
-
         </div>
     </div>
     </div>

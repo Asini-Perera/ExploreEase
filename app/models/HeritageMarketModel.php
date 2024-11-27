@@ -2,7 +2,7 @@
 
 namespace app\Models;
 
-class ReataurantModel
+class HeritageMarketModel
 {
     private $conn;
     public function __construct($conn)

@@ -2,7 +2,7 @@
 
 namespace app\Models;
 
-class ReataurantModel
+class HotelModel
 {
     private $conn;
     public function __construct($conn)

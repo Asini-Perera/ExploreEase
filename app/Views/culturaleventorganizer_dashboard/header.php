@@ -2,7 +2,7 @@
     <div class="topic">
         <img src="../public/images/logo.jpeg" alt="ExploreEase Logo" class="logo">
         <h2>
-            <span class="first">ExploreEase</span><span class="second">Restaurant</span>
+            <span class="first">ExploreEase</span><span class="second">CulturalEventOrganizer</span>
         </h2>
     </div>
     <div class="user-profile">

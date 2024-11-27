@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
-use app\models\AdminModel;
+use app\Models\AdminModel;
 
 class AdminController
 {
@@ -21,7 +21,7 @@ class AdminController
     public function index()
     {
         // Logic for admin login page
-        require_once __DIR__ . '/../views/admin_login.php'; 
+        require_once __DIR__ . '/../Views/admin_login.php'; 
     }
 
     public function login()
@@ -72,7 +72,7 @@ class AdminController
     public function create()
     {
         // Logic for admin signup page
-        require_once __DIR__ . '/../views/admin_signup.php';
+        require_once __DIR__ . '/../Views/admin_signup.php';
     }
 
     public function signup()
@@ -114,7 +114,7 @@ class AdminController
     {
         // Logic for admin waiting page
         if (isset($_SESSION['AdminID'])) {
-            require_once __DIR__ . '/../views/admin_waiting.php';
+            require_once __DIR__ . '/../Views/admin_waiting.php';
         } else {
             header('Location: admin');
             exit();
@@ -125,7 +125,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'editprofile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'editprofile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
@@ -153,7 +153,7 @@ class AdminController
             }
 
             // Load the main dashboard layout
-            require_once __DIR__ . '/../views/admin_dashboard/main.php';
+            require_once __DIR__ . '/../Views/admin_dashboard/main.php';
         } else {
             header('Location: admin');
             exit();
