@@ -23,3 +23,8 @@ $router->add('update', 'ForgotPasswordController@update');  // Update new passwo
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
 $router->add('restaurant/logout','RestaurantController@logout');// Restaurant logout
 
+$router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
+
+$router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
+
+$router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
