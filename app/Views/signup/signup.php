@@ -16,7 +16,7 @@
         <div class="container">
             <h2 class="title">Are you a traveler?</h2>
             <p class="content">Join us and explore the world with us.</p>
-            <button onclick="window.location.href='signup/traveler'">Sign up</button>
+            <button onclick="window.location.href='signup?user=traveler'">Sign up</button>
         </div>
         <img src="public/images/traveler.svg" alt="traveler img">
 

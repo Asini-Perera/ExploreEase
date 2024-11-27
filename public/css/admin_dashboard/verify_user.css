@@ -7,7 +7,7 @@ table {
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -15,11 +15,11 @@ th,
 td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 th {
-    background-color: #f9f9f9;
+    background-color: #d9d9d9;
 }
 
 .profile-img {
@@ -36,19 +36,27 @@ th {
 }
 
 .action-buttons button {
-    padding: 5px 10px;
+    width: 60px;
+    padding: 8px 10px;
     margin: 0 5px;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 .verify-btn {
-    background-color: #006600;
-    color: white;
+    background-color: #6fa857;
+}
+
+.verify-btn:hover {
+    background-color: #225522;
 }
 
 .reject-btn {
-    background-color: #d8000c;
-    color: white;
+    background-color: #d9534f; /* A pleasant medium red */
+}
+
+.reject-btn:hover {
+    background-color: #c9302c; /* A slightly darker red for the hover effect */
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
-use app\models\AdminModel;
+use app\Models\AdminModel;
 
 class AdminController
 {
@@ -21,7 +21,7 @@ class AdminController
     public function index()
     {
         // Logic for admin login page
-        require_once __DIR__ . '/../views/admin_login.php'; 
+        require_once __DIR__ . '/../Views/admin_login.php'; 
     }
 
     public function login()
@@ -30,7 +30,7 @@ class AdminController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Use the AdminModel to get the admin data by AdminID
+            // Use the AdminModel to get the admin data by Email
             $adminModel = new AdminModel($this->conn);
             $admin = $adminModel->getAdminByEmail($email);
 
@@ -72,7 +72,7 @@ class AdminController
     public function create()
     {
         // Logic for admin signup page
-        require_once __DIR__ . '/../views/admin_signup.php';
+        require_once __DIR__ . '/../Views/admin_signup.php';
     }
 
     public function signup()
@@ -114,7 +114,7 @@ class AdminController
     {
         // Logic for admin waiting page
         if (isset($_SESSION['AdminID'])) {
-            require_once __DIR__ . '/../views/admin_waiting.php';
+            require_once __DIR__ . '/../Views/admin_waiting.php';
         } else {
             header('Location: admin');
             exit();
@@ -125,18 +125,35 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verify', 'admin', 'traveler', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'editprofile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
-            if ($mainContent == 'verify') {
+            if ($mainContent == 'verifyuser') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
+                if ($verifyUser === '404') {
+                    $mainContent = '404';
+                }
+            } elseif ($mainContent == 'keyword') {
+                $action = isset($_GET['action']) ? $_GET['action'] : 'view';
+                $allowedActions = ['add', 'view', 'delete'];
+                $keywordAction = in_array($action, $allowedActions) ? $action : '404';
+                if ($keywordAction === '404') {
+                    $mainContent = '404';
+                }
+            } elseif ($mainContent == 'verifykeyword') {
+                $user = isset($_GET['user']) ? $_GET['user'] : 'restaurant';
+                $allowedUsers = ['restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $verifyKeyword = in_array($user, $allowedUsers) ? $user : '404';
+                if ($verifyKeyword === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout
-            require_once __DIR__ . '/../views/admin_dashboard/main.php';
+            require_once __DIR__ . '/../Views/admin_dashboard/main.php';
         } else {
             header('Location: admin');
             exit();

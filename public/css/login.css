@@ -66,7 +66,7 @@ img {
     text-align: left;
 }
 
-#username,
+#email,
 #password {
     position: 0;
     width: 90%;
@@ -120,6 +120,26 @@ button {
     font-weight: bolder;
     text-align: center;
     color: #F1C232;
+}
+
+/* Error message styling */
+.error {
+    background-color: #ffcccc;
+    color: #d8000c;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Success message styling */
+.success {
+    background-color: #ccffcc;
+    color: #006600;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 960px) {
