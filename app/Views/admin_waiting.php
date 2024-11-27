@@ -27,7 +27,7 @@ $userName = $_SESSION['Name'];
             <p>This process can take up to <strong>2-3 business days</strong>. Please be patient, and you'll receive an
                 email notification once your account is verified.</p>
             <p>If you have any urgent concerns, feel free to contact us at <a
-                    href="mailto:support@yourwebsite.com">support@yourwebsite.com</a>.</p>
+                    href="mailto:exploreease10@gmail.com">exploreease10@gmail.com</a>.</p>
 
             <!-- Logout Button -->
             <form action="../admin/logout" method="POST">

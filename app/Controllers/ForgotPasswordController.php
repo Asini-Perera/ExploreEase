@@ -28,7 +28,7 @@ class ForgotPasswordController
     public function index()
     {
         // Logic for admin forgot password
-        require_once __DIR__ . '/../views/forgot_password.php';
+        require_once __DIR__ . '/../Views/forgot_password.php';
     }
 
     public function request()
@@ -105,7 +105,7 @@ class ForgotPasswordController
     public function reset()
     {
         // Logic for reset password page
-        require_once __DIR__ . '/../views/reset_password.php';
+        require_once __DIR__ . '/../Views/reset_password.php';
     }
 
     public function update()
