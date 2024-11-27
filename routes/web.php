@@ -1,5 +1,6 @@
 <?php
 $router->add('login', 'LoginController@index');  // Login page
+$router->add('login/process', 'LoginController@login');  // Login process
 $router->add('signup', 'SignupController@index');  // Signup page
 
 $router->add('', 'HomeController@index');  // Home route for users
