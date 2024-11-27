@@ -7,6 +7,5 @@
     </div>
     <div class="user-profile">
         <span class="user-name">Kasun Silva</span>
-        <img src="../public/images/user.jpg" alt="Admin Image" class="user-image">
     </div>
 </div>
