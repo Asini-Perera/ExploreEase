@@ -125,7 +125,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'editprofile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
