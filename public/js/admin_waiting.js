@@ -1,12 +1,12 @@
 const images = [
-    '../public/images/a.avif',
-    '../public/images/b.jpg',
-    '../public/images/c.jpg',
-    '../public/images/e.avif',
-    '../public/images/f.avif',
-    '../public/images/g.jpeg',
-    '../public/images/i.jpg',
-    '../public/images/k.webp'
+    '../public/images/background_slideshow/a.avif',
+    '../public/images/background_slideshow/b.jpg',
+    '../public/images/background_slideshow/c.jpg',
+    '../public/images/background_slideshow/e.avif',
+    '../public/images/background_slideshow/f.avif',
+    '../public/images/background_slideshow/g.jpeg',
+    '../public/images/background_slideshow/i.jpg',
+    '../public/images/background_slideshow/k.webp'
 ];
 
 let index = 0;

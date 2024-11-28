@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Login</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="public/css/login.css">
 </head>
 
 <body>
-    <div class="side left">
-        <a href="../ExploreEase"><img src="public/images/logo.jpeg" alt="logo"></a>
-    </div>
-
-    <div class="side right">
-        <div class="content">
-            <p class="title">ExploreEase</p>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="public/images/logoexplore.png" alt="ExploreEase Logo">
+            </div>
+            <h2>Login</h2>
 
             <?php
             // Display error message if login fails
@@ -36,30 +35,27 @@
             ?>
 
             <form action="login/process" method="POST">
-                <label for="name" class="username">Email:</label>
-                <input type="text" id="email" placeholder="Enter the email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-
-                <label for="psswd" class="username">Password:</label>
-                <input type="password" id="password" placeholder="Enter the password" name="psswd" required>
-
-                <div class="forgot">
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember" <?php if ($email) echo 'checked'; ?>> Remember me
-                    </label>
-                    <a href="">Forgot Password?</a>
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
                 </div>
-
-                <button type="submit" class="login">Log in</button>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="remember-group">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember" <?php if ($email) echo 'checked'; ?>>
+                        Remember Me
+                    </label>
+                    <a href="forgot?user=admin" class="forgot-password">Forget Password?</a>
+                </div>
+                <button type="submit">Log In</button>
             </form>
-            <hr color="white" width="100%">
-
-            <div class="signup">
-                <p>Don't have an account?</p>
-                <a href="signup">Sign up</a>
-            </div>
+            <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
-    </div>
+    <script src="public/js/login.js"></script>
 </body>
 
 </html>
