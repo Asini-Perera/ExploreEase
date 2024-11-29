@@ -25,37 +25,38 @@
 
             <form action="../admin/signup" method="post" enctype="multipart/form-data">
                 <div class="input-group">
-                    <label for="firstname">First Name:</label>
+                    <label for="firstname">First Name *</label>
                     <input type="text" id="firstname" name="firstname" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="lastname">Last Name:</label>
+                    <label for="lastname">Last Name *</label>
                     <input type="text" id="lastname" name="lastname" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email:</label>
+                    <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Password *</label>
                     <input type="password" id="password" name="password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="confirm_password">Confirm Password:</label>
+                    <label for="confirm_password">Confirm Password *</label>
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number:</label>
+                    <label for="contactNo">Contact Number</label>
                     <input type="tel" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="profile_image">Profile Image:</label>
+                    <label for="profile_image">Profile Image</label>
                     <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
                 </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
     </div>
+    <script src="../public/js/signup_validation.js"></script>
     <script src="../public/js/background_slideshow2.js"></script>
 </body>
 

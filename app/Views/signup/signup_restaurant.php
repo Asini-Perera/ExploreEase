@@ -61,7 +61,7 @@
                     <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
                 </div>
 
-                <button type="submit" formaction="../keyword/serviceprovider">Next</button>
+                <button type="submit" formaction="keyword">Next</button>
             </form>
         </div>
     </div>

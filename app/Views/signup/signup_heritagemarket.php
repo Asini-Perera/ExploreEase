@@ -49,7 +49,7 @@
                     <input type="url" id="smlink" name="smlink" value=""><br><br>
                 </div>
 
-                <button type="submit" formaction="../keyword/serviceprovider">Next</button>
+                <button type="submit" formaction="keyword">Next</button>
             </form>
         </div>
     </div>

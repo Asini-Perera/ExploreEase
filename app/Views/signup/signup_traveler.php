@@ -23,25 +23,25 @@
             }
             ?>
 
-            <form action="/traveler/signup" method="post">
+            <form action="signup/traveler" method="post">
                 <div class="input-group">
-                    <label for="firstname">First Name:</label>
+                    <label for="firstname">First Name *</label>
                     <input type="text" id="firstname" name="firstname" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="lastname">Last Name:</label>
+                    <label for="lastname">Last Name *</label>
                     <input type="text" id="lastname" name="lastname" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email:</label>
+                    <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Password *</label>
                     <input type="password" id="password" name="password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="confirm_password">Confirm Password:</label>
+                    <label for="confirm_password">Confirm Password *</label>
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
@@ -58,20 +58,17 @@
                     <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location"><br><br>
-                </div>
-                <div class="input-group">
-                    <label for="smlink">Social Media Link:</label>
-                    <input type="url" id="smlink" name="smlink"><br><br>
+                    <label for="profile_image">Profile Image</label>
+                    <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
                 </div>
 
-                <button type="submit" formaction="../keyword/traveler">Next</button>
+                <button type="submit" formaction="keyword">Next</button>
             </form>
         </div>
     </div>
 
     <script src="public/js/background_slideshow1.js"></script>
+    <script src="public/js/signup_validation.js"></script>
 </body>
 
 </html>

@@ -16,4 +16,9 @@ class SignupController
             require_once __DIR__ . '/../Views/signup/signup.php';
         }
     }
+
+    public function traveler()
+    {
+        
+    }
 }

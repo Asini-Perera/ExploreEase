@@ -25,11 +25,11 @@
 
             <form action="cultural_event_organizer.php" method="post">
                 <div class="input-group">
-                    <label for="name">Name:</label>
+                    <label for="name">Name *</label>
                     <input type="text" id="name" name="name" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="location">Location:</label>
+                    <label for="location">Location</label>
                     <input type="text" id="location" name="location" required><br><br>
                 </div>
                 <div class="input-group">
@@ -61,7 +61,7 @@
                     <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
                 </div>
 
-                <button type="submit" formaction="../keyword/serviceprovider">Next</button>
+                <button type="submit" formaction="../keyword">Next</button>
             </form>
         </div>
     </div>

@@ -1,7 +1,9 @@
 <?php
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('login/process', 'LoginController@login');  // Login process
+
 $router->add('signup', 'SignupController@index');  // Signup page
+$router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process
 
 $router->add('', 'HomeController@index');  // Home route for users
 $router->add('keyword', 'HomeController@keyword');  // Keyword page for users
