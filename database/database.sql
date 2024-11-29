@@ -417,4 +417,5 @@ INSERT INTO Keyword (KName, CategoryID) VALUES
     ('Cultural Experience', 5),
     ('Adventure Activities', 5);
     
-    
+-- Add ImgPath column to Traveler table
+ALTER TABLE Traveler ADD ImgPath VARCHAR(255);

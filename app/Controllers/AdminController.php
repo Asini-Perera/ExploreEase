@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Models\AdminModel;
+use app\Models\SignupModel;
 
 class AdminController
 {
@@ -14,8 +15,9 @@ class AdminController
         global $conn;
         $this->conn = $conn;
 
-        // Include the AdminModel
+        // Include the AdminModel and SignupModel
         require_once __DIR__ . '/../models/AdminModel.php';
+        require_once __DIR__ . '/../models/SignupModel.php';
     }
 
     public function index()
@@ -82,8 +84,26 @@ class AdminController
             $lastName = $_POST['lastname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
             $contactNo = $_POST['contactNo'];
             $profileImage = $_FILES['profile_image'];
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../admin/create');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../admin/create');
+                exit();
+            }
 
             $adminModel = new AdminModel($this->conn);
             $AdminID = $adminModel->createAdmin($firstName, $lastName, $email, $password, $contactNo);
@@ -125,7 +145,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'editprofile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
