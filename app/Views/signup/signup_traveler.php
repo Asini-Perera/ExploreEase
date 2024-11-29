@@ -45,16 +45,16 @@
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="gender">Gender:</label>
+                    <label for="gender">Gender</label>
                     <input type="radio" id="m</div>ale" name="gender" value="male"> Male
                     <input type="radio" id="female" name="gender" value="female"> Female<br><br>
                 </div>
                 <div class="input-group">
-                    <label for="dob">Date of Birth:</label>
+                    <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" name="dob"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number:</label>
+                    <label for="contactNo">Contact Number</label>
                     <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
@@ -62,7 +62,7 @@
                     <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
                 </div>
 
-                <button type="submit" formaction="keyword">Next</button>
+                <button type="submit">Next</button>
             </form>
         </div>
     </div>
