@@ -9,4 +9,12 @@ class HomeController
         require_once __DIR__ . '/../Views/home.php';
     }
 
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: ../ExploreEase');
+        exit();
+    }
 }

@@ -29,7 +29,7 @@ class LoginController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Use the AdminModel to get the admin data by Email
+            // Use the LoginModel to get the user by email
             $userModel = new LoginModel($this->conn);
             $user = $userModel->getUserByEmail($email);
 
@@ -48,8 +48,24 @@ class LoginController
                     setcookie('Email', "", time() - 1, "/");
                 }
 
-                // Redirect to admin dashboard
-                header('Location: ../hotel/dashboard');
+                // Redirect to pages based on user type
+                switch ($user['Type']) {
+                    case 'traveler':
+                        header('Location: ../ExploreEase');
+                        break;
+                    case 'hotel':
+                        header('Location: ../hotel/dashboard');
+                        break;
+                    case 'restaurant':
+                        header('Location: ../restaurant/dashboard');
+                        break;
+                    case 'heritagemarket':
+                        header('Location: ../heritagemarket/dashboard');
+                        break;
+                    case 'culturaleventorganizer':
+                        header('Location: ../culturaleventorganizer/dashboard');
+                        break;
+                }
 
                 exit();
             } else {

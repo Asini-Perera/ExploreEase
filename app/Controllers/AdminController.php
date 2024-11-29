@@ -182,7 +182,6 @@ class AdminController
 
     public function logout()
     {
-        // Logic for admin logout
         session_start();
         session_unset();
         session_destroy();

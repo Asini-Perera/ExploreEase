@@ -24,7 +24,7 @@
             <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>">Reviews</a>
         </li>
         <li>
-            <a href="">Logout</a>
+            <a href="../logout">Logout</a>
         </li>
     </ul>
 </div>

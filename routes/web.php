@@ -6,8 +6,12 @@ $router->add('login/process', 'LoginController@login');  // Login process
 $router->add('signup', 'SignupController@index');  // Signup page
 $router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process
 $router->add('signup/restaurant', 'SignupController@restaurant');  // Restaurant signup process
+$router->add('signup/hotel', 'SignupController@hotel');  // Hotel signup process
+$router->add('signup/heritagemarket', 'SignupController@heritagemarket');  // Heritage Market signup process
+$router->add('signup/culturaleventorganizer', 'SignupController@culturaleventorganizer');  // Cultural Event Organizer signup process
 
 $router->add('', 'HomeController@index');  // Home route for users
+$router->add('logout', 'HomeController@logout');  // Logout route for users
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -27,7 +31,6 @@ $router->add('reset', 'ForgotPasswordController@reset');  // Reset password page
 $router->add('update', 'ForgotPasswordController@update');  // Update new password
 
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
-$router->add('restaurant/logout','RestaurantController@logout');// Restaurant logout
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 
