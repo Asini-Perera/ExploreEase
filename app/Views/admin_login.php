@@ -55,7 +55,7 @@
             <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
-    <script src="public/js/login.js"></script>
+    <script src="public/js/background_slideshow1.js"></script>
 </body>
 
 </html>

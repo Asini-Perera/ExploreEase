@@ -10,6 +10,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-attachment: fixed;
     transition: background-image 2s ease-in-out;
     font-family: Arial, sans-serif;
     margin: 0;

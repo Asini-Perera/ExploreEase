@@ -56,8 +56,7 @@
             </form>
         </div>
     </div>
-
-    <script src="../public/js/admin_waiting.js"></script>
+    <script src="../public/js/background_slideshow2.js"></script>
 </body>
 
 </html>

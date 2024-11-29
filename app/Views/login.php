@@ -52,10 +52,10 @@
                 </div>
                 <button type="submit">Log In</button>
             </form>
-            <p>Don't have an account? <a href="admin/create">Create Account</a></p>
+            <p>Don't have an account? <a href="signup">Create Account</a></p>
         </div>
     </div>
-    <script src="public/js/login.js"></script>
+    <script src="public/js/background_slideshow1.js"></script>
 </body>
 
 </html>
