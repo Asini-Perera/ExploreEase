@@ -4,42 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
+    <title>Hotel Signup</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/css/signupform.css">
+    <link rel="stylesheet" href="public/css/signup_form.css">
 </head>
 
 <body>
-    <h2>Signup Form</h2>
-    <p>provide your details correctly to create an account</p>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Hotel Signup</h2>
+            <p>provide your details correctly to create an account</p>
 
-    <form action="hotel_signupform.php" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+            <?php
+            // Display error message if failed to sign up
+            if (isset($_SESSION['error'])) {
+                echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']); // Clear the error message
+            }
+            ?>
 
-        <label for="location">Location:</label><br>
-        <input type="text" id="location" name="location" required><br><br>
+            <form action="signup/hotel" method="post">
+                <div class="input-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="address">Address *</label>
+                    <input type="text" id="address" name="address" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password *</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="contactNo">Contact Number</label>
+                    <input type="text" id="contactNo" name="contactNo"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="website">Hotel Website</label>
+                    <input type="url" id="website" name="website"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="smlink">Social Media Links</label>
+                    <input type="url" id="smlink" name="smlink"><br><br>
+                </div>
 
-        <label for="contactNo">Contact Number:</label><br>
-        <input type="text" id="contactNo" name="contactNo"><br><br>
+                <button type="submit">Next</button>
+            </form>
+        </div>
+    </div>
 
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="website">Website:</label><br>
-        <input type="url" id="website" name="website" value=""><br><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="confirm_password">Confirm Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-
-        <label for="smlink">Social Media Link:</label><br>
-        <input type="url" id="smlink" name="smlink" value=""><br><br>
-
-        <button type="submit" formaction="../keyword/serviceprovider">Next</button>
-    </form>
+    <script src="public/js/background_slideshow1.js"></script>
+    <script src="public/js/signup_validation.js"></script>
 </body>
 
 </html>

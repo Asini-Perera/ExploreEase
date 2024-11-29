@@ -12,14 +12,17 @@ class LoginModel
 
     public function getUserByEmail($email)
     {
-        $tables = ['traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer'];
-        foreach ($tables as $table) {
+        $userTables = ['traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer'];
+        foreach ($userTables as $table) {
             $sql = "SELECT * FROM $table WHERE Email = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$email]);
-            $result = $stmt->fetch();
-            if ($result) {
-                return $result;
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user = $result->fetch_assoc();
+            if ($user) {
+                $user['Type'] = $table;
+                return $user;
             }
         }
         return null;
