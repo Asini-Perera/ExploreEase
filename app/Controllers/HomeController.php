@@ -9,13 +9,12 @@ class HomeController
         require_once __DIR__ . '/../Views/home.php';
     }
 
-    public function keyword()
+    public function logout()
     {
-        require_once __DIR__ . '/../Views/keyword.php';
-    }
-
-    public function keywordsearch()
-    {
-        require_once __DIR__ . '/../Views/keyword_search.php';
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: ../ExploreEase');
+        exit();
     }
 }

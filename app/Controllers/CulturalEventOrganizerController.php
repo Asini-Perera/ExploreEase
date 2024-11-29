@@ -26,4 +26,5 @@ class CulturalEventOrganizerController
 
         require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/main.php';
     }
+
 }

@@ -2,15 +2,16 @@
 
 namespace app\Models;
 
-class CulturalEventOrganizerModel
+class TravelerModel
 {
     private $conn;
+
     public function __construct($conn)
     {
         $this->conn = $conn;
     }
 
-    public function setImgPath($OrganizerID, $fileName)
+    public function setImgPath($TravelerID, $fileName)
     {
         // Get temp image path
         $tempImgPath = $fileName['tmp_name'];
@@ -22,10 +23,10 @@ class CulturalEventOrganizerModel
         $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
         // Create a new file name
-        $newFileName = $OrganizerID . '.' . $extention;
+        $newFileName = $TravelerID . '.' . $extention;
 
         // Define the target directory
-        $targetDir = __DIR__ . '/../../public/images/database/culturaleventorganizer/';
+        $targetDir = __DIR__ . '/../../public/images/database/traveler/';
 
         // Check the directory exists and create it
         if (!is_dir($targetDir)) {
@@ -39,13 +40,13 @@ class CulturalEventOrganizerModel
         $moving = move_uploaded_file($tempImgPath, $imgDir);
 
         // Define the image path
-        $imgPath = '/ExploreEase/public/images/database/culturaleventorganizer/' . $newFileName;
+        $imgPath = '/ExploreEase/public/images/database/traveler/' . $newFileName;
 
         // Enter the image path to the database
         if ($moving) {
             $sql = "UPDATE traveler SET ImgPath = ? WHERE TravelerID = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param('si', $imgPath, $OrganizerID);
+            $stmt->bind_param('si', $imgPath, $TravelerID);
             $stmt->execute();
         }
     }
