@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="signup-box">
-            <h2>Admin Signup Form</h2>
+            <h2>Admin Signup</h2>
             <p>provide your details correctly to create an account</p>
 
             <?php

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
+    <title>Traveler Signup</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="public/css/signup_form.css">
 </head>
@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="signup-box">
-            <h2>Signup Form</h2>
+            <h2>Traveler Signup</h2>
             <p>provide your details correctly to create an account</p>
 
             <?php
@@ -65,6 +65,7 @@
                     <label for="smlink">Social Media Link:</label>
                     <input type="url" id="smlink" name="smlink"><br><br>
                 </div>
+
                 <button type="submit" formaction="../keyword/traveler">Next</button>
             </form>
         </div>
