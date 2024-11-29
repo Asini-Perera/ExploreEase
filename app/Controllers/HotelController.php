@@ -25,4 +25,5 @@ class HotelController
 
         require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
     }
+
 }

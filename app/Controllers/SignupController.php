@@ -52,14 +52,14 @@ class SignupController
 
             if ($user) {
                 $_SESSION['error'] = "Email already exists";
-                header('Location: ../signup/traveler');
+                header('Location: ../signup?user=traveler');
                 exit();
             }
 
             // Check if password and confirm password match
             if ($password !== $confirmPassword) {
                 $_SESSION['error'] = "Passwords do not match";
-                header('Location: ../signup/traveler');
+                header('Location: ../signup?user=traveler');
                 exit();
             }
 
@@ -109,14 +109,14 @@ class SignupController
 
             if ($user) {
                 $_SESSION['error'] = "Email already exists";
-                header('Location: ../signup/restaurant');
+                header('Location: ../signup?user=restaurant');
                 exit();
             }
 
             // Check if password and confirm password match
             if ($password !== $confirmPassword) {
                 $_SESSION['error'] = "Passwords do not match";
-                header('Location: ../signup/restaurant');
+                header('Location: ../signup?user=restaurant');
                 exit();
             }
 
@@ -134,6 +134,105 @@ class SignupController
                 // If signup fails, redirect back to signup page and show an error message
                 $_SESSION['error'] = "Failed to create an account";
                 header('Location: ../signup?user=restaurant');
+                exit();
+            }
+        }
+    }
+
+    public function hotel()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contactNo'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $website = $_POST['website'];
+            $description = $_POST['description'];
+            $socialMediaLinks = $_POST['smlink'];
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup?user=hotel');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup?user=hotel');
+                exit();
+            }
+
+            $HotelID = $signupModel->hotel($name, $address, $contactNo, $email, $password, $website, $description, $socialMediaLinks);
+
+            // Redirect to Keyword entry page
+            if ($HotelID) {
+                session_start();
+                $_SESSION['HotelID'] = $HotelID;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=hotel');
+                exit();
+            }
+        }
+    }
+
+    public function heritageMarket()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contactNo'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $website = $_POST['website'];
+            $description = $_POST['description'];
+            $openHours = $_POST['openhours'];
+            $socialMediaLinks = $_POST['smlink'];
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup?user=heritagemarket');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup?user=heritagemarket');
+                exit();
+            }
+
+            $HeritageMarketID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $socialMediaLinks);
+
+            // Redirect to Keyword entry page
+            if ($HeritageMarketID) {
+                session_start();
+                $_SESSION['ShopID'] = $HeritageMarketID;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=heritagemarket');
                 exit();
             }
         }
