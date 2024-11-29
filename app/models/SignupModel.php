@@ -113,4 +113,26 @@ class SignupModel
 
         return $ShopID;
     }
+
+    public function culturalEventOrganizer($name, $email, $password, $contactNo, $description, $smlink)
+    {
+        // Hash the password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the cultural event organizer data
+        $sql = "INSERT INTO culturaleventorganizer (Name, Email, Password, ContactNo, Description, SMLink) 
+                VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssss', $name, $email, $password, $contactNo, $description, $smlink);
+        $stmt->execute();
+
+        // Get the OrganizerID
+        $sql = "SELECT OrganizerID FROM culturaleventorganizer WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $OrganizerID = $stmt->get_result()->fetch_assoc()['OrganizerID'];
+
+        return $OrganizerID;
+    }
 }

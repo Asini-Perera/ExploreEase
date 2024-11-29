@@ -4,6 +4,7 @@ namespace app\Controllers;
 
 use app\Models\SignupModel;
 use app\Models\TravelerModel;
+use app\Models\CulturalEventOrganizerModel;
 
 class SignupController
 {
@@ -18,6 +19,7 @@ class SignupController
         // Include the Models
         require_once __DIR__ . '/../models/SignupModel.php';
         require_once __DIR__ . '/../models/TravelerModel.php';
+        require_once __DIR__ . '/../models/CulturalEventOrganizerModel.php';
     }
 
     public function index()
@@ -188,7 +190,7 @@ class SignupController
         }
     }
 
-    public function heritageMarket()
+    public function heritagemarket()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
@@ -219,12 +221,12 @@ class SignupController
                 exit();
             }
 
-            $HeritageMarketID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $socialMediaLinks);
+            $ShopID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $socialMediaLinks);
 
             // Redirect to Keyword entry page
-            if ($HeritageMarketID) {
+            if ($ShopID) {
                 session_start();
-                $_SESSION['ShopID'] = $HeritageMarketID;
+                $_SESSION['ShopID'] = $ShopID;
                 $_SESSION['Name'] = $name;
                 $_SESSION['Email'] = $email;
                 header('Location: ../keyword/');
@@ -233,6 +235,60 @@ class SignupController
                 // If signup fails, redirect back to signup page and show an error message
                 $_SESSION['error'] = "Failed to create an account";
                 header('Location: ../signup?user=heritagemarket');
+                exit();
+            }
+        }
+    }
+
+    public function culturaleventorganizer()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $contactNo = $_POST['contactNo'];
+            $description = $_POST['description'];
+            $socialMediaLinks = $_POST['smlink'];
+            $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup?user=culturaleventorganizer');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup?user=culturaleventorganizer');
+                exit();
+            }
+
+            $OrganizerID = $signupModel->culturalEventOrganizer($name, $email, $password, $contactNo, $description, $socialMediaLinks);
+
+            // If image is uploaded, set the image path
+            if ($OrganizerID && $profileImage['name']) {
+                $culturalEventOrganizerModel = new CulturalEventOrganizerModel($this->conn);
+                $culturalEventOrganizerModel->setImgPath($OrganizerID, $profileImage);
+            }
+
+            // Redirect to Keyword entry page
+            if ($OrganizerID) {
+                session_start();
+                $_SESSION['OrganizerID'] = $OrganizerID;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=culturaleventorganizer');
                 exit();
             }
         }

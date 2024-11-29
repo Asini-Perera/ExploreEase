@@ -29,9 +29,6 @@
                     <input type="text" id="name" name="name" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="address">Address *</label>
-                    <input type="text" id="address" name="address" required><br><br>
-                <div class="input-group">
                     <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required><br><br>
                 </div>
@@ -44,20 +41,20 @@
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number:</label>
+                    <label for="contactNo">Contact Number</label>
                     <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="open_hours">Open Hours:</label>
-                    <input type="text" id="open_hours" name="openhours" value=""><br><br>
-                </div>
-                <div class="input-group">
-                    <label for="cuisine_types">Cuisine Type:</label>
-                    <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea><br><br>
                 </div>
                 <div class="input-group">
                     <label for="smlink">Social Media Link:</label>
                     <input type="url" id="smlink" name="smlink" value=""><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="profile_image">Profile Image:</label>
+                    <input type="file" id="profile_image" name="profile_image"><br><br>
                 </div>
 
                 <button type="submit">Next</button>
