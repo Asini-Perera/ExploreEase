@@ -30,20 +30,35 @@ class KeywordModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function saveKeywords($travelerID, $keywords)
+    public function saveKeywords($table, $userID, $keywords)
     {
+        if ($table === 'travelerkeyword') {
+            $deleteSQL = "DELETE FROM $table WHERE TravelerID = ?";
+            $addSQL = "INSERT INTO $table (TravelerID, KeywordID) VALUES (?, ?)";
+        } else if ($table === 'restaurantkeyword') {
+            $deleteSQL = "DELETE FROM $table WHERE RestaurantID = ?";
+            $addSQL = "INSERT INTO $table (RestaurantID, KeywordID) VALUES (?, ?)";
+        } else if ($table === 'hotelkeyword') {
+            $deleteSQL = "DELETE FROM $table WHERE HotelID = ?";
+            $addSQL = "INSERT INTO $table (HotelID, KeywordID) VALUES (?, ?)";
+        } else if ($table === 'heritagemarketkeyword') {
+            $deleteSQL = "DELETE FROM $table WHERE ShopID = ?";
+            $addSQL = "INSERT INTO $table (ShopID, KeywordID) VALUES (?, ?)";
+        } else if ($table === 'culturaleventorganizerkeyword') {
+            $deleteSQL = "DELETE FROM $table WHERE OrganizerID = ?";
+            $addSQL = "INSERT INTO $table (OrganizerID, KeywordID) VALUES (?, ?)";
+        }
+
         // Delete keywords if exists
-        $sql = "DELETE FROM travelerkeyword WHERE TravelerID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $travelerID);
+        $stmt = $this->conn->prepare($deleteSQL);
+        $stmt->bind_param('i', $userID);
         $stmt->execute();
 
         // Insert new keywords
-        $sql = "INSERT INTO travelerkeyword (TravelerID, KeywordID) VALUES (?, ?)";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->conn->prepare($addSQL);
 
         foreach ($keywords as $keyword) {
-            $stmt->bind_param('ii', $travelerID, $keyword);
+            $stmt->bind_param('ii', $userID, $keyword);
             $stmt->execute();
         }
     }

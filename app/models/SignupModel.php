@@ -11,6 +11,21 @@ class SignupModel
         $this->conn = $conn;
     }
 
+    public function getUserByEmail($email)
+    {
+        $userTables = ['admin', 'traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer'];
+        foreach ($userTables as $table) {
+            $sql = "SELECT * FROM $table WHERE Email = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('s', $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user = $result->fetch_assoc();
+            
+            return $user;
+        }
+    }
+
     public function traveler($firstName, $lastName, $email, $password, $gender, $dob, $contactNo)
     {
         // Hash the password
@@ -33,18 +48,25 @@ class SignupModel
         return $TravelerID;
     }
     
-    public function getUserByEmail($email)
+    public function restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink)
     {
-        $userTables = ['admin', 'traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer'];
-        foreach ($userTables as $table) {
-            $sql = "SELECT * FROM $table WHERE Email = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
-            
-            return $user;
-        }
+        // Hash the password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the restaurant data
+        $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Website, Description, OpenHours, CuisineType, SMLink) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink);
+        $stmt->execute();
+
+        // Get the RestaurantID
+        $sql = "SELECT RestaurantID FROM restaurant WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $RestaurantID = $stmt->get_result()->fetch_assoc()['RestaurantID'];
+
+        return $RestaurantID;
     }
 }

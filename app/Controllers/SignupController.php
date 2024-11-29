@@ -87,4 +87,55 @@ class SignupController
             }
        }
     }
+
+    public function restaurant()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contactNo'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $website = $_POST['website'];
+            $description = $_POST['description'];
+            $openHours = $_POST['openhours'];
+            $cuisineType = $_POST['cuisinetype'];
+            $socialMediaLinks = $_POST['smlink'];
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup/restaurant');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup/restaurant');
+                exit();
+            }
+
+            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLinks);
+
+            // Redirect to Keyword entry page
+            if ($RestaurantID) {
+                session_start();
+                $_SESSION['RestaurantID'] = $RestaurantID;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=restaurant');
+                exit();
+            }
+        }
+    }
 }

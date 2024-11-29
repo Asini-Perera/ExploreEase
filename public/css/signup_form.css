@@ -89,6 +89,17 @@ input[type="password"] {
     font-size: 14px;
 }
 
+textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    height: 100px;
+}
+
 input[type="radio"] + input[type="radio"] {
     margin-left: 20px;
 }

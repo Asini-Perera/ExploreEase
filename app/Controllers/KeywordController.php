@@ -45,10 +45,25 @@ class KeywordController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
             $keywords = $_POST['keywords'];
-            $travelerID = $_SESSION['TravelerID'];
+            if (isset($_SESSION['TravelerID'])) {
+                $userID = $_SESSION['TravelerID'];
+                $table = 'travelerkeyword';
+            } else if (isset($_SESSION['RestaurantID'])) {
+                $userID = $_SESSION['RestaurantID'];
+                $table = 'restaurantkeyword';
+            } else if (isset($_SESSION['HotelID'])) {
+                $userID = $_SESSION['HotelID'];
+                $table = 'hotelkeyword';
+            } else if (isset($_SESSION['ShopID'])) {
+                $userID = $_SESSION['HeritageMarketID'];
+                $table = 'heritagemarketkeyword';
+            } else if (isset($_SESSION['OrganizerID'])) {
+                $userID = $_SESSION['CulturalEventOrganizerID'];
+                $table = 'culturaleventorganizerkeyword';
+            }
         
             $keywordModel = new KeywordModel($this->conn);
-            $keywordModel->saveKeywords($travelerID, $keywords);
+            $keywordModel->saveKeywords($table,$userID, $keywords);
         } 
 
         header('Location: ../');
