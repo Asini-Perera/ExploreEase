@@ -1,36 +1,141 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
+
+use app\Models\SignupModel;
+use app\Models\TravelerModel;
 
 class SignupController
 {
+    private $conn;
+
+    public function __construct()
+    {
+        require_once __DIR__ . '/../../config/config.php';
+        global $conn;
+        $this->conn = $conn;
+
+        // Include the Models
+        require_once __DIR__ . '/../models/SignupModel.php';
+        require_once __DIR__ . '/../models/TravelerModel.php';
+    }
+
     public function index()
     {
-        require_once __DIR__ . '/../views/signup.php';
+        $user = isset($_GET['user']) ? $_GET['user'] : null;
+        $allowedUsers = ['traveler', 'hotel', 'restaurant', 'heritagemarket', 'culturaleventorganizer'];
+        $user = in_array($user, $allowedUsers) ? $user : null;
+
+        if ($user) {
+            require_once __DIR__ . '/../Views/signup/signup_' . $user . '.php';
+        } else {
+            require_once __DIR__ . '/../Views/signup/signup.php';
+        }
     }
 
     public function traveler()
     {
-        require_once __DIR__ . '/../views/signup_traveler.php';
-    }
+       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $firstName = $_POST['firstname'];
+            $lastName = $_POST['lastname'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $gender = isset($_POST['gender']) ? $_POST['gender'] : null;
+            $dob = isset($_POST['dob']) && $_POST['dob'] !== '0000-00-00' ? $_POST['dob'] : null;
+            $contactNo = $_POST['contactNo'];
+            $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
-    public function hotel()
-    {
-        require_once __DIR__ . '/../views/signup_hotel.php';
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup/traveler');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup/traveler');
+                exit();
+            }
+
+            $TravelerID = $signupModel->traveler($firstName, $lastName, $email, $password, $gender, $dob, $contactNo);
+
+            // If image is uploaded, set the image path
+            if ($TravelerID && $profileImage['name']) {
+                $travelerModel = new TravelerModel($this->conn);
+                $travelerModel->setImgPath($TravelerID, $profileImage);
+            }
+
+            // Redirect to Keyword entry page
+            if ($TravelerID) {
+                session_start();
+                $_SESSION['TravelerID'] = $TravelerID;
+                $_SESSION['Name'] = $firstName;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=traveler');
+                exit();
+            }
+       }
     }
 
     public function restaurant()
     {
-        require_once __DIR__ . '/../views/signup_restaurant.php';
-    }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contactNo'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $website = $_POST['website'];
+            $description = $_POST['description'];
+            $openHours = $_POST['openhours'];
+            $cuisineType = $_POST['cuisinetype'];
+            $socialMediaLinks = $_POST['smlink'];
 
-    public function heritagemarket()
-    {
-        require_once __DIR__ . '/../views/signup_heritagemarket.php';
-    }
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
 
-    public function culturaleventorganizer()
-    {
-        require_once __DIR__ . '/../views/signup_culturaleventorganizer.php';
+            if ($user) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../signup/restaurant');
+                exit();
+            }
+
+            // Check if password and confirm password match
+            if ($password !== $confirmPassword) {
+                $_SESSION['error'] = "Passwords do not match";
+                header('Location: ../signup/restaurant');
+                exit();
+            }
+
+            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLinks);
+
+            // Redirect to Keyword entry page
+            if ($RestaurantID) {
+                session_start();
+                $_SESSION['RestaurantID'] = $RestaurantID;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Email'] = $email;
+                header('Location: ../keyword/');
+                exit();
+            } else {
+                // If signup fails, redirect back to signup page and show an error message
+                $_SESSION['error'] = "Failed to create an account";
+                header('Location: ../signup?user=restaurant');
+                exit();
+            }
+        }
     }
 }

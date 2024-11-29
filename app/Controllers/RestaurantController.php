@@ -1,7 +1,8 @@
 <?php 
+
 namespace app\Controllers;
 
-use app\models\Restaurant;
+use app\Models\RestaurantModel;
 
 class RestaurantController
 {
