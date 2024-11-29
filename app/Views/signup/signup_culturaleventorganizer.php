@@ -4,49 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
+    <title>Cultural Event Organizer Signup</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/css/signupform.css">
+    <link rel="stylesheet" href="public/css/signup_form.css">
 </head>
 
 <body>
-    <h2>Signup Form</h2>
-    <p>provide your details correctly to create an account</p>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Cultural Event Organizer Signup</h2>
+            <p>provide your details correctly to create an account</p>
 
-    <form action="cultural_event_organizer.php" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+            <?php
+            // Display error message if failed to sign up
+            if (isset($_SESSION['error'])) {
+                echo '<div class="error">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']); // Clear the error message
+            }
+            ?>
 
-        <label for="location">Location:</label><br>
-        <input type="text" id="location" name="location" required><br><br>
+            <form action="cultural_event_organizer.php" method="post">
+                <div class="input-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="contactNo">Contact Number:</label>
+                    <input type="text" id="contactNo" name="contactNo"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="smlink">Social Media Link:</label>
+                    <input type="url" id="smlink" name="smlink" value=""><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="open_hours">Open Hours:</label>
+                    <input type="text" id="open_hours" name="openhours" value=""><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="cuisine_types">Cuisine Type:</label>
+                    <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
+                </div>
 
-        <label for="contactNo">Contact Number:</label><br>
-        <input type="text" id="contactNo" name="contactNo"><br><br>
+                <button type="submit" formaction="../keyword">Next</button>
+            </form>
+        </div>
+    </div>
 
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-
-
-        <label for="smlink">Social Media Link:</label><br>
-        <input type="url" id="smlink" name="smlink" value=""><br><br>
-        
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="confirm_password">Confirm Password:</label><br>
-        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-
-
-        <label for="open_hours">Open Hours:</label><br>
-        <input type="text" id="open_hours" name="openhours" value=""><br><br>
-
-        <label for="cuisine_types">Cuisine Type:</label><br>
-        <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
-
-
-        <button type="submit" formaction="../keyword/serviceprovider">Next</button>
-
-    </form>
+    <script src="public/js/background_slideshow1.js"></script>
 </body>
 
 </html>
