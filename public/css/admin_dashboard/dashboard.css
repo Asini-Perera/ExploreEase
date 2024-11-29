@@ -1,24 +1,32 @@
+h1 {
+    padding: 10px;
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
 .tiles {
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
     padding-top: 0px;
-    gap: 30px; /* Space between tiles */
+    gap: 30px;
 }
 
 .tile {
-    flex: 1 1 calc(33.33% - 30px); /* 3 tiles per row */
+    flex: 1 1 calc(33.33% - 30px);
     box-sizing: border-box;
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 250px; /* Increase height */
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    height: 250px; 
 }
 
 .tile:hover {
     box-shadow: none;
+    transform: scale(0.98);
 }
 
 .tile-content {
@@ -54,8 +62,3 @@
     height: 120px;
 }
 
-h1 {
-    font-family: Arial, sans-serif;
-    padding: 10px;
-    color: #333;
-}

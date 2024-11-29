@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
 // Include PHPMailer classes
 require_once __DIR__ . '/../../libs/PHPMailer/src/PHPMailer.php';
@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../libs/PHPMailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-use app\models\ForgotPasswordModel;
+use app\Models\ForgotPasswordModel;
 
 class ForgotPasswordController
 {
@@ -28,7 +28,7 @@ class ForgotPasswordController
     public function index()
     {
         // Logic for admin forgot password
-        require_once __DIR__ . '/../views/forgot_password.php';
+        require_once __DIR__ . '/../Views/forgot_password.php';
     }
 
     public function request()
@@ -105,7 +105,7 @@ class ForgotPasswordController
     public function reset()
     {
         // Logic for reset password page
-        require_once __DIR__ . '/../views/reset_password.php';
+        require_once __DIR__ . '/../Views/reset_password.php';
     }
 
     public function update()

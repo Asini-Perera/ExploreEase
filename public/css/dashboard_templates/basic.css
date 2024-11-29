@@ -1,0 +1,152 @@
+/* Reset some basic elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and background setup */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container setup */
+.container {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    width: 270px;
+    background-color: #fff;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px 0;
+}
+
+.sidebar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    color: #F1C232;
+}
+
+.sidebar ul li a.active {
+    background-color: #F1C232;
+    color: #fff; 
+    font-weight: bold;
+}
+
+.sidebar ul li a.active:hover {
+    background-color: #6fa857;
+    color: #fff;
+}
+
+/* Header styling */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    height: 80px;
+}
+
+.topic {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.topic .logo {
+    width: 60px;
+    height: 60px;
+}
+
+.topic h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.topic .first {
+    color: #225522;
+}
+
+.topic .second {
+    color: #F1C232;
+}
+
+/* User profile in the header */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-profile .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.user-profile .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f6f7;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-top: 80px;
+    margin-left: 270px;
+}
+
+/* 
+#225522 
+#6fa857
+#f1c232
+#f9f6f7
+#d9d9d9
+#fff
+#000
+#333
+#555 
+*/
