@@ -9,6 +9,7 @@ $router->add('signup/traveler', 'SignupController@traveler');  // Traveler signu
 $router->add('', 'HomeController@index');  // Home route for users
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
+$router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
 $router->add('keyword/search', 'KeywordController@keywordsearch');  // Keyword search page for travelers
 
 $router->add('admin', 'AdminController@index');  // Admin login page

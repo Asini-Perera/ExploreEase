@@ -40,4 +40,17 @@ class KeywordController
         $categories = $this->getCategoriesWithKeywords();
         require_once __DIR__ . '/../Views/keyword.php';
     }
+
+    public function saveKeywords()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
+            $keywords = $_POST['keywords'];
+            $travelerID = $_SESSION['TravelerID'];
+        
+            $keywordModel = new KeywordModel($this->conn);
+            $keywordModel->saveKeywords($travelerID, $keywords);
+        } 
+
+        header('Location: ../');
+    }
 }

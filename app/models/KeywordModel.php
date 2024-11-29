@@ -29,4 +29,22 @@ class KeywordModel
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function saveKeywords($travelerID, $keywords)
+    {
+        // Delete keywords if exists
+        $sql = "DELETE FROM travelerkeyword WHERE TravelerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $travelerID);
+        $stmt->execute();
+
+        // Insert new keywords
+        $sql = "INSERT INTO travelerkeyword (TravelerID, KeywordID) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($sql);
+
+        foreach ($keywords as $keyword) {
+            $stmt->bind_param('ii', $travelerID, $keyword);
+            $stmt->execute();
+        }
+    }
 }

@@ -15,7 +15,7 @@
             <h2>Add Keywords</h2>
             <p>Select keywords according to your preferences. You can change them later.</p>
 
-            <form action="" method="post">
+            <form action="../keyword/save" method="post">
 
                 <?php foreach ($categories as $category) : ?>
                     <div class="input-group">
@@ -23,7 +23,7 @@
                         <div class="checkbox-group">
                             <?php foreach ($category['keywords'] as $keyword) : ?>
                                 <label>
-                                    <input type="checkbox" name="keywords[]" value="<?= $keyword['KName'] ?>">
+                                    <input type="checkbox" name="keywords[]" value="<?= $keyword['KeywordID'] ?>">
                                     <?= $keyword['KName'] ?>
                                 </label>
                             <?php endforeach; ?>
