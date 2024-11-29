@@ -77,8 +77,9 @@ p {
 label {
     display: block;
     font-size: 16px;
-    color: #000;
+    color: #333;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 /* Input styling */
@@ -104,6 +105,7 @@ input[type="password"] {
 .remember-group label {
     font-size: 12px;
     color: #000;
+    font-weight: normal;
 }
 
 /* Forgot password link styling */
