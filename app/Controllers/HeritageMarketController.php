@@ -26,4 +26,5 @@ class HeritageMarketController
 
         require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
     }
+
 }

@@ -11,7 +11,7 @@ $userName = $_SESSION['Name'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waiting for Admin Verification</title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../public/css/admin_waiting.css">
+    <link rel="stylesheet" href="../public/css/waiting.css">
 </head>
 
 <body>
@@ -30,9 +30,13 @@ $userName = $_SESSION['Name'];
                     href="mailto:exploreease10@gmail.com">exploreease10@gmail.com</a>.</p>
 
             <!-- Logout Button -->
-            <form action="../admin/logout" method="POST">
-                <button type="submit">Log Out</button>
-            </form>
+            <?php if (isset($_SESSION['AdminID'])): ?>
+                <form action="../admin/logout" method="POST">
+            <?php else: ?>
+                <form action="../logout" method="POST">
+            <?php endif; ?>
+                    <button type="submit">Log Out</button>
+                </form>
         </div>
     </div>
     <script src="../public/js/background_slideshow2.js"></script>

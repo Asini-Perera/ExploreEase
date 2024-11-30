@@ -29,7 +29,7 @@ class LoginController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Use the AdminModel to get the admin data by Email
+            // Use the LoginModel to get the user by email
             $userModel = new LoginModel($this->conn);
             $user = $userModel->getUserByEmail($email);
 
@@ -38,7 +38,7 @@ class LoginController
                 // Start session and save admin details
                 session_start();
                 $_SESSION['Email'] = $user['Email'];
-                $_SESSION['Name'] = $user['FirstName'];
+                $_SESSION['Name'] = $user['Name'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -48,8 +48,30 @@ class LoginController
                     setcookie('Email', "", time() - 1, "/");
                 }
 
-                // Redirect to admin dashboard
-                header('Location: ../hotel/dashboard');
+                if ($user['Type'] !== 'traveler' && $user['IsVerified'] == 0) {
+                    // If user is not verified and not a traveler, redirect to waiting page
+                    header('Location: ../waiting/');
+                    exit();
+                }
+
+                // Redirect to pages based on user type
+                switch ($user['Type']) {
+                    case 'traveler':
+                        header('Location: ../ExploreEase');
+                        break;
+                    case 'hotel':
+                        header('Location: ../hotel/dashboard');
+                        break;
+                    case 'restaurant':
+                        header('Location: ../restaurant/dashboard');
+                        break;
+                    case 'heritagemarket':
+                        header('Location: ../heritagemarket/dashboard');
+                        break;
+                    case 'culturaleventorganizer':
+                        header('Location: ../culturaleventorganizer/dashboard');
+                        break;
+                }
 
                 exit();
             } else {
@@ -58,6 +80,15 @@ class LoginController
                 header('Location: ../login');
                 exit();
             }
+        }
+    }
+
+    public function waiting()
+    {
+        if (isset($_SESSION['Name'])) {
+            require_once __DIR__ . '/../Views/waiting.php';
+        } else {
+            header('Location: ../login');
         }
     }
 }

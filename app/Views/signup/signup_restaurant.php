@@ -33,10 +33,6 @@
                     <input type="text" id="address" name="address" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number</label>
-                    <input type="text" id="contactNo" name="contactNo"><br><br>
-                </div>
-                <div class="input-group">
                     <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required><br><br>
                 </div>
@@ -47,6 +43,10 @@
                 <div class="input-group">
                     <label for="confirm_password">Confirm Password *</label>
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="contactNo">Contact Number</label>
+                    <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
                     <label for="website">Restaurant Website</label>

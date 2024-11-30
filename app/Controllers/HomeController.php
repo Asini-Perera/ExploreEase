@@ -17,5 +17,14 @@ class HomeController
     public function location_search()
     {
         require_once __DIR__ . '/../Views/search_by_location.php';
+
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: ../ExploreEase');
+        exit();
+
     }
 }
