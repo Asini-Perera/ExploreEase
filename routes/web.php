@@ -42,3 +42,8 @@ $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 $router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
 
 $router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
+
+$router->add('service/hotel','HomeController@travelerside_hotel');  // traveller side hotel view
+$router->add('service/restaurant','HomeController@travelerside_restaurant');  // traveller side restaurant view
+$router->add('service/cultural_event','HomeController@travelerside_cultural_event');  // traveller side cultural event view
+$router->add('service/menu','HomeController@travelerside_menu');  // traveller side menu view
