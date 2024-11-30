@@ -1,0 +1,57 @@
+ // Simulated data (you can replace this with your database or API calls)
+ const servicesData = [
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "hotel", name: "Ocean View Hotel", description: "A luxurious beachside hotel. ", price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "hotel", name: "Ocean View Hotel", description: "A luxurious beachside hotel. ", price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "hotel", name: "Ocean View Hotel", description: "A luxurious beachside hotel. ", price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "restaurant", name: "Golden Fork", description: "A fine dining experience." , price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "restaurant", name: "Golden Fork", description: "A fine dining experience." , price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "restaurant", name: "Golden Fork", description: "A fine dining experience." , price:"above LKR. 5000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Kandy", category: "heritage_market", name: "Central Market", description: "A hub for local crafts." , price:"products cabove LKR. 1000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Colombo", category: "heritage_market", name: "Central Market", description: "A hub for local crafts." , price:"products are above LKR. 1000.00", rate:"4" },
+    {image:"../../public/images/nature.jpg", city: "Galle", category: "cultural_event", name: "Folk Music Festival", description: "A celebration of local music." , price:"above LKR. 5000.00", rate:"4" }
+];
+
+function searchServices(category) {
+    const city = document.getElementById('search-bar').value.trim();
+    const resultsDiv = document.getElementById('results');
+
+    resultsDiv.innerHTML = '';
+    
+    if (!city) {
+        resultsDiv.innerHTML = "<p class='error-msg'>Please enter a city name.</p>";
+        return;
+    }
+
+    // Filter the servicesData array for matching city and category
+    const results = servicesData.filter(service => 
+        service.city.toLowerCase() === city.toLowerCase() && service.category === category
+    );
+
+    if (results.length > 0) {
+        // Display the results
+        resultsDiv.innerHTML = results.map(service => `
+            <div class="service">
+                <div>
+                    <img src=${service.image} alt="hotel" style="height: 20vh; width: 16vw;" >
+                </div>
+
+                <div class="service-info">
+                    <div class="left-section">
+                        <h3>${service.name}</h3>
+                        <span class="address">${service.address}</span>
+                        <p class="description">${service.description}</p>
+                        <p class="price">${service.price}</p>
+                    </div>
+
+                    <div class="right-section">
+                        <p class="rate">rate : ${service.rate}/5</p>
+                        <button>see Availability > </button>
+                        
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        resultsDiv.innerHTML = '<p class="error-msg">No services found for the selected city and category.</p>';
+    }
+}

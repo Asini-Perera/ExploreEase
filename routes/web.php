@@ -7,11 +7,14 @@ $router->add('signup', 'SignupController@index');  // Signup page
 $router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process
 $router->add('signup/restaurant', 'SignupController@restaurant');  // Restaurant signup process
 
-$router->add('', 'HomeController@index');  // Home route for users
+$router->add('home', 'HomeController@index');  // Home route for users
+$router->add('loged_home', 'HomeController@loged_index');  // Home route for users after login
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
 $router->add('keyword/search', 'KeywordController@keywordsearch');  // Keyword search page for travelers
+
+$router->add('location/location_search', 'HomeController@location_search');  // SearchbyLocation page for users
 
 $router->add('admin', 'AdminController@index');  // Admin login page
 $router->add('admin/login', 'AdminController@login');  // Admin login process

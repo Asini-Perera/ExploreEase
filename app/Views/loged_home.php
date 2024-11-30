@@ -3,46 +3,17 @@
 <body>
     <head>
         <title>Home page</title>
-        <link rel="stylesheet" type="text/css" href="public/css/home.css">
-        <link rel="stylesheet" type="text/css" href="public/css/footer.css">
+        <link rel="stylesheet" type="text/css" href="public/css/logged_home.css">
+        <link rel="stylesheet" type="text/css" href="public/css/navbar.css">
+        <link rel="stylesheet" type="text/css" href="public/css/loged_footer.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </head>
 
     <header>
-        <div class="navigation">
-        <div class="wrapper">
-            <nav class="navbar">
-                <img class="logo" src="public/images/logo.png" >
-                <ul>
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a href="#services-features" class="nav-link">Services</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">About Us</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">Contact Us</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="signup.php" class="nav-link">Sign up</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="login.php" class="nav-link">Log in</a>
-                    </li>
-                
-                </ul>
-                
-            </nav>
-        </div>
+    <?php require_once __DIR__ . "/Navbar.php"; ?>
+    
 
 <!-- home-main -->
         <div class="main">
@@ -100,7 +71,7 @@
     
     
     <!-- image slider  -->
-<section class="slider" style="display: flex;">
+<section class="slider">
     <div class="img-slider">
         <div class="container">
             <div class="img-container">
@@ -229,116 +200,199 @@
     </section>
 
 <!-- review section -->
-    <section class="reviews" >
-        <div class="review-heading"><h2>What our customers say</h2></div>
+  <!-- reviews -->
+  <section class="reviews" id="reviews">
+        <div class="review-heading">
+            <h2>What our customers say</h2>
+        </div>
         
         <div class="review-container">
            
 
             <div class="review-content">
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
                 
-                <div class="review-slide" >
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/women.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>Jane Koch</h5>
-                        </div>
-                    </div>
-                </div>
-           
-
-                <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/men.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>John Wilson</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/women-1.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>Jane Koch</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/men-1.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>Cayson Morrow</h5>
-                        </div>
-                    </div>
-                </div>
-
             
                 <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/women.jpg"></a>
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>Jane Koch</h5>
-                        </div>
+                    
+                    <p class="review-msg">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
                 </div>
 
-                <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/men.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>John Doe</h5>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/women-1.jpg"></a>
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h4>Jane Koch</h4>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
                 </div>
+                
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+                
             
                 <div class="review-slide">
-                    <p class="review">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="public/images/men-1.jpg"></a>
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>Cayson Morrow</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
                 </div>
+
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+                
+            
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </section>
-    
+
 
 <!-- about us -->
         <div class="about-us">
@@ -357,7 +411,8 @@
         </div>
 
 <!-- footer section -->
-    <?php require_once __DIR__ . "/Footer.php"; ?>
+        <?php require_once __DIR__ . "/loged_footer.php"; ?>
+
         <script src="public/js/home.js"></script>
 </body>
 </html>
