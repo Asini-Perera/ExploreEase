@@ -191,7 +191,7 @@ class AdminController
             // Load the main dashboard layout
             require_once __DIR__ . '/../Views/admin_dashboard/main.php';
         } else {
-            header('Location: admin');
+            header('Location: ../admin');
             exit();
         }
     }

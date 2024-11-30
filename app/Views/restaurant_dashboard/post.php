@@ -5,7 +5,7 @@
             <h1>Post List</h1><span></span>
 
             <div class="action-buttons">
-                <a class="add-btn" href="?page=menu&action=add">Add Post</a>
+                <a class="add-btn" href="?page=post&action=add">Add Post</a>
             </div>
     </div>
 
