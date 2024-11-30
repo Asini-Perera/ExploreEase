@@ -54,8 +54,8 @@ class HomeController
         require_once __DIR__ . '/../Views/service_traveller_side_view/menu_pdf.php';
     }
 
-    public function menu()
+    public function post()
     {
-        require_once __DIR__ . '/../Views/restaurant_dashboard/edit_menu.php';
+        require_once __DIR__ . '/../Views/restaurant_dashboard/edit_post.php';
     }
 }

@@ -50,5 +50,6 @@ $router->add('service/restaurant','HomeController@travelerside_restaurant');  //
 $router->add('service/cultural_event','HomeController@travelerside_cultural_event');  // traveller side cultural event view
 $router->add('service/menu','HomeController@travelerside_menu');  // traveller side menu view
 
-$router->add('menu','HomeController@menu');  // Menu page for users
+$router->add('restaurant/post','HomeController@post');  // Add post for restaurant
+
 

@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <label for="price">Description:</label>
-            <textarea id="description" class="form-control" placeholder="Enter price" required></textarea>
+            <textarea id="description" cols="60" rows="40" class="form-control" placeholder="Enter price" required></textarea>
         </div>
         
         <div class="form-group">
