@@ -56,3 +56,25 @@ button {
 .delete:hover {
     background-color: #c9302c;
 }
+
+/* Error message styling */
+.error {
+    background-color: #ffcccc;
+    color: #d8000c;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Success message styling */
+.success {
+    background-color: #ccffcc;
+    color: #006600;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}

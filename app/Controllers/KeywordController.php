@@ -72,6 +72,26 @@ class KeywordController
         } else {
             header('Location: ../admin/waiting');
         }
+    }
 
+    public function addKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $addition = $keywordModel->addKeyword($category, $keyword);
+
+            if ($addition) {
+                $_SESSION['success'] = 'Keyword added successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to add keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=add');
+
+        }
     }
 }
