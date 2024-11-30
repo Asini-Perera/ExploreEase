@@ -6,7 +6,6 @@
     <table>
         <thead>
             <tr>
-                <th>Booking ID</th>
                 <th>Customer Name</th>
                 <th>Booking Date</th>
                 <th>Booking Time</th>
@@ -16,7 +15,6 @@
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
                 <td>John Doe</td>
                 <td>2024.10.18</td>
                 <td>12:30 PM</td>
@@ -26,7 +24,6 @@
                 </td>
             </tr>
             <tr>
-                <td>2</td>
                 <td>Jane Doe</td>
                 <td>2024.10.18</td>
                 <td>1:00 PM</td>
@@ -36,7 +33,6 @@
                 </td>
             </tr>
             <tr>
-                <td>3</td>
                 <td>John Smith</td>
                 <td>2024.10.18</td>
                 <td>1:30 PM</td>

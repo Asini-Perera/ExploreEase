@@ -12,7 +12,6 @@
     <table>
         <thead>
             <tr>
-                <th>Menu ID</th>
                 <th>Food Name</th>
                 <th>Price</th>
                 <th>Category</th>
@@ -22,7 +21,6 @@
         </thead>
         <tbody>
             <tr>
-                <td>xxxxxx1</td>
                 <td>Chicken Biryani</td>
                 <td>Rs. 500.00</td>
                 <td>Non-Veg</td>
@@ -33,7 +31,6 @@
                 </td>
             </tr>
             <tr>
-                <td>xxxxxx2</td>
                 <td>Vegetable Fried Rice</td>
                 <td>Rs. 300.00</td>
                 <td>Veg</td>
@@ -44,7 +41,6 @@
                 </td>
             </tr>
             <tr>
-                <td>xxxxxx3</td>
                 <td>Chicken Noodles</td>
                 <td>Rs. 400.00</td>
                 <td>Non-Veg</td>
@@ -55,7 +51,6 @@
                 </td>
             </tr>
             <tr>
-                <td>xxxxxx4</td>
                 <td>Vegetable Noodles</td>
                 <td>Rs. 250.00</td>
                 <td>Veg</td>
@@ -66,7 +61,6 @@
                 </td>
             </tr>
             <tr>
-                <td>xxxxxx5</td>
                 <td>Chicken Fried Rice</td>
                 <td>Rs. 450.00</td>
                 <td>Non-Veg</td>
