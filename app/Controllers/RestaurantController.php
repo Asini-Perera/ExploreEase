@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\Controllers;
 
@@ -18,19 +18,29 @@ class RestaurantController
         require_once __DIR__ . '/../models/RestaurantModel.php';
     }
 
-    public function dashboard(){
-        // if(isset($_SESSION['RestaurantID'])){
+    public function dashboard()
+    {
+        if (isset($_SESSION['Email'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile','menu', 'add_post', 'post_list', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'add_post', 'post_list', 'bookings', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
+            if ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                }
+            } elseif ($mainContent == 'menu') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                }
+            }
+
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';
-        // }
-        //  else{
-        //     header('Location: /login');
-        //     exit(); 
-        // }
+        } else {
+            header('Location: ../login');
+            exit();
+        }
     }
-
 }
-

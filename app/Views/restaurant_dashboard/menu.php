@@ -5,7 +5,7 @@
             <h1>Menu List</h1><span></span>
 
             <div class="action-buttons">
-                <button class="add-btn" href="">Add Menu</a>
+                <a class="add-btn" href="?page=menu&action=add">Add Menu</a>
             </div>
     </div>
 
