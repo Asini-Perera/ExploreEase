@@ -5,6 +5,10 @@
     font-family:"Poppins",sans-serif;
 }
 
+.main-container{
+    margin-top: 60px; 
+}
+
 /* header */
 header{
     background: url("../../images/hilton\(1\).jpg " ) 0vh, 70vw no-repeat;
