@@ -16,7 +16,9 @@
                 <img class="logo" src="public/images/logo.png" >
                 <ul>
                     <li class="nav-item">
-                        <a href="logout" class="nav-link">Home</a>
+
+                        <a href="" class="nav-link">Home</a>
+
                     </li>
 
                     <li class="nav-item">
@@ -32,11 +34,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="signup.php" class="nav-link">Sign up</a>
+                        <a href="signup" class="nav-link">Sign up</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="login.php" class="nav-link">Log in</a>
+                        <a href="login" class="nav-link">Log in</a>
                     </li>
                 
                 </ul>
@@ -205,7 +207,7 @@
                     <div class="details">
                     <h3>Search by Location</h3>
                     <p>You can get information about hotels, resturants, guides, transport service details and more suitable recommendations you want to know.</p>
-                    <button class="explo"><a href="Views/search_location.php">explore</a></button>
+                    <button class="explo"><a href="search/location">explore</a></button>
                     </div>
 
                 </div>
@@ -214,7 +216,7 @@
                     <div class="details">
                     <h3>Search by Key-Word</h3>
                     <p>This feature allows you to get recommendations according to the selected key words</p>
-                    <button class="explo"><a href="<Views/keyword_search.php">explore</a></button>
+                    <button class="explo"><a href="search/keyword">explore</a></button>
                     </div>
 
                     <div>
