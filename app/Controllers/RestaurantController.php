@@ -21,7 +21,7 @@ class RestaurantController
     public function dashboard(){
         // if(isset($_SESSION['RestaurantID'])){
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'add_post', 'post_list', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile','menu', 'add_post', 'post_list', 'bookings', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';
@@ -32,12 +32,5 @@ class RestaurantController
         // }
     }
 
-    public function logout(){
-        session_start();
-        session_unset();
-        session_destroy();
-        header('Location: ../');
-        exit();
-    }
 }
 

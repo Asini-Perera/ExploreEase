@@ -1,13 +1,16 @@
-const initSlider = () => {
-    const slider = document.querySelectorAll(".slide-wrap .slider");
-    const slideButtons = document.querySelectorAll("#slide-button");
+function slideShow(className, indexValue) {
+    var i;
+    var x = document.getElementsByClassName(className);
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+        }
+        indexValue++;
+        if (indexValue > x.length) { indexValue = 1; }
+        x[indexValue - 1].style.display = "block";
+        setTimeout(() => slideShow(className, indexValue), 2500);
+    }
 
-    //slide images according to the slide button click
-    slideButoons(button => {
-        button.addEventListner("click", () => {
-            const direction = button.id === "slide-button" ? -1 : 1;
-            const scrollAmount = slider.clientWidtg * direction;
-            slider.scrollBy({left: scrollAmount,behavior: "smooth"});
-        });
-    });
-}
+    slideShow("image-item", 0);
+    slideShow("image-item-one", 0);
+    slideShow("image-item-two", 0);
+    slideShow("image-item-three", 0);
