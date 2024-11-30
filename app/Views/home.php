@@ -16,7 +16,9 @@
                 <img class="logo" src="public/images/logo.png" >
                 <ul>
                     <li class="nav-item">
+
                         <a href="" class="nav-link">Home</a>
+
                     </li>
 
                     <li class="nav-item">

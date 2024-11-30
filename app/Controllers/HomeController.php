@@ -31,6 +31,5 @@ class HomeController
         session_destroy();
         header('Location: ../ExploreEase');
         exit();
-
     }
 }
