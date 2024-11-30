@@ -18,43 +18,48 @@
         font-family: Arial, sans-serif;
         background-color: #f9f6f7;
         color: #333;
+        margin: 0;
+        padding: 0;
     }
 
     .profile-card {
-        max-width: 400px;
-        margin: 50px auto;
+        max-width: 600px;
+        margin: 80px auto;
         background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         text-align: center;
     }
 
     .profile-picture img {
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
-        border: 3px solid #6fa857;
-        margin-bottom: 20px;
+        border: 4px solid #6fa857;
+        margin-bottom: 25px;
     }
 
     .profile-details h2 {
-        margin: 10px 0;
+        font-size: 28px;
+        margin: 15px 0;
         color: #225522;
     }
 
     .profile-details p {
-        margin: 5px 0;
+        font-size: 18px;
+        margin: 8px 0;
         color: #555;
     }
 
     .profile-actions .btn {
-        padding: 10px 20px;
-        margin: 5px;
+        padding: 12px 25px;
+        margin: 10px;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 16px;
+        transition: all 0.3s ease;
     }
 
     .btn-primary {
