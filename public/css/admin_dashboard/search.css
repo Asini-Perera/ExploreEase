@@ -1,0 +1,33 @@
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.search-container form {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.search-container [type="text"] {
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 800px;
+}
+
+.search-btn {
+    padding: 10px;
+    background-color: #6fa857;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+.search-btn:hover {
+    background-color: #225522;
+}
