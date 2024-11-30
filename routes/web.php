@@ -2,6 +2,7 @@
 
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('login/process', 'LoginController@login');  // Login process
+$router->add('waiting', 'LoginController@waiting');  // Waiting page for users
 
 $router->add('signup', 'SignupController@index');  // Signup page
 $router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process
@@ -16,6 +17,8 @@ $router->add('logout', 'HomeController@logout');  // Logout route for users
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
 $router->add('keyword/search', 'KeywordController@keywordsearch');  // Keyword search page for travelers
+$router->add('keyword/add', 'KeywordController@addKeyword');  // Add keyword by admin
+$router->add('keyword/delete', 'KeywordController@deleteKeyword');  // Delete keyword by admin
 
 $router->add('admin', 'AdminController@index');  // Admin login page
 $router->add('admin/login', 'AdminController@login');  // Admin login process

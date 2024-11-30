@@ -62,4 +62,100 @@ class KeywordModel
             $stmt->execute();
         }
     }
+
+    public function checkCategory($category) {
+        $sql = "SELECT CategoryID FROM category WHERE CategoryName = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return $row['CategoryID'];
+        } else {
+            return null;
+        }
+    }
+
+    public function createCategory($category) {
+        $sql = "INSERT INTO category (CategoryName) VALUES (?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $category);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function checkKeyword($categoryID, $keyword) {
+        $sql = "SELECT KeywordID FROM keyword WHERE CategoryID = ? AND KName = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('is', $categoryID, $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return $row['KeywordID'];
+        } else {
+            return null;
+        }
+    }
+
+    public function addKeyword($category, $keyword) {
+        $categoryID = $this->checkCategory($category);
+
+        if (!$categoryID) {
+            $categoryID = $this->createCategory($category);
+        }
+
+        $keywordID = $this->checkKeyword($categoryID, $keyword);
+
+        if (!$keywordID) {
+            $sql = "INSERT INTO keyword (CategoryID, KName) VALUES (?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('is', $categoryID, $keyword);
+            $stmt->execute();
+
+            return true;
+        } else {
+            return false;
+        }
+  
+    }
+
+    public function deleteKeyword($category, $keyword) {
+        $categoryID = $this->checkCategory($category);
+
+        if (!$categoryID) {
+            return false;
+        }
+
+        $keywordID = $this->checkKeyword($categoryID, $keyword);
+
+        if (!$keywordID) {
+            return false;
+        }
+
+        $sql = "DELETE FROM keyword WHERE CategoryID = ? AND KName = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('is', $categoryID, $keyword);
+        $stmt->execute();
+
+        $sql = "SELECT COUNT(*) as count FROM keyword WHERE CategoryID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row['count'] == 0) {
+            $sql = "DELETE FROM category WHERE CategoryID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('i', $categoryID);
+            $stmt->execute();
+        }
+
+        return true;
+    }
 }
