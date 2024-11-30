@@ -163,7 +163,9 @@
         
     </section>
     <div class="next-button-container">
+  <a href='http://localhost/ExploreEase/search/keyword' class="next-button-link">
   <button id="next-button">Next</button>
+</a>
 </div>
 </header>
 
