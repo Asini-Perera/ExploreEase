@@ -52,7 +52,7 @@ th {
     float: left;
 }
 
-.action-buttons button {
+.action-buttons a {
     width: auto;
     padding: 8px 10px;
     margin: 5px;
@@ -61,6 +61,7 @@ th {
     border-radius: 4px;
     cursor: pointer;
     float: right;
+    text-decoration: none;
 }
 
 .edit-btn {
