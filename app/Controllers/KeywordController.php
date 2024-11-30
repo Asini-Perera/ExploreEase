@@ -44,21 +44,22 @@ class KeywordController
     public function saveKeywords()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
+            
             $keywords = $_POST['keywords'];
             if (isset($_SESSION['TravelerID'])) {
                 $userID = $_SESSION['TravelerID'];
                 $table = 'travelerkeyword';
-            } else if (isset($_SESSION['RestaurantID'])) {
+            } elseif (isset($_SESSION['RestaurantID'])) {
                 $userID = $_SESSION['RestaurantID'];
                 $table = 'restaurantkeyword';
-            } else if (isset($_SESSION['HotelID'])) {
+            } elseif (isset($_SESSION['HotelID'])) {
                 $userID = $_SESSION['HotelID'];
                 $table = 'hotelkeyword';
-            } else if (isset($_SESSION['ShopID'])) {
-                $userID = $_SESSION['HeritageMarketID'];
+            } elseif (isset($_SESSION['ShopID'])) {
+                $userID = $_SESSION['ShopID'];
                 $table = 'heritagemarketkeyword';
-            } else if (isset($_SESSION['OrganizerID'])) {
-                $userID = $_SESSION['CulturalEventOrganizerID'];
+            } elseif (isset($_SESSION['OrganizerID'])) {
+                $userID = $_SESSION['OrganizerID'];
                 $table = 'culturaleventorganizerkeyword';
             }
         
@@ -66,6 +67,52 @@ class KeywordController
             $keywordModel->saveKeywords($table,$userID, $keywords);
         } 
 
-        header('Location: ../');
+        if (isset($_SESSION['TravelerID'])) {
+            header('Location: ../');
+        } else {
+            header('Location: ../admin/waiting');
+        }
+    }
+
+    public function addKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $addition = $keywordModel->addKeyword($category, $keyword);
+
+            if ($addition) {
+                $_SESSION['success'] = 'Keyword added successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to add keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=add');
+
+        }
+    }
+
+    public function deleteKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $deletion = $keywordModel->deleteKeyword($category, $keyword);
+
+            if ($deletion) {
+                $_SESSION['success'] = 'Keyword deleted successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to delete keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=delete');
+
+        }
     }
 }

@@ -16,7 +16,7 @@
                 <img class="logo" src="public/images/logo.png" >
                 <ul>
                     <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
+                        <a href="logout" class="nav-link">Home</a>
                     </li>
 
                     <li class="nav-item">

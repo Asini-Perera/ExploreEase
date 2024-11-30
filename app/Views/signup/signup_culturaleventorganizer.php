@@ -23,50 +23,47 @@
             }
             ?>
 
-            <form action="cultural_event_organizer.php" method="post">
+            <form action="signup/culturaleventorganizer" method="post">
                 <div class="input-group">
                     <label for="name">Name *</label>
                     <input type="text" id="name" name="name" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="location">Location</label>
-                    <input type="text" id="location" name="location" required><br><br>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number:</label>
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" name="password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password *</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="contactNo">Contact Number</label>
                     <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br><br>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea><br><br>
                 </div>
                 <div class="input-group">
                     <label for="smlink">Social Media Link:</label>
                     <input type="url" id="smlink" name="smlink" value=""><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required><br><br>
-                </div>
-                <div class="input-group">
-                    <label for="confirm_password">Confirm Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-                </div>
-                <div class="input-group">
-                    <label for="open_hours">Open Hours:</label>
-                    <input type="text" id="open_hours" name="openhours" value=""><br><br>
-                </div>
-                <div class="input-group">
-                    <label for="cuisine_types">Cuisine Type:</label>
-                    <input type="text" id="cuisine_types" name="cuisinetype" value=""><br><br>
+                    <label for="profile_image">Profile Image:</label>
+                    <input type="file" id="profile_image" name="profile_image"><br><br>
                 </div>
 
-                <button type="submit" formaction="../keyword">Next</button>
+                <button type="submit">Next</button>
             </form>
         </div>
     </div>
 
     <script src="public/js/background_slideshow1.js"></script>
+    <script src="public/js/signup_validation.js"></script>
 </body>
 
 </html>
