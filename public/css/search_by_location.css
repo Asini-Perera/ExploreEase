@@ -6,9 +6,23 @@
 }
 
 body{
-  background:url("../images/Unawatuna.jpg") no-repeat cover ; 
+  background:url("../../public/images/Unawatuna.jpg") no-repeat ; 
   background-size: 100% 60vh; 
   margin: 0;
+}
+
+.content{
+  display:flex; 
+  gap:4rem; 
+  margin-top: 10vh;
+}
+
+.content .map img{
+  cursor:pointer; 
+  width:20vw; 
+  height:35vh; 
+  margin-left: 3vw; 
+  border: #000000 1px solid;
 }
 
 .services button{
@@ -16,11 +30,11 @@ body{
   font-size: 18px;
   height: 6vh;
   cursor: pointer;
- background-color: rgba(186, 21, 21, 0.2);
+  background-color: rgba(186, 21, 21, 0.2);
   color: #000000;
   /* margin: 60px; */
   margin-right: 3vw;
-  box-shadow: 2px 2px 2px 2px #225522;
+  box-shadow: 1px 1px 1px 1px #225522;
   border-radius: 40px;
   margin-top: 30vh; 
   justify-content: space-between;
@@ -61,6 +75,11 @@ button.selected {
  
 }
 
+.service img{
+  height: 20vh; 
+  width: 16vw;
+}
+
 .service h3 {
   margin: 0 0 5px 0;
   font-size: 16px;
@@ -74,14 +93,15 @@ button.selected {
 .service-info{
   display: flex;
   justify-content: space-between;  
-  padding: 10px;
+  padding: 5px;
   width: 50vw;
+  padding-top: 6vh;
 }
 
 .service .service-info button{
   width:8vw;
   height:3vh;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   margin-top: 2vh;
   border-radius: 10px;
@@ -92,10 +112,7 @@ button.selected {
 .rate{
   font-size: 20px;
   margin-top: 2vh;
- 
-  padding-left:80px;
-  /* width:15px; */
- 
+  padding-left:60px;
 }
 
 .result-box ul{

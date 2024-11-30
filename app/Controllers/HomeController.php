@@ -16,6 +16,6 @@ class HomeController
 
     public function location_search()
     {
-        require_once __DIR__ . '/../Views/search_location.php';
+        require_once __DIR__ . '/../Views/search_by_location.php';
     }
 }

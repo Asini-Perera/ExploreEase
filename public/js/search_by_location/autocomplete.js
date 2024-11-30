@@ -1,3 +1,5 @@
+
+
 let availableKeywords = [
     'Colombo','Battaramulla'  ,'Dabulla'  ,'maharagama'  ,'Kotikawatta'  ,'Anuradhapura'  ,'Vavuniya'  ,'Kolonnawa'  ,'Hendala'  ,'Rathnapura'  ,'Ella'  ,'Colombo'  ,'Kandy'  ,'Galle'  ,'Matara'  ,'Kurunegala'  ,'Negombo'  ,'Kadawatha','Nugegoda','Kaduwela','Piliyandala','Moratuwa','Panadura','Kalutara','Gampaha','Minuwangoda','Kadawatha','Negombo','Wattala',
 ];
