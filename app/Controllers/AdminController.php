@@ -47,7 +47,7 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Email'] = $admin['Email'];
-                $_SESSION['Name'] = $admin['FirstName'];
+                $_SESSION['Name'] = $admin['FirstName'] . ' ' . $admin['LastName'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -179,12 +179,19 @@ class AdminController
                 if ($verifyKeyword === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'search') {
+                $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
+                $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $searchUser = in_array($user, $allowedUsers) ? $user : '404';
+                if ($searchUser === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout
             require_once __DIR__ . '/../Views/admin_dashboard/main.php';
         } else {
-            header('Location: admin');
+            header('Location: ../admin');
             exit();
         }
     }
