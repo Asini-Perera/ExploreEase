@@ -18,11 +18,6 @@ class KeywordController
         require_once __DIR__ . '/../models/KeywordModel.php';
     }
 
-    public function keywordsearch()
-    {
-        require_once __DIR__ . '/../Views/keyword_search.php';
-    }
-
     public function getCategoriesWithKeywords()
     {
         $keywordModel = new KeywordModel($this->conn);

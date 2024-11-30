@@ -14,7 +14,12 @@ class HomeController
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
-    public function location_search()
+    public function keywordsearch()
+    {
+        require_once __DIR__ . '/../Views/keyword_search.php';
+    }
+
+    public function locationsearch()
     {
         require_once __DIR__ . '/../Views/search_by_location.php';
     }
