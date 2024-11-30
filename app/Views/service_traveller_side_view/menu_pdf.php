@@ -4,107 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
+    <link rel="stylesheet" href="../public/css/service_traveller_side_view/menu.css">
 
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            background: url('../../public/images/menu-back.jpg') no-repeat center center/cover;
-            /* background-color: #f8f9fa; */
-            color: #333;
-            height: 100%;
-        }
-
-        .menu-container {
-            width: 90%;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .menu-header {
-            font-size: 32px;
-            font-weight: bold;
-            color: #F1C232;
-            font-size: 5rem;
-            padding-bottom: 2vh; 
-            font-family: Edwardian Script ITC;
-        }
-
-
-        .main-card {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .card {
-            flex: 1 1 calc(48% - 10px);
-            min-width: 450px;
-            padding: 15px;
-            background-color: rgba(255,255,255,0.5);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        h3 {
-            font-size: 24px;
-            margin: 2vh 0;
-            color: #225522;
-        }
-
-        .dish {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            color: #000000;
-        }
-
-        .price {
-            font-weight: bold;
-            color: #000000;
-        }
-
-
-        .fade-image{
-            width: 100px;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-            opacity: 0.5;
-        }
-
-        @media (max-width: 768px) {
-            .main-card {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-    </style>
-</head>
 <body>
     <div class="menu-container">
         <div class="main-card">
-            <img src="../../public/images/food-1.png" class="fade-image">
+            <img src="../public/images/food-1.png" class="fade-image">
             <h1 class="menu-header">Menu</h1>
-            <img src="../../public/images/food-1.png" class="fade-image">
+            <img src="../public/images/food-1.png" class="fade-image">
         </div>
-            
-      
 
         <div class="main-card">
             <!-- Card 1 -->
@@ -375,8 +283,8 @@
             </div>
 
             <div class="main-card">
-                <img src="../../public/images/food-1.png" class="fade-image">
-                <img src="../../public/images/food-1.png" class="fade-image">
+                <img src="../public/images/food-1.png" class="fade-image">
+                <img src="../public/images/food-1.png" class="fade-image">
             </div>
 
         </div>
