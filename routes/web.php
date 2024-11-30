@@ -1,12 +1,30 @@
 <?php
 
+$router->add('login', 'LoginController@index');  // Login page
+$router->add('login/process', 'LoginController@login');  // Login process
+
+$router->add('signup', 'SignupController@index');  // Signup page
+$router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process
+$router->add('signup/restaurant', 'SignupController@restaurant');  // Restaurant signup process
+$router->add('signup/hotel', 'SignupController@hotel');  // Hotel signup process
+$router->add('signup/heritagemarket', 'SignupController@heritagemarket');  // Heritage Market signup process
+$router->add('signup/culturaleventorganizer', 'SignupController@culturaleventorganizer');  // Cultural Event Organizer signup process
+
 $router->add('', 'HomeController@index');  // Home route for users
+$router->add('logout', 'HomeController@logout');  // Logout route for users
+
+$router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
+$router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
+$router->add('keyword/search', 'KeywordController@keywordsearch');  // Keyword search page for travelers
+
 $router->add('admin', 'AdminController@index');  // Admin login page
 $router->add('admin/login', 'AdminController@login');  // Admin login process
 $router->add('admin/create', 'AdminController@create');  // Admin signup page
 $router->add('admin/signup', 'AdminController@signup');  // Admin signup process
 $router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
+$router->add('admin/logout', 'AdminController@logout');  // Admin logout
+
 $router->add('forgot', 'ForgotPasswordController@index');  // Forgot password page
 $router->add('request', 'ForgotPasswordController@request');  // Forgot password token send
 $router->add('reset', 'ForgotPasswordController@reset');  // Reset password page

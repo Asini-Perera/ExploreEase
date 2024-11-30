@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/739813035819fd1b301dce02ba6fbd55efc8c72cd7212000be1123d81c44e955?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Email" width="30" height="30">
-                    <span>ExploreEaseContact@gmail.com</span>
+                    <span>ExploreEase10@gmail.com</span>
                 </li>
                 <li>
                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/541f6aac4c422e172c811a09594b7929f42e471a828ae3594e47976a6001ca61?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Address" width="30" height="30">

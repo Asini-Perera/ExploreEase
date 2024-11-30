@@ -3,16 +3,16 @@ document.getElementById("signupButton").addEventListener("click", function () {
     var url = "";
     switch (serviceType) {
         case "hotel":
-            url = "signup/hotel";
+            url = "signup?user=hotel";
             break;
         case "restaurant":
-            url = "signup/restaurant";
+            url = "signup?user=restaurant";
             break;
         case "heritagemarket":
-            url = "signup/heritagemarket";
+            url = "signup?user=heritagemarket";
             break;
         case "culturaleventorg":
-            url = "signup/culturaleventorganizer";
+            url = "signup?user=culturaleventorganizer";
             break;
         default:
             alert("Please select a service type.");

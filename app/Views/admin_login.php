@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/css/admin_login.css">
+    <link rel="stylesheet" href="public/css/login.css">
 </head>
 
 <body>
@@ -30,7 +30,7 @@
                 unset($_SESSION['success']); // Clear the success message
             }
 
-            // Check if the AdminID is stored in cookies
+            // Check if Email is stored in cookies
             $email = isset($_COOKIE['Email']) ? $_COOKIE['Email'] : '';
             ?>
 
@@ -55,7 +55,7 @@
             <p>Don't have an account? <a href="admin/create">Create Account</a></p>
         </div>
     </div>
-    <script src="public/js/admin_login.js"></script>
+    <script src="public/js/background_slideshow1.js"></script>
 </body>
 
 </html>
