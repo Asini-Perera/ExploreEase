@@ -5,6 +5,10 @@
     font-family: "Poppins",sans-serif;
 }
 
+.main-container{
+    margin-top: 60px; 
+}
+
 .container{
     background: url("../../images/restaurant-home.jpg" ) 0vh, 70vw no-repeat;
     background-size: cover;
