@@ -94,4 +94,25 @@ class KeywordController
 
         }
     }
+
+    public function deleteKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $deletion = $keywordModel->deleteKeyword($category, $keyword);
+
+            if ($deletion) {
+                $_SESSION['success'] = 'Keyword deleted successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to delete keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=delete');
+
+        }
+    }
 }

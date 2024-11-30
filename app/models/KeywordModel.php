@@ -121,7 +121,41 @@ class KeywordModel
         } else {
             return false;
         }
+  
+    }
 
-        
+    public function deleteKeyword($category, $keyword) {
+        $categoryID = $this->checkCategory($category);
+
+        if (!$categoryID) {
+            return false;
+        }
+
+        $keywordID = $this->checkKeyword($categoryID, $keyword);
+
+        if (!$keywordID) {
+            return false;
+        }
+
+        $sql = "DELETE FROM keyword WHERE CategoryID = ? AND KName = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('is', $categoryID, $keyword);
+        $stmt->execute();
+
+        $sql = "SELECT COUNT(*) as count FROM keyword WHERE CategoryID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $categoryID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row['count'] == 0) {
+            $sql = "DELETE FROM category WHERE CategoryID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('i', $categoryID);
+            $stmt->execute();
+        }
+
+        return true;
     }
 }
