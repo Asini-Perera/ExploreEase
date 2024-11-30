@@ -36,6 +36,7 @@ $router->add('reset', 'ForgotPasswordController@reset');  // Reset password page
 $router->add('update', 'ForgotPasswordController@update');  // Update new password
 
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
+$router->add('restaurant/addMenu','RestaurantController@addMenu');  // Add menu for restaurant
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 
