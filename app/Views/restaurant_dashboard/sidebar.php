@@ -9,7 +9,7 @@
         </li>
 
         <li>
-            <a href="?page=menulist" class="<?= $mainContent == 'menulist' ? 'active' : '' ?>">Menu List</a>
+            <a href="?page=menu" class="<?= $mainContent == 'menu' ? 'active' : '' ?>">Menu List</a>
         </li>
 
         <li>

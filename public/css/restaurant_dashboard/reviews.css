@@ -1,5 +1,12 @@
 .menu-container {
-    padding-top: 30px;
+    padding-top: 0px;
+}
+
+h1 {
+    padding: 10px;
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 20px;
 }
 
 table {

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/restaurant_dashboard/dashboard.css">
 
-    <h1>Welcome to the Service Provider Dashboard👋</h1>
+    <h1>Welcome to the Restaurant Dashboard👋</h1>
     <div class="tiles">
         <div class="tile">
             <div class="tile-content">
