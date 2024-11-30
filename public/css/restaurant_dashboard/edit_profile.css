@@ -20,7 +20,7 @@
 
     .action-buttons button{
  
-        width: 60px;
+        width: 80px;
         padding: 8px 10px;
         margin: 5px;
         color: white;
@@ -31,10 +31,12 @@
 
     .save-btn {
         background-color: #6fa857;
+        float: right;
     }
 
     .save-btn:hover {
         background-color: #225522;
+        color: white;
     }
 
     .discard-btn {

@@ -16,6 +16,7 @@
                 <th>Price</th>
                 <th>Category</th>
                 <th>Image</th>
+                <th>Popular Dish</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                 <td>Rs. 500.00</td>
                 <td>Non-Veg</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td>Yes</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -35,6 +37,7 @@
                 <td>Rs. 300.00</td>
                 <td>Veg</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td>No</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -45,6 +48,7 @@
                 <td>Rs. 400.00</td>
                 <td>Non-Veg</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td>Yes</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -55,6 +59,7 @@
                 <td>Rs. 250.00</td>
                 <td>Veg</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td>No</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -65,6 +70,7 @@
                 <td>Rs. 450.00</td>
                 <td>Non-Veg</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td>Yes</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>

@@ -32,7 +32,7 @@ form{
     font-weight: bold;
 }
 
-#title, #price{
+#title, #description{
     width: 75%;
     height: 30px;
     font-size: 16px;
@@ -41,18 +41,11 @@ form{
     padding-left: 20px;
 }
 
-/* .form-group textarea {
+.form-group textarea {
     height: auto;
-} */
-
-#category{
-    width: 40%;
-    height: 30px;
-    font-size: 16px;
-    border:0.5px solid #000;
-    border-radius: 15px;
-    padding-left: 20px;
 }
+
+
 
 #image{
     width: 75%;
@@ -71,13 +64,6 @@ select{
     border: none;
 }
 
-.popular_food{
-    margin-left: 10px;
-}
-
-.not_popular{
-    margin-left: 30px;
-}
 button {
     margin-top: 4vh;
     width: 8vw;
