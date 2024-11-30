@@ -69,15 +69,50 @@ class KeywordController
 
         if (isset($_SESSION['TravelerID'])) {
             header('Location: ../');
-        } else if (isset($_SESSION['RestaurantID'])) {
-            header('Location: ../restaurant/dashboard');
-        } else if (isset($_SESSION['HotelID'])) {
-            header('Location: ../hotel/dashboard');
-        } else if (isset($_SESSION['ShopID'])) {
-            header('Location: ../heritagemarket/dashboard');
-        } else if (isset($_SESSION['OrganizerID'])) {
-            header('Location: ../culturaleventorganizer/dashboard');
+        } else {
+            header('Location: ../admin/waiting');
         }
+    }
 
+    public function addKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $addition = $keywordModel->addKeyword($category, $keyword);
+
+            if ($addition) {
+                $_SESSION['success'] = 'Keyword added successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to add keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=add');
+
+        }
+    }
+
+    public function deleteKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category']) && isset($_POST['keyword'])) {
+            $category = $_POST['category'];
+            $keyword = $_POST['keyword'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            
+            $deletion = $keywordModel->deleteKeyword($category, $keyword);
+
+            if ($deletion) {
+                $_SESSION['success'] = 'Keyword deleted successfully';
+            } else {
+                $_SESSION['error'] = 'Failed to delete keyword';
+            }
+
+            header('Location: ../admin/dashboard?page=keyword&action=delete');
+
+        }
     }
 }
