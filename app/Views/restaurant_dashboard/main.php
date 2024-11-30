@@ -19,9 +19,12 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
+        <?php
+            
+                require_once  __DIR__ . "/$mainContent.php";
+            
+            ?>
         </div>
-    </div>
 </body>
 
 </html>
