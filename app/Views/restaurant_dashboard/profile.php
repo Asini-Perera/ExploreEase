@@ -1,27 +1,55 @@
-<div class="profile">
-        <form action="restaurant_signupform.php" method="post">
-                <label for="name">Name </label>
-                <span class="name">name</span>
+<link rel="stylesheet" href="../public/css/restaurant_dashboard/profile.css">
 
-                <label for="location">Location </label>
-                <span class="location">location</span>
+<div class="profile-container">
+    <div class="top">
+        <h1>Profile Details</h1><span></span>
 
-                <label for="contactNo">Contact Number:</label>
-                <span class="tel_No">contact number</span>
-
-                <label for="email">Email </label><br>
-                <span class="email">email</span>
-
-                <label for="website">Website </label><br>
-                <span class="website">website</span>
-
-                <label for="password">Password </label><br>
-                <span class="password">password</span>
-
-                <label for="open_hours">Open Hours </label><br>
-                <span class="name">name</span>
-
-                <label for="cuisine_types">Cuisine Type:</label><br>
-                <span class="name">name</span>
-        </form>
+        <div class="action-buttons">
+            <button class="edit-btn" href="">Edit Profile</button>
+        </div>
+    </div>
+    
+    <table>
+        <tbody>
+            <tr>
+                <th>Profile Image</th>
+                <td><img src="../public/images/user.jpg" alt="Profile Image" class="profile-img"></td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>John Doe</td>
+            <tr>
+                <th>Location</th>
+                <td>Colombo</td>
+            </tr>
+            <tr>
+                <th>Contact No</th>
+                <td>+94 71 234 5678</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>John@gmail.com</td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>www.johndoe.com</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>********</td>
+            </tr>
+            <tr>
+                <th>Open Hours</th>
+                <td>9am - 5pm</td>
+            </tr>
+            <tr>
+                <th>Cuisine Types</th>
+                <td>Western, Chinese</td>
+            </tr>
+            <tr>
+                <th>Keywords</th>
+                <td>Fast Food, Family Friendly</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
