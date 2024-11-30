@@ -31,7 +31,7 @@
                 <h1>120</h1>
             </div>
             <div class="tile-image">
-                <img src="../public/images/hotel.jpg" alt="Hotel">
+                <img src="../public/images/hotel12.jpg" alt="Hotel">
             </div>
         </div>
     </div>

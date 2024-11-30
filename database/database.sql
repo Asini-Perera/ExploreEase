@@ -419,3 +419,15 @@ INSERT INTO Keyword (KName, CategoryID) VALUES
     
 -- Add ImgPath column to Traveler table
 ALTER TABLE Traveler ADD ImgPath VARCHAR(255);
+
+-- Add IsVerified column to HotelKeyword table
+ALTER TABLE HotelKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+
+-- Add IsVerified column to CulturalEventOrganizerKeyword table
+ALTER TABLE CulturalEventOrganizerKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+
+-- Add IsVerified column to RestaurantKeyword table
+ALTER TABLE RestaurantKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+
+-- Add IsVerified column to HeritageMarketKeyword table
+ALTER TABLE HeritageMarketKeyword ADD IsVerified TINYINT(1) DEFAULT 0;

@@ -1,16 +1,17 @@
 .navbar {
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .navbar a {
-    float: left;
     display: block;
     color: #225522;
     font-weight: bold;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    min-width: 200px;
+    min-width: 175px;
     box-sizing: border-box;
 }
 

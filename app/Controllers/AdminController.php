@@ -5,6 +5,8 @@ namespace app\Controllers;
 use app\Models\AdminModel;
 use app\Models\SignupModel;
 
+use app\Controllers\KeywordController;
+
 class AdminController
 {
     private $conn;
@@ -18,6 +20,9 @@ class AdminController
         // Include the AdminModel and SignupModel
         require_once __DIR__ . '/../models/AdminModel.php';
         require_once __DIR__ . '/../models/SignupModel.php';
+
+        // Include the KeywordController
+        require_once __DIR__ . '/KeywordController.php';
     }
 
     public function index()
@@ -42,7 +47,7 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Email'] = $admin['Email'];
-                $_SESSION['Name'] = $admin['FirstName'];
+                $_SESSION['Name'] = $admin['FirstName'] . ' ' . $admin['LastName'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -134,7 +139,7 @@ class AdminController
     {
         // Logic for admin waiting page
         if (isset($_SESSION['AdminID'])) {
-            require_once __DIR__ . '/../Views/admin_waiting.php';
+            require_once __DIR__ . '/../Views/waiting.php';
         } else {
             header('Location: admin');
             exit();
@@ -159,6 +164,10 @@ class AdminController
             } elseif ($mainContent == 'keyword') {
                 $action = isset($_GET['action']) ? $_GET['action'] : 'view';
                 $allowedActions = ['add', 'view', 'delete'];
+
+                $keywordController = new KeywordController();
+                $categories = $keywordController->getCategoriesWithKeywords();
+
                 $keywordAction = in_array($action, $allowedActions) ? $action : '404';
                 if ($keywordAction === '404') {
                     $mainContent = '404';
@@ -168,6 +177,13 @@ class AdminController
                 $allowedUsers = ['restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyKeyword = in_array($user, $allowedUsers) ? $user : '404';
                 if ($verifyKeyword === '404') {
+                    $mainContent = '404';
+                }
+            } elseif ($mainContent == 'search') {
+                $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
+                $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $searchUser = in_array($user, $allowedUsers) ? $user : '404';
+                if ($searchUser === '404') {
                     $mainContent = '404';
                 }
             }
