@@ -22,7 +22,7 @@ class RestaurantController
     {
         if (isset($_SESSION['RestaurantID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'menu', 'add_post', 'post_list', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'profile') {
@@ -35,6 +35,9 @@ class RestaurantController
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 }
+            } elseif ($mainContent == 'post') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
             }
 
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';

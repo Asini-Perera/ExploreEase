@@ -13,6 +13,10 @@
         </li>
 
         <li>
+            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>">Post List</a>
+        </li>
+
+        <li>
             <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">Bookings</a>
         </li>
 
