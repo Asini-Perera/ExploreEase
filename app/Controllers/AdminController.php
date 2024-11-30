@@ -179,6 +179,13 @@ class AdminController
                 if ($verifyKeyword === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'search') {
+                $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
+                $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
+                $searchUser = in_array($user, $allowedUsers) ? $user : '404';
+                if ($searchUser === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout
