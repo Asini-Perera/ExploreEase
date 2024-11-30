@@ -63,7 +63,8 @@ class KeywordModel
         }
     }
 
-    public function checkCategory($category) {
+    public function checkCategory($category)
+    {
         $sql = "SELECT CategoryID FROM category WHERE CategoryName = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $category);
@@ -78,7 +79,8 @@ class KeywordModel
         }
     }
 
-    public function createCategory($category) {
+    public function createCategory($category)
+    {
         $sql = "INSERT INTO category (CategoryName) VALUES (?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $category);
@@ -87,7 +89,8 @@ class KeywordModel
         return $stmt->insert_id;
     }
 
-    public function checkKeyword($categoryID, $keyword) {
+    public function checkKeyword($categoryID, $keyword)
+    {
         $sql = "SELECT KeywordID FROM keyword WHERE CategoryID = ? AND KName = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('is', $categoryID, $keyword);
@@ -102,7 +105,8 @@ class KeywordModel
         }
     }
 
-    public function addKeyword($category, $keyword) {
+    public function addKeyword($category, $keyword)
+    {
         $categoryID = $this->checkCategory($category);
 
         if (!$categoryID) {
@@ -121,10 +125,10 @@ class KeywordModel
         } else {
             return false;
         }
-  
     }
 
-    public function deleteKeyword($category, $keyword) {
+    public function deleteKeyword($category, $keyword)
+    {
         $categoryID = $this->checkCategory($category);
 
         if (!$categoryID) {
@@ -158,4 +162,4 @@ class KeywordModel
 
         return true;
     }
-}
+
