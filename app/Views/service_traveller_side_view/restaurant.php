@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resturant</title>
-    <link rel="stylesheet" href="../../public/css/restaurant.css">
+    <link rel="stylesheet" href="../public/css/service_traveller_side_view/restaurant.css">
 </head>
 
 <section>
@@ -36,64 +36,61 @@
     
     <div class="map-gallery">
         <div class="map">
-            <img src="../../public/images/google-map.jpg" alt="map" class="map-img" >
+            <img src="../public/images/google-map.jpg" alt="map" class="map-img">
         </div>
 
         <div class="gallery">
             <div class="gallery-one" >
                 <div>
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(2).jpg" alt="hotel-image" style="width: 19vw; height: 20vh;  ">
+                    <img src="../public/images/hilton(2).jpg" alt="hotel-image"  class="gallery1-image1">
                 </div>
 
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(3).jpg" alt="hotel-image" style="width: 19vw; height: 20vh; margin-top: 16vh;">
+                    <img src="../public/images/hilton(3).jpg" alt="hotel-image" class="gallery1-image2">
                 </div>
             </div>
 
             <div>
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(1).jpg" alt="hotel-image" style="width: 37.5vw; height: 41vh; margin-left: 14.5vw;">
+                    <img src="../public/images/hilton(1).jpg" alt="hotel-image" class="gallery-main">
                 </div>
 
                 
             </div>
             <div>
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(4).jpg" alt="hotel-image" style="width: 19vw; height: 20vh; margin-left: 47.5vw; ">
+                    <img src="../public/images/hilton(4).jpg" alt="hotel-image" class="gallery1-image3">
                 </div>
 
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(5).jpg" alt="hotel-image" style="width: 19vw; height: 20vh; margin-left: 87vh; margin-top: 16vh;">
+                    <img src="../public/images/hilton(5).jpg" alt="hotel-image" class="gallery1-image4">
                 </div>
             </div>
             </div>
 
-            <div class="gallery-two" style="display: flex; gap: 18rem; margin-top: 32vh;">
+            <div class="gallery-two">
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(6).jpg" alt="hotel-image" style="width: 19vw; height: 20vh;">
+                    <img src="../public/images/hilton(6).jpg" alt="hotel-image" class="gallery2-image1">
                 </div>
 
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton(4).jpg" alt="hotel-image" style="width: 19vw; height: 20vh; ">
+                    <img src="../public/images/hilton(4).jpg" alt="hotel-image" class="gallery2-image2">
                 </div>
 
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton (7).jpg" alt="hotel-image" style="width: 19vw; height: 20vh;">
+                    <img src="../public/images/hilton (7).jpg" alt="hotel-image" class="gallery2-image3">
                 </div>
 
                 <div class="gallery-img">
-                    <img src="../../public/images/hilton (8).jpg" alt="hotel-image" style="width: 19vw; height: 20vh;">
+                    <img src="../public/images/hilton (8).jpg" alt="hotel-image" class="gallery2-image4">
                 </div> 
             </div>
         </div>
     </div>
 
     <Div class="about" id="about">
-        <!-- <div class="abt-img">
-            <img src="../../public/images/restaurant-image (2).jpg" alt="restaurant">
-        </div> -->
-
+        
         <div class="content">
             <h3 class="abt-title" >Welcome to our resturant</h3>
             <p class="description">Our restaurant offers a unique blend of contemporary design and timeless elegance, providing the perfect backdrop for an unforgettable dining experience. Whether you're here for an intimate dinner, a celebration with friends, or a business gathering, our attentive service and warm ambiance promise to make your visit truly special.<br><br>
@@ -115,115 +112,115 @@
         <div class="food-slider">
             <div class="food-list">
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/creamy-pasta.jpg" alt="creamy-pasta" class="food-img">
+                    <img src="../public/images/creamy-pasta.jpg" alt="creamy-pasta" class="food-img">
                     <h3>Creamy Pasta</h3>
                     <div class="price">RS.650.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/chorizo-pasta.jpg" alt="chorizo-pasta" class="food-img">
+                    <img src="../public/images/chorizo-pasta.jpg" alt="chorizo-pasta" class="food-img">
                     <h3>Chorizo Pasta</h3>
                     <div class="price">RS.750.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/sandwitch.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/sandwitch.jpg" alt="burger" class="food-img">
                     <h3>Sandwitch</h3>
                     <div class="price">Rs.350.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/root-vegetable-soap.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/root-vegetable-soap.jpg" alt="burger" class="food-img">
                     <h3>Root vegetable soap</h3>
                     <div class="price">RS.800.00</div>
                 </div>
                 
                 <div class="slide" >
-                    <img src="../../public/images/thai-curry-soap.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/thai-curry-soap.jpg" alt="burger" class="food-img">
                     <h3>Thai curry soap</h3>
                     <div class="price">RS.750.00</div>
                 </div> 
                 
                 <div class="slide">
-                    <img src="../../public/images/spring-rolls.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/spring-rolls.jpg" alt="burger" class="food-img">
                     <h3>Spring roll</h3>
                     <div class="price">RS.450.00</div>
                 </div>
                 
                 <div class="slide" >
-                    <img src="../../public/images/rasberry-white-chocolate-mousse.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/rasberry-white-chocolate-mousse.jpg" alt="burger" class="food-img">
                     <h3>Rasberry white chocolate mousse</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide">
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide">
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide">
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
 
                 <div class="slide" >
-                    <img src="../../public/images/burger.jpg" alt="burger" class="food-img">
+                    <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                     <h3>Burger</h3>
                     <div class="price">RS.450.00</div>
                 </div>
@@ -241,35 +238,35 @@
          <button class="menu_btn">Discover Menu PDF</button>
         </div>
 
-        <img class="menu_img" src="../../public/images/menu.jpg" alt="menu">
+        <img class="menu_img" src="../public/images/menu.jpg" alt="menu">
     </section>
 
 <!-- latest posts -->
     <section class="posts" id="posts">
         <div class="latest-posts">
             <div class="post">
-                <img src="../../public/images/restaurant-image (2).jpg" alt="restaurant">
+                <img src="../public/images/restaurant-image (2).jpg" alt="restaurant">
                 <h4>11.11 offer</h4>
                 <p>Enjoy a special discount on 11.11 with our exclusive offer. Don't miss out on this limited-time deal!</p>
                 <a href="#">Read More</a>
             </div>
 
             <div class="post">
-                <img src="../../public/images/restaurant-image (2).jpg" alt="restaurant">
+                <img src="../public/images/restaurant-image (2).jpg" alt="restaurant">
                 <h4>Seasonal Offer</h4>
                 <p>Celebrate the season with our special menu and discounts. Perfect for a cozy meal with loved ones.</p>
                 <a href="#">Read More</a>
             </div>
 
             <div class="post">
-                <img src="../../public/images/restaurant-image (2).jpg" alt="restaurant">
+                <img src="../public/images/restaurant-image (2).jpg" alt="restaurant">
                 <h4>Package offer</h4>
                 <p>Take advantage of our package offer and enjoy a variety of dishes at a great price. Ideal for group dining.</p>
                 <a href="#">Read More</a>
             </div>
 
             <div class="post">
-                <img src="../../public/images/restaurant-image (2).jpg" alt="restaurant">
+                <img src="../public/images/restaurant-image (2).jpg" alt="restaurant">
                 <h4>Couple offer</h4>
                 <p>Make your date night special with our couple offer. Enjoy a romantic dinner with exclusive benefits.</p>
                 <a href="#">Read More</a>
@@ -281,7 +278,7 @@
 <!-- table booking -->
     <section class="table-booking">
         <div>
-        <img src="../../public/images/book_table.jpg" alt="booking">
+        <img src="../public/images/book_table.jpg" alt="booking">
         </div>
 
         <div class="booking">
@@ -310,229 +307,228 @@
 
 <!-- review -->
 <section class="reviews" id="reviews">
-    <div class="review-heading"><h2>What our customers say</h2></div>
-    
-    <div class="review-container">
-       
-
-        <div class="review-content">
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
-                    </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
-                </div>
-            </div>
-            
+        <div class="review-heading">
+            <h2>What our customers say</h2>
+        </div>
         
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/women-1.jpg"></a>
-                        </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
-                    </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
-                </div>
-            </div>
+        <div class="review-container">
+           
 
-
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men-1.jpg"></a>
+            <div class="review-content">
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
+                
             
-
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
+
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+                
+
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
+                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
+                    </div>
+                </div>
+                
             
-        
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/women-1.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
 
 
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men-1.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
 
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
+                
             
-        
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/women-1.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/women-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>John Wilson</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
-            </div>
 
 
-            <div class="review-slide">
-                <div class="review" style="border: #000 1px solid; padding: 10px;">
-                    <div class="customer-info" style="display: flex;">
-                        <div class="customer-pic">
-                            <a href="#"> <img src="../../public/images/men-1.jpg"></a>
+                <div class="review-slide">
+                    <div class="review">
+                        <div class="customer-info">
+                            <div class="customer-pic">
+                                <a href="#"> <img src="../public/images/men-1.jpg"></a>
+                            </div>
+                            <div class="customer-details">
+                                <h5>Jane Koch</h5>
+                            </div>
                         </div>
-                        <div class="customer-details">
-                            <h5>name</h5>
-                        </div>
+                    
+                    <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div> 
+                    
+                    <div class="reponse">
+                        <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                     </div>
-                
-                <p class="review-msg" >orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                </div> 
-                
-                <div class="reponse" style="padding: 10px; margin-left: 5vw; margin-top: 1vh; width:17vw; border: #225522 solid 1px ; height: 10vh; ">
-                    <p>Thank you for your review. We are glad you enjoyed your stay with us. We hope to see you again soon!</p>
                 </div>
+
             </div>
 
         </div>
+    </section>
 
-    </div>
-</section>
+    <section class="get-review">
 
-<section class="get-review" style="display: flex; align-items: center; margin-top: 3vh; margin-left: 100px;">
+<div class="get-review-heading">
+    <span>Add review here</span>
+    <p> We’re proud to provide a comfortable, welcoming experience and love hearing your feedback. <br>Share your thoughts and help us make every visit unforgettable!</p>
+</div>
 
-    <div class="get-review" style="font-size: 22px; ">
-        <span style="    color: #225522;
-        font-size: 5rem;
+<div class="review-form">
+    <form action="" method="post">
         
-        font-family: Edwardian Script ITC;">Add review here</span>
-        <p> We’re proud to provide a comfortable, welcoming experience and love hearing your feedback. <br>Share your thoughts and help us make every visit unforgettable!</p>
-    </div>
-
-    <div class="review-form" style="margin-left: 15vw;">
-        <form action="" method="post" style="width: 30vw; height: 70vh; color: #fff;  border-radius: 20px; background-color: #225522; margin-bottom: 4vh; font-size: 20px; align-content: center; padding:40px;">
-            <!-- <label for="name">Name </label> -->
-            <input type="text" id="name" name="name" placeholder=" name" style=" border-radius:10px; width: 26vw; height: 4vh; margin-bottom: 2vh; padding-left: 10px; font-size: 18px;" required>
-            <!-- <label for="email">Email </label> -->
-            <input type="email" id="email" name="email" placeholder=" email" style="border-radius:10px; width: 26vw; height: 4vh;  margin-bottom: 2vh; padding-left: 10px; font-size: 18px;" required>
-            <!-- <label for="review">Review </label> -->
-            <input type="number" id="tel_no" name="tel_no" placeholder=" contact number" style="border-radius:10px; width: 26vw; height: 4vh; margin-bottom: 2vh; padding-left: 10px; font-size: 18px;" required>
+        <input type="text" id="name" name="name" placeholder=" name" required>
        
-            <textarea id="comment" name="comment" placeholder=" live your review here" cols="55" rows="14" style="border-radius:10px; padding-left: 10px; font-size: 18px; margin-bottom:2vh ;" required></textarea>
-          
-            <label for="review">How do you rate our overall service?</label>
-            <ul style="display: flex; gap: 3rem; list-style: none; margin-top: 2vh; margin-bottom: 2vh;">
-            <li><button style="padding: 12px 15px; border-radius: 60px;">1</button></li>
-            <li><button style="padding: 12px 15px; border-radius: 60px;">2</button></li>
-            <li><button style="padding: 12px 15px; border-radius: 60px;">3</button></li>
-            <li><button style="padding: 12px 15px; border-radius: 60px;">4</button></li>
-            <li><button style="padding: 12px 15px; border-radius: 60px;">5</button></li>
-            </ul>
+        <input type="email" id="email" name="email" placeholder=" email" required>
+       
+        <input type="number" id="tel_no" name="tel_no" placeholder=" contact number" required>
+   
+        <textarea id="comment" name="comment" placeholder=" live your review here" cols="56" rows="14" required></textarea>
+      
+        <label for="review">How do you rate our overall service?</label>
+        <ul>
+        <li> <button>1</button> </li>
+        <li> <button>2</button> </li>
+        <li> <button>3</button> </li>
+        <li> <button>4</button> </li>
+        <li> <button>5</button> </li>
+        </ul>
 
-            <button class="add-review" style="margin-top: 1vh; width: 20vw; border-radius: 20px; height: 4vh; font-size: 18px; color: #000; background-color: #F1C232; margin-left: 60px ; ">Leave a Review</button>
-            
-        </form>
-    </div>
+        <button class="add-review">Leave a Review</button>
+        
+    </form>
+</div>
 
 </section>
 
@@ -542,26 +538,26 @@
         
         <div class="contact">
             <div class ="contact-info">
-                <img class="contact_img" alt="" src="../../public/images/location.png"></img>
+                <img class="contact_img" alt="" src="../public/images/location.png"></img>
                 <h3>Address</h3>
                 <p>123 Main Street,<br /> New York,<br /> NY 10001</p>
             </div>  
             
             <div class ="contact-info">
-                <img class="contact_img" alt="" src="../../public/images/open.png"></img>
+                <img class="contact_img" alt="" src="../public/images/open.png"></img>
                 <h3>Opening Hours</h3>
                 <p>Weekdays 8a.m to 10p.m</p>
                 <p>Weekends 8a.m to 12p.m</p>
             </div>
 
             <div class ="contact-info">
-                <img class="contact_img" alt="" src="../../public/images/email.png"></img>
+                <img class="contact_img" alt="" src="../public/images/email.png"></img>
                 <h3>Email</h3>
                 <p>abcresturat@gmail.com</p>
             </div>
 
             <div class ="contact-info">
-                <img class="contact_img" alt="" src="../../public/images/phone-call.png"></img>
+                <img class="contact_img" alt="" src="../public/images/phone-call.png"></img>
                 <h3>Phone</h3>
                 <p>0112 456987</p>
                 <p>0112 789632</p>
@@ -569,15 +565,15 @@
         </div>
 
         <div class="share">
-                <a href="https://www.twitter.com/"><img class="#######" alt="" src="../../public/images/twitter.png"></img></a>
-                <a href="https://www.facebook.com/"><img class="#######" alt="" src="../../public/images/facebook.png"></img></a>
-                <a href="https://www.instagram.com/"><img class="#######" alt="" src="../../public/images/instagram.png"></img></a>
-                <a href="https://www.youtube.com/"><img class="#######" alt="" src="../../public/images/youtube.png"></img></i></a>
+                <a href="https://www.twitter.com/"><img class="twitter" alt="twitter" src="../public/images/twitter.png"></img></a>
+                <a href="https://www.facebook.com/"><img class="facebook" alt="facebook" src="../public/images/facebook.png"></img></a>
+                <a href="https://www.instagram.com/"><img class="instagram" alt="instagram" src="../public/images/instagram.png"></img></a>
+                <a href="https://www.youtube.com/"><img class="youtube" alt="youtube" src="../public/images/youtube.png"></img></i></a>
         </div>
     </section>
 
    
-    <script src="../../public/js/restaurant.js"></script>
+    <script src="../public/js/restaurant.js"></script>
 </body>
 </html>
 
