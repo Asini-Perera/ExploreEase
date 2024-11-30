@@ -1,0 +1,145 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
+
+body{
+  background:url("../../public/images/Unawatuna.jpg") no-repeat ; 
+  background-size: 100% 60vh; 
+  margin: 0;
+}
+
+.content{
+  display:flex; 
+  gap:4rem; 
+  margin-top: 10vh;
+}
+
+.content .map img{
+  cursor:pointer; 
+  width:20vw; 
+  height:35vh; 
+  margin-left: 3vw; 
+  border: #000000 1px solid;
+}
+
+.services button{
+  width:14vw; 
+  font-size: 18px;
+  height: 6vh;
+  cursor: pointer;
+  background-color: rgba(186, 21, 21, 0.2);
+  color: #000000;
+  /* margin: 60px; */
+  margin-right: 3vw;
+  box-shadow: 1px 1px 1px 1px #225522;
+  border-radius: 40px;
+  margin-top: 30vh; 
+  justify-content: space-between;
+  
+}
+
+button:hover {
+  background-color: #225522;
+  color:#fff;
+}
+
+button.selected {
+  background-color: #c99d23;
+}
+
+#results {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap to a new row */
+  gap: 20px; /* Adds space between services */
+  /* margin-top: 20px; */
+  margin-bottom: 2vh;
+}
+
+.service {
+  padding: 10px;
+  background-color: #D9D9D9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  height: 22vh;
+  display: flex;
+  gap: 4rem;
+  width: 70vw;
+  box-sizing: border-box;
+  /* margin: 20px auto; */
+  box-shadow: 2px 2px 2px 2px #225522;
+  align-items: center;
+  cursor: pointer;
+ 
+}
+
+.service img{
+  height: 20vh; 
+  width: 16vw;
+}
+
+.service h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.service p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.service-info{
+  display: flex;
+  justify-content: space-between;  
+  padding: 5px;
+  width: 50vw;
+  padding-top: 6vh;
+}
+
+.service .service-info button{
+  width:8vw;
+  height:3vh;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 2vh;
+  border-radius: 10px;
+  background-color: #F1C232;
+  color: #000000;
+}
+
+.rate{
+  font-size: 20px;
+  margin-top: 2vh;
+  padding-left:60px;
+}
+
+.result-box ul{
+  padding: 10px;
+}
+
+.result-box ul li{
+ list-style: none;
+ padding: 15px 10px;
+  cursor: pointer;
+}
+
+.result-box ul li:hover{
+  background: #e9f3ff;
+}
+
+.result-box{
+  max-height:250px;
+  overflow-y: scroll;
+  width: 35vw;
+  background-color: #D9D9D9;
+  margin-bottom: 0;
+  position: absolute;
+}
+
+.error-msg {
+  color: red;
+  font-size: 14px;
+  margin-top: 2vh;
+}
