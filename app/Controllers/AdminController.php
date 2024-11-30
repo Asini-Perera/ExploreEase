@@ -5,6 +5,8 @@ namespace app\Controllers;
 use app\Models\AdminModel;
 use app\Models\SignupModel;
 
+use app\Controllers\KeywordController;
+
 class AdminController
 {
     private $conn;
@@ -18,6 +20,9 @@ class AdminController
         // Include the AdminModel and SignupModel
         require_once __DIR__ . '/../models/AdminModel.php';
         require_once __DIR__ . '/../models/SignupModel.php';
+
+        // Include the KeywordController
+        require_once __DIR__ . '/KeywordController.php';
     }
 
     public function index()
@@ -159,6 +164,10 @@ class AdminController
             } elseif ($mainContent == 'keyword') {
                 $action = isset($_GET['action']) ? $_GET['action'] : 'view';
                 $allowedActions = ['add', 'view', 'delete'];
+
+                $keywordController = new KeywordController();
+                $categories = $keywordController->getCategoriesWithKeywords();
+
                 $keywordAction = in_array($action, $allowedActions) ? $action : '404';
                 if ($keywordAction === '404') {
                     $mainContent = '404';
