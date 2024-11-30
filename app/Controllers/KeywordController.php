@@ -18,4 +18,8 @@ class KeywordController
     {
         require_once __DIR__ . '/../views/keyword_search.php';
     }
+     public function keywordselect()
+    {
+        require_once __DIR__ . '/../views/keyword_select.php';
+    }
 }
