@@ -26,7 +26,7 @@
                 <td>2024.12.01</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
+                    <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
                     <button class="delete-btn">Delete</button>
                 </td>
             </tr>
@@ -36,8 +36,8 @@
                 <td>2024.10.25</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
             <tr>
@@ -46,8 +46,8 @@
                 <td>2024.10.10</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
            
