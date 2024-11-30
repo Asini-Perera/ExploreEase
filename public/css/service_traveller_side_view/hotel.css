@@ -1,0 +1,503 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+/* header */
+header{
+    background: url("../../images/hilton\(1\).jpg " ) 0vh, 70vw no-repeat;
+    background-size: cover;
+    height: 60vh;
+    text-align: center; 
+}
+
+.h-name{
+    font-size: 3rem;
+    padding-top: 10vh;
+    color: rgb(246, 206, 206);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.describe{
+    font-size: 1.5rem;
+    padding-top: 2vh;
+    color: rgb(252, 249, 249);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-bottom: 10vh;
+}
+
+/* nav-bar */
+.nav-bar{
+    margin: 20px 0;
+    margin-left: 19vw;
+    padding: 20px;
+    width: 60vw;
+    background-color: #D9D9D9;
+    border-radius: 40px;   
+}
+
+.nav-links{
+    display: flex;
+    justify-content: center;
+    gap: 7rem;
+    list-style:none;   
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: #111111;
+    font-size: 18px;
+}
+
+/* about */
+.about-section{
+    margin-top: 7vh; 
+}
+
+.map-gallery{
+    display: flex; 
+    margin-top: 3vh; 
+    height: 65vh; 
+    gap: 2rem;
+    margin-bottom: 2vh; 
+}
+
+.map img{
+    cursor:pointer; 
+    width:20vw; 
+    height:30vh; 
+    padding-left: 2vw;
+}
+.gallery{
+    width: 70vw;  
+}
+
+.gallery-one{
+    display: flex;  
+}
+.gallery1-image1{
+    width: 19vw;
+    height: 20vh; 
+}
+
+.gallery1-image2{
+    /* margin-top: 5vh; */
+    width: 19vw;
+    height: 20vh; 
+}
+
+.gallery-main{
+    width: 38.5vw; 
+    height: 41vh;
+    margin-left: 5px;
+}
+
+.gallery1-image3{
+    width: 19vw;
+    height: 20vh;
+    margin-left: 5px;
+}
+
+.gallery1-image4{
+    width: 19vw;
+    height: 20vh;
+    margin-left: 5px;
+}
+
+.gallery .gallery-two{
+    display: flex;
+    gap:5px;
+}
+
+.gallery2-image1{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image2{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image3{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image4{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.about{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-left: 2vw;
+    padding-bottom: 4vh;
+}
+
+
+.abt-title{
+    padding-top: 0vh;
+    color: #225522;
+    font-weight: bold;
+    font-size: 36px;
+    font-family: Edwardian Script ITC;
+}
+
+.description{
+    font-size: 16px;
+    color: #111111;
+    padding-top: 1.5vh;
+    padding-right: 2vw;
+}
+
+/* facilities */
+.facilities{
+    width: 100%; 
+    height: 70vh; 
+    padding-top:5vh ; 
+    background-color: rgb(189, 179, 176);
+}
+
+.facilities-content{
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+    padding: 10px;
+}
+
+.facility{
+    width: 30%; 
+    margin-bottom: 40px; 
+    text-align: center; 
+}
+
+.facility-image{
+    width: 15vw; 
+    height: 20vh; 
+    border-radius: 10px;
+}
+
+.facility h3{
+    font-size: 18px;
+}
+
+.facility p{
+    font-size: 14px;
+}
+
+/* info */
+.info{
+    width: 100%; 
+    height:100vh; 
+}
+
+.info .info-content{
+    display: flex; 
+    gap: 20px;
+}
+
+.info-one , .info-two{
+    flex: 1; 
+}
+
+.check-in-out{
+    margin: 2vw;
+}
+
+.check-in , .check-out , .special-instructions , .access-methods ,.pets ,.extra-beds
+{
+    margin-bottom: 16px;
+}
+
+.optional-extras , .need-to-know
+{
+    margin: 3vw; 
+}
+
+.we-should-mention{
+    margin-left: 6vw;
+}
+
+.info p{
+    font-size: 14px;
+    padding-top: 1vh;
+    padding-left: 4vw;
+    color: #111111;
+}
+
+.top{
+    display: flex;
+}
+
+.top h3{
+    font-size: 16px; 
+    color: #225522;
+}
+.top img{
+    width: 3vw;
+    padding-right: 1vw;
+    height: 3vh;
+}
+
+/* bookings */
+.bookings{
+    width: 100%; 
+    display: flex; 
+    height: 70vh; 
+    background-color:  rgb(189, 179, 176); 
+    padding: 5vh 0; 
+}
+
+.book-img img{
+    width: 50vw;
+}
+ 
+.booking-form{
+    padding: 20px; 
+    width:30vw; 
+    height:60vh; 
+    background-color: #f1f1f1; 
+    border-radius: 10px;
+    margin-left: 15vw;
+    font-size: 14px;
+}
+
+.booking-form #check-in , #check-out, #guests{
+    font-size: 14px; 
+    padding: 5px; 
+    border-radius: 5px;
+    width: 27vw;
+    margin: 10px 0;
+}
+
+.booking-form #room-type{
+    font-size: 14px; 
+    padding: 5px; 
+    border-radius: 5px;
+    width: 27vw;
+    margin: 10px 0;
+}
+
+#extras{
+    display: flex; 
+    margin: 10px 0;
+    margin-right: 10px; 
+    justify-content: space-between;
+    
+}
+
+#extras input{
+    margin-bottom: 10px ;
+    margin-right:10px; 
+    transform: scale(1.5);
+} 
+
+.booking-form form .book-btn{
+    font-size: 14px; 
+    padding: 10px; 
+    background-color: #225522; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-top: 2vh;
+    width: 27vw;
+}
+
+/* review  */
+.reviews{
+    margin-bottom: 2vh;
+}
+
+.review-container{
+    margin: 0 auto;
+    padding: 0 20px;
+    overflow: hidden;
+    overflow-x:scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior:smooth;
+    scrollbar-color: #046c33 #f5f5f5;
+    scroll-snap-align: start;
+}
+
+.review-content{
+    display:flex;
+    overflow: hidden;
+    gap: 2rem;
+    margin-left: 2vw;
+    min-width: 5000px;
+}
+
+.review-heading{  
+    padding: 30px;
+    color: #225522;
+    padding-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.review-slide{
+    display:block;
+    padding: 25px;    
+    height: 320px;
+    width: 500px;
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px 2px #111111;
+    /* border: #225522 solid 2px; */
+    background-color: #ffffff;
+    margin:4vh 0;
+    font-size: 14px;
+}
+
+.review{
+    border: #000 1px solid; 
+    padding: 10px;
+}
+
+.customer-pic img{
+    height: 70px; 
+    width:70px; 
+    border-radius: 60px;
+    margin:10px;
+}
+
+.customer-details{
+    text-align: center; 
+    padding: 40px 20px;
+}
+
+.customer-info{
+    display: flex;
+}
+
+.review-slide .reponse{
+    padding: 5px; 
+    margin-left: 5vw; 
+    margin-top: 1vh; 
+    width:25vw; 
+    border: #225522 solid 1px ; 
+    height: 7vh; 
+    font-size: 14px;
+}
+
+/* get review */
+.get-review{
+    display: flex; 
+    align-items: center; 
+    margin-top: 3vh; 
+    margin-left: 100px;
+    font-size:14px;
+}
+
+.get-review-heading span{
+    font-size: 36px;  
+    font-weight: bold;  
+    color: #225522;        
+    font-family: Edwardian Script ITC;
+}
+
+.review-form{
+    margin-left: 20vw;
+}
+
+.review-form form{
+    width: 30vw; height: 73vh; 
+    color: #fff;  
+    border-radius: 20px; 
+    background-color: #225522; 
+    margin-bottom: 4vh; 
+    font-size: 14px; 
+    align-content: center; 
+    padding:30px;
+}
+
+.review-form form input{
+    border-radius:10px; 
+    width: 26vw; 
+    height: 4vh; 
+    margin-bottom: 2vh;
+    padding-left: 10px; 
+    font-size: 15px;
+}
+.review-form ul{
+    display: flex; 
+    gap: 3rem; 
+    list-style: none; 
+    margin-top:1vh; 
+    margin-bottom: 2vh;
+}
+
+.review-form ul button{
+    padding: 6px 10px; 
+    border-radius: 60px; 
+    cursor: pointer;
+}
+
+.add-review{
+    width: 20vw; 
+    border-radius: 20px; 
+    height: 4vh; 
+    font-size: 14px; 
+    color: #000; 
+    background-color: #F1C232; 
+    margin-left: 60px ;
+}
+/* contact section */
+.contact_us{
+    padding-top: 7vh;
+    background-color:  rgb(189, 179, 176);
+    width: 100%;
+    height: 42vh;
+}
+
+.contact{
+   display: flex;
+   justify-content: center;
+   gap:3rem;
+}
+
+.contact-info{
+    width:12vw;
+    border: #111111 1px solid;
+    height: 22vh;
+    justify-items: center;
+    /* background-color: royalblue; */
+    padding-top:2vh;
+    padding-bottom: 2vh;
+}
+
+.contact-info h3{
+    font-size: 16px;
+    padding-bottom: 5px;  
+    color: #225522; 
+}
+
+.contact-info p{
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+.contact_img{
+    width: 5vw;
+    height: 9vh;
+    padding-bottom: 5px;
+    /* object-fit: cover;  */   
+}
+
+.share{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+
+.share img{
+    width: 2vw;
+    margin-top: 5vh;
+}
