@@ -139,7 +139,7 @@ class AdminController
     {
         // Logic for admin waiting page
         if (isset($_SESSION['AdminID'])) {
-            require_once __DIR__ . '/../Views/admin_waiting.php';
+            require_once __DIR__ . '/../Views/waiting.php';
         } else {
             header('Location: admin');
             exit();

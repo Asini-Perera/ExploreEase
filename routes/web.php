@@ -2,6 +2,7 @@
 
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('login/process', 'LoginController@login');  // Login process
+$router->add('waiting', 'LoginController@waiting');  // Waiting page for users
 
 $router->add('signup', 'SignupController@index');  // Signup page
 $router->add('signup/traveler', 'SignupController@traveler');  // Traveler signup process

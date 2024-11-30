@@ -69,14 +69,8 @@ class KeywordController
 
         if (isset($_SESSION['TravelerID'])) {
             header('Location: ../');
-        } else if (isset($_SESSION['RestaurantID'])) {
-            header('Location: ../restaurant/dashboard');
-        } else if (isset($_SESSION['HotelID'])) {
-            header('Location: ../hotel/dashboard');
-        } else if (isset($_SESSION['ShopID'])) {
-            header('Location: ../heritagemarket/dashboard');
-        } else if (isset($_SESSION['OrganizerID'])) {
-            header('Location: ../culturaleventorganizer/dashboard');
+        } else {
+            header('Location: ../admin/waiting');
         }
 
     }

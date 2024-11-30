@@ -38,7 +38,7 @@ class LoginController
                 // Start session and save admin details
                 session_start();
                 $_SESSION['Email'] = $user['Email'];
-                $_SESSION['Name'] = $user['FirstName'];
+                $_SESSION['Name'] = $user['Name'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -46,6 +46,12 @@ class LoginController
                 } else {
                     // Unset the cookie
                     setcookie('Email', "", time() - 1, "/");
+                }
+
+                if ($user['Type'] !== 'traveler' && $user['IsVerified'] == 0) {
+                    // If user is not verified and not a traveler, redirect to waiting page
+                    header('Location: ../waiting/');
+                    exit();
                 }
 
                 // Redirect to pages based on user type
@@ -74,6 +80,15 @@ class LoginController
                 header('Location: ../login');
                 exit();
             }
+        }
+    }
+
+    public function waiting()
+    {
+        if (isset($_SESSION['Name'])) {
+            require_once __DIR__ . '/../Views/waiting.php';
+        } else {
+            header('Location: ../login');
         }
     }
 }
