@@ -9,11 +9,7 @@
         </li>
 
         <li>
-            <a href="?page=add_post" class="<?= $mainContent == 'add_post' ? 'active' : '' ?>">Add Post </a>
-        </li>
-
-        <li>
-            <a href="?page=post_list" class="<?= $mainContent == 'post_list' ? 'active' : '' ?>">Post List</a>
+            <a href="?page=menulist" class="<?= $mainContent == 'menulist' ? 'active' : '' ?>">Menu List</a>
         </li>
 
         <li>

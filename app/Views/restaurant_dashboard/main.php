@@ -19,9 +19,22 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
+        <?php
+            if ($mainContent === 'dashboard') {
+                require_once  __DIR__ . "/dashboard.php";
+            } elseif ($mainContent === 'profile') {
+                require_once  __DIR__ . "/profile.php";
+            } elseif ($mainContent === 'menulist') {
+                require_once  __DIR__ . "/menu_list.php";
+            } elseif ($mainContent === 'bookings') {
+                require_once  __DIR__ . "/bookings.php";
+            } elseif ($mainContent === 'reviews') {
+                require_once  __DIR__ . "/reviews.php";
+            } else {
+                require_once  __DIR__ . "/$mainContent.php";
+            }
+            ?>
         </div>
-    </div>
 </body>
 
 </html>
