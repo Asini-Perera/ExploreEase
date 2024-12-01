@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #f3f4f6, #e8ebf2);
+    color: #333;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin: 100px 0 30px;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.review-form-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.review-form {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #34495e;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccd1d9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+.submit-button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, rgba(8, 29, 8, 0.933), rgba(34, 85, 34, 0.933));
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.submit-button:hover {
+    background: linear-gradient(90deg, #ad7d04, #daab30);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.review-form-container {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 30px;
+}
