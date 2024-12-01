@@ -22,7 +22,7 @@ class RestaurantController
     {
         if (isset($_SESSION['RestaurantID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings','booking_list', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'profile') {
