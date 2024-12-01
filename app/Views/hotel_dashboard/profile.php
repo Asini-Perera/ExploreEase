@@ -2,50 +2,46 @@
 
 <div class="profile-container">
     <div class="top">
-        <h1>Profile Details</h1><span></span>
+        <h1>Profile Details</h1>
 
         <div class="action-buttons">
             <a class="edit-btn" href="?page=profile&action=edit">Edit Profile</a>
+            <a class="edit-btn" href="?page=profile&action=change-password">Change Password</a>
         </div>
     </div>
     
     <table>
         <tbody>
             <tr>
-                <th>Profile Image</th>
-                <td><img src="../public/images/user.jpg" alt="Profile Image" class="profile-img"></td>
-            </tr>
-            <tr>
                 <th>Email</th>
-                <td>smith@yahoo.com</td>
+                <td><?php echo $_SESSION['Email']; ?></td>
             </tr>
+
             <tr>
                 <th>Name</th>
-                <td>Smith</td>
+                <td><?php echo $_SESSION['Name']; ?></td>
             </tr>
+            
+            
             <tr>
                 <th>Address</th>
-                <td>123, Main Street, New York</td>
+                <td><?php echo $_SESSION['Address']; ?></td>
             </tr>
             <tr>
                 <th>Contact No</th>
-                <td>1234567890</td>
+                <td><?php echo $_SESSION['ContactNo']; ?></td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>Smith is a cultural event organizer who has been in the industry for 5 years.</td>
+                <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
             <tr>
                 <th>Website</th>
-                <td>www.smith.com</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>********</td>
+                <td><?php echo $_SESSION['Website']; ?></td>
             </tr>
             <tr>
                 <th>SMLink</th>
-                <td>www.facebook.com/smith</td>
+                <td><?php echo $_SESSION['SMLink']; ?></td>
             </tr>
         </tbody>
     </table>

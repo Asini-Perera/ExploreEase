@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Models\HotelModel;
+use app\Models\SignupModel;
 
 class HotelController
 {
@@ -13,8 +14,9 @@ class HotelController
         global $conn;
         $this->conn = $conn;
 
-        // Include the HoteltModel
+        // Include the HoteltModel and SignupModel
         require_once __DIR__ . '/../models/HotelModel.php';
+        require_once __DIR__ . '/../models/SignupModel.php';
     }
 
     public function dashboard()
@@ -28,7 +30,9 @@ class HotelController
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if ($action == 'edit') {
                 $verifiedAction = 'edit';
-            }
+            }elseif ($action == 'change-password') {
+                $verifiedAction = 'change-password';
+            } 
         } elseif ($mainContent == 'room') {
             $rooms = $this->viewRoom();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -101,11 +105,73 @@ class HotelController
         $bookings = $hotelModel->getBookings($_SESSION['HotelID']);
     }
 
-    public function viewReviews()
+    // public function viewReviews()
+    // {
+    //     $hotelModel = new HotelModel($this->conn);
+    //     $reviews = $hotelModel->getReviews($_SESSION['HotelID']);
+    // }
+
+    public function updateProfile()
     {
-        $hotelModel = new HotelModel($this->conn);
-        $reviews = $hotelModel->getReviews($_SESSION['HotelID']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $hotelID = $_SESSION['HotelID'];
+            $email = $_POST['email'];
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contact_no'];
+            $description = $_POST['description'];
+            $website = $_POST['website'];
+
+            // Check if the email is already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                header('Location: ../hotel/dashboard?page=profile');
+                exit();
+            }
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website );
+
+            $_SESSION['Email'] = $email; 
+            $_SESSION['Name'] = $name; 
+            $_SESSION['Address'] = $address;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['Description'] = $description;
+            $_SESSION['Website'] = $website;
+
+            header('Location: ../hotel/dashboard?page=profile');
+            exit();
+        }
     }
 
+
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $hotelID = $_SESSION['HotelID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $valid = $hotelModel->checkCurrentPassword($hotelID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $hotelModel->changePassword($hotelID, $newPassword);
+                    header('Location: ../hotel/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../hotel/dashboard?page=profile&action=change-password');
+                    exit();
+                }
+            } else {
+                header('Location: ../hotel/dashboard?page=profile&action=change-password');
+                exit();
+            }
+        }
+    }
 
 }

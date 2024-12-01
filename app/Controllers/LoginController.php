@@ -66,6 +66,12 @@ class LoginController
                         break;
                     case 'hotel':
                         $_SESSION['HotelID'] = $user['HotelID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':
