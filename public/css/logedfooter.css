@@ -70,18 +70,23 @@ footer {
 }
 
 .footer-section li {
-    display: block; /* Force the <li> elements to stack vertically */
-    margin-bottom: 10px; /* Adjusted spacing between items */
+    display: block;
+    /* Force the <li> elements to stack vertically */
+    margin-bottom: 10px;
+    /* Adjusted spacing between items */
     font-size: 14px;
     color: #e6e6e6;
-    line-height: 1.6; /* Adjusted line height for better readability */
+    line-height: 1.6;
+    /* Adjusted line height for better readability */
 }
 
 .footer-section li img {
     width: 20px;
     height: 20px;
-    margin-right: 10px; /* Add space between the icon and the text */
-    vertical-align: middle; /* Align icons properly with the text */
+    margin-right: 10px;
+    /* Add space between the icon and the text */
+    vertical-align: middle;
+    /* Align icons properly with the text */
 }
 
 
@@ -133,7 +138,7 @@ footer {
     gap: 45px;
     margin-top: 15px;
     margin-left: 0;
-    
+
     /* Align with the left edge */
 }
 
@@ -148,6 +153,7 @@ footer {
     transform: scale(1.1);
     filter: brightness(1.2) invert(1);
 }
+
 @media (max-width: 991px) {
     footer {
         padding: 30px 20px;
@@ -186,9 +192,11 @@ footer {
 
 
 .signup-text {
-  color: white; /* White text color */
-  font-size: 14px; /* Adjust size */
-  
+    color: white;
+    /* White text color */
+    font-size: 14px;
+    /* Adjust size */
+
 }
 
 
@@ -201,7 +209,7 @@ footer {
     justify-content: start;
     gap: 10px;
     margin-top: 10px;
-   
+
 }
 
 .footer-login button {
@@ -253,14 +261,48 @@ footer ul li img {
     /* Add some space between the image and text */
 }
 
-/* footer.css */
-.login-button-link {
-    text-decoration: none;
-    color: inherit;
-    /* Ensure the link inherits button color */
+.footer-review {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e6e6e6;
 }
-.signup-button-link {
+
+.footer-review h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.footer-review p {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #d9d9d9;
+}
+
+.review-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(217, 217, 217, 0.1);
+    border: 2px solid #000000;
+    border-radius: 100px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.review-button-link {
     text-decoration: none;
     color: inherit;
-    /* Ensure the link inherits button color */
+}
+
+.review-button:hover {
+    background-color: rgba(217, 217, 217, 0.3);
 }

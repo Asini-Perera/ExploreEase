@@ -58,7 +58,7 @@ class LoginController
                 switch ($user['Type']) {
                     case 'traveler':
                         $_SESSION['TravelerID'] = $user['TravelerID'];
-                        header('Location: ../ExploreEase');
+                        header('Location: ../loged_home');
                         break;
                     case 'hotel':
                         $_SESSION['HotelID'] = $user['HotelID'];
