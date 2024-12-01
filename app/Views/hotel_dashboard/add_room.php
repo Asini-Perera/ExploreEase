@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="../public/css/hotel_dashboard/add_room.css">
 
 <div class="form-content">
-    <h1>Menu Room</h1>
+    <h1>New Room</h1>
     
     <form method="post" action="">
         <div class="form-group">
             <label for="title">Room Type:</label>
-            <input type="text" name="title" id="title" class="form-control" placeholder="Enter room type">
+            <input type="text" name="room_type" id="room_type" class="form-control" placeholder="Enter room type">
         </div>
         <div class="form-group">
             <label for="price">Price:</label>
@@ -25,7 +25,7 @@
             <input type="file" name="image" id="image" class="form-control">
         </div>
         
-        <button type="submit" id="add-menu">Add</button>
+        <button type="submit" id="add-room">Add</button>
 
 
     </form>

@@ -5,7 +5,7 @@
             <h1>Room List</h1><span></span>
 
             <div class="action-buttons">
-                <button class="add-btn" href="">Add Room</a>
+                <button class="add-btn"><a href="?page=room&action=add">Add Room</a></button>
             </div>
     </div>
 
