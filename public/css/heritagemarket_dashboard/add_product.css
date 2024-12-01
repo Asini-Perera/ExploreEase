@@ -1,0 +1,57 @@
+h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.form-content {
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 400px;
+    background-color: #F5F5F5;
+    padding: 40px;
+    border-radius: 100px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.form-group label {
+    width: 20%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 75%;
+    height: 25px;
+    font-size: 12px;
+    border: none;
+}
+
+.form-group textarea {
+    height: auto;
+}
+
+select{
+    width: 75%;
+    height: 25px;
+    font-size: 12px;
+    border: none;
+}
+
+button {
+    width: 80px;
+    height: 30px;
+    background-color: #F1C232;
+    border: none;
+    border-radius: 100px;
+    font-size: 18px;
+    cursor: pointer;
+    float: right;
+}

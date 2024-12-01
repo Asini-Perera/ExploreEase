@@ -9,15 +9,7 @@
         </li>
 
         <li>
-            <a href="?page=add_post" class="<?= $mainContent == 'add_post' ? 'active' : '' ?>">Add Post </a>
-        </li>
-
-        <li>
-            <a href="?page=post_list" class="<?= $mainContent == 'post_list' ? 'active' : '' ?>">Post List</a>
-        </li>
-
-        <li>
-            <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">Bookings</a>
+            <a href="?page=product_list" class="<?= $mainContent == 'post_list' ? 'active' : '' ?>">Product List</a>
         </li>
 
         <li>
