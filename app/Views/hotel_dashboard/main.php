@@ -19,7 +19,19 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
+        <?php
+            if ($mainContent == 'profile' && $action == 'edit') {
+                require_once __DIR__ . '/edit_profile.php';
+            } elseif ($mainContent == 'room' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_room.php";
+            } elseif ($mainContent == 'post' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_post.php";
+            } else {
+                require_once __DIR__ . "/$mainContent.php";
+            }
+            ?>
+
+           
         </div>
     </div>
 </body>

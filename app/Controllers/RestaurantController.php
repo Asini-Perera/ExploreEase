@@ -25,6 +25,7 @@ class RestaurantController
             $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings','booking_list', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
+            // Check if the user is allowed to perform the action
             if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {

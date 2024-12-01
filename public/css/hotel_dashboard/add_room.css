@@ -26,17 +26,16 @@ h1 {
     font-weight: bold;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input{
     width: 75%;
     height: 25px;
     font-size: 12px;
     border: none;
 }
 
-.form-group textarea {
+/* .form-group textarea {
     height: auto;
-}
+} */
 
 select{
     width: 75%;
