@@ -36,6 +36,7 @@ $router->add('reset', 'ForgotPasswordController@reset');  // Reset password page
 $router->add('update', 'ForgotPasswordController@update');  // Update new password
 
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
+$router->add('restaurant/addMenu','RestaurantController@addMenu');  // Add menu for restaurant
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 
@@ -43,3 +44,13 @@ $router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
 $router->add('heritageMarket/products', 'HeritageMarketController@products');
 $router->add('heritageMarket/review', 'HeritageMarketController@review');
+
+$router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
+
+$router->add('service/hotel','HomeController@travelerside_hotel');  // traveller side hotel view
+$router->add('service/restaurant','HomeController@travelerside_restaurant');  // traveller side restaurant view
+$router->add('service/cultural_event','HomeController@travelerside_cultural_event');  // traveller side cultural event view
+$router->add('service/menu','HomeController@travelerside_menu');  // traveller side menu view
+
+$router->add('restaurant/post','HomeController@post');  // Add post for restaurant
+

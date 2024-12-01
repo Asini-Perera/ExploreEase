@@ -1,0 +1,81 @@
+.event-container {
+    padding-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+th,
+td {
+
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+th {
+    background-color: #d9d9d9;
+}
+
+.top {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    float: left;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    float: left;
+} */
+
+.action-buttons button {
+    width: 100px;
+    padding: 8px 10px;
+    margin: 5px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #6fa857; /* A pleasant medium red */
+}
+
+.edit-btn:hover {
+    background-color: #225522; /* A slightly darker red for the hover effect */
+}
+
+.add-btn {
+    background-color: #F1C232;
+}
+
+.add-btn:hover {
+    background-color: #dfb32f;
+}
+
+.delete-btn {
+    background-color: #d9534f;
+}
+
+.delete-btn:hover {
+    background-color: #c9302c;
+}

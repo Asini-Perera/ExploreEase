@@ -5,7 +5,7 @@
         <title>Home page</title>
         <link rel="stylesheet" type="text/css" href="public/css/logged_home.css">
         <link rel="stylesheet" type="text/css" href="public/css/navbar.css">
-        <link rel="stylesheet" type="text/css" href="public/css/loged_footer.css">
+        <link rel="stylesheet" type="text/css" href="public/css/footer.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </head>
@@ -411,7 +411,7 @@
         </div>
 
 <!-- footer section -->
-        <?php require_once __DIR__ . "/loged_footer.php"; ?>
+        <?php require_once __DIR__ . "/Footer.php"; ?>
 
         <script src="public/js/home.js"></script>
 </body>
