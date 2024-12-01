@@ -29,7 +29,7 @@
         </div>
 
         <div>
-            <label for="popular-dish">Is this popular dish</label>
+            <label for="popular-dish" class="popular-dish">Is this popular dish</label>
             <input type="radio" name="popular-dish" class="popular_food" value="1"> Yes
             <input type="radio" name="popular-dish" class="not_popular" value="0"> No
         </div>
