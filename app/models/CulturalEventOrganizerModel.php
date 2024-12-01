@@ -129,4 +129,23 @@ class CulturalEventOrganizerModel
 
         return $stmt->insert_id;
     }
+
+    public function getPost($organizerID)
+    {
+        $sql = "SELECT * FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deletePost($postID)
+    {
+        $sql = "DELETE FROM culturaleventorganizerpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+    }
 }

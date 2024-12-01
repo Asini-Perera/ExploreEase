@@ -48,8 +48,18 @@ class CulturalEventOrganizerController
                 $verifiedAction = null;
             }
         } elseif ($mainContent == 'post') {
+            $posts = $this->viewPost();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
-            $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+            if ($action == 'add') {
+                $verifiedAction = 'add';
+            } elseif ($action == 'edit') {
+                $verifiedAction = 'edit';
+            } elseif ($action == 'delete') {
+                $verifiedAction = null;
+                $this->deletePost();
+            } else {
+                $verifiedAction = null;
+            }
         }
 
 
@@ -193,4 +203,23 @@ class CulturalEventOrganizerController
         }
     }
 
+    public function viewPost()
+    {
+        $postModel = new CulturalEventOrganizerModel($this->conn);
+        $posts = $postModel->getPost($_SESSION['OrganizerID']);
+
+        return $posts;
+    }
+
+    public function deletePost()
+    {
+        if (isset($_GET['id'])) {
+            $postID = $_GET['id'];
+
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $postModel->deletePost($postID);
+
+            header('Location: ../culturaleventorganizer/dashboard?page=post');
+        }
+    }
 }
