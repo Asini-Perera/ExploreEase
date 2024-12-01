@@ -71,12 +71,81 @@ class CulturalEventOrganizerModel
         }
     }
 
+    public function getImgPath($OrganizerID)
+    {
+        $sql = "SELECT ImgPath FROM culturaleventorganizer WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $OrganizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
+    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $smLink)
+    {
+        $sql = "UPDATE culturaleventorganizer SET `Name` = ?, `Email` = ?, `ContactNo` = ?, `Description` = ?, `SMLink` = ? WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssissi', $name, $email, $contactNo, $description, $smLink, $OrganizerID);
+        $stmt->execute();
+    }
+
+    public function checkCurrentPassword($OrganizerID, $currentPassword)
+    {
+        $sql = "SELECT * FROM culturaleventorganizer WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $OrganizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($currentPassword, $hashedPassword);
+    }
+
+    public function changePassword($OrganizerID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE culturaleventorganizer SET Password = ? WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $OrganizerID);
+        $stmt->execute();
+    }
 
     public function deleteEvent($eventID)
     {
         $sql = "DELETE FROM culturalevent WHERE EventID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $eventID);
+        $stmt->execute();
+    }
+
+    public function addPost($title, $description, $organizerID)
+    {
+        $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssi', $title, $description, $organizerID);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function getPost($organizerID)
+    {
+        $sql = "SELECT * FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deletePost($postID)
+    {
+        $sql = "DELETE FROM culturaleventorganizerpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
         $stmt->execute();
     }
 }
