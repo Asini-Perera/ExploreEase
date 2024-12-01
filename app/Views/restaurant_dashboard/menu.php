@@ -29,8 +29,8 @@
                     <td><img src="<?= $food['ImgPath'] ?>" class="food-img"></td>
                     <td><?= $food['IsPopular'] == 1 ? 'Yes' : 'No' ?></td>
                     <td class="action-buttons">
-                        <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                        <button class="delete-btn">Delete</button>
+                        <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
+                        <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
                     </td>
                 </tr>
             <?php endforeach; ?>

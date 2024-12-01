@@ -23,7 +23,7 @@ class RestaurantModel
 
     public function addMenu($name, $price, $category, $popularDish, $restaurantID)
     {
-        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, IsPopular, RestaurantID) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, IsPopular, RestaurantID) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sdsii', $name, $price, $category, $popularDish, $restaurantID);
         $stmt->execute();
@@ -69,5 +69,13 @@ class RestaurantModel
             $stmt->bind_param('si', $imgPath, $MenuID);
             $stmt->execute();
         }
+    }
+
+    public function deleteMenu($menuID)
+    {
+        $sql = "DELETE FROM menu WHERE MenuID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $menuID);
+        $stmt->execute();
     }
 }
