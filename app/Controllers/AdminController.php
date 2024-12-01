@@ -47,7 +47,10 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Email'] = $admin['Email'];
-                $_SESSION['Name'] = $admin['FirstName'] . ' ' . $admin['LastName'];
+                $_SESSION['FirstName'] = $admin['FirstName'];
+                $_SESSION['LastName'] = $admin['LastName'];
+                $_SESSION['ContactNo'] = $admin['ContactNo'];
+                $_SESSION['ProfileImage'] = $admin['ImgPath'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -184,6 +187,13 @@ class AdminController
                 $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $searchUser = in_array($user, $allowedUsers) ? $user : '404';
                 if ($searchUser === '404') {
+                    $mainContent = '404';
+                }
+            } elseif ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                $allowedActions = ['edit', 'changepassword'];
+                $profileAction = in_array($action, $allowedActions) ? $action : null;
+                if ($profileAction === '404') {
                     $mainContent = '404';
                 }
             }

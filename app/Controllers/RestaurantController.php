@@ -32,8 +32,19 @@ class RestaurantController
                     $verifiedAction = 'edit';
                 }
             } elseif ($mainContent == 'menu') {
+                $menus = $this->viewMenu();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteMenu();
+                } else {
+                    $verifiedAction = null;
+                }
+                // $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
             } elseif ($mainContent == 'post') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
@@ -50,6 +61,8 @@ class RestaurantController
     {
         $restaurantModel = new RestaurantModel($this->conn);
         $menus = $restaurantModel->getMenu($_SESSION['RestaurantID']);
+
+        return $menus;
     }
 
     public function addMenu()
@@ -59,15 +72,28 @@ class RestaurantController
             $price = $_POST['price'];
             $category = $_POST['category'];
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+            $popularDish = $_POST['popular-dish'];
             $restaurantID = $_SESSION['RestaurantID'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $menuID = $restaurantModel->addMenu($name, $price, $category, $restaurantID);
+            $menuID = $restaurantModel->addMenu($name, $price, $category, $popularDish, $restaurantID);
 
             // If image is uploaded, set the image path
             if($menuID && $image['name']) {
                 $restaurantModel->setImgPath($menuID, $image);
             }
+
+            header('Location: ../restaurant/dashboard?page=menu');
+        }
+    }
+
+    public function deleteMenu()
+    {
+        if (isset($_GET['id'])) {
+            $menuID = $_GET['id'];
+
+            $restaurantModel = new RestaurantModel($this->conn);
+            $restaurantModel->deleteMenu($menuID);
 
             header('Location: ../restaurant/dashboard?page=menu');
         }
