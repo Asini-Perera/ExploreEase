@@ -28,6 +28,8 @@ $router->add('admin/create', 'AdminController@create');  // Admin signup page
 $router->add('admin/signup', 'AdminController@signup');  // Admin signup process
 $router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
+$router->add('admin/update', 'AdminController@updateProfile');  // Admin update profile process
+$router->add('admin/changepassword', 'AdminController@changePassword');  // Admin change password process
 $router->add('admin/logout', 'AdminController@logout');  // Admin logout
 
 $router->add('forgot', 'ForgotPasswordController@index');  // Forgot password page
@@ -38,6 +40,8 @@ $router->add('update', 'ForgotPasswordController@update');  // Update new passwo
 $router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
 $router->add('restaurant/addMenu','RestaurantController@addMenu');  // Add menu for restaurant
 $router->add('restaurant/deleteMenu','RestaurantController@deleteMenu');  // Delete menu for restaurant
+$router->add('restaurant/update','RestaurantController@updateProfile');  // Update profile for restaurant
+$router->add('restaurant/changepassword','RestaurantController@changePassword');  // Change password for restaurant
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom','HotelController@addRoom');  // Add room for hotel

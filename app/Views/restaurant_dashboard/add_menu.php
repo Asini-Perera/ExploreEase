@@ -25,8 +25,8 @@
         </div>
         <div class="form-group">
             <label for="image">Image:</label>
-            <input type="file" name="image" id="image" class="form-control">
-        </div>
+            <input type="file" id="menu-image" name="menu-image" accept="image/*">
+            </div>
 
         <div class="form-group">
             <label for="popular-dish">Is this popular dish:</label>
