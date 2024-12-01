@@ -22,8 +22,8 @@
             <?php
             if ($mainContent == 'profile' && $action == 'edit') {
                 require_once __DIR__ . '/edit_profile.php';
-            } elseif ($mainContent == 'menu' && $action == 'add') {
-                require_once __DIR__ . '/add_menu.php';
+            } elseif ($mainContent == 'menu' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_menu.php";
             } elseif ($mainContent == 'post' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_post.php";
             } else {

@@ -32,9 +32,7 @@ class RestaurantController
                 }
             } elseif ($mainContent == 'menu') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'add') {
-                    $verifiedAction = 'add';
-                }
+                $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
             } elseif ($mainContent == 'post') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
