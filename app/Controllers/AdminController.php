@@ -186,6 +186,13 @@ class AdminController
                 if ($searchUser === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                $allowedActions = ['edit', 'changepassword'];
+                $profileAction = in_array($action, $allowedActions) ? $action : null;
+                if ($profileAction === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout
