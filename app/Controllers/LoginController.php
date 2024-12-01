@@ -72,6 +72,7 @@ class LoginController
                         $_SESSION['ContactNo'] = $user['ContactNo'];
                         $_SESSION['Description'] = $user['Description'];
                         $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':
@@ -88,6 +89,14 @@ class LoginController
                         break;
                     case 'heritagemarket':
                         $_SESSION['ShopID'] = $user['ShopID'];
+                        $_SESSION['Email'] = $user['Email']; 
+                        $_SESSION['Name'] = $user['Name']; 
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
+                        $_SESSION['OpenHours'] = $user['OpenHours'];
                         header('Location: ../heritagemarket/dashboard');
                         break;
                     case 'culturaleventorganizer':

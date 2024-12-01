@@ -29,10 +29,10 @@
             <label for="website">Website</label>
             <input type="text" id="website" name="website" placeholder="Enter website" value="<?php echo $_SESSION['Website']; ?>">
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label for="sm_link">SMLink</label>
             <input type="text" id="sm_link" name="sm_link" placeholder="Enter SMLink" value="<?php echo $_SESSION['SMLink']; ?>">
-        </div> -->
+        </div>
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>

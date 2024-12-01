@@ -2,10 +2,10 @@
 
 <div class="product-container">
     <div class="top">
-            <h1>Product List</h1><span></span>
+            <h1>Product List</h1>
 
             <div class="action-buttons">
-                <button class="add-btn" href="">Add Product</a>
+                <a class="add-btn" href="?page=post&action=add">Add Product</a>
             </div>
     </div>
 
@@ -20,7 +20,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+
+        <?php foreach ($products as $product) : ?>
+                <tr>
+                    <td><?= $product['Type'] ?></td>
+                    <td>Rs. <?= $product['Price'] ?></td>
+                    <td><?= $product['Description'] ?></td>
+                    <td><img src="<?= $room['ImgPath'] ?>" class="product-img"></td>
+                    <td class="action-buttons">
+                        <button class="edit-btn"><a href="?page=product&action=edit&id=<?= $product['ProductID'] ?>">Edit</a></button>
+                        <button class="delete-btn"><a href="?page=product&action=delete&id=<?= $product['ProductID'] ?>">Delete</a></button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+           
+            <!-- <tr>
                 <td>Traditional Masks</td>
                 <td>Rs.2430</td>
                 <td>Traditional masks made by local artisans</td>
@@ -91,7 +105,7 @@
                 <td>
                     <button class="edit-btn" href="">Edit</button>
                     <button class="delete-btn" href="">Delete</button>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 </div>
