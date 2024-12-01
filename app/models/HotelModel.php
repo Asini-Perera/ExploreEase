@@ -78,7 +78,38 @@ class HotelModel
         $stmt->bind_param('i', $roomID);
         $stmt->execute();
     }
-    
+
+    //update profile
+    public function updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website)
+    {
+        $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ? WHERE HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sssssss',$hotelID, $email, $name,  $address, $contactNo, $description,  $website);
+        $stmt->execute();
+    }
+
+    public function checkCurrentPassword($hotelID, $currentPassword)
+    {
+        $sql = "SELECT * FROM hotel WHERE HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $hotelID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($currentPassword, $hashedPassword);
+    }
+
+    public function changePassword($hotelID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE hotel SET Password = ? WHERE HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $hotelID);
+        $stmt->execute();
+    }
+
     public function getReviews($hotelID)
     {
         $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
