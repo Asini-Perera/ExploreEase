@@ -46,8 +46,9 @@
                     <div class="modal-content">
                         <span class="close-btn">&times;</span>
                         <h3>Add Table Number</h3>
-                        <input type="text" id="tableNoInput" placeholder="Enter Table No">
                         <input type="email" id="emailInput" placeholder="Enter Email" required>
+                        <input type="text" id="tableNoInput" placeholder="Enter Table No">
+                        
                         <button id="submitTableNo">Send Email</button>
                     </div>
                     </div>
