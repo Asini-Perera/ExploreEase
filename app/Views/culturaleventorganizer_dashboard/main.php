@@ -22,6 +22,8 @@
         <?php
             if ($mainContent == 'profile' && $action == 'edit') {
                 require_once __DIR__ . '/edit_profile.php';
+            } elseif ($mainContent == 'profile' && $action == 'change-password') {
+                require_once __DIR__ . '/profile_changepassword.php';
             } elseif ($mainContent == 'event' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_event.php";
             } elseif ($mainContent == 'post' && $verifiedAction != null) {

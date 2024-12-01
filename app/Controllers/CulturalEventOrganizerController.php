@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Models\CulturalEventOrganizerModel;
+use app\Models\SignupModel;
 
 class CulturalEventOrganizerController
 {
@@ -14,13 +15,14 @@ class CulturalEventOrganizerController
         global $conn;
         $this->conn = $conn;
 
-        // Include the CulturalEventOrganizerModel
+        // Include the CulturalEventOrganizerModel and SignupModel
         require_once __DIR__ . '/../models/CulturalEventOrganizerModel.php';
+        require_once __DIR__ . '/../models/SignupModel.php';
     }
 
     public function dashboard()
     {
-        if (isset($_SESSION['EventID'])) {
+        if (isset($_SESSION['OrganizerID'])) {
         $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
         $allowed_pages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
         $mainContent = in_array($page, $allowed_pages) ? $page : '404';
@@ -29,9 +31,11 @@ class CulturalEventOrganizerController
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if ($action == 'edit') {
                 $verifiedAction = 'edit';
+            } elseif ($action == 'change-password') {
+                $verifiedAction = 'change-password';
             }
         } elseif ($mainContent == 'event') {
-            $events = $this->viewEvent();
+            // $events = $this->viewEvent();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if($action == 'add') {
                 $verifiedAction = 'add';
@@ -44,8 +48,18 @@ class CulturalEventOrganizerController
                 $verifiedAction = null;
             }
         } elseif ($mainContent == 'post') {
+            $posts = $this->viewPost();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
-            $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+            if ($action == 'add') {
+                $verifiedAction = 'add';
+            } elseif ($action == 'edit') {
+                $verifiedAction = 'edit';
+            } elseif ($action == 'delete') {
+                $verifiedAction = null;
+                $this->deletePost();
+            } else {
+                $verifiedAction = null;
+            }
         }
 
 
@@ -101,6 +115,111 @@ class CulturalEventOrganizerController
             $eventModel->deleteEvent($roomID);
 
             header('Location: ../culturalevent/dashboard?page=event');
+        }
+    }
+
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $contactNo = $_POST['contact_no'];
+            $description = $_POST['description'];
+            $smLink = $_POST['sm_link'];
+            $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                header('Location: ../culturaleventorganizer/dashboard?page=profile&action=edit&error=email-exists');
+                exit();
+            }
+
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $organizerModel->updateOrganizer($organizerID, $name, $email, $contactNo, $description, $smLink, $profileImage);
+
+            if ($profileImage['name']) {
+                $organizerModel->setImgPath($organizerID, $profileImage);
+            }
+
+            $_SESSION['Name'] = $name;
+            $_SESSION['Email'] = $email;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['Description'] = $description;
+            $_SESSION['SMLink'] = $smLink;
+            $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
+
+            header('Location: ../culturaleventorganizer/dashboard?page=profile');
+            exit();
+        }
+    }
+
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $valid = $organizerModel->checkCurrentPassword($organizerID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $organizerModel->changePassword($organizerID, $newPassword);
+                    header('Location: ../culturaleventorganizer/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../culturaleventorganizer/dashboard?page=profile&action=change-password');
+                    exit();
+                }
+            } else {
+                header('Location: ../culturaleventorganizer/dashboard?page=profile&action=change-password');
+                exit();
+            }
+        }
+    }
+
+    public function addPost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $postID = $postModel->addPost($title, $description, $organizerID);
+
+            if ($postID && $image['name']) {
+                $postModel->setImgPath($organizerID, $image);
+            }
+
+            header('Location: ../culturaleventorganizer/dashboard?page=post');
+        }
+    }
+
+    public function viewPost()
+    {
+        $postModel = new CulturalEventOrganizerModel($this->conn);
+        $posts = $postModel->getPost($_SESSION['OrganizerID']);
+
+        return $posts;
+    }
+
+    public function deletePost()
+    {
+        if (isset($_GET['id'])) {
+            $postID = $_GET['id'];
+
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $postModel->deletePost($postID);
+
+            header('Location: ../culturaleventorganizer/dashboard?page=post');
         }
     }
 }

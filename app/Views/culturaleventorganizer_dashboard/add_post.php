@@ -3,7 +3,7 @@
 <div class="form-content">
     <h1>Add New Post</h1>
     
-    <form method="post" action="">
+    <form method="post" action="../culturaleventorganizer/addPost">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" name="title" id="title" class="form-control" placeholder="Enter title" required>
@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <label for="price">Description:</label>
-            <textarea id="description" cols="60" rows="40" class="form-control" placeholder="Enter Description" required></textarea>
+            <textarea id="description" cols="60" rows="40" name="description" class="form-control" placeholder="Enter Description" required></textarea>
         </div>
         
         <div class="form-group">

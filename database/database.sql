@@ -473,3 +473,6 @@ ALTER TABLE HotelPost ADD Title VARCHAR(255) NOT NULL;
 
 -- Add Title column to CulturalEventOrganizerPost table
 ALTER TABLE CulturalEventOrganizerPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add ImgPath column to Room table
+ALTER TABLE Room ADD ImgPath VARCHAR(255);
