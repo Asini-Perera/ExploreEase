@@ -80,6 +80,10 @@
                 </div>
             </div>
         </div>
+        <div class="review-button-container">
+    <a href="#add-review" class="review-button">Add a Review</a>
+</div>
+
     </main>
     <?php require_once __DIR__ . '/../Footer.php'; ?>
 </body>

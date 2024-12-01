@@ -42,3 +42,4 @@ $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
 $router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
 $router->add('heritageMarket/products', 'HeritageMarketController@products');
+$router->add('heritageMarket/review', 'HeritageMarketController@review');

@@ -59,3 +59,32 @@ body {
     font-weight: bold;
     margin: 0;
 }
+
+.review-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 90%;
+    transform: translateX(-50%);
+    /* Initially fixed at the bottom center */
+    z-index: 1000;
+    /* Ensures it stays above other elements */
+}
+
+.review-button {
+    display: inline-block;
+    background-color: rgba(34, 85, 34, 0.933);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 7px 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.review-button:hover {
+    background-color: #daab30;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
