@@ -26,12 +26,18 @@
             } elseif ($mainContent === 'keyword') {
                 require_once  __DIR__ . "/keyword_nav.php";
                 require_once  __DIR__ . "/$mainContent" . "_" . "$keywordAction.php";
-            } elseif($mainContent === 'verifykeyword') {
+            } elseif ($mainContent === 'verifykeyword') {
                 require_once __DIR__ . "/verifykeyword_nav.php";
                 require_once __DIR__ . "/$mainContent" . "_" . "$verifyKeyword.php";
-            } elseif($mainContent === 'search') {
+            } elseif ($mainContent === 'search') {
                 require_once __DIR__ . "/search_nav.php";
                 require_once __DIR__ . "/$mainContent" . "_" . "$searchUser.php";
+            } elseif ($mainContent === 'profile') {
+                if ($profileAction) {
+                    require_once __DIR__ . "/$mainContent" . "_" . "$profileAction.php";
+                } else {
+                    require_once __DIR__ . "/$mainContent.php";
+                }  
             } else {
                 require_once  __DIR__ . "/$mainContent.php";
             }
