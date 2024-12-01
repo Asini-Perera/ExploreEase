@@ -6,12 +6,12 @@
     <form method="post" action="">
         <div class="form-group">
             <label for="title">Title:</label>
-            <input type="text" name="title" id="title" class="form-control" placeholder="Enter food name" required>
+            <input type="text" name="title" id="title" class="form-control" placeholder="Enter title" required>
         </div>
 
         <div class="form-group">
             <label for="price">Description:</label>
-            <textarea id="description" cols="60" rows="40" class="form-control" placeholder="Enter price" required></textarea>
+            <textarea id="description" cols="60" rows="40" class="form-control" placeholder="Enter Description" required></textarea>
         </div>
         
         <div class="form-group">

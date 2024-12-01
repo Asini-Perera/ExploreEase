@@ -28,7 +28,7 @@
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td>Yes</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
+                    <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
                     <button class="delete-btn">Delete</button>
                 </td>
             </tr>
@@ -39,8 +39,8 @@
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td>No</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
             <tr>
@@ -50,8 +50,8 @@
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td>Yes</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
             <tr>
@@ -61,8 +61,8 @@
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td>No</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
             <tr>
@@ -72,8 +72,8 @@
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td>Yes</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
+                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
         </tbody>

@@ -17,7 +17,11 @@
         </li>
 
         <li>
-            <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">Bookings</a>
+            <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">New Bookings</a>
+        </li>
+
+        <li>
+            <a href="?page=booking_list" class="<?= $mainContent == 'booking_list' ? 'active' : '' ?>">Bookings</a>
         </li>
 
         <li>
