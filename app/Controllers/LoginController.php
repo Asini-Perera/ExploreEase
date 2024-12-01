@@ -58,6 +58,10 @@ class LoginController
                 switch ($user['Type']) {
                     case 'traveler':
                         $_SESSION['TravelerID'] = $user['TravelerID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['FirstName'] = $user['FirstName'];
+                        $_SESSION['LastName'] = $user['LastName'];
+                        $_SESSION['Gender'] = $user['Gender'];
                         header('Location: ../ExploreEase');
                         break;
                     case 'hotel':
@@ -66,6 +70,8 @@ class LoginController
                         break;
                     case 'restaurant':
                         $_SESSION['RestaurantID'] = $user['RestaurantID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
                         header('Location: ../restaurant/dashboard');
                         break;
                     case 'heritagemarket':

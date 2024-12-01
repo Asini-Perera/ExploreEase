@@ -141,7 +141,7 @@ class AdminController
     public function waiting()
     {
         // Logic for admin waiting page
-        if (isset($_SESSION['AdminID'])) {
+        if (isset($_SESSION['Email'])) {
             require_once __DIR__ . '/../Views/waiting.php';
         } else {
             header('Location: admin');
