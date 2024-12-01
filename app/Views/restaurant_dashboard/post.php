@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../public/css/restaurant_dashboard/menu_list.css">
+<link rel="stylesheet" href="../public/css/restaurant_dashboard/post_list.css">
 
 <div class="menu-container">
     <div class="top">

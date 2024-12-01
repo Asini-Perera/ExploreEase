@@ -78,6 +78,7 @@ class HotelModel
         $stmt->bind_param('i', $roomID);
         $stmt->execute();
     }
+    
     public function getReviews($hotelID)
     {
         $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";

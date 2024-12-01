@@ -64,7 +64,7 @@ class HotelController
     public function addRoom()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $room_type = $_POST['title'];
+            $room_type = $_POST['room_type'];
             $price = $_POST['price'];
             $capacity = $_POST['capacity'];
             $description = $_POST['description'];
@@ -91,35 +91,7 @@ class HotelController
             $hotelModel = new HotelModel($this->conn);
             $hotelModel->deleteRoom($roomID);
 
-            header('Location: ../restaurant/dashboard?page=room');
-        }
-    }
-
-    public function viewPost()
-    {
-        $hotelModel = new HotelModel($this->conn);
-        $menus = $hotelModel->getPost($_SESSION['HotelID']);
-    }
-
-    public function addPost()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $room_type = $_POST['title'];
-            $price = $_POST['price'];
-            $capacity = $_POST['capacity'];
-            $description = $_POST['description'];
-            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-            $hotelID = $_SESSION['HotelID'];
-
-            $hotelModel = new HotelModel($this->conn);
-            $postID = $hotelModel->addRoom($room_type, $price, $capacity,$description, $hotelID);
-
-            // If image is uploaded, set the image path
-            if($postID && $image['name']) {
-                $hotelModel->setImgPath($postID, $image);
-            }
-
-            header('Location: ../hotel/dashboard?page=post');
+            header('Location: ../hotel/dashboard?page=room');
         }
     }
 

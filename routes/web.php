@@ -40,6 +40,8 @@ $router->add('restaurant/addMenu','RestaurantController@addMenu');  // Add menu 
 $router->add('restaurant/deleteMenu','RestaurantController@deleteMenu');  // Delete menu for restaurant
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
+$router->add('hotel/addRoom','HotelController@addRoom');  // Add room for hotel
+$router->add('hotel/deleteRoom','HotelController@deleteRoom');  // Delete room for hotel
 
 $router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
