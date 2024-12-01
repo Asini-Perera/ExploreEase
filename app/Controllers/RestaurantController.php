@@ -71,7 +71,7 @@ class RestaurantController
             $name = $_POST['title'];
             $price = $_POST['price'];
             $category = $_POST['category'];
-            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+            $image = $_FILES['menu-image'];
             $popularDish = $_POST['popular-dish'];
             $restaurantID = $_SESSION['RestaurantID'];
 

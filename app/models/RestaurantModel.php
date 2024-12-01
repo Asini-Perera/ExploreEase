@@ -28,7 +28,15 @@ class RestaurantModel
         $stmt->bind_param('sdsii', $name, $price, $category, $popularDish, $restaurantID);
         $stmt->execute();
         
-        return $stmt->insert_id;
+        // Get the MenuID
+        $sql = "SELECT MenuID FROM menu WHERE FoodName = ? AND RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $name, $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $MenuID = $result->fetch_assoc()['MenuID'];
+        
+        return $MenuID;
     }
 
     public function setImgPath($MenuID, $fileName)
@@ -50,7 +58,7 @@ class RestaurantModel
 
         // Check the directory exists and create it
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 077, false);
+            mkdir($targetDir, 0777, false);
         }
 
         // Create the image path
