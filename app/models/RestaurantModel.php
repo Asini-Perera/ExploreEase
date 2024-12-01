@@ -86,4 +86,12 @@ class RestaurantModel
         $stmt->bind_param('i', $menuID);
         $stmt->execute();
     }
+
+    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description)
+    {
+        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, OpenHours = ?, CuisineType = ?, Description = ? WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssssi', $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $restaurantID);
+        $stmt->execute();
+    }
 }

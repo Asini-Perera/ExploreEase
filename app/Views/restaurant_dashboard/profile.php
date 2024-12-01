@@ -12,43 +12,35 @@
     <table>
         <tbody>
             <tr>
-                <th>Profile Image</th>
-                <td><img src="../public/images/user.jpg" alt="Profile Image" class="profile-img"></td>
-            </tr>
-            <tr>
                 <th>Name</th>
-                <td>John Doe</td>
+                <td><?php echo $_SESSION['Name']; ?></td>
             <tr>
-                <th>Location</th>
-                <td>Colombo</td>
+                <th>Address</th>
+                <td><?php echo $_SESSION['Address']; ?></td>
             </tr>
             <tr>
                 <th>Contact No</th>
-                <td>+94 71 234 5678</td>
+                <td><?php echo $_SESSION['ContactNo']; ?></td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td>John@gmail.com</td>
+                <td><?php echo $_SESSION['Email']; ?></td>
             </tr>
             <tr>
                 <th>Website</th>
-                <td>www.johndoe.com</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>********</td>
+                <td><?php echo $_SESSION['Website']; ?></td>
             </tr>
             <tr>
                 <th>Open Hours</th>
-                <td>9am - 5pm</td>
+                <td><?php echo $_SESSION['OpenHours']; ?></td>
             </tr>
             <tr>
                 <th>Cuisine Types</th>
-                <td>Western, Chinese</td>
+                <td><?php echo $_SESSION['CuisineType']; ?></td>
             </tr>
             <tr>
-                <th>Keywords</th>
-                <td>Fast Food, Family Friendly</td>
+                <th>Description</th>
+                <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
         </tbody>
     </table>

@@ -72,6 +72,12 @@ class LoginController
                         $_SESSION['RestaurantID'] = $user['RestaurantID'];
                         $_SESSION['Email'] = $user['Email'];
                         $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['OpenHours'] = $user['OpenHours'];
+                        $_SESSION['CuisineType'] = $user['CuisineType'];
                         header('Location: ../restaurant/dashboard');
                         break;
                     case 'heritagemarket':

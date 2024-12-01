@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Models\RestaurantModel;
+use app\Models\SignupModel;
 
 class RestaurantController
 {
@@ -14,8 +15,9 @@ class RestaurantController
         global $conn;
         $this->conn = $conn;
 
-        // Include the RestaurantModel
+        // Include the RestaurantModel and SignupModel
         require_once __DIR__ . '/../models/RestaurantModel.php';
+        require_once __DIR__ . '/../models/SignupModel.php';
     }
 
     public function dashboard()
@@ -98,4 +100,45 @@ class RestaurantController
             header('Location: ../restaurant/dashboard?page=menu');
         }
     }
+
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $restaurantID = $_SESSION['RestaurantID'];
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $contactNo = $_POST['contact_no'];
+            $email = $_POST['email'];
+            $website = $_POST['website'];
+            $openHours = $_POST['open_hours'];
+            $cuisineType = $_POST['cuisine_types'];
+            $description = $_POST['description'];
+
+            // Check if the email is already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                header('Location: ../restaurant/dashboard?page=profile');
+                exit();
+            }
+
+            $restaurantModel = new RestaurantModel($this->conn);
+            $restaurantModel->updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description);
+
+            $_SESSION['Name'] = $name;  
+            $_SESSION['Address'] = $address;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['Email'] = $email;
+            $_SESSION['Website'] = $website;
+            $_SESSION['OpenHours'] = $openHours;
+            $_SESSION['CuisineType'] = $cuisineType;
+            $_SESSION['Description'] = $description;
+
+            header('Location: ../restaurant/dashboard?page=profile');
+            exit();
+        }
+    }
+
+
 }
