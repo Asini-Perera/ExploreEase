@@ -464,3 +464,12 @@ CREATE TABLE CulturalEventOrganizerPost (
     OrganizerID INT NOT NULL,
     FOREIGN KEY (OrganizerID) REFERENCES CulturalEventOrganizer(OrganizerID)
 );
+
+-- Add Title column to RestaurantPost table
+ALTER TABLE RestaurantPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add Title column to HotelPost table
+ALTER TABLE HotelPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add Title column to CulturalEventOrganizerPost table
+ALTER TABLE CulturalEventOrganizerPost ADD Title VARCHAR(255) NOT NULL;
