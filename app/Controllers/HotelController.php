@@ -30,8 +30,18 @@ class HotelController
                 $verifiedAction = 'edit';
             }
         } elseif ($mainContent == 'room') {
+            $rooms = $this->viewRoom();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
-            $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+            if($action == 'add') {
+                $verifiedAction = 'add';
+            } elseif ($action == 'edit') {
+                $verifiedAction = 'edit';
+            } elseif ($action == 'delete') {
+                $verifiedAction = null;
+                $this->deleteRoom();
+            } else {
+                $verifiedAction = null;
+            }
         } elseif ($mainContent == 'post') {
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
@@ -46,7 +56,9 @@ class HotelController
     public function viewRoom()
     {
         $hotelModel = new HotelModel($this->conn);
-        $menus = $hotelModel->getRoom($_SESSION['HotelID']);
+        $rooms = $hotelModel->getRoom($_SESSION['HotelID']);
+
+        return $rooms;
     }
 
     public function addRoom()
@@ -68,6 +80,18 @@ class HotelController
             }
 
             header('Location: ../hotel/dashboard?page=room');
+        }
+    }
+
+    public function deleteRoom()
+    {
+        if (isset($_GET['id'])) {
+            $roomID = $_GET['id'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->deleteRoom($roomID);
+
+            header('Location: ../restaurant/dashboard?page=room');
         }
     }
 

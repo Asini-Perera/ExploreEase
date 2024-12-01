@@ -71,6 +71,13 @@ class HotelModel
         }
     }
 
+    public function deleteRoom($roomID)
+    {
+        $sql = "DELETE FROM room WHERE RoomID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $roomID);
+        $stmt->execute();
+    }
     public function getReviews($hotelID)
     {
         $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
