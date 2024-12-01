@@ -44,6 +44,10 @@ $router->add('restaurant/update','RestaurantController@updateProfile');  // Upda
 $router->add('restaurant/changepassword','RestaurantController@changePassword');  // Change password for restaurant
 
 $router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
+$router->add('hotel/addRoom','HotelController@addRoom');  // Add room for hotel
+$router->add('hotel/deleteRoom','HotelController@deleteRoom');  // Delete room for hotel
+$router->add('hotel/update','HotelController@updateProfile');  // Update profile for hotel
+$router->add('hotel/changepassword','HotelController@changePassword');  // Change password for hotel
 
 $router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
@@ -51,6 +55,12 @@ $router->add('heritageMarket/products', 'HeritageMarketController@products');
 $router->add('heritageMarket/review', 'HeritageMarketController@review');
 
 $router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
+$router->add('culturaleventorganizer/addEvent','CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
+$router->add('culturaleventorganizer/deleteEvent','CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
+$router->add('culturaleventorganizer/addPost','CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
+$router->add('culturaleventorganizer/deletePost','CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
+$router->add('culturaleventorganizer/update','CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
+$router->add('culturaleventorganizer/changepassword','CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
 $router->add('service/hotel','HomeController@travelerside_hotel');  // traveller side hotel view
 $router->add('service/restaurant','HomeController@travelerside_restaurant');  // traveller side restaurant view

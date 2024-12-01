@@ -66,6 +66,13 @@ class LoginController
                         break;
                     case 'hotel':
                         $_SESSION['HotelID'] = $user['HotelID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':
@@ -86,6 +93,12 @@ class LoginController
                         break;
                     case 'culturaleventorganizer':
                         $_SESSION['OrganizerID'] = $user['OrganizerID'];
+                        $_SERVER['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
+                        $_SESSION['ProfileImage'] = $user['ImgPath'];
                         header('Location: ../culturaleventorganizer/dashboard');
                         break;
                 }
