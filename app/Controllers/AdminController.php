@@ -206,6 +206,34 @@ class AdminController
         }
     }
 
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $firstName = $_POST['firstname'];
+            $lastName = $_POST['lastname'];
+            $email = $_POST['email'];
+            $contactNo = $_POST['contactNo'];
+            $profileImage = $_FILES['profile_image'];
+
+            $adminModel = new AdminModel($this->conn);
+            $adminModel->updateAdmin($adminID, $firstName, $lastName, $email, $contactNo);
+
+            if ($profileImage['name']) {
+                $adminModel->setImgPath($adminID, $profileImage);
+            }
+
+            $_SESSION['FirstName'] = $firstName;
+            $_SESSION['LastName'] = $lastName;
+            $_SESSION['Email'] = $email;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['ProfileImage'] = $adminModel->getImgPath($adminID);
+
+            header('Location: ../admin/dashboard?page=profile');
+            exit();
+        }
+    }
+
     public function logout()
     {
         session_start();
