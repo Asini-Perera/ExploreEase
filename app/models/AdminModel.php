@@ -98,4 +98,26 @@ class AdminModel
         $stmt->bind_param('ssssi', $firstName, $lastName, $email, $contactNo, $AdminID);
         $stmt->execute();
     }
+
+    public function checkCurrentPassword($AdminID, $password)
+    {
+        $sql = "SELECT Password FROM admin WHERE AdminID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $AdminID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($password, $hashedPassword);
+    }
+
+    public function changePassword($AdminID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE admin SET Password = ? WHERE AdminID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $AdminID);
+        $stmt->execute();
+    }
 }

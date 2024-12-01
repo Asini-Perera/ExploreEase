@@ -2,7 +2,7 @@
 
 <div class="change-password-card">
     <h2>Change Password</h2>
-    <form action="/admin/changePassword" method="POST">
+    <form action="../admin/changepassword" method="POST">
         <div class="form-group">
             <label for="currentPassword">Current Password:</label>
             <input type="password" id="currentPassword" name="currentPassword" required>

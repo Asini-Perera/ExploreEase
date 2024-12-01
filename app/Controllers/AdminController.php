@@ -234,6 +234,34 @@ class AdminController
         }
     }
 
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+            $adminModel = new AdminModel($this->conn);
+            $valid = $adminModel->checkCurrentPassword($adminID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $adminModel->changePassword($adminID, $newPassword);
+                    header('Location: ../admin/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                    exit();
+                }
+            } else {
+                header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                exit();
+            }
+
+        }
+    }
+
     public function logout()
     {
         session_start();
