@@ -20,7 +20,7 @@
 
     .action-buttons button{
  
-        width: 60px;
+        width: 80px;
         padding: 8px 10px;
         margin: 5px;
         color: white;
@@ -56,6 +56,13 @@
     }
 
     .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .form-group textarea {
         width: 100%;
         padding: 10px;
         border: none;

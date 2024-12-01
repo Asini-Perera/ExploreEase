@@ -20,7 +20,7 @@ class CulturalEventOrganizerController
 
     public function dashboard()
     {
-        if (isset($_SESSION['EventID'])) {
+        if (isset($_SESSION['OrganizerID'])) {
         $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
         $allowed_pages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
         $mainContent = in_array($page, $allowed_pages) ? $page : '404';
@@ -29,9 +29,11 @@ class CulturalEventOrganizerController
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if ($action == 'edit') {
                 $verifiedAction = 'edit';
+            } elseif ($action == 'change-password') {
+                $verifiedAction = 'change-password';
             }
         } elseif ($mainContent == 'event') {
-            $events = $this->viewEvent();
+            // $events = $this->viewEvent();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if($action == 'add') {
                 $verifiedAction = 'add';

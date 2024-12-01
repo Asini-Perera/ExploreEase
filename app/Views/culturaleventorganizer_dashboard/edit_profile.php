@@ -10,31 +10,27 @@
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter email">
+            <input type="email" id="email" name="email" value="<?php echo $_SESSION['Email']; ?>">
         </div>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter name">
+            <input type="text" id="name" name="name" value="<?php echo $_SESSION['Name']; ?>">
         </div>
         <div class="form-group">
             <label for="contact_no">Contact No</label>
-            <input type="text" id="contact_no" name="contact_no" placeholder="Enter contact no">
+            <input type="text" id="contact_no" name="contact_no" value="<?php echo $_SESSION['ContactNo']; ?>">
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" placeholder="Enter description"></textarea>
+            <textarea id="description" name="description"><?php echo $_SESSION['Description']; ?></textarea>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password">
-        </div>
-        <div class="form-group">
-            <label for="sm_link">SMLink</label>
-            <input type="text" id="sm_link" name="sm_link" placeholder="Enter SMLink">
+            <label for="sm_link">Social Media Link</label>
+            <input type="text" id="sm_link" name="sm_link" value="<?php echo $_SESSION['SMLink']; ?>">
         </div>
 
         <div class="action-buttons">
-            <button type="button" class="discard-btn" onclick="">Discard</button>
+            <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
             <button type="submit" class="save-btn" onclick="">Save</button>     
         </div>
         

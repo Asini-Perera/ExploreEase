@@ -1,5 +1,5 @@
 .event-container {
-    padding-top: 30px;
+    padding-top: 0px;
 }
 
 table {
@@ -46,7 +46,7 @@ th {
 } */
 
 .action-buttons a {
-    width: auto;
+    width: 100px;
     padding: 8px 10px;
     margin: 5px;
     color: white;
