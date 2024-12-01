@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="../public/css/hotel_dashboard/post_list.css">
+<link rel="stylesheet" href="../public/css/culturalevent_dashboard/post_list.css">
 
 <div class="menu-container">
     <div class="top">
-            <h1>Post List</h1>
+            <h1>Post List</h1><span></span>
 
             <div class="action-buttons">
                 <a class="add-btn" href="?page=post&action=add">Add Post</a>

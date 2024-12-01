@@ -10,6 +10,27 @@ class CulturalEventOrganizerModel
         $this->conn = $conn;
     }
 
+    public function getEvent($eventID)
+    {
+        $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $eventID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addEvent($title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID)
+    {
+        $sql = "INSERT INTO room (EventID, `Name`, `Address`, `Longitude`, `Latitude`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) VALUES (?, ?, ?, ?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sdisi', $title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID);
+        $stmt->execute();
+        
+        return $stmt->insert_id;
+    }
+
     public function setImgPath($OrganizerID, $fileName)
     {
         // Get temp image path
@@ -48,5 +69,14 @@ class CulturalEventOrganizerModel
             $stmt->bind_param('si', $imgPath, $OrganizerID);
             $stmt->execute();
         }
+    }
+
+
+    public function deleteEvent($eventID)
+    {
+        $sql = "DELETE FROM culturalevent WHERE EventID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $eventID);
+        $stmt->execute();
     }
 }
