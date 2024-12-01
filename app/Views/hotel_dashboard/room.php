@@ -21,7 +21,22 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+
+        <?php foreach ($rooms as $room) : ?>
+                <tr>
+                    <td><?= $room['Type'] ?></td>
+                    <td>Rs. <?= $room['Price'] ?></td>
+                    <td><?= $room['MaxOccupancy'] ?></td>
+                    <td><?= $room['Description'] ?></td>
+                    <td><img src="<?= $food['ImgPath'] ?>" class="room-img"></td>
+                    <td class="action-buttons">
+                        <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
+                        <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+            <!-- <tr>
                 <td>Rs. 5000.00</td>
                 <td>2</td>
                 <td>Deluxe Room with a king-sized bed and a view of the city</td>
@@ -70,7 +85,7 @@
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
                 </td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 </div>

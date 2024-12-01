@@ -111,15 +111,15 @@ class HotelController
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
             $hotelID = $_SESSION['HotelID'];
 
-            $restaurantModel = new HotelModel($this->conn);
-            $roomID = $restaurantModel->addRoom($room_type, $price, $capacity,$description, $hotelID);
+            $hotelModel = new HotelModel($this->conn);
+            $postID = $hotelModel->addRoom($room_type, $price, $capacity,$description, $hotelID);
 
             // If image is uploaded, set the image path
-            if($roomID && $image['name']) {
-                $restaurantModel->setImgPath($roomID, $image);
+            if($postID && $image['name']) {
+                $hotelModel->setImgPath($postID, $image);
             }
 
-            header('Location: ../hotel/dashboard?page=room');
+            header('Location: ../hotel/dashboard?page=post');
         }
     }
 
