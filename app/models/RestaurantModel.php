@@ -94,4 +94,26 @@ class RestaurantModel
         $stmt->bind_param('ssssssssi', $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $restaurantID);
         $stmt->execute();
     }
+
+    public function checkCurrentPassword($restaurantID, $currentPassword)
+    {
+        $sql = "SELECT * FROM restaurant WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($currentPassword, $hashedPassword);
+    }
+
+    public function changePassword($restaurantID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE restaurant SET Password = ? WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $restaurantID);
+        $stmt->execute();
+    }
 }

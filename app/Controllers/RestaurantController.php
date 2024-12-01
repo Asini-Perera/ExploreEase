@@ -32,7 +32,9 @@ class RestaurantController
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
-                }
+                } elseif ($action == 'change-password') {
+                    $verifiedAction = 'change-password';
+                } 
             } elseif ($mainContent == 'menu') {
                 $menus = $this->viewMenu();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -140,5 +142,30 @@ class RestaurantController
         }
     }
 
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $restaurantID = $_SESSION['RestaurantID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
 
+            $restaurantModel = new RestaurantModel($this->conn);
+            $valid = $restaurantModel->checkCurrentPassword($restaurantID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $restaurantModel->changePassword($restaurantID, $newPassword);
+                    header('Location: ../restaurant/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../restaurant/dashboard?page=profile&action=change-password');
+                    exit();
+                }
+            } else {
+                header('Location: ../restaurant/dashboard?page=profile&action=change-password');
+                exit();
+            }
+        }
+    }
 }

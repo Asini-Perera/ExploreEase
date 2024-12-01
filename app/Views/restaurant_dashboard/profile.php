@@ -6,6 +6,7 @@
 
         <div class="action-buttons">
             <a class="edit-btn" href="?page=profile&action=edit">Edit Profile</a>
+            <a class="edit-btn" href="?page=profile&action=change-password">Change Password</a>
         </div>
     </div>
     
