@@ -7,6 +7,6 @@
     </div>
     <div class="user-profile">
         <span class="user-name"><?php echo $_SESSION['FirstName'] . ' ' . $_SESSION['LastName']; ?></span>
-        <img src="../public/images/user.jpg" alt="Admin Image" class="user-image">
+        <img src="<?php echo $_SESSION['ProfileImage']; ?>" alt="Admin Image" class="user-image">
     </div>
 </div>

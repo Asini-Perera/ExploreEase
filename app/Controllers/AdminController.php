@@ -141,7 +141,7 @@ class AdminController
     public function waiting()
     {
         // Logic for admin waiting page
-        if (isset($_SESSION['AdminID'])) {
+        if (isset($_SESSION['Email'])) {
             require_once __DIR__ . '/../Views/waiting.php';
         } else {
             header('Location: admin');
@@ -203,6 +203,71 @@ class AdminController
         } else {
             header('Location: ../admin');
             exit();
+        }
+    }
+
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $firstName = $_POST['firstname'];
+            $lastName = $_POST['lastname'];
+            $email = $_POST['email'];
+            $contactNo = $_POST['contactNo'];
+            $profileImage = $_FILES['profile_image'];
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                header('Location: ../admin/dashboard?page=profile');
+                exit();
+            }
+
+            $adminModel = new AdminModel($this->conn);
+            $adminModel->updateAdmin($adminID, $firstName, $lastName, $email, $contactNo);
+
+            if ($profileImage['name']) {
+                $adminModel->setImgPath($adminID, $profileImage);
+            }
+
+            $_SESSION['FirstName'] = $firstName;
+            $_SESSION['LastName'] = $lastName;
+            $_SESSION['Email'] = $email;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['ProfileImage'] = $adminModel->getImgPath($adminID);
+
+            header('Location: ../admin/dashboard?page=profile');
+            exit();
+        }
+    }
+
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+            $adminModel = new AdminModel($this->conn);
+            $valid = $adminModel->checkCurrentPassword($adminID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $adminModel->changePassword($adminID, $newPassword);
+                    header('Location: ../admin/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                    exit();
+                }
+            } else {
+                header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                exit();
+            }
+
         }
     }
 
