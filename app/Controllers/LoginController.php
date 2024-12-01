@@ -57,18 +57,23 @@ class LoginController
                 // Redirect to pages based on user type
                 switch ($user['Type']) {
                     case 'traveler':
+                        $_SESSION['TravelerID'] = $user['TravelerID'];
                         header('Location: ../ExploreEase');
                         break;
                     case 'hotel':
+                        $_SESSION['HotelID'] = $user['HotelID'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':
+                        $_SESSION['RestaurantID'] = $user['RestaurantID'];
                         header('Location: ../restaurant/dashboard');
                         break;
                     case 'heritagemarket':
+                        $_SESSION['ShopID'] = $user['ShopID'];
                         header('Location: ../heritagemarket/dashboard');
                         break;
                     case 'culturaleventorganizer':
+                        $_SESSION['OrganizerID'] = $user['OrganizerID'];
                         header('Location: ../culturaleventorganizer/dashboard');
                         break;
                 }

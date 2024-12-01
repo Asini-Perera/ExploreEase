@@ -45,7 +45,8 @@ th {
     float: left;
 } */
 
-.action-buttons button {
+.action-buttons button,
+.action-buttons a {
     width: 100px;
     padding: 8px 10px;
     margin: 5px;
@@ -54,14 +55,15 @@ th {
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
+    text-decoration: none;
 }
 
 .edit-btn {
-    background-color: #6fa857; /* A pleasant medium red */
+    background-color: #6fa857;
 }
 
 .edit-btn:hover {
-    background-color: #225522; /* A slightly darker red for the hover effect */
+    background-color: #225522; 
 }
 
 .add-btn {

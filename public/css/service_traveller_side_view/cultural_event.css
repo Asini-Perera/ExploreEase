@@ -1,0 +1,569 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+/* header */
+header{
+    background: url("../../images/traditional-dancing.jpg " ) 0vh, 70vw no-repeat;
+    background-size: cover;
+    height: 60vh;
+    text-align: center; 
+}
+
+.c-name{
+    font-size: 3rem;
+    padding-top: 10vh;
+    color: rgb(246, 206, 206);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.describe{
+    font-size: 1.5rem;
+    padding-top: 2vh;
+    color: rgb(252, 249, 249);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-bottom: 10vh;
+}
+
+/* nav-bar */
+.nav-bar{
+    margin: 20px 0;
+    margin-left: 19vw;
+    padding: 20px;
+    width: 60vw;
+    background-color: #D9D9D9;
+    border-radius: 40px;   
+}
+
+.nav-links{
+    display: flex;
+    justify-content: center;
+    gap: 7rem;
+    list-style:none;   
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: #111111;
+    font-size: 18px;
+}
+
+
+/* about */
+.about-section{
+    margin-top: 7vh; 
+}
+
+.map-gallery{
+    display: flex; 
+    margin-top: 3vh; 
+    height: 65vh; 
+    gap: 2rem;
+    margin-bottom: 2vh; 
+}
+
+.map img{
+    cursor:pointer; 
+    width:20vw; 
+    height:30vh; 
+    padding-left: 2vw;
+}
+.gallery{
+    width: 70vw;  
+}
+
+.gallery-one{
+    display: flex;  
+}
+.gallery1-image1{
+    width: 19vw;
+    height: 20vh; 
+}
+
+.gallery1-image2{
+    /* margin-top: 5vh; */
+    width: 19vw;
+    height: 20vh; 
+}
+
+.gallery-main{
+    width: 38.5vw; 
+    height: 41vh;
+    margin-left: 5px;
+}
+
+.gallery1-image3{
+    width: 19vw;
+    height: 20vh;
+    margin-left: 5px;
+}
+
+.gallery1-image4{
+    width: 19vw;
+    height: 20vh;
+    margin-left: 5px;
+}
+
+.gallery .gallery-two{
+    display: flex;
+    gap:5px;
+}
+
+.gallery2-image1{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image2{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image3{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.gallery2-image4{ 
+    width: 19vw;
+    height: 20vh;
+}
+
+.about{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-left: 2vw;
+    padding-bottom: 4vh;
+}
+
+.abt-title{
+    padding-top: 0vh;
+    color: #225522;
+    font-weight: bold;
+    font-size: 36px;
+    font-family: Edwardian Script ITC;
+    text-align: center;
+}
+
+.description{
+    font-size: 16px;
+    color: #111111;
+    padding-top: 1.5vh;
+    padding-right: 2vw;
+}
+
+
+/* info */
+.info{ 
+    width: 100%; 
+    height: 85vh; 
+    background-color:  rgb(189, 179, 176); 
+}
+
+.info-slider{ 
+    padding: 0 2vw;
+    overflow-x:scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior:smooth;
+    scrollbar-color: #046c33 #f5f5f5;
+    scroll-snap-align: start;
+}
+
+.info-list{
+    display: flex;
+    gap: 3rem;
+    margin: 3vh;  
+}
+
+.info-list .slide img{
+    width:25vw;
+    height: 50vh;
+    object-fit: cover;
+    border-radius: 2rem;
+}
+
+.slide{
+    width:25vw;
+    height: 74vh;
+    background-color: rgb(252, 249, 249);
+    border-radius: 2rem;
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0);
+    margin-bottom: 1vh;
+}
+
+.slide h3{
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.slide p{
+    padding: 0 10px;
+    font-size:14px;
+    text-align: center;
+}
+
+.slide ul{
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding: 0 10px;
+}
+
+.slide ul li{
+    font-size: 14px;
+    margin-left: 25px;
+}
+
+.slide button{
+    padding: 5px 10px;
+    float: right;
+    margin: 10px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    background-color:#F1C232 ;
+}
+
+/* memories */
+.memories{
+    width: 100%; 
+    height: 83vh; 
+    padding: 20px; 
+}
+
+.title-text{
+    margin-left: 20px; 
+    color: #225522;  
+    margin: 2vh;
+    font-weight: bold;
+    font-size: 36px;
+    font-family: Edwardian Script ITC;
+}
+
+.year-button{
+    width: 6vw; 
+    height: 4vh; 
+    border-radius: 50px; 
+    font-size: 16px;
+    margin-top: 1vh;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#action-buttons button{
+    width: 6vw; 
+    height: 4vh; 
+    border-radius: 50px; 
+    font-size: 16px;
+    margin-top: 1vh;
+    margin-left: 20px;
+    cursor: pointer;
+}
+#year-buttons, #action-buttons {
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #225522;
+    color: #D9D9D9;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.year-button.selected, .action-button.selected {
+    background-color: #28a745;
+}
+
+#memory-container h2{
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+#memory-container p{
+    font-size: 14px;
+    padding: 10px;
+}
+
+#memory-container img {
+    width: 150px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+#memory-container video {
+    width: 300px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+/* booking */
+.bookings{
+    width: 100%; 
+    height: 75vh; 
+    background-color:  rgb(189, 179, 176); 
+}
+
+.bookings-content{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 5rem; 
+    padding: 2rem; 
+    padding-top: 5vh;
+}
+
+.bookings-content img{
+    width: 65vw; 
+    height: 65vh;
+}
+
+.ticket-purchase form{
+    display: flex; 
+    flex-direction: column;   
+    background-color: #f9f9f9; 
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 30vw; 
+    height: 65vh;
+}
+
+.booking_heading{
+    text-align: center; 
+    margin-bottom: 1rem;
+}
+
+.ticket-purchase form input{
+    font-size: 14px; 
+    padding: 0.5rem; 
+    border-radius: 5px; 
+    border: 1px solid #000;
+    width: 25vw;
+    margin: 0.3rem;
+}
+
+.num_tickets{
+    margin: 5px 0 0 5px ;
+    font-size: 14px;
+}
+
+.book{
+    font-size: 14px; 
+    padding: 0.75rem; 
+    border-radius: 5px; 
+    border: none; 
+    background-color: #225522; 
+    color: #fff; 
+    cursor: pointer; 
+    margin-top: 2rem;
+}
+
+/* review  */
+.reviews{
+    margin-bottom: 2vh;
+}
+
+.review-container{
+    margin: 0 auto;
+    padding: 0 20px;
+    overflow: hidden;
+    overflow-x:scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior:smooth;
+    scrollbar-color: #046c33 #f5f5f5;
+    scroll-snap-align: start;
+}
+
+.review-content{
+    display:flex;
+    overflow: hidden;
+    gap: 2rem;
+    margin-left: 2vw;
+    min-width: 5000px;
+}
+
+.review-heading{  
+    padding: 30px;
+    color: #225522;
+    padding-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.review-slide{
+    display:block;
+    padding: 25px;    
+    height: 320px;
+    width: 500px;
+    margin-left: 2vw;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px 2px #111111;
+    /* border: #225522 solid 2px; */
+    background-color: #ffffff;
+    margin:4vh 0;
+    font-size: 14px;
+}
+
+.review{
+    border: #000 1px solid; 
+    padding: 10px;
+}
+
+.customer-pic img{
+    height: 70px; 
+    width:70px; 
+    border-radius: 60px;
+    margin:10px;
+}
+
+.customer-details{
+    text-align: center; 
+    padding: 40px 20px;
+}
+
+.customer-info{
+    display: flex;
+}
+
+.review-slide .reponse{
+    padding: 5px; 
+    margin-left: 5vw; 
+    margin-top: 1vh; 
+    width:25vw; 
+    border: #225522 solid 1px ; 
+    height: 7vh; 
+    font-size: 14px;
+}
+
+/* get review */
+.get-review{
+    display: flex; 
+    align-items: center; 
+    margin-top: 3vh; 
+    margin-left: 100px;
+    font-size:14px;
+}
+
+.get-review-heading span{
+    font-size: 36px;  
+    font-weight: bold;  
+    color: #225522;        
+    font-family: Edwardian Script ITC;
+}
+
+.review-form{
+    margin-left: 20vw;
+}
+
+.review-form form{
+    width: 30vw; height: 73vh; 
+    color: #fff;  
+    border-radius: 20px; 
+    background-color: #225522; 
+    margin-bottom: 4vh; 
+    font-size: 14px; 
+    align-content: center; 
+    padding:30px;
+}
+
+.review-form form input{
+    border-radius:10px; 
+    width: 26vw; 
+    height: 4vh; 
+    margin-bottom: 2vh;
+    padding-left: 10px; 
+    font-size: 15px;
+}
+
+.review-form textarea{
+    margin-bottom: 10px;
+}
+.review-form ul{
+    display: flex; 
+    gap: 3rem; 
+    list-style: none; 
+    margin-top:1vh; 
+    margin-bottom: 2vh;
+}
+
+.review-form ul button{
+    padding: 6px 10px; 
+    border-radius: 60px; 
+    cursor: pointer;
+}
+
+.add-review{
+    width: 20vw; 
+    border-radius: 20px; 
+    height: 4vh; 
+    font-size: 14px; 
+    color: #000; 
+    background-color: #F1C232; 
+    margin-left: 60px ;
+}
+
+/* contact section */
+.contact_us{
+    padding-top: 7vh;
+    background-color:  rgb(189, 179, 176);
+    width: 100%;
+    height: 42vh;
+}
+
+.contact{
+   display: flex;
+   justify-content: center;
+   gap:3rem;
+}
+
+.contact-info{
+    width:12vw;
+    border: #111111 1px solid;
+    height: 22vh;
+    justify-items: center;
+    /* background-color: royalblue; */
+    padding-top:2vh;
+    padding-bottom: 2vh;
+}
+
+.contact-info h3{
+    font-size: 16px;
+    padding-bottom: 5px;  
+    color: #225522; 
+}
+
+.contact-info p{
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+.contact_img{
+    width: 5vw;
+    height: 9vh;
+    padding-bottom: 5px;
+    /* object-fit: cover;  */   
+}
+
+.share{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+
+.share img{
+    width: 2vw;
+    margin-top: 5vh;
+}

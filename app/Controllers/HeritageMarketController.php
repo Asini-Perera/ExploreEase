@@ -26,5 +26,25 @@ class HeritageMarketController
 
         require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
     }
+    public function shops(): void
+    {
+       
+
+        require_once __DIR__ . '/../Views/heritageMarket/heritageMarketView.php';
+    }
+
+    public function products(): void
+    {
+       
+
+        require_once __DIR__ . '/../Views/heritageMarket/products.php';
+    }
+
+    public function review(): void
+    {
+       
+
+        require_once __DIR__ . '/../Views/heritageMarket/review.php';
+    }
 
 }

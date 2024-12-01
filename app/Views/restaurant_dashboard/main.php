@@ -19,19 +19,15 @@
 
         <!-- Main Content -->
         <div class="main-content">
-        <?php
-            if ($mainContent === 'dashboard') {
-                require_once  __DIR__ . "/dashboard.php";
-            } elseif ($mainContent === 'profile') {
-                require_once  __DIR__ . "/profile.php";
-            } elseif ($mainContent === 'menulist') {
-                require_once  __DIR__ . "/menu_list.php";
-            } elseif ($mainContent === 'bookings') {
-                require_once  __DIR__ . "/bookings.php";
-            } elseif ($mainContent === 'reviews') {
-                require_once  __DIR__ . "/reviews.php";
+            <?php
+            if ($mainContent == 'profile' && $action == 'edit') {
+                require_once __DIR__ . '/edit_profile.php';
+            } elseif ($mainContent == 'menu' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_menu.php";
+            } elseif ($mainContent == 'post' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_post.php";
             } else {
-                require_once  __DIR__ . "/$mainContent.php";
+                require_once __DIR__ . "/$mainContent.php";
             }
             ?>
         </div>

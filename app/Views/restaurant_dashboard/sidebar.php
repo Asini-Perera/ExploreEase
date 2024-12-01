@@ -9,11 +9,19 @@
         </li>
 
         <li>
-            <a href="?page=menulist" class="<?= $mainContent == 'menulist' ? 'active' : '' ?>">Menu List</a>
+            <a href="?page=menu" class="<?= $mainContent == 'menu' ? 'active' : '' ?>">Menu List</a>
         </li>
 
         <li>
-            <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">Bookings</a>
+            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>">Post List</a>
+        </li>
+
+        <li>
+            <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>">New Bookings</a>
+        </li>
+
+        <li>
+            <a href="?page=booking_list" class="<?= $mainContent == 'booking_list' ? 'active' : '' ?>">Bookings</a>
         </li>
 
         <li>
