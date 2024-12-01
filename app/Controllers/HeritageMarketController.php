@@ -33,4 +33,11 @@ class HeritageMarketController
         require_once __DIR__ . '/../Views/heritageMarket/heritageMarketView.php';
     }
 
+    public function products(): void
+    {
+       
+
+        require_once __DIR__ . '/../Views/heritageMarket/products.php';
+    }
+
 }

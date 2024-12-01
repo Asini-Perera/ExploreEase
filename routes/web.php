@@ -48,3 +48,4 @@ $router->add('keyword/keywordsearch', 'KeywordController@keywordsearch');  // Ke
 $router->add('keyword/keywordselect', 'KeywordController@keywordselect');  // Keyword search page for travelers
 
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
+$router->add('heritageMarket/products', 'HeritageMarketController@products');
