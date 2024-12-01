@@ -147,6 +147,31 @@ class CulturalEventOrganizerController
         }
     }
 
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
 
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $valid = $organizerModel->checkCurrentPassword($organizerID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $organizerModel->changePassword($organizerID, $newPassword);
+                    header('Location: ../culturaleventorganizer/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../culturaleventorganizer/dashboard?page=profile&action=change-password');
+                    exit();
+                }
+            } else {
+                header('Location: ../culturaleventorganizer/dashboard?page=profile&action=change-password');
+                exit();
+            }
+        }
+    }
 
 }

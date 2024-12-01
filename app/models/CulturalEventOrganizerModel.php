@@ -90,6 +90,28 @@ class CulturalEventOrganizerModel
         $stmt->execute();
     }
 
+    public function checkCurrentPassword($OrganizerID, $currentPassword)
+    {
+        $sql = "SELECT * FROM culturaleventorganizer WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $OrganizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($currentPassword, $hashedPassword);
+    }
+
+    public function changePassword($OrganizerID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE culturaleventorganizer SET Password = ? WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $OrganizerID);
+        $stmt->execute();
+    }
+
     public function deleteEvent($eventID)
     {
         $sql = "DELETE FROM culturalevent WHERE EventID = ?";
