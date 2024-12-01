@@ -5,7 +5,7 @@
         <h1>Profile Details</h1><span></span>
 
         <div class="action-buttons">
-            <button class="edit-btn" href="">Edit Profile</button>
+            <a class="edit-btn" href="?page=profile&action=edit">Edit Profile</a>
         </div>
     </div>
     

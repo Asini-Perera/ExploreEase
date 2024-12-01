@@ -9,7 +9,11 @@
         </li>
 
         <li>
-            <a href="?page=event_list" class="<?= $mainContent == 'event_list' ? 'active' : '' ?>">Event List</a>
+            <a href="?page=event" class="<?= $mainContent == 'event' ? 'active' : '' ?>">Event List</a>
+        </li>
+
+        <li>
+            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>">Posts</a>
         </li>
 
         <li>

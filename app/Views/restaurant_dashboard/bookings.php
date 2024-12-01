@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/restaurant_dashboard/bookings.css">
 
-<h1>Bookings</h1>
+<h1>New Bookings</h1>
 
 <div class="menu-container">
     <table>

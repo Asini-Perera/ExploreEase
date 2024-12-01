@@ -2,17 +2,16 @@
 
 <div class="event-container">
     <div class="top">
-            <h1>Event List</h1><span></span>
+            <h1>Event List</h1>
 
             <div class="action-buttons">
-                <button class="add-btn" href="">Add Event</a>
+                <a class="add-btn" href="?page=event&action=add">Add Event</a>
             </div>
     </div>
 
     <table>
         <thead>
             <tr>
-               <th>Event ID</th>
                 <th>Event Name</th>
                 <th>Address</th>
                 <th>Event Date</th>
@@ -22,14 +21,12 @@
                 <th>Capacity</th>
                 <th>Ticket Price</th>
                 <th>Status</th>
-                <th>Organizer</th>
                 <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>xxxx1</td>
                 <td>Esala Perehara</td>
                 <td>Kandy</td>
                 <td>2021-07-14</td>

@@ -3,7 +3,7 @@
 <div class="form-content">
     <h1>New Room</h1>
     
-    <form method="post" action="">
+    <form method="post" action="../hotel/addRoom">
         <div class="form-group">
             <label for="title">Room Type:</label>
             <input type="text" name="room_type" id="room_type" class="form-control" placeholder="Enter room type">
@@ -25,7 +25,7 @@
             <input type="file" name="image" id="image" class="form-control">
         </div>
         
-        <button type="submit" id="add-room">Add</button>
+        <button type="submit" id="add-room">Add Room</button>
 
 
     </form>
