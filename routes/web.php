@@ -34,18 +34,11 @@ $router->add('forgot', 'ForgotPasswordController@index');  // Forgot password pa
 $router->add('request', 'ForgotPasswordController@request');  // Forgot password token send
 $router->add('reset', 'ForgotPasswordController@reset');  // Reset password page
 $router->add('update', 'ForgotPasswordController@update');  // Update new password
-$router->add('admin/logout', 'AdminController@logout');  // Admin logout
-$router->add('login', 'LoginController@index');  // Login page
-$router->add('signup', 'SignupController@index');  // Signup page
-$router->add('signup/traveler', 'SignupController@traveler');  // Signup page for travelers
-$router->add('signup/hotel', 'SignupController@hotel');  // Signup page for hotels
-$router->add('signup/restaurant', 'SignupController@restaurant');  // Signup page for restaurants
-$router->add('signup/heritagemarket', 'SignupController@heritagemarket');  // Signup page for heritage markets
-$router->add('signup/culturaleventorganizer', 'SignupController@culturaleventorganizer');  // Signup page for cultural event organizers
-$router->add('keyword/traveler', 'KeywordController@traveler');  // Keyword page for travelers
-$router->add('keyword/serviceprovider', 'KeywordController@serviceprovider');  // Keyword page for service providers
-$router->add('keyword/keywordsearch', 'KeywordController@keywordsearch');  // Keyword search page for travelers
-$router->add('keyword/keywordselect', 'KeywordController@keywordselect');  // Keyword search page for travelers
 
+$router->add('restaurant/dashboard','RestaurantController@dashboard');  // Restaurant dashboard
+
+$router->add('hotel/dashboard','HotelController@dashboard');  // Hotel dashboard
+
+$router->add('heritagemarket/dashboard','HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
 $router->add('heritageMarket/products', 'HeritageMarketController@products');
