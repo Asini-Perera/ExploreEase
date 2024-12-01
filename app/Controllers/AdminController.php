@@ -47,7 +47,10 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Email'] = $admin['Email'];
-                $_SESSION['Name'] = $admin['FirstName'] . ' ' . $admin['LastName'];
+                $_SESSION['FirstName'] = $admin['FirstName'];
+                $_SESSION['LastName'] = $admin['LastName'];
+                $_SESSION['ContactNo'] = $admin['ContactNo'];
+                $_SESSION['ProfileImage'] = $admin['ImgPath'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login

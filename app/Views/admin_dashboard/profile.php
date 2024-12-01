@@ -2,17 +2,18 @@
 
 <div class="profile-card">
     <div class="profile-picture">
-        <img src="../public/images/user.jpg" alt="Admin Profile Picture">
+        <img src="<?php echo $_SESSION['ProfileImage']; ?>" alt="Admin Profile Picture">
     </div>
     <div class="profile-details">
-        <h2>John Doe</h2>
+        <h2> <?php echo $_SESSION['FirstName'] . ' ' . $_SESSION['LastName']; ?> </h2>
+        
         <div class="detail-item">
             <span class="detail-label">Email:</span>
-            <span class="detail-value">johndoe@example.com</span>
+            <span class="detail-value"> <?php echo $_SESSION['Email']; ?> </span>
         </div>
         <div class="detail-item">
             <span class="detail-label">Contact No:</span>
-            <span class="detail-value">+1234567890</span> 
+            <span class="detail-value"> <?php echo $_SESSION['ContactNo']; ?> </span> 
         </div>
     </div>
     <div class="profile-actions">
