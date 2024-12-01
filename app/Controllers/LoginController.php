@@ -72,6 +72,7 @@ class LoginController
                         $_SESSION['ContactNo'] = $user['ContactNo'];
                         $_SESSION['Description'] = $user['Description'];
                         $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':

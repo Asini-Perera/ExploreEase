@@ -58,9 +58,9 @@ th {
 }
 
 .edit-btn {
-    background-color: #d9534f; /* A pleasant medium red */
+    background-color: #6fa857; 
 }
 
 .edit-btn:hover {
-    background-color: #c9302c; /* A slightly darker red for the hover effect */
+    background-color: #225522; 
 }
