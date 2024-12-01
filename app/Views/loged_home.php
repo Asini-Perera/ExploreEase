@@ -209,9 +209,9 @@
 
                 <div class="fea-2">
                     <div class="details">
-                    <h3>Search by Key-Word</h3>
+                    <h3>Search by Keywords</h3>
                     <p>This feature allows you to get recommendations according to the selected key words</p>
-                    <button class="explo"><a href="search/keyword">explore</a></button>
+                    <button class="explo"><a href="keyword/select">explore</a></button>
                     </div>
 
                     <div>
@@ -360,7 +360,7 @@
 
 
 <!-- footer section -->
-    <?php require_once __DIR__ . "/Footer.php"; ?>
+    <?php require_once __DIR__ . "/logedFooter.php"; ?>
         <script src="public/js/home.js"></script>
 </body>
 </html>

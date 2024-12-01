@@ -1,5 +1,7 @@
 <!-- footer.php -->
-  <link rel="stylesheet" href="../public/css/footer.css?v=1">
+  <link rel="stylesheet" href="public/css/logedFooter.css?v=1">
+
+
 <footer>
     <div class="footer-content">
         <div class="footer-section">
@@ -36,8 +38,8 @@
             </ul>
         </div>
         <div class="footer-review">
-    <h4>We value your feedback!</h4>
-    <p>Let us know your thoughts about ExploreEase and how we can improve your experience.</p>
+    <h4>We value your feedback! 🌟</h4>
+    <p>Let us know your thoughts about ExploreEase.</p>
     <button type="button" class="review-button">
         <a href="http://localhost/ExploreEase/review" class="review-button-link">Leave a Review</a>
     </button>

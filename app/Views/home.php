@@ -200,7 +200,7 @@
                     <div class="details">
                     <h3>Search by Location</h3>
                     <p>You can get information about hotels, resturants, guides, transport service details and more suitable recommendations you want to know.</p>
-                    <button class="explo"><a href="">explore</a></button>
+                    <button class="explo"><a href="login">explore</a></button>
                     </div>
 
                 </div>
@@ -209,7 +209,7 @@
                     <div class="details">
                     <h3>Search by Keywords</h3>
                     <p>This feature allows you to get recommendations according to the selected key words</p>
-                    <button class="explo"><a href="">explore</a></button>
+                    <button class="explo"><a href="login">explore</a></button>
                     </div>
 
                     <div>
