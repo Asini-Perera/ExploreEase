@@ -3,7 +3,7 @@
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
     
-    <form id="edit-profile-form" method="POST">
+    <form id="edit-profile-form" action="../culturaleventorganizer/update" method="POST">
         <div class="form-group">
             <label for="profile_image">Profile Image</label>
             <input type="file" id="profile_image" name="profile_image">

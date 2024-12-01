@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Models\CulturalEventOrganizerModel;
+use app\Models\SignupModel;
 
 class CulturalEventOrganizerController
 {
@@ -14,8 +15,9 @@ class CulturalEventOrganizerController
         global $conn;
         $this->conn = $conn;
 
-        // Include the CulturalEventOrganizerModel
+        // Include the CulturalEventOrganizerModel and SignupModel
         require_once __DIR__ . '/../models/CulturalEventOrganizerModel.php';
+        require_once __DIR__ . '/../models/SignupModel.php';
     }
 
     public function dashboard()
@@ -105,4 +107,46 @@ class CulturalEventOrganizerController
             header('Location: ../culturalevent/dashboard?page=event');
         }
     }
+
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $contactNo = $_POST['contact_no'];
+            $description = $_POST['description'];
+            $smLink = $_POST['sm_link'];
+            $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
+
+            // Check if email already exists
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user) {
+                header('Location: ../culturaleventorganizer/dashboard?page=profile&action=edit&error=email-exists');
+                exit();
+            }
+
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $organizerModel->updateOrganizer($organizerID, $name, $email, $contactNo, $description, $smLink, $profileImage);
+
+            if ($profileImage['name']) {
+                $organizerModel->setImgPath($organizerID, $profileImage);
+            }
+
+            $_SESSION['Name'] = $name;
+            $_SESSION['Email'] = $email;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['Description'] = $description;
+            $_SESSION['SMLink'] = $smLink;
+            $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
+
+            header('Location: ../culturaleventorganizer/dashboard?page=profile');
+            exit();
+        }
+    }
+
+
+
 }

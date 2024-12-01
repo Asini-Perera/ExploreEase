@@ -71,6 +71,24 @@ class CulturalEventOrganizerModel
         }
     }
 
+    public function getImgPath($OrganizerID)
+    {
+        $sql = "SELECT ImgPath FROM culturaleventorganizer WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $OrganizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
+    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $smLink)
+    {
+        $sql = "UPDATE culturaleventorganizer SET `Name` = ?, `Email` = ?, `ContactNo` = ?, `Description` = ?, `SMLink` = ? WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssissi', $name, $email, $contactNo, $description, $smLink, $OrganizerID);
+        $stmt->execute();
+    }
 
     public function deleteEvent($eventID)
     {
