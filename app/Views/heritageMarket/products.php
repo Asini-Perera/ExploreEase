@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="review-button-container">
-    <a href="#add-review" class="review-button">Add a Review</a>
+    <a href="http://localhost/ExploreEase/heritageMarket/review" class="review-button">Add a Review</a>
 </div>
 
     </main>
