@@ -431,3 +431,6 @@ ALTER TABLE RestaurantKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add IsVerified column to HeritageMarketKeyword table
 ALTER TABLE HeritageMarketKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+
+--Add Ispopular column to Menu table
+ALTER TABLE Menu ADD IsPopular TINYINT(1) DEFAULT 0;

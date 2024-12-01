@@ -31,6 +31,7 @@ class RestaurantController
                     $verifiedAction = 'edit';
                 }
             } elseif ($mainContent == 'menu') {
+                $menus = $this->viewMenu();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
             } elseif ($mainContent == 'post') {
@@ -49,6 +50,8 @@ class RestaurantController
     {
         $restaurantModel = new RestaurantModel($this->conn);
         $menus = $restaurantModel->getMenu($_SESSION['RestaurantID']);
+
+        return $menus;
     }
 
     public function addMenu()
@@ -58,10 +61,11 @@ class RestaurantController
             $price = $_POST['price'];
             $category = $_POST['category'];
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+            $popularDish = $_POST['popular-dish'];
             $restaurantID = $_SESSION['RestaurantID'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $menuID = $restaurantModel->addMenu($name, $price, $category, $restaurantID);
+            $menuID = $restaurantModel->addMenu($name, $price, $category, $popularDish, $restaurantID);
 
             // If image is uploaded, set the image path
             if($menuID && $image['name']) {

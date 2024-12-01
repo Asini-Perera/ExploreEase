@@ -21,11 +21,11 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addMenu($name, $price, $category, $restaurantID)
+    public function addMenu($name, $price, $category, $popularDish, $restaurantID)
     {
-        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, RestaurantID) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, IsPopular, RestaurantID) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdsi', $name, $price, $category, $restaurantID);
+        $stmt->bind_param('sdsii', $name, $price, $category, $popularDish, $restaurantID);
         $stmt->execute();
         
         return $stmt->insert_id;
