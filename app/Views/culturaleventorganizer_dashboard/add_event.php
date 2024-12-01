@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../public/css/restaurant_dashboard/add_event.css">
+<link rel="stylesheet" href="../public/css/culturalevent_dashboard/add_event.css">
 
 <div class="form-content">
     <h1>Menu Items</h1>

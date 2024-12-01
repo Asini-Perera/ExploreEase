@@ -55,6 +55,8 @@ $router->add('heritageMarket/review', 'HeritageMarketController@review');
 $router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
 $router->add('culturaleventorganizer/addEvent','CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
 $router->add('culturaleventorganizer/deleteEvent','CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
+$router->add('culturaleventorganizer/addPost','CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
+$router->add('culturaleventorganizer/deletePost','CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
 $router->add('culturaleventorganizer/update','CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword','CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 

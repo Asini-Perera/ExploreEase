@@ -119,4 +119,14 @@ class CulturalEventOrganizerModel
         $stmt->bind_param('i', $eventID);
         $stmt->execute();
     }
+
+    public function addPost($title, $description, $organizerID)
+    {
+        $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssi', $title, $description, $organizerID);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
 }

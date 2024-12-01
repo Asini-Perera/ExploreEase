@@ -174,4 +174,23 @@ class CulturalEventOrganizerController
         }
     }
 
+    public function addPost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $organizerID = $_SESSION['OrganizerID'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $postID = $postModel->addPost($title, $description, $organizerID);
+
+            if ($postID && $image['name']) {
+                $postModel->setImgPath($organizerID, $image);
+            }
+
+            header('Location: ../culturaleventorganizer/dashboard?page=post');
+        }
+    }
+
 }
