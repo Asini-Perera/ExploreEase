@@ -21,6 +21,7 @@ $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page fo
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
 $router->add('keyword/add', 'KeywordController@addKeyword');  // Add keyword by admin
 $router->add('keyword/delete', 'KeywordController@deleteKeyword');  // Delete keyword by admin
+$router->add('keyword/select', 'KeywordController@keywordselect');  // Delete keyword by admin
 
 $router->add('admin', 'AdminController@index');  // Admin login page
 $router->add('admin/login', 'AdminController@login');  // Admin login process

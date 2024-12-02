@@ -1,5 +1,7 @@
 <!-- footer.php -->
-  <link rel="stylesheet" href="../public/css/footer.css?v=1">
+  <link rel="stylesheet" href="public/css/logedFooter.css?v=1">
+
+
 <footer>
     <div class="footer-content">
         <div class="footer-section">
@@ -35,17 +37,13 @@
                 </li>
             </ul>
         </div>
-        <div class="footer-section">
-            <h2>Join Us Today</h2>
-            <button type="button" class="sign-up">
-              <a href="http://localhost/ExploreEase/signup" class="signup-button-link"> Sign Up &gt;</a> 
-            </button>
-            <div class="footer-login">
-                <h4>Signed up already?</h4>
-                <button type="button" class="login-button">
-                <a href="http://localhost/ExploreEase/login" class="login-button-link">Login</a>
-                </button>
-            </div>
-        </div>
+        <div class="footer-review">
+    <h4>We value your feedback! 🌟</h4>
+    <p>Let us know your thoughts about ExploreEase.</p>
+    <button type="button" class="review-button">
+        <a href="http://localhost/ExploreEase/review" class="review-button-link">Leave a Review</a>
+    </button>
+</div>
+
     </div>
 </footer>

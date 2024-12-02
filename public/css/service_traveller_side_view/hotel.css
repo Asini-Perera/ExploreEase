@@ -37,7 +37,7 @@ header{
     margin: 20px 0;
     margin-left: 19vw;
     padding: 20px;
-    width: 60vw;
+    width: 70vw;
     background-color: #D9D9D9;
     border-radius: 40px;   
 }
@@ -54,6 +54,29 @@ header{
     color: #111111;
     font-size: 18px;
 }
+
+.nav-links a:hover {
+    color: #fff;
+    /* Bright white color on hover */
+    transform: scale(1.1);
+    /* Slight zoom effect */
+    padding-bottom: 10px;
+    /* Space for underline effect */
+}
+
+/* Adding hover underline effect */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease;
+}
+
+
 
 /* about */
 .about-section{
@@ -135,373 +158,555 @@ header{
     height: 20vh;
 }
 
-.about{
+.about {
+    padding: 4vh 0;
+    background-color: #fff;
     display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-left: 2vw;
-    padding-bottom: 4vh;
+    justify-content: center;
 }
 
+.content {
+    max-width: 800px;
+    padding: 2rem;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
 
-.abt-title{
-    padding-top: 0vh;
+.content:hover {
+    transform: translateY(-10px);
+    /* Hover effect */
+}
+
+/* Title */
+.abt-title {
+    font-size: 2.5rem;
     color: #225522;
-    font-weight: bold;
-    font-size: 36px;
-    font-family: Edwardian Script ITC;
+    font-family: 'Edwardian Script ITC', serif;
+    margin-bottom: 1rem;
 }
 
-.description{
-    font-size: 16px;
-    color: #111111;
-    padding-top: 1.5vh;
-    padding-right: 2vw;
+/* Description Text */
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 /* facilities */
-.facilities{
-    width: 100%; 
-    height: 70vh; 
-    padding-top:5vh ; 
-    background-color: rgb(189, 179, 176);
+/* Facilities Section */
+.facilities {
+    padding: 6vh 2rem;
+    background-color: #f9f9f9;
 }
 
-.facilities-content{
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-around; 
-    padding: 10px;
+.facilities-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
-.facility{
-    width: 30%; 
-    margin-bottom: 40px; 
-    text-align: center; 
-}
-
-.facility-image{
-    width: 15vw; 
-    height: 20vh; 
+/* Facility Item */
+.facility {
+    background-color: #fff;
     border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.facility h3{
-    font-size: 18px;
+.facility img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
-.facility p{
-    font-size: 14px;
+.facility:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.facility:hover img {
+    transform: scale(1.05);
+}
+
+/* Title Styling */
+.facility h3 {
+    font-size: 1.5rem;
+    color: #225522;
+    margin-top: 1rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Description Text */
+.facility p {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+    padding: 0 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .facility {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
 }
 
 /* info */
-.info{
-    width: 100%; 
-    height:100vh; 
+/* Info Section */
+.info {
+    padding: 6vh 2rem;
+    background-color: #f4f4f4;
 }
 
-.info .info-content{
-    display: flex; 
-    gap: 20px;
-}
-
-.info-one , .info-two{
-    flex: 1; 
-}
-
-.check-in-out{
-    margin: 2vw;
-}
-
-.check-in , .check-out , .special-instructions , .access-methods ,.pets ,.extra-beds
-{
-    margin-bottom: 16px;
-}
-
-.optional-extras , .need-to-know
-{
-    margin: 3vw; 
-}
-
-.we-should-mention{
-    margin-left: 6vw;
-}
-
-.info p{
-    font-size: 14px;
-    padding-top: 1vh;
-    padding-left: 4vw;
-    color: #111111;
-}
-
-.top{
+.info-content {
     display: flex;
-}
-
-.top h3{
-    font-size: 16px; 
-    color: #225522;
-}
-.top img{
-    width: 3vw;
-    padding-right: 1vw;
-    height: 3vh;
-}
-
-/* bookings */
-.bookings{
-    width: 100%; 
-    display: flex; 
-    height: 70vh; 
-    background-color:  rgb(189, 179, 176); 
-    padding: 5vh 0; 
-}
-
-.book-img img{
-    width: 50vw;
-}
- 
-.booking-form{
-    padding: 20px; 
-    width:30vw; 
-    height:60vh; 
-    background-color: #f1f1f1; 
-    border-radius: 10px;
-    margin-left: 15vw;
-    font-size: 14px;
-}
-
-.booking-form #check-in , #check-out, #guests{
-    font-size: 14px; 
-    padding: 5px; 
-    border-radius: 5px;
-    width: 27vw;
-    margin: 10px 0;
-}
-
-.booking-form #room-type{
-    font-size: 14px; 
-    padding: 5px; 
-    border-radius: 5px;
-    width: 27vw;
-    margin: 10px 0;
-}
-
-#extras{
-    display: flex; 
-    margin: 10px 0;
-    margin-right: 10px; 
+    flex-wrap: wrap;
     justify-content: space-between;
-    
-}
-
-#extras input{
-    margin-bottom: 10px ;
-    margin-right:10px; 
-    transform: scale(1.5);
-} 
-
-.booking-form form .book-btn{
-    font-size: 14px; 
-    padding: 10px; 
-    background-color: #225522; 
-    color: #fff; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    margin-top: 2vh;
-    width: 27vw;
-}
-
-/* review  */
-.reviews{
-    margin-bottom: 2vh;
-}
-
-.review-container{
-    margin: 0 auto;
-    padding: 0 20px;
-    overflow: hidden;
-    overflow-x:scroll;
-    scroll-snap-type: x mandatory;
-    scroll-behavior:smooth;
-    scrollbar-color: #046c33 #f5f5f5;
-    scroll-snap-align: start;
-}
-
-.review-content{
-    display:flex;
-    overflow: hidden;
     gap: 2rem;
-    margin-left: 2vw;
-    min-width: 5000px;
 }
 
-.review-heading{  
-    padding: 30px;
-    color: #225522;
-    padding-bottom: 15px;
+/* Info Boxes */
+.info-one,
+.info-two {
+    width: 48%;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.info-one .check-in-out div,
+.info-two div {
+    margin-bottom: 2rem;
+}
+
+.info-one img,
+.info-two img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.info-one h3,
+.info-two h3 {
+    font-size: 1.4rem;
+    color: #2a8f4d;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Section Descriptions */
+.info-one p,
+.info-two p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+}
+
+/* Top Section for Icons */
+.top {
+    display: flex;
+    align-items: center;
+}
+
+.top h3 {
+    margin-left: 10px;
+}
+
+/* Add Hover Effects for Sections */
+.info-one div:hover,
+.info-two div:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+
+    .info-one,
+    .info-two {
+        width: 100%;
+    }
+}
+/* bookings */
+/* Bookings Section */
+.bookings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6vh 2rem;
+    background-color: #f9f9f9;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Image on the left */
+.book-img img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Booking form section */
+.booking-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Title */
+.booking-form h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+.booking-form label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 500;
+}
+
+.booking-form input,
+.booking-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Checkboxes */
+#extras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#extras label {
+    font-size: 14px;
+    color: #555;
+}
+
+.booking-form .book-btn {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(8, 29, 8, 0.933), rgba(34, 85, 34, 0.933));
+    color: white;
     font-size: 18px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.booking-form .book-btn:hover {
+    background: linear-gradient(90deg, #ad7d04, #daab30);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .bookings {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book-img img {
+        max-width: 90%;
+    }
+
+    .booking-form {
+        width: 100%;
+    }
+}
+/* review  */
+/* Reviews Section */
+.reviews {
+    background-color: #f8f8f8;
+    padding: 4rem 2rem;
     text-align: center;
 }
 
-
-.review-slide{
-    display:block;
-    padding: 25px;    
-    height: 320px;
-    width: 500px;
-    margin-left: 2vw;
-    border-radius: 20px;
-    box-shadow: 2px 2px 6px 2px #111111;
-    /* border: #225522 solid 2px; */
-    background-color: #ffffff;
-    margin:4vh 0;
-    font-size: 14px;
+.review-heading h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-.review{
-    border: #000 1px solid; 
-    padding: 10px;
+.review-heading p {
+    font-size: 1.2rem;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 1rem;
 }
 
-.customer-pic img{
-    height: 70px; 
-    width:70px; 
-    border-radius: 60px;
-    margin:10px;
-}
-
-.customer-details{
-    text-align: center; 
-    padding: 40px 20px;
-}
-
-.customer-info{
-    display: flex;
-}
-
-.review-slide .reponse{
-    padding: 5px; 
-    margin-left: 5vw; 
-    margin-top: 1vh; 
-    width:25vw; 
-    border: #225522 solid 1px ; 
-    height: 7vh; 
-    font-size: 14px;
-}
-
-/* get review */
-.get-review{
-    display: flex; 
-    align-items: center; 
-    margin-top: 3vh; 
-    margin-left: 100px;
-    font-size:14px;
-}
-
-.get-review-heading span{
-    font-size: 36px;  
-    font-weight: bold;  
-    color: #225522;        
-    font-family: Edwardian Script ITC;
-}
-
-.review-form{
-    margin-left: 20vw;
-}
-
-.review-form form{
-    width: 30vw; height: 73vh; 
-    color: #fff;  
-    border-radius: 20px; 
-    background-color: #225522; 
-    margin-bottom: 4vh; 
-    font-size: 14px; 
-    align-content: center; 
-    padding:30px;
-}
-
-.review-form form input{
-    border-radius:10px; 
-    width: 26vw; 
-    height: 4vh; 
-    margin-bottom: 2vh;
-    padding-left: 10px; 
-    font-size: 15px;
-}
-.review-form ul{
-    display: flex; 
-    gap: 3rem; 
-    list-style: none; 
-    margin-top:1vh; 
-    margin-bottom: 2vh;
-}
-
-.review-form ul button{
-    padding: 6px 10px; 
-    border-radius: 60px; 
-    cursor: pointer;
-}
-
-.add-review{
-    width: 20vw; 
-    border-radius: 20px; 
-    height: 4vh; 
-    font-size: 14px; 
-    color: #000; 
-    background-color: #F1C232; 
-    margin-left: 60px ;
-}
-/* contact section */
-.contact_us{
-    padding-top: 7vh;
-    background-color:  rgb(189, 179, 176);
-    width: 100%;
-    height: 42vh;
-}
-
-.contact{
-   display: flex;
-   justify-content: center;
-   gap:3rem;
-}
-
-.contact-info{
-    width:12vw;
-    border: #111111 1px solid;
-    height: 22vh;
-    justify-items: center;
-    /* background-color: royalblue; */
-    padding-top:2vh;
-    padding-bottom: 2vh;
-}
-
-.contact-info h3{
-    font-size: 16px;
-    padding-bottom: 5px;  
-    color: #225522; 
-}
-
-.contact-info p{
-    font-size: 14px;
-    padding-bottom: 5px;
-}
-.contact_img{
-    width: 5vw;
-    height: 9vh;
-    padding-bottom: 5px;
-    /* object-fit: cover;  */   
-}
-
-.share{
+.review-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 2rem;
-    
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
-.share img{
-    width: 2vw;
-    margin-top: 5vh;
+.review-slide {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.review {
+    margin-bottom: 15px;
+}
+
+.customer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.customer-pic img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.customer-details h5 {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.rating {
+    color: #FFD700;
+}
+
+.review-msg {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.response {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.carousel-controls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .review-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-slide {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+
+/* contact section */
+/* Contact Us Section */
+.contact_us {
+    background-color: #f7f7f7;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.contact-heading h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.contact-heading p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+/* Contact Information */
+.contact {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    min-width: 250px;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.contact_img {
+    width: 40px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover .contact_img {
+    transform: scale(1.1);
+}
+
+.contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Social Media Icons */
+.share {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link img {
+    width: 40px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-link img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-info {
+        width: 100%;
+        max-width: 350px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.review-button-container1 {
+    position: fixed;
+    bottom: 20px;
+    left: 90%;
+    /* This will center the button horizontally */
+    transform: translateX(-50%);
+    /* Centers the button accurately */
+    z-index: 1000;
+    /* Keeps the button above other elements */
+}
+
+.review-button1 {
+    display: inline-block;
+    background-color: rgba(34, 85, 34, 0.933);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 7px 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.review-button1:hover {
+    background-color: #daab30;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

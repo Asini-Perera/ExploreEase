@@ -46,7 +46,7 @@ function searchServices(category) {
 
                     <div class="right-section">
                         <p class="rate">rate : ${service.rate}/5</p>
-                        <button>see Availability > </button>
+                         <button onclick="navigateToPage('${service.category}', '${service.name}')">See Availability ></button>
                         
                     </div>
                 </div>
@@ -54,5 +54,25 @@ function searchServices(category) {
         `).join('');
     } else {
         resultsDiv.innerHTML = '<p class="error-msg">No services found for the selected city and category.</p>';
+    }
+}
+
+function navigateToPage(category, name) {
+    // Create a URL structure based on the category and name
+    const basePage = {
+        hotel: 'http://localhost/ExploreEase/service/hotel',
+        restaurant: 'http://localhost/ExploreEase/service/restaurant',
+        heritage_market: 'http://localhost/ExploreEase/heritageMarket/products',
+        cultural_event: 'http://localhost/ExploreEase/service/cultural_event'
+    };
+
+    // Redirect to the corresponding page
+    const targetPage = basePage[category];
+    if (targetPage) {
+        // Optionally pass the service name as a query parameter
+        const encodedName = encodeURIComponent(name);
+        window.location.href = `${targetPage}?name=${encodedName}`;
+    } else {
+        alert("Page not available for this service.");
     }
 }
