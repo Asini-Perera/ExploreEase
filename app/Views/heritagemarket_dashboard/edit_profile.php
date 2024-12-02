@@ -3,11 +3,8 @@
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
     
-    <form id="edit-profile-form" method="POST">
-        <div class="form-group">
-            <label for="profile_image">Profile Image</label>
-            <input type="file" id="profile_image" name="profile_image">
-        </div>
+    <form id="edit-profile-form" action="../heritage/update" method="POST">
+        
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter email">
@@ -33,10 +30,6 @@
             <input type="text" id="website" name="website" placeholder="Enter website">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password">
-        </div>
-        <div class="form-group">
             <label for="sm_link">SMLink</label>
             <input type="text" id="sm_link" name="sm_link" placeholder="Enter SMLink">
         </div>
@@ -46,7 +39,7 @@
         </div>
         
         <div class="action-buttons">
-            <button type="button" class="discard-btn" onclick="">Discard</button>
+            <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
             <button type="submit" class="save-btn" onclick="">Save</button>     
         </div>
         
