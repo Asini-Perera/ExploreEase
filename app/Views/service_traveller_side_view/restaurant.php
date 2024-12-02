@@ -27,9 +27,8 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#about">Overview</a></li>
-                    <li><a href="#facilities">Facilities</a></li>
-                    <li><a href="#food">Menu</a></li>
-                    <li><a href="#bookings">Bookings</a></li>
+                    <li><a href="#full_menu">Menu</a></li>
+                    <li><a href="#table-booking">Bookings</a></li>
                     <li><a href="#reviews">Reviews</a></li>
                 </ul>
             </nav>
@@ -188,7 +187,7 @@
 
 
         <!-- menu -->
-        <section class="full_menu">
+        <section class="full_menu" id ="full_menu" >
     <div>
         <h1 class="menu_headin">Menu</h1>
         <p class="menu_description">Our menu is a celebration of both classic and innovative flavors, offering a variety of dishes that will captivate your taste buds and elevate your dining experience. From delicate appetizers to indulgent entrees and decadent desserts, every bite is designed to delight.</p>
@@ -203,7 +202,7 @@
 
         
         <!-- Table Booking Section -->
-<section class="table-booking">
+<section class="table-booking" id = "table-booking">
     <div class="booking-image">
         <img src="../public/images/book_table.jpg" alt="booking">
     </div>

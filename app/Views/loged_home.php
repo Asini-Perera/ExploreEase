@@ -106,10 +106,10 @@
                 <img src="public/images/3.jpg" alt="image3" class="image-item">
                 <img src="public/images/5.jpg" alt="image5" class="image-item">
                 <img src="public/images/6.jpg" alt="image6" class="image-item">
-                <img src="public/images/proxy-image.jpeg" alt="image7" class="image-item">
+                
                 <img src="public/images/beach.jpg" alt="image8" class="image-item">
                 <img src="public/images/9.jpg" alt="image9" class="image-item">
-                <img src="public/images/10.jpg" alt="image10" class="image-item">
+              
                 <img src="public/images/tour-3.jpg" alt="image11" class="image-item">
                 <img src="public/images/templeofthetooth.jpg" alt="image12" class="image-item">
                 <img src="public/images/nature-2.jpg" alt="image13" class="image-item">
@@ -128,10 +128,10 @@
                 <img src="public/images/nature.jpg" alt="image3" class="image-item-one">
                 <img src="public/images/nature-2.jpg" alt="image5" class="image-item-one">
                 <img src="public/images/templeofthetooth.jpg" alt="image6" class="image-item-one">
-                <img src="public/images/9.jpg" alt="image7" class="image-item-one">
+              
                 <img src="public/images/tour-3.jpg" alt="image8" class="image-item-one">
                 <img src="public/images/1.jpeg" alt="image9" class="image-item-one">
-                <img src="public/images/2.jpg" alt="image10" class="image-item-one">
+              
                 <img src="public/images/3.jpg" alt="image11" class="image-item-one">
                 <img src="public/images/4.jpg" alt="image12" class="image-item-one">
                 <img src="public/images/5.jpg" alt="image13" class="image-item-one">
@@ -151,10 +151,10 @@
                 <img src="public/images/9.jpg" alt="image3" class="image-item-two">
                 <img src="public/images/10.jpg" alt="image5" class="image-item-two">
                 <img src="public/images/6.jpg" alt="image6" class="image-item-two">
-                <img src="public/images/b.jpg" alt="image7" class="image-item-two">
+          
                 <img src="public/images/beach.jpg" alt="image8" class="image-item-two">
                 <img src="public/images/3.jpg" alt="image9" class="image-item-two">
-                <img src="public/images/i.jpg" alt="image10" class="image-item-two">
+               
                 <img src="public/images/kolamdance01.jpg" alt="image11" class="image-item-two">
                 <img src="public/images/bathik.jpg" alt="image12" class="image-item-two">
                 <img src="public/images/tourist-arrivels-in-sri-lanka.jpg" alt="image13" class="image-item-two">
@@ -343,7 +343,8 @@
     
 
 <!-- about us -->
-       <div class="about-us">
+        
+       <div class="about-us" id ='about-us'>
     <div class="about-img">
         <img src="public/images/logoexploreease.png" alt="Exploreease Logo">
     </div>
@@ -357,6 +358,7 @@
         <p>We are committed to providing reliable and user-friendly services that make your travel planning effortless. Whether you’re planning a short getaway or a long adventure, Exploreease is here to guide you every step of the way. Join us, and let’s make exploring the world easier, more exciting, and full of unforgettable moments. Start your journey with Exploreease today!</p>
     </div>
 </div>
+       
 
 
 <!-- footer section -->

@@ -1,0 +1,131 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f0f8ff, #e0f7fa);
+    color: #333;
+}
+
+/* Review Container */
+.review-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Header */
+.review-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-header h1 {
+    font-size: 2rem;
+    color: rgba(34, 85, 34, 0.933);
+    margin-bottom: 10px;
+}
+
+.review-header p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Form Styling */
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+/* Rating Stars */
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating input:checked~label,
+.rating label:hover,
+.rating label:hover~label {
+    color: #FFD700;
+}
+
+/* Submit Button */
+.submit-button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(34, 85, 34, 0.933);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #daab30;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .review-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .review-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .review-header p {
+        font-size: 0.9rem;
+    }
+}

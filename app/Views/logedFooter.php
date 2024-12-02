@@ -41,7 +41,7 @@
     <h4>We value your feedback! 🌟</h4>
     <p>Let us know your thoughts about ExploreEase.</p>
     <button type="button" class="review-button">
-        <a href="http://localhost/ExploreEase/review" class="review-button-link">Leave a Review</a>
+        <a href="http://localhost/ExploreEase/reviews" class="review-button-link">Leave a Review</a>
     </button>
 </div>
 
