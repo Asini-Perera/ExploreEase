@@ -20,9 +20,8 @@
                 <td>2024.10.18</td>
                 <td>4.5</td>
                 <td>Good food and service</td>
-                <td>John Doe</td>
+                <td>Amara Perera</td>
                 <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
                 </td>
             </tr>
             <tr>
@@ -30,17 +29,16 @@
                 <td>2024.10.18</td>
                 <td>3.5</td>
                 <td>Food was good but service was slow</td>
-                <td>Jane Doe</td>
+                <td>Bandara Silva</td>
                 <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
                 </td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>2024.10.18</td>
                 <td>5.0</td>
-                <td>Excellent food and service</td>
-                <td>John Smith</td>
+                <td></td>
+                <td>Chathura Fernando</td>
                 <td class="action-buttons">
                     <button class="reply-btn">Reply</button>
                 </td>
@@ -49,8 +47,8 @@
                 <td>4</td>
                 <td>2024.10.18</td>
                 <td>4.0</td>
-                <td>Good food and service</td>
-                <td>John Doe</td>
+                <td></td>
+                <td>Dinuka Jayasinghe</td>
                 <td class="action-buttons">
                     <button class="reply-btn">Reply</button>
                 </td>
@@ -60,9 +58,8 @@
                 <td>2024.10.18</td>
                 <td>3.0</td>
                 <td>Food was good but service was slow</td>
-                <td>Jane Doe</td>
+                <td>Eshan Wijesinghe</td>
                 <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
                 </td>
             </tr>
         </tbody>
