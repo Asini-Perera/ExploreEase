@@ -24,7 +24,7 @@ class HeritageMarketController
 
     public function dashboard()
     {
-        if (isset($_SESSION['HeritageID'])) {
+        if (isset($_SESSION['ShopID'])) {
         $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
         $allowed_pages = ['dashboard', 'profile','product','reviews'];
         $mainContent = in_array($page, $allowed_pages) ? $page : '404';
@@ -37,7 +37,7 @@ class HeritageMarketController
                 $verifiedAction = 'change-password';
             } 
         } elseif ($mainContent == 'product') {
-            $products = $this->viewProduct();
+            $products = $this->viewProducts();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if($action == 'add') {
                 $verifiedAction = 'add';
@@ -98,7 +98,9 @@ class HeritageMarketController
     public function viewProducts()
     {
         $heritageModel = new HeritageMarketModel($this->conn);
-        $products = $heritageModel->getProducts($_SESSION['HeritageID']);
+        $products = $heritageModel->getProducts($_SESSION['ShopID']);
+
+        return $products;
     }
 
     // public function viewReviews()
