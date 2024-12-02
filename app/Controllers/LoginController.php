@@ -58,22 +58,55 @@ class LoginController
                 switch ($user['Type']) {
                     case 'traveler':
                         $_SESSION['TravelerID'] = $user['TravelerID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['FirstName'] = $user['FirstName'];
+                        $_SESSION['LastName'] = $user['LastName'];
+                        $_SESSION['Gender'] = $user['Gender'];
                         header('Location: ../loged_home');
                         break;
                     case 'hotel':
                         $_SESSION['HotelID'] = $user['HotelID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
                         header('Location: ../hotel/dashboard');
                         break;
                     case 'restaurant':
                         $_SESSION['RestaurantID'] = $user['RestaurantID'];
+                        $_SESSION['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['OpenHours'] = $user['OpenHours'];
+                        $_SESSION['CuisineType'] = $user['CuisineType'];
                         header('Location: ../restaurant/dashboard');
                         break;
                     case 'heritagemarket':
                         $_SESSION['ShopID'] = $user['ShopID'];
+                        $_SESSION['Email'] = $user['Email']; 
+                        $_SESSION['Name'] = $user['Name']; 
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
+                        $_SESSION['OpenHours'] = $user['OpenHours'];
                         header('Location: ../heritagemarket/dashboard');
                         break;
                     case 'culturaleventorganizer':
                         $_SESSION['OrganizerID'] = $user['OrganizerID'];
+                        $_SERVER['Email'] = $user['Email'];
+                        $_SESSION['Name'] = $user['Name'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
+                        $_SESSION['ProfileImage'] = $user['ImgPath'];
                         header('Location: ../culturaleventorganizer/dashboard');
                         break;
                 }

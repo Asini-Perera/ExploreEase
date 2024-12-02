@@ -19,8 +19,21 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <?php require_once  __DIR__ . "/$mainContent.php"; ?>
+            <?php
+            if ($mainContent == 'profile' && $action == 'edit') {
+                require_once __DIR__ . '/edit_profile.php';
+            } elseif ($mainContent == 'profile' && $action == 'change-password') {
+                require_once __DIR__ . '/profile_changepassword.php';
+            } elseif ($mainContent == 'product' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_product.php";
+            } else {
+                require_once __DIR__ . "/$mainContent.php";
+            }
+            ?>
+
+
         </div>
+    </div>
     </div>
 </body>
 

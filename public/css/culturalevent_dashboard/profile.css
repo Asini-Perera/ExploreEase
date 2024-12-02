@@ -1,5 +1,12 @@
 .profile-container {
-    padding-top: 30px;
+    padding-top: 0px;
+}
+
+h1 {
+    padding: 10px;
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 20px;
 }
 
 table {
@@ -45,7 +52,7 @@ th {
     float: left;
 }
 
-.action-buttons button {
+.action-buttons a {
     width: auto;
     padding: 8px 10px;
     margin: 5px;
@@ -54,12 +61,13 @@ th {
     border-radius: 4px;
     cursor: pointer;
     float: right;
+    text-decoration: none;
 }
 
 .edit-btn {
-    background-color: #d9534f; /* A pleasant medium red */
+    background-color: #6fa857; 
 }
 
 .edit-btn:hover {
-    background-color: #c9302c; /* A slightly darker red for the hover effect */
+    background-color: #225522; 
 }

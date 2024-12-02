@@ -13,6 +13,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
@@ -24,6 +25,7 @@
                 </div>
             </div>
         </div>
+
         <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
@@ -35,6 +37,7 @@
                 </div>
             </div>
         </div>
+
         <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
