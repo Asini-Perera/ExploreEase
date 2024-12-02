@@ -9,7 +9,11 @@
         </li>
 
         <li>
-            <a href="?page=room_list" class="<?= $mainContent == 'room_list' ? 'active' : '' ?>">Room List</a>
+            <a href="?page=room" class="<?= $mainContent == 'room' ? 'active' : '' ?>">Rooms</a>
+        </li>
+
+        <li>
+            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>">Posts</a>
         </li>
 
         <li>

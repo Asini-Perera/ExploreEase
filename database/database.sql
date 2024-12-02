@@ -431,3 +431,48 @@ ALTER TABLE RestaurantKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add IsVerified column to HeritageMarketKeyword table
 ALTER TABLE HeritageMarketKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+
+-- Add Ispopular column to Menu table
+ALTER TABLE Menu ADD IsPopular TINYINT(1) DEFAULT 0;
+
+-- Create the RestaurantPost table
+CREATE TABLE RestaurantPost (
+    PostID INT AUTO_INCREMENT PRIMARY KEY,
+    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Description TEXT,
+    ImgPath VARCHAR(255) NOT NULL,
+    RestaurantID INT NOT NULL,
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID)
+);
+
+-- Create the HotelPost table
+CREATE TABLE HotelPost (
+    PostID INT AUTO_INCREMENT PRIMARY KEY,
+    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Description TEXT,
+    ImgPath VARCHAR(255) NOT NULL,
+    HotelID INT NOT NULL,
+    FOREIGN KEY (HotelID) REFERENCES Hotel(HotelID)
+);
+
+-- Create the CulturalEventOrganizerPost table
+CREATE TABLE CulturalEventOrganizerPost (
+    PostID INT AUTO_INCREMENT PRIMARY KEY,
+    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Description TEXT,
+    ImgPath VARCHAR(255) NOT NULL,
+    OrganizerID INT NOT NULL,
+    FOREIGN KEY (OrganizerID) REFERENCES CulturalEventOrganizer(OrganizerID)
+);
+
+-- Add Title column to RestaurantPost table
+ALTER TABLE RestaurantPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add Title column to HotelPost table
+ALTER TABLE HotelPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add Title column to CulturalEventOrganizerPost table
+ALTER TABLE CulturalEventOrganizerPost ADD Title VARCHAR(255) NOT NULL;
+
+-- Add ImgPath column to Room table
+ALTER TABLE Room ADD ImgPath VARCHAR(255);

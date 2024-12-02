@@ -6,6 +6,6 @@
         </h2>
     </div>
     <div class="user-profile">
-        <span class="user-name">Kasun Silva</span>
+        <span class="user-name"><?php echo $_SESSION['Name']; ?></span>
     </div>
 </div>

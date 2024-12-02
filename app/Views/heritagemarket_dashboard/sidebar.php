@@ -9,9 +9,10 @@
         </li>
 
         <li>
-            <a href="?page=product_list" class="<?= $mainContent == 'post_list' ? 'active' : '' ?>">Product List</a>
+            <a href="?page=product" class="<?= $mainContent == 'product' ? 'active' : '' ?>">Products</a>
         </li>
 
+        
         <li>
             <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>">Reviews</a>
         </li>
