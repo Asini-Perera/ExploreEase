@@ -2,6 +2,8 @@ body {
    
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    
    
 }
 
@@ -60,17 +62,18 @@ body {
     margin: 0;
 }
 
-.review-button-container {
+.review-button-container1 {
     position: fixed;
     bottom: 20px;
     left: 90%;
+    /* This will center the button horizontally */
     transform: translateX(-50%);
-    /* Initially fixed at the bottom center */
+    /* Centers the button accurately */
     z-index: 1000;
-    /* Ensures it stays above other elements */
+    /* Keeps the button above other elements */
 }
 
-.review-button {
+.review-button1 {
     display: inline-block;
     background-color: rgba(34, 85, 34, 0.933);
     color: #fff;
@@ -83,7 +86,7 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-.review-button:hover {
+.review-button1:hover {
     background-color: #daab30;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);

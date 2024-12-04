@@ -33,7 +33,7 @@ header{
     margin: 20px 0;
     margin-left: 19vw;
     padding: 20px;
-    width: 60vw;
+    width: 70vw;
     background-color: #D9D9D9;
     border-radius: 40px;   
 }
@@ -371,199 +371,254 @@ button:disabled {
 }
 
 /* review  */
-.reviews{
-    margin-bottom: 2vh;
-}
-
-.review-container{
-    margin: 0 auto;
-    padding: 0 20px;
-    overflow: hidden;
-    overflow-x:scroll;
-    scroll-snap-type: x mandatory;
-    scroll-behavior:smooth;
-    scrollbar-color: #046c33 #f5f5f5;
-    scroll-snap-align: start;
-}
-
-.review-content{
-    display:flex;
-    overflow: hidden;
-    gap: 2rem;
-    margin-left: 2vw;
-    min-width: 5000px;
-}
-
-.review-heading{  
-    padding: 30px;
-    color: #225522;
-    padding-bottom: 15px;
-    font-size: 18px;
+/* Reviews Section */
+.reviews {
+    background-color: #f8f8f8;
+    padding: 4rem 2rem;
     text-align: center;
 }
 
-
-.review-slide{
-    display:block;
-    padding: 25px;    
-    height: 320px;
-    width: 500px;
-    margin-left: 2vw;
-    border-radius: 20px;
-    box-shadow: 2px 2px 6px 2px #111111;
-    /* border: #225522 solid 2px; */
-    background-color: #ffffff;
-    margin:4vh 0;
-    font-size: 14px;
+.review-heading h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-.review{
-    border: #000 1px solid; 
-    padding: 10px;
+.review-heading p {
+    font-size: 1.2rem;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 1rem;
 }
 
-.customer-pic img{
-    height: 70px; 
-    width:70px; 
-    border-radius: 60px;
-    margin:10px;
-}
-
-.customer-details{
-    text-align: center; 
-    padding: 40px 20px;
-}
-
-.customer-info{
-    display: flex;
-}
-
-.review-slide .reponse{
-    padding: 5px; 
-    margin-left: 5vw; 
-    margin-top: 1vh; 
-    width:25vw; 
-    border: #225522 solid 1px ; 
-    height: 7vh; 
-    font-size: 14px;
-}
-
-/* get review */
-.get-review{
-    display: flex; 
-    align-items: center; 
-    margin-top: 3vh; 
-    margin-left: 100px;
-    font-size:14px;
-}
-
-.get-review-heading span{
-    font-size: 36px;  
-    font-weight: bold;  
-    color: #225522;        
-    font-family: Edwardian Script ITC;
-}
-
-.review-form{
-    margin-left: 20vw;
-}
-
-.review-form form{
-    width: 30vw; height: 73vh; 
-    color: #fff;  
-    border-radius: 20px; 
-    background-color: #225522; 
-    margin-bottom: 4vh; 
-    font-size: 14px; 
-    align-content: center; 
-    padding:30px;
-}
-
-.review-form form input{
-    border-radius:10px; 
-    width: 26vw; 
-    height: 4vh; 
-    margin-bottom: 2vh;
-    padding-left: 10px; 
-    font-size: 15px;
-}
-
-.review-form textarea{
-    margin-bottom: 10px;
-}
-.review-form ul{
-    display: flex; 
-    gap: 3rem; 
-    list-style: none; 
-    margin-top:1vh; 
-    margin-bottom: 2vh;
-}
-
-.review-form ul button{
-    padding: 6px 10px; 
-    border-radius: 60px; 
-    cursor: pointer;
-}
-
-.add-review{
-    width: 20vw; 
-    border-radius: 20px; 
-    height: 4vh; 
-    font-size: 14px; 
-    color: #000; 
-    background-color: #F1C232; 
-    margin-left: 60px ;
-}
-
-/* contact section */
-.contact_us{
-    padding-top: 7vh;
-    background-color:  rgb(189, 179, 176);
-    width: 100%;
-    height: 42vh;
-}
-
-.contact{
-   display: flex;
-   justify-content: center;
-   gap:3rem;
-}
-
-.contact-info{
-    width:12vw;
-    border: #111111 1px solid;
-    height: 22vh;
-    justify-items: center;
-    /* background-color: royalblue; */
-    padding-top:2vh;
-    padding-bottom: 2vh;
-}
-
-.contact-info h3{
-    font-size: 16px;
-    padding-bottom: 5px;  
-    color: #225522; 
-}
-
-.contact-info p{
-    font-size: 14px;
-    padding-bottom: 5px;
-}
-.contact_img{
-    width: 5vw;
-    height: 9vh;
-    padding-bottom: 5px;
-    /* object-fit: cover;  */   
-}
-
-.share{
+.review-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 2rem;
-    
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
-.share img{
-    width: 2vw;
-    margin-top: 5vh;
+.review-slide {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.review {
+    margin-bottom: 15px;
+}
+
+.customer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.customer-pic img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.customer-details h5 {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.rating {
+    color: #FFD700;
+}
+
+.review-msg {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.response {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.carousel-controls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .review-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-slide {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+
+/* contact section */
+/* Contact Us Section */
+.contact_us {
+    background-color: #f7f7f7;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.contact-heading h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.contact-heading p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+/* Contact Information */
+.contact {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    min-width: 250px;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.contact_img {
+    width: 40px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.contact-info:hover .contact_img {
+    transform: scale(1.1);
+}
+
+.contact-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Social Media Icons */
+.share {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link img {
+    width: 40px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-link img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-info {
+        width: 100%;
+        max-width: 350px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.review-button-container1 {
+    position: fixed;
+    bottom: 20px;
+    left: 90%;
+    /* This will center the button horizontally */
+    transform: translateX(-50%);
+    /* Centers the button accurately */
+    z-index: 1000;
+    /* Keeps the button above other elements */
+}
+
+.review-button1 {
+    display: inline-block;
+    background-color: rgba(34, 85, 34, 0.933);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 7px 10px;
+    border-radius: 7px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.review-button1:hover {
+    background-color: #daab30;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }

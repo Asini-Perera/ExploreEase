@@ -6,7 +6,7 @@
     <title>Explore Sri Lanka</title>
     <link rel="stylesheet" href="../public/css/selectKeywords.css?v=1">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
 </head>
 <body>
     <?php require_once __DIR__ . '/Navbar.php'; ?>
@@ -38,30 +38,30 @@
             <nav aria-label="Destination type filters">
                 <ul class="filter-list" role="list">
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>City Center</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Beachside</span>
                         </button>
                     </li>
                     <li>
                         <button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                           <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Rural Area</span>
                         </button>
                     </li>
                     <li>
                         <button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Near Public Transport</span>
                         </button>
                     </li>
                     <li>
                         <button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Mountain View</span>
                         </button>
                     </li>
@@ -72,27 +72,27 @@
                 <h2 id="travel-style" class="section-title">What kind of experience are you looking for during your stay?</h2>
                 <ul class="filter-list" role="list">
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Family-Friendly</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Kid-Friendly</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Luxury Experience</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Adventure-Focused</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Budget-Friendly</span>
                         </button>
                     </li>
@@ -104,27 +104,27 @@
                 <h2 id="travel-style" class="section-title">Which of these services are most important to you?</h2>
                 <ul class="filter-list" role="list">
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                           <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Online Booking</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                           <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>24/7 Availability</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                           <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Loyalty Programs</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Group Discounts</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Customer Support</span>
                         </button>
                     </li>
@@ -136,22 +136,22 @@
                 <h2 id="travel-style" class="section-title">How important are these ratings and reviews to you when choosing where to stay?</h2>
                 <ul class="filter-list" role="list">
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Highly Rated</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Top Reviewed</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>New on Platform</span>
                         </button>
                     </li>
                     <li><button class="option-group" type="button">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c88066225bf1a20aece92c2ff20d1a9a2a479e3866687f8917983314a3b3816?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="option-icon" aria-hidden="true" />
+                            <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
                             <span>Trusted Vendor</span>
                         </button>
                     </li>
@@ -171,6 +171,6 @@
 
            
     </main>
-    <?php require_once __DIR__ . '/Footer.php'; ?>
+    <?php require_once __DIR__ . '/logedFooter.php'; ?>
 </body>
 </html>
