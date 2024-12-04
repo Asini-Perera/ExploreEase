@@ -58,4 +58,8 @@ class HomeController
     {
         require_once __DIR__ . '/../Views/restaurant_dashboard/edit_post.php';
     }
+    public function siteReview()
+    {
+        require_once __DIR__ . '/../Views/siteReview.php';
+    }
 }

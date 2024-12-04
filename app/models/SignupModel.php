@@ -21,8 +21,12 @@ class SignupModel
             $stmt->execute();
             $result = $stmt->get_result();
             $user = $result->fetch_assoc();
-            
-            return $user;
+            if ($user) {
+                $user['Type'] = $table;
+                return $user;
+            }
+
+            return null;
         }
     }
 

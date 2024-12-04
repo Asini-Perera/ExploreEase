@@ -21,6 +21,7 @@ $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page fo
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
 $router->add('keyword/add', 'KeywordController@addKeyword');  // Add keyword by admin
 $router->add('keyword/delete', 'KeywordController@deleteKeyword');  // Delete keyword by admin
+$router->add('keyword/select', 'KeywordController@keywordselect');  // Delete keyword by admin
 
 $router->add('admin', 'AdminController@index');  // Admin login page
 $router->add('admin/login', 'AdminController@login');  // Admin login process
@@ -68,4 +69,6 @@ $router->add('service/cultural_event','HomeController@travelerside_cultural_even
 $router->add('service/menu','HomeController@travelerside_menu');  // traveller side menu view
 
 $router->add('restaurant/post','HomeController@post');  // Add post for restaurant
+
+$router->add('reviews','HomeController@siteReview');  // Add post for restaurant
 

@@ -62,7 +62,7 @@ class LoginController
                         $_SESSION['FirstName'] = $user['FirstName'];
                         $_SESSION['LastName'] = $user['LastName'];
                         $_SESSION['Gender'] = $user['Gender'];
-                        header('Location: ../ExploreEase');
+                        header('Location: ../loged_home');
                         break;
                     case 'hotel':
                         $_SESSION['HotelID'] = $user['HotelID'];
@@ -89,6 +89,14 @@ class LoginController
                         break;
                     case 'heritagemarket':
                         $_SESSION['ShopID'] = $user['ShopID'];
+                        $_SESSION['Email'] = $user['Email']; 
+                        $_SESSION['Name'] = $user['Name']; 
+                        $_SESSION['Address'] = $user['Address'];
+                        $_SESSION['ContactNo'] = $user['ContactNo'];
+                        $_SESSION['Description'] = $user['Description'];
+                        $_SESSION['Website'] = $user['Website'];
+                        $_SESSION['SMLink'] = $user['SMLink'];
+                        $_SESSION['OpenHours'] = $user['OpenHours'];
                         header('Location: ../heritagemarket/dashboard');
                         break;
                     case 'culturaleventorganizer':

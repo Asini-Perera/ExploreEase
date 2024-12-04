@@ -80,11 +80,11 @@ class HotelModel
     }
 
     //update profile
-    public function updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website)
+    public function updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link)
     {
-        $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ? WHERE HotelID = ?";
+        $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ? WHERE HotelID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssss',$hotelID, $email, $name,  $address, $contactNo, $description,  $website);
+        $stmt->bind_param('isssssss',$hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link);
         $stmt->execute();
     }
 

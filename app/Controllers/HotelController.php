@@ -121,7 +121,8 @@ class HotelController
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
             $website = $_POST['website'];
-
+            $sm_link = $_POST['sm_link'];
+            
             // Check if the email is already exists
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
@@ -132,7 +133,7 @@ class HotelController
             }
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website );
+            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link );
 
             $_SESSION['Email'] = $email; 
             $_SESSION['Name'] = $name; 
@@ -140,6 +141,7 @@ class HotelController
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
             $_SESSION['Website'] = $website;
+            $_SESSION['SMLink'] = $sm_link;
 
             header('Location: ../hotel/dashboard?page=profile');
             exit();
