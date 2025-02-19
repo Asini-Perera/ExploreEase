@@ -1,16 +1,39 @@
 <link rel="stylesheet" href="../public/css/admin_dashboard/keyword_view.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
 <div class="keyword-content">
-
     <?php foreach ($categories as $category) : ?>
-        <div class="categorytile">
-            <h2><?= $category['CategoryName'] ?></h2>
+        <div class="categorytile" id="categorytile-<?= $category['CategoryID'] ?>">
+            <h2><?= htmlspecialchars($category['CategoryName']) ?></h2>
             <div class="keywords">
                 <?php foreach ($category['keywords'] as $keyword) : ?>
-                    <p><?= $keyword['KName'] ?></p>
+                    <p><?= htmlspecialchars($keyword['KName']) ?></p>
                 <?php endforeach; ?>
+
+                <button class="add-keyword-btn" onclick="showForm(<?= $category['CategoryID'] ?>)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <form id="form-<?= $category['CategoryID'] ?>" action="../keyword/add" class="keyword-form" method="POST" style="display:none;">
+                    <input type="hidden" name="category" value="<?= htmlspecialchars($category['CategoryName']) ?>">
+                    <input type="text" name="keyword" placeholder="New Keyword" required>
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="button" class="cancel-btn" onclick="hideForm(<?= $category['CategoryID'] ?>)">Cancel</button>
+                </form>
             </div>
         </div>
     <?php endforeach; ?>
-
 </div>
+
+<script>
+    function showForm(categoryID) {
+        document.getElementById('form-' + categoryID).style.display = 'inline-block';
+        document.getElementById('addBtn-' + categoryID).style.display = 'none';
+    }
+
+    function hideForm(categoryID) {
+        document.getElementById('form-' + categoryID).style.display = 'none';
+        document.getElementById('addBtn-' + categoryID).style.display = 'inline-block';
+    }
+</script>
