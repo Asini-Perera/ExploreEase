@@ -8,7 +8,16 @@
             <h2><?= htmlspecialchars($category['CategoryName']) ?></h2>
             <div class="keywords">
                 <?php foreach ($category['keywords'] as $keyword) : ?>
-                    <p><?= htmlspecialchars($keyword['KName']) ?></p>
+                    <div class="keyword-item">
+                        <p><?= htmlspecialchars($keyword['KName']) ?></p>
+                        <form action="../keyword/delete" method="POST" class="delete-form">
+                            <input type="hidden" name="category" value="<?= $category['CategoryName'] ?>">
+                            <input type="hidden" name="keyword" value="<?= $keyword['KName'] ?>">
+                            <button type="submit" class="delete-btn">
+                                <i style=" font-size: 17px;" class=" fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
                 <?php endforeach; ?>
 
                 <button class="add-keyword-btn" onclick="showForm(<?= $category['CategoryID'] ?>)">

@@ -105,7 +105,7 @@ class KeywordController
                 $_SESSION['error'] = 'Failed to delete keyword';
             }
 
-            header('Location: ../admin/dashboard?page=keyword&action=delete');
+            header('Location: ../admin/dashboard?page=keyword&action=view');
         }
     }
 
