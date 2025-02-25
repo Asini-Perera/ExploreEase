@@ -14,7 +14,7 @@
                             <input type="hidden" name="category" value="<?= $category['CategoryName'] ?>">
                             <input type="hidden" name="keyword" value="<?= $keyword['KName'] ?>">
                             <button type="submit" class="delete-btn">
-                                <i style=" font-size: 17px;" class=" fa-solid fa-trash-can"></i>
+                                <i class=" fa-solid fa-trash-can"></i>
                             </button>
                         </form>
                     </div>
@@ -35,14 +35,4 @@
     <?php endforeach; ?>
 </div>
 
-<script>
-    function showForm(categoryID) {
-        document.getElementById('form-' + categoryID).style.display = 'inline-block';
-        document.getElementById('addBtn-' + categoryID).style.display = 'none';
-    }
-
-    function hideForm(categoryID) {
-        document.getElementById('form-' + categoryID).style.display = 'none';
-        document.getElementById('addBtn-' + categoryID).style.display = 'inline-block';
-    }
-</script>
+<script src="../public/js/admin_dashboard/manage_keyword.js"></script>
