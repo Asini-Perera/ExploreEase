@@ -33,6 +33,20 @@
             </div>
         </div>
     <?php endforeach; ?>
+
+    <div class="categorytile add-category-tile" id="add-category-tile">
+        <div class="add-category-content" id="addCategoryBtn" onclick="showCategoryForm()">
+            <i class="fa-solid fa-plus"></i>
+            <p>Add New Category</p>
+        </div>
+
+        <form id="categoryForm" action="../keyword/add" class="category-form" method="POST" style="display:none;">
+            <input type="text" name="category" placeholder="New Category" required>
+            <input type="text" name="keyword" placeholder="New Keyword" required>
+            <button type="submit" class="save-btn">Save</button>
+            <button type="button" class="cancel-btn" onclick="hideCategoryForm()">Cancel</button>
+        </form>
+    </div>
 </div>
 
 <script src="../public/js/admin_dashboard/manage_keyword.js"></script>
