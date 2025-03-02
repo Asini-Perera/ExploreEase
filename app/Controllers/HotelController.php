@@ -133,7 +133,7 @@ class HotelController
             }
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website );
+            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link );
 
             $_SESSION['Email'] = $email; 
             $_SESSION['Name'] = $name; 

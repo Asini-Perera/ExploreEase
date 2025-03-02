@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Section</title>
     
-   
+    <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
     <link rel="stylesheet" href="../public/css/searchbykeyword.css?v=1">
 </head>
 <body>
@@ -74,6 +74,6 @@
             </div>
         </section>
     </main>
-    <?php require_once __DIR__ . '/Footer.php'; ?>
+    <?php require_once __DIR__ . '/logedFooter.php'; ?>
 </body>
 </html>

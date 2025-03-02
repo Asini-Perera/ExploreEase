@@ -2,11 +2,11 @@
 
 <div class="product-container">
     <div class="top">
-            <h1>Product List</h1>
+        <h1>Product List</h1>
 
-            <div class="action-buttons">
-                <a class="add-btn" href="?page=post&action=add">Add Product</a>
-            </div>
+        <div class="action-buttons">
+            <a class="add-btn" href="?page=post&action=add">Add Product</a>
+        </div>
     </div>
 
     <table>
@@ -21,7 +21,7 @@
         </thead>
         <tbody>
 
-        <?php foreach ($products as $product) : ?>
+            <?php foreach ($products as $product) : ?>
                 <tr>
                     <td><?= $product['Type'] ?></td>
                     <td>Rs. <?= $product['Price'] ?></td>
@@ -33,7 +33,7 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-           
+
             <!-- <tr>
                 <td>Traditional Masks</td>
                 <td>Rs.2430</td>

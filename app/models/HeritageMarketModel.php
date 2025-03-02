@@ -10,11 +10,11 @@ class HeritageMarketModel
         $this->conn = $conn;
     }
 
-    public function getProducts($heritageID)
+    public function getProducts($shopID)
     {
-        $sql = "SELECT * FROM product WHERE ProductID = ?";
+        $sql = "SELECT * FROM product WHERE ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $heritageID);
+        $stmt->bind_param('i', $shopID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -121,5 +121,6 @@ class HeritageMarketModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    
    
 }

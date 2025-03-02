@@ -10,6 +10,7 @@
                 <th>Booking Date</th>
                 <th>Booking Time</th>
                 <th>Number of Guests</th>
+                <th>Table Number</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <td>2024.10.18</td>
                 <td>12:30 PM</td>
                 <td>4</td>
+                <td>5</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -29,6 +31,7 @@
                 <td>2024.10.18</td>
                 <td>1:00 PM</td>
                 <td>2</td>
+                <td>3</td>
                 <td class="action-buttons">
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -39,11 +42,10 @@
                 <td>2024.10.18</td>
                 <td>1:30 PM</td>
                 <td>3</td>
+                <td>7</td>
                 <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
                 </td>
             </tr>
         </tbody>
