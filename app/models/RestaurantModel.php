@@ -21,14 +21,22 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addMenu($name, $price, $category, $restaurantID)
+    public function addMenu($name, $price, $category, $popularDish, $restaurantID)
     {
-        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, RestaurantID) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO menu (FoodName, Price, FoodCategory, IsPopular, RestaurantID) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdsi', $name, $price, $category, $restaurantID);
+        $stmt->bind_param('sdsii', $name, $price, $category, $popularDish, $restaurantID);
         $stmt->execute();
         
-        return $stmt->insert_id;
+        // Get the MenuID
+        $sql = "SELECT MenuID FROM menu WHERE FoodName = ? AND RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $name, $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $MenuID = $result->fetch_assoc()['MenuID'];
+        
+        return $MenuID;
     }
 
     public function setImgPath($MenuID, $fileName)
@@ -50,7 +58,7 @@ class RestaurantModel
 
         // Check the directory exists and create it
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 077, false);
+            mkdir($targetDir, 0777, false);
         }
 
         // Create the image path
@@ -69,5 +77,43 @@ class RestaurantModel
             $stmt->bind_param('si', $imgPath, $MenuID);
             $stmt->execute();
         }
+    }
+
+    public function deleteMenu($menuID)
+    {
+        $sql = "DELETE FROM menu WHERE MenuID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $menuID);
+        $stmt->execute();
+    }
+
+    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description)
+    {
+        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, OpenHours = ?, CuisineType = ?, Description = ? WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssssi', $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $restaurantID);
+        $stmt->execute();
+    }
+
+    public function checkCurrentPassword($restaurantID, $currentPassword)
+    {
+        $sql = "SELECT * FROM restaurant WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hashedPassword = $result->fetch_assoc()['Password'];
+
+        return password_verify($currentPassword, $hashedPassword);
+    }
+
+    public function changePassword($restaurantID, $newPassword)
+    {
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE restaurant SET Password = ? WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $newPassword, $restaurantID);
+        $stmt->execute();
     }
 }

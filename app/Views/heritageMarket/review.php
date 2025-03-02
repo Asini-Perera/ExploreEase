@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Your Review</title>
     <link rel="stylesheet" href="../public/css/review/review.css">
+    
 </head>
 <body>
     <?php require_once __DIR__ . '/../Navbar.php'; ?>
@@ -39,6 +40,6 @@
             </form>
         </div>
     </main>
-    <?php require_once __DIR__ . '/../Footer.php'; ?>
+     
 </body>
 </html>

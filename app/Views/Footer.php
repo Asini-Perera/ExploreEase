@@ -37,10 +37,14 @@
         </div>
         <div class="footer-section">
             <h2>Join Us Today</h2>
-            <button type="button" class="sign-up">Sign Up &gt;</button>
+            <button type="button" class="sign-up">
+              <a href="http://localhost/ExploreEase/signup" class="signup-button-link"> Sign Up &gt;</a> 
+            </button>
             <div class="footer-login">
                 <h4>Signed up already?</h4>
-                <button type="button" class="login-button">Login</button>
+                <button type="button" class="login-button">
+                <a href="http://localhost/ExploreEase/login" class="login-button-link">Login</a>
+                </button>
             </div>
         </div>
     </div>

@@ -47,7 +47,10 @@ class AdminController
                 session_start();
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['Email'] = $admin['Email'];
-                $_SESSION['Name'] = $admin['FirstName'] . ' ' . $admin['LastName'];
+                $_SESSION['FirstName'] = $admin['FirstName'];
+                $_SESSION['LastName'] = $admin['LastName'];
+                $_SESSION['ContactNo'] = $admin['ContactNo'];
+                $_SESSION['ProfileImage'] = $admin['ImgPath'];
 
                 if (isset($_POST['remember'])) {
                     // Set cookie for admin login
@@ -138,7 +141,7 @@ class AdminController
     public function waiting()
     {
         // Logic for admin waiting page
-        if (isset($_SESSION['AdminID'])) {
+        if (isset($_SESSION['Email'])) {
             require_once __DIR__ . '/../Views/waiting.php';
         } else {
             header('Location: admin');
@@ -186,6 +189,13 @@ class AdminController
                 if ($searchUser === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                $allowedActions = ['edit', 'changepassword'];
+                $profileAction = in_array($action, $allowedActions) ? $action : null;
+                if ($profileAction === '404') {
+                    $mainContent = '404';
+                }
             }
 
             // Load the main dashboard layout
@@ -193,6 +203,72 @@ class AdminController
         } else {
             header('Location: ../admin');
             exit();
+        }
+    }
+
+    public function updateProfile()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $firstName = $_POST['firstname'];
+            $lastName = $_POST['lastname'];
+            $email = $_POST['email'];
+            $contactNo = $_POST['contactNo'];
+            $profileImage = $_FILES['profile_image'];
+
+            // Check if email already exists and it's not the current user's email
+            $signupModel = new SignupModel($this->conn);
+            $user = $signupModel->getUserByEmail($email);
+
+            if ($user && $user['AdminID'] !== $adminID) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../admin/dashboard?page=profile&action=edit');
+                exit();
+            }
+
+            $adminModel = new AdminModel($this->conn);
+            $adminModel->updateAdmin($adminID, $firstName, $lastName, $email, $contactNo);
+
+            if ($profileImage['name']) {
+                $adminModel->setImgPath($adminID, $profileImage);
+            }
+
+            $_SESSION['FirstName'] = $firstName;
+            $_SESSION['LastName'] = $lastName;
+            $_SESSION['Email'] = $email;
+            $_SESSION['ContactNo'] = $contactNo;
+            $_SESSION['ProfileImage'] = $adminModel->getImgPath($adminID);
+
+            header('Location: ../admin/dashboard?page=profile');
+            exit();
+        }
+    }
+
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $adminID = $_SESSION['AdminID'];
+            $currentPassword = $_POST['currentPassword'];
+            $newPassword = $_POST['newPassword'];
+            $confirmPassword = $_POST['confirmPassword'];
+
+            $adminModel = new AdminModel($this->conn);
+            $valid = $adminModel->checkCurrentPassword($adminID, $currentPassword);
+
+            if ($valid) {
+                if ($newPassword === $confirmPassword) {
+                    $adminModel->changePassword($adminID, $newPassword);
+                    header('Location: ../admin/dashboard?page=profile');
+                    exit();
+                } else {
+                    header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                    exit();
+                }
+            } else {
+                header('Location: ../admin/dashboard?page=profile&action=changepassword');
+                exit();
+            }
+
         }
     }
 

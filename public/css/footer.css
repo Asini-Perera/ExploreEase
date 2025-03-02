@@ -62,30 +62,28 @@ footer {
     /* Consistent alignment with h2 */
 }
 
+/* Ensure list items display in a vertical layout */
 .footer-section ul {
     list-style: none;
     padding: 0;
-    margin: 10;
-    margin: 10px 10px;
+    margin: 10px;
 }
 
 .footer-section li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    /* Reduced gap */
-    margin-bottom: 20px;
-    /* Reduced margin */
+    display: block; /* Force the <li> elements to stack vertically */
+    margin-bottom: 10px; /* Adjusted spacing between items */
     font-size: 14px;
-    /* Smaller font size */
     color: #e6e6e6;
+    line-height: 1.6; /* Adjusted line height for better readability */
 }
 
 .footer-section li img {
     width: 20px;
-    /* Reduced icon size */
     height: 20px;
+    margin-right: 10px; /* Add space between the icon and the text */
+    vertical-align: middle; /* Align icons properly with the text */
 }
+
 
 .sign-up,
 .login {
@@ -233,4 +231,36 @@ footer {
 .footer-login button:hover {
     background-color: rgba(217, 217, 217, 0.3);
     /* Slightly darker background on hover */
+}
+
+footer ul {
+    display: block;
+    /* Change flex to block to stack items vertically */
+    padding-left: 0;
+    /* Optional: remove default left padding */
+}
+
+footer ul li {
+    display: flex;
+    /* Ensure the icon and text are aligned horizontally */
+    align-items: center;
+    margin-bottom: 15px;
+    /* Optional: Add space between each list item */
+}
+
+footer ul li img {
+    margin-right: 10px;
+    /* Add some space between the image and text */
+}
+
+/* footer.css */
+.login-button-link {
+    text-decoration: none;
+    color: inherit;
+    /* Ensure the link inherits button color */
+}
+.signup-button-link {
+    text-decoration: none;
+    color: inherit;
+    /* Ensure the link inherits button color */
 }

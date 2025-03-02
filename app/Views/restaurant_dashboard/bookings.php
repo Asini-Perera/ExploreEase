@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/restaurant_dashboard/bookings.css">
 
-<h1>Bookings</h1>
+<h1>New Bookings</h1>
 
 <div class="menu-container">
     <table>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>John Doe</td>
+                <td>Nimal Perera</td>
                 <td>2024.10.18</td>
                 <td>12:30 PM</td>
                 <td>4</td>
@@ -24,16 +24,16 @@
                 </td>
             </tr>
             <tr>
-                <td>Jane Doe</td>
+                <td>Kamal Silva</td>
                 <td>2024.10.18</td>
                 <td>1:00 PM</td>
                 <td>2</td>
                 <td class="action-buttons">
-                    <button class="reply-btn"id="sendTableBtn">Send Table No</button>
+                    <button class="reply-btn" id="sendTableBtn">Send Table No</button>
                 </td>
             </tr>
             <tr>
-                <td>John Smith</td>
+                <td>Sunil Fernando</td>
                 <td>2024.10.18</td>
                 <td>1:30 PM</td>
                 <td>3</td>

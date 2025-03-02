@@ -45,12 +45,12 @@
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number</label>
-                    <input type="tel" id="contactNo" name="contactNo"><br><br>
+                    <label for="contactNo">Contact Number *</label>
+                    <input type="tel" id="contactNo" name="contactNo" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="profile_image">Profile Image</label>
-                    <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
+                    <label for="profile_image">Profile Image *</label>
+                    <input type="file" id="profile_image" name="profile_image" accept="image/*" required><br><br>
                 </div>
                 <button type="submit">Submit</button>
             </form>

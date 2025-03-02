@@ -2,11 +2,11 @@
 
 <div class="menu-container">
     <div class="top">
-            <h1>Menu List</h1><span></span>
+        <h1>Menu List</h1><span></span>
 
-            <div class="action-buttons">
-                <a class="add-btn" href="?page=menu&action=add">Add Menu</a>
-            </div>
+        <div class="action-buttons">
+            <a class="add-btn" href="?page=menu&action=add">Add Menu</a>
+        </div>
     </div>
 
     <table>
@@ -21,61 +21,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Chicken Biryani</td>
-                <td>Rs. 500.00</td>
-                <td>Non-Veg</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td>Yes</td>
-                <td class="action-buttons">
-                    <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Vegetable Fried Rice</td>
-                <td>Rs. 300.00</td>
-                <td>Veg</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td>No</td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Chicken Noodles</td>
-                <td>Rs. 400.00</td>
-                <td>Non-Veg</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td>Yes</td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Vegetable Noodles</td>
-                <td>Rs. 250.00</td>
-                <td>Veg</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td>No</td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Chicken Fried Rice</td>
-                <td>Rs. 450.00</td>
-                <td>Non-Veg</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td>Yes</td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=menu&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
+            <?php foreach ($menus as $food) : ?>
+                <tr>
+                    <td><?= $food['FoodName'] ?></td>
+                    <td>Rs. <?= $food['Price'] ?></td>
+                    <td><?= $food['FoodCategory'] ?></td>
+                    <td><img src="<?= $food['ImgPath'] ?>" class="food-img"></td>
+                    <td><?= $food['IsPopular'] == 1 ? 'Yes' : 'No' ?></td>
+                    <td class="action-buttons">
+                        <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
+                        <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
