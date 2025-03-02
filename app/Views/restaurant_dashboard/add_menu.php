@@ -31,7 +31,7 @@
         <div class="form-group">
             <label for="popular-dish">Is this popular dish:</label>
             <input type="radio" name="popular-dish" class="popular_food"  value="1"> Yes
-            <input type="radio" name="popular-dish" class="not_popular" value="0"> No
+            <input type="radio" name="popular-dish" class="not_popular" value="0" default> No
         </div>
 
         <button type="submit" name="add_manu" class="menu_btn">Add Menu</button>

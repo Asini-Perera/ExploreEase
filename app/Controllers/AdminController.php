@@ -216,12 +216,13 @@ class AdminController
             $contactNo = $_POST['contactNo'];
             $profileImage = $_FILES['profile_image'];
 
-            // Check if email already exists
+            // Check if email already exists and it's not the current user's email
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
 
-            if ($user) {
-                header('Location: ../admin/dashboard?page=profile');
+            if ($user && $user['AdminID'] !== $adminID) {
+                $_SESSION['error'] = "Email already exists";
+                header('Location: ../admin/dashboard?page=profile&action=edit');
                 exit();
             }
 
