@@ -10,7 +10,7 @@
             <a href="?page=search" class="<?= $mainContent == 'search' ? 'active' : '' ?>">Search Users</a>
         </li>
         <li>
-            <a href="?page=keyword" class="<?= $mainContent == 'keyword' ? 'active' : '' ?>">Manage Keywords</a>
+            <a href="?page=viewkeyword" class="<?= $mainContent == 'viewkeyword' ? 'active' : '' ?>">Manage Keywords</a>
         </li>
         <li>
             <a href="?page=verifykeyword" class="<?= $mainContent == 'verifykeyword' ? 'active' : '' ?>">Verify Keywords</a>
