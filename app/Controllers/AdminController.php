@@ -28,7 +28,7 @@ class AdminController
     public function index()
     {
         // Logic for admin login page
-        require_once __DIR__ . '/../Views/admin_login.php'; 
+        require_once __DIR__ . '/../Views/admin_login.php';
     }
 
     public function login()
@@ -153,7 +153,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'keyword', 'verifykeyword', 'search', 'profile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             // Get user for verify page
@@ -164,17 +164,9 @@ class AdminController
                 if ($verifyUser === '404') {
                     $mainContent = '404';
                 }
-            } elseif ($mainContent == 'keyword') {
-                $action = isset($_GET['action']) ? $_GET['action'] : 'view';
-                $allowedActions = ['add', 'view', 'delete'];
-
+            } elseif ($mainContent == 'viewkeyword') {
                 $keywordController = new KeywordController();
                 $categories = $keywordController->getCategoriesWithKeywords();
-
-                $keywordAction = in_array($action, $allowedActions) ? $action : '404';
-                if ($keywordAction === '404') {
-                    $mainContent = '404';
-                }
             } elseif ($mainContent == 'verifykeyword') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'restaurant';
                 $allowedUsers = ['restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
@@ -268,7 +260,6 @@ class AdminController
                 header('Location: ../admin/dashboard?page=profile&action=changepassword');
                 exit();
             }
-
         }
     }
 
