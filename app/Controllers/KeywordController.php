@@ -85,7 +85,7 @@ class KeywordController
                 $_SESSION['error'] = 'Failed to add keyword';
             }
 
-            header('Location: ../admin/dashboard?page=keyword&action=view');
+            header('Location: ../admin/dashboard?page=viewkeyword');
         }
     }
 
@@ -105,7 +105,7 @@ class KeywordController
                 $_SESSION['error'] = 'Failed to delete keyword';
             }
 
-            header('Location: ../admin/dashboard?page=keyword&action=view');
+            header('Location: ../admin/dashboard?page=viewkeyword');
         }
     }
 
