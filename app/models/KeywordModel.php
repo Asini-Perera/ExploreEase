@@ -163,4 +163,20 @@ class KeywordModel
         return true;
     }
 
+    public function getUnverifiedKeywords($service)
+    {
+        if ($service === 'restaurant') {
+            $sql = "SELECT k.*, r.Name FROM restaurantkeyword k INNER JOIN restaurant r ON k.RestaurantID = r.RestaurantID WHERE k.Verified = 0";
+        } else if ($service === 'hotel') {
+            $sql = "SELECT k.*, h.Name FROM hotelkeyword k INNER JOIN hotel h ON k.HotelID = h.HotelID WHERE k.Verified = 0";
+        } else if ($service === 'heritagemarket') {
+            $sql = "SELECT k.*, h.Name FROM heritagemarketkeyword k INNER JOIN heritagemarket h ON k.ShopID = h.ShopID WHERE k.Verified = 0";
+        } else if ($service === 'culturaleventorganizer') {
+            $sql = "SELECT k.*, c.Name FROM culturaleventorganizerkeyword k INNER JOIN culturaleventorganizer c ON k.OrganizerID = c.OrganizerID WHERE k.Verified = 0";
+        }
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

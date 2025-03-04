@@ -113,4 +113,12 @@ class KeywordController
     {
         require_once __DIR__ . '/../views/keyword_select.php';
     }
+
+    public function getUnverifiedKeywords($service)
+    {
+        $keywordModel = new KeywordModel($this->conn);
+        $serviceProviders = $keywordModel->getUnverifiedKeywords($service);
+
+        header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);
+    }
 }

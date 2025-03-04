@@ -156,7 +156,6 @@ class AdminController
             $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
-            // Get user for verify page
             if ($mainContent == 'verifyuser') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
@@ -174,6 +173,7 @@ class AdminController
                 if ($verifyKeyword === '404') {
                     $mainContent = '404';
                 }
+                $keywordController = new KeywordController();
             } elseif ($mainContent == 'search') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
                 $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
