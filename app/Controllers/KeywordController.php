@@ -119,6 +119,6 @@ class KeywordController
         $keywordModel = new KeywordModel($this->conn);
         $serviceProviders = $keywordModel->getUnverifiedKeywords($service);
 
-        header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);
+        return $serviceProviders;
     }
 }

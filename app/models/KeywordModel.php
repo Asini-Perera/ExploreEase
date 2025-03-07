@@ -166,17 +166,51 @@ class KeywordModel
     public function getUnverifiedKeywords($service)
     {
         if ($service === 'restaurant') {
-            $sql = "SELECT k.*, r.Name FROM restaurantkeyword k INNER JOIN restaurant r ON k.RestaurantID = r.RestaurantID WHERE k.Verified = 0";
+            $sql = "SELECT DISTINCT r.RestaurantID, r.Name FROM restaurantkeyword k INNER JOIN restaurant r ON k.RestaurantID = r.RestaurantID WHERE k.IsVerified = 0";
         } else if ($service === 'hotel') {
-            $sql = "SELECT k.*, h.Name FROM hotelkeyword k INNER JOIN hotel h ON k.HotelID = h.HotelID WHERE k.Verified = 0";
+            $sql = "SELECT DISTINCT h.HotelID, h.Name FROM hotelkeyword k INNER JOIN hotel h ON k.HotelID = h.HotelID WHERE k.IsVerified = 0";
         } else if ($service === 'heritagemarket') {
-            $sql = "SELECT k.*, h.Name FROM heritagemarketkeyword k INNER JOIN heritagemarket h ON k.ShopID = h.ShopID WHERE k.Verified = 0";
+            $sql = "SELECT DISTINCT h.ShopID, h.Name FROM heritagemarketkeyword k INNER JOIN heritagemarket h ON k.ShopID = h.ShopID WHERE k.IsVerified = 0";
         } else if ($service === 'culturaleventorganizer') {
-            $sql = "SELECT k.*, c.Name FROM culturaleventorganizerkeyword k INNER JOIN culturaleventorganizer c ON k.OrganizerID = c.OrganizerID WHERE k.Verified = 0";
+            $sql = "SELECT DISTINCT c.OrganizerID, c.Name FROM culturaleventorganizerkeyword k INNER JOIN culturaleventorganizer c ON k.OrganizerID = c.OrganizerID WHERE k.IsVerified = 0";
         }
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $serviceProviders = $result->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($serviceProviders as &$serviceProvider) {
+            if ($service === 'restaurant') {
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE r.RestaurantID = $serviceProvider[RestaurantID]";
+            } else if ($service === 'hotel') {
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE h.HotelID = $serviceProvider[HotelID]";
+            } else if ($service === 'heritagemarket') {
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE h.ShopID = $serviceProvider[ShopID]";
+            } else if ($service === 'culturaleventorganizer') {
+                $sql  = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE o.OrganizerID = $serviceProvider[OrganizerID]";
+            }
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $serviceProvider['categories'] = $result->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($serviceProvider['categories'] as &$category) {
+                if ($service === 'restaurant') {
+                    $sql = "SELECT k.KeywordID, k.KName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID WHERE r.RestaurantID = $serviceProvider[RestaurantID] AND k.CategoryID = $category[CategoryID]";
+                } else if ($service === 'hotel') {
+                    $sql = "SELECT k.KeywordID, k.KName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE h.HotelID = $serviceProvider[HotelID] AND k.CategoryID = $category[CategoryID]";
+                } else if ($service === 'heritagemarket') {
+                    $sql = "SELECT k.KeywordID, k.KName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE h.ShopID = $serviceProvider[ShopID] AND k.CategoryID = $category[CategoryID]";
+                } else if ($service === 'culturaleventorganizer') {
+                    $sql = "SELECT k.KeywordID, k.KName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID WHERE o.OrganizerID = $serviceProvider[OrganizerID] AND k.CategoryID = $category[CategoryID]";
+                }
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $category['keywords'] = $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+        return $serviceProviders;
     }
 }

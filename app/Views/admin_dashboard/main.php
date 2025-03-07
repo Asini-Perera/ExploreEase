@@ -25,7 +25,7 @@
                 require_once  __DIR__ . "/$mainContent" . "_" . "$verifyUser.php";
             } elseif ($mainContent === 'verifykeyword') {
                 require_once __DIR__ . "/verifykeyword_nav.php";
-                require_once __DIR__ . "/$mainContent" . "_" . "$verifyKeyword.php";
+                require_once __DIR__ . "/verifykeyword.php";
             } elseif ($mainContent === 'search') {
                 require_once __DIR__ . "/search_nav.php";
                 require_once __DIR__ . "/$mainContent" . "_" . "$searchUser.php";

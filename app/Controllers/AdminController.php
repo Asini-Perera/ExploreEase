@@ -174,6 +174,7 @@ class AdminController
                     $mainContent = '404';
                 }
                 $keywordController = new KeywordController();
+                $serviceProviders = $keywordController->getUnverifiedKeywords($verifyKeyword);
             } elseif ($mainContent == 'search') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
                 $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
