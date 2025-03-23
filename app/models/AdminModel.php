@@ -120,4 +120,16 @@ class AdminModel
         $stmt->bind_param('si', $newPassword, $AdminID);
         $stmt->execute();
     }
+
+    public function getTotalUsers($user)
+    {
+        $sql = "SELECT COUNT('Email') FROM $user";
+        $result = $this->conn->query($sql);
+        $count = $result->fetch_assoc();
+        if ($count) {
+            return (int)$count["COUNT('Email')"];
+        } else {
+            return 0;
+        }
+    }
 }

@@ -156,7 +156,15 @@ class AdminController
             $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
-            if ($mainContent == 'verifyuser') {
+            if ($mainContent == 'dashboard') {
+                $adminModel = new AdminModel($this->conn);
+                $totalTravelers = $adminModel->getTotalUsers('traveler');
+                $totalAdmins = $adminModel->getTotalUsers('admin');
+                $totalRestaurants = $adminModel->getTotalUsers('restaurant');
+                $totalHotels = $adminModel->getTotalUsers('hotel');
+                $totalHeritageMarkets = $adminModel->getTotalUsers('heritagemarket');
+                $totalCulturalEventOrganizers = $adminModel->getTotalUsers('culturaleventorganizer');
+            } elseif ($mainContent == 'verifyuser') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
