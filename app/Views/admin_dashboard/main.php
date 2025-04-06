@@ -22,7 +22,7 @@
             <?php
             if ($mainContent === 'verifyuser') {
                 require_once  __DIR__ . "/verifyuser_nav.php";
-                require_once  __DIR__ . "/$mainContent" . "_" . "$verifyUser.php";
+                require_once  __DIR__ . "/$mainContent" . "_" . "$type.php";
             } elseif ($mainContent === 'verifykeyword') {
                 require_once __DIR__ . "/verifykeyword_nav.php";
                 require_once __DIR__ . "/verifykeyword.php";

@@ -132,4 +132,25 @@ class AdminModel
             return 0;
         }
     }
+
+    public function getUnverifiedUsers($user)
+    {
+        if ($user == 'admin') {
+            $sql = "SELECT AdminID, FirstName, LastName, Email, ContactNo, ImgPath FROM $user WHERE IsVerified = 0";
+        } else if ($user == 'restaurant') {
+            $sql = "SELECT RestaurantID, Name, Email, Address, ContactNo FROM $user WHERE IsVerified = 0";
+        } else if ($user == 'hotel') {
+            $sql = "SELECT HotelID, Name, Email, Address, ContactNo FROM $user WHERE IsVerified = 0";
+        } else if ($user == 'heritagemarket') {
+            $sql = "SELECT ShopID, Name, Email, Address, ContactNo FROM $user WHERE IsVerified = 0";
+        } else if ($user == 'culturaleventorganizer') {
+            $sql = "SELECT OrganizerID, Name, Email, ContactNo, ImgPath FROM $user WHERE IsVerified = 0";
+        }
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $users;
+    }
 }

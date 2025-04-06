@@ -170,6 +170,14 @@ class AdminController
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
                 if ($verifyUser === '404') {
                     $mainContent = '404';
+                } else {
+                    $adminModel = new AdminModel($this->conn);
+                    $users = $adminModel->getUnverifiedUsers($verifyUser);
+                    if ($verifyUser === 'admin' || $verifyUser === 'culturaleventorganizer') {
+                        $type = 'people';
+                    } else {
+                        $type = 'service';
+                    }
                 }
             } elseif ($mainContent == 'viewkeyword') {
                 $keywordController = new KeywordController();
@@ -180,9 +188,10 @@ class AdminController
                 $verifyKeyword = in_array($user, $allowedUsers) ? $user : '404';
                 if ($verifyKeyword === '404') {
                     $mainContent = '404';
+                } else {
+                    $keywordController = new KeywordController();
+                    $serviceProviders = $keywordController->getUnverifiedKeywords($verifyKeyword);
                 }
-                $keywordController = new KeywordController();
-                $serviceProviders = $keywordController->getUnverifiedKeywords($verifyKeyword);
             } elseif ($mainContent == 'search') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
                 $allowedUsers = ['traveler', 'admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
