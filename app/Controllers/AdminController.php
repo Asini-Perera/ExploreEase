@@ -173,8 +173,10 @@ class AdminController
                 } else {
                     $adminModel = new AdminModel($this->conn);
                     $users = $adminModel->getUnverifiedUsers($verifyUser);
-                    if ($verifyUser === 'admin' || $verifyUser === 'culturaleventorganizer') {
-                        $type = 'people';
+                    if ($verifyUser === 'admin') {
+                        $type = 'admin';
+                    } elseif ($verifyUser === 'culturaleventorganizer') {
+                        $type = 'culturaleventorganizer';
                     } else {
                         $type = 'service';
                     }
