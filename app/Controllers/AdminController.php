@@ -198,6 +198,19 @@ class AdminController
                 $searchUser = in_array($user, $allowedUsers) ? $user : '404';
                 if ($searchUser === '404') {
                     $mainContent = '404';
+                } else {
+                    $adminModel = new AdminModel($this->conn);
+                    $searchQuery = isset($_GET['query']) ? $_GET['query'] : "";
+                    $searchResults = $adminModel->searchUsers($searchUser, $searchQuery);
+                    if ($searchUser === 'traveler') {
+                        $type = 'traveler';
+                    } elseif ($searchUser === 'admin') {
+                        $type = 'admin';
+                    } elseif ($searchUser === 'culturaleventorganizer') {
+                        $type = 'culturaleventorganizer';
+                    } else {
+                        $type = 'service';
+                    }
                 }
             } elseif ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;

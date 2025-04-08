@@ -123,7 +123,11 @@ class AdminModel
 
     public function getTotalUsers($user)
     {
-        $sql = "SELECT COUNT('Email') FROM $user";
+        if ($user == 'traveler') {
+            $sql = "SELECT COUNT('Email') FROM $user";
+        } else {
+            $sql = "SELECT COUNT('Email') FROM $user WHERE IsVerified = 1";
+        }
         $result = $this->conn->query($sql);
         $count = $result->fetch_assoc();
         if ($count) {
@@ -146,7 +150,40 @@ class AdminModel
         } else if ($user == 'culturaleventorganizer') {
             $sql = "SELECT OrganizerID, Name, Email, ContactNo, ImgPath FROM $user WHERE IsVerified = 0";
         }
-        $stmt = $this->conn->prepare($sql);
+        $result = $this->conn->query($sql);
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $users;
+    }
+
+    public function searchUsers($user, $query)
+    {
+        $query = '%' . strtolower($query) . '%';
+        if ($user == 'traveler') {
+            $sql = "SELECT TravelerID, ImgPath, FirstName, LastName, Email, Gender, DOB, ContactNo FROM $user WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(Email) LIKE ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('sss', $query, $query, $query);
+        } else if ($user == 'admin') {
+            $sql = "SELECT AdminID, ImgPath, FirstName, LastName, Email, ContactNo FROM $user WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(Email) LIKE ?) AND IsVerified = 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('sss', $query, $query, $query);
+        } else if ($user == 'restaurant') {
+            $sql = "SELECT RestaurantID, Name, Email, Address, ContactNo FROM $user WHERE (LOWER(Name) LIKE ? OR LOWER(Email) LIKE ?) AND IsVerified = 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ss', $query, $query);
+        } else if ($user == 'hotel') {
+            $sql = "SELECT HotelID, Name, Email, Address, ContactNo FROM $user WHERE (LOWER(Name) LIKE ? OR LOWER(Email) LIKE ?) AND IsVerified = 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ss', $query, $query);
+        } else if ($user == 'heritagemarket') {
+            $sql = "SELECT ShopID, Name, Email, Address, ContactNo FROM $user WHERE (LOWER(Name) LIKE ? OR LOWER(Email) LIKE ?) AND IsVerified = 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ss', $query, $query);
+        } else if ($user == 'culturaleventorganizer') {
+            $sql = "SELECT OrganizerID, ImgPath, Name, Email, ContactNo FROM $user WHERE (LOWER(Name) LIKE ? OR LOWER(Email) LIKE ?) AND IsVerified = 1";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ss', $query, $query);
+        }
         $stmt->execute();
         $result = $stmt->get_result();
         $users = $result->fetch_all(MYSQLI_ASSOC);

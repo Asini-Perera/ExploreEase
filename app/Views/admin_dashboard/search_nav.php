@@ -3,9 +3,9 @@
 
 <div class="search-container">
     <form action="#" method="GET">
-        <input type="text" name="query" placeholder="Search Users..." required>
+        <input type="text" name="query" placeholder="Search Users using Names and Emails">
         <button class="search-btn" type="submit">Search</button>
-    </form>  
+    </form>
 </div>
 <div class="navbar">
     <a href="?page=search&user=traveler" class="<?= $searchUser == 'traveler' ? 'active' : '' ?>">Traveler</a>
