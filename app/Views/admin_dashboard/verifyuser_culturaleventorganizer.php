@@ -20,8 +20,12 @@
                     <td><?= htmlspecialchars($user['Email']) ?></td>
                     <td><?= htmlspecialchars($user['ContactNo']) ?></td>
                     <td class="action-buttons">
-                        <button class="verify-btn">Verify</button>
-                        <button class="reject-btn">Reject</button>
+                        <form method="post" action="../admin/verifyUser">
+                            <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                            <input type="hidden" name="userType" value="<?= htmlspecialchars($verifyUser) ?>">
+                            <button type="submit" name="action" value="verify" class="verify-btn">Verify</button>
+                            <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

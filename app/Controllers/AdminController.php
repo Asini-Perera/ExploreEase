@@ -269,6 +269,25 @@ class AdminController
         }
     }
 
+    public function verifyUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $userType = $_POST['userType'];
+            $action = $_POST['action'];
+
+            $adminModel = new AdminModel($this->conn);
+            if ($action === 'verify') {
+                $adminModel->verifyUser($email, $userType);
+            } elseif ($action === 'reject') {
+                $adminModel->rejectUser($email, $userType);
+            }
+
+            header('Location: ../admin/dashboard?page=verifyuser&user=' . $userType);
+            exit();
+        }
+    }
+
     public function changePassword()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

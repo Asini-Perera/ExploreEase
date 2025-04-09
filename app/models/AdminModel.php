@@ -190,4 +190,20 @@ class AdminModel
 
         return $users;
     }
+
+    public function verifyUser($email, $userType)
+    {
+        $sql = "UPDATE $userType SET IsVerified = 1 WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    }
+
+    public function rejectUser($email, $userType)
+    {
+        $sql = "DELETE FROM $userType WHERE Email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    }
 }
