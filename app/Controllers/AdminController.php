@@ -156,13 +156,30 @@ class AdminController
             $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
-            // Get user for verify page
-            if ($mainContent == 'verifyuser') {
+            if ($mainContent == 'dashboard') {
+                $adminModel = new AdminModel($this->conn);
+                $totalTravelers = $adminModel->getTotalUsers('traveler');
+                $totalAdmins = $adminModel->getTotalUsers('admin');
+                $totalRestaurants = $adminModel->getTotalUsers('restaurant');
+                $totalHotels = $adminModel->getTotalUsers('hotel');
+                $totalHeritageMarkets = $adminModel->getTotalUsers('heritagemarket');
+                $totalCulturalEventOrganizers = $adminModel->getTotalUsers('culturaleventorganizer');
+            } elseif ($mainContent == 'verifyuser') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'admin';
                 $allowedUsers = ['admin', 'restaurant', 'hotel', 'heritagemarket', 'culturaleventorganizer'];
                 $verifyUser = in_array($user, $allowedUsers) ? $user : '404';
                 if ($verifyUser === '404') {
                     $mainContent = '404';
+                } else {
+                    $adminModel = new AdminModel($this->conn);
+                    $users = $adminModel->getUnverifiedUsers($verifyUser);
+                    if ($verifyUser === 'admin') {
+                        $type = 'admin';
+                    } elseif ($verifyUser === 'culturaleventorganizer') {
+                        $type = 'culturaleventorganizer';
+                    } else {
+                        $type = 'service';
+                    }
                 }
             } elseif ($mainContent == 'viewkeyword') {
                 $keywordController = new KeywordController();
@@ -173,6 +190,9 @@ class AdminController
                 $verifyKeyword = in_array($user, $allowedUsers) ? $user : '404';
                 if ($verifyKeyword === '404') {
                     $mainContent = '404';
+                } else {
+                    $keywordController = new KeywordController();
+                    $serviceProviders = $keywordController->getUnverifiedKeywords($verifyKeyword);
                 }
             } elseif ($mainContent == 'search') {
                 $user = isset($_GET['user']) ? $_GET['user'] : 'traveler';
@@ -180,6 +200,19 @@ class AdminController
                 $searchUser = in_array($user, $allowedUsers) ? $user : '404';
                 if ($searchUser === '404') {
                     $mainContent = '404';
+                } else {
+                    $adminModel = new AdminModel($this->conn);
+                    $searchQuery = isset($_GET['query']) ? $_GET['query'] : "";
+                    $searchResults = $adminModel->searchUsers($searchUser, $searchQuery);
+                    if ($searchUser === 'traveler') {
+                        $type = 'traveler';
+                    } elseif ($searchUser === 'admin') {
+                        $type = 'admin';
+                    } elseif ($searchUser === 'culturaleventorganizer') {
+                        $type = 'culturaleventorganizer';
+                    } else {
+                        $type = 'service';
+                    }
                 }
             } elseif ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -232,6 +265,25 @@ class AdminController
             $_SESSION['ProfileImage'] = $adminModel->getImgPath($adminID);
 
             header('Location: ../admin/dashboard?page=profile');
+            exit();
+        }
+    }
+
+    public function verifyUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $userType = $_POST['userType'];
+            $action = $_POST['action'];
+
+            $adminModel = new AdminModel($this->conn);
+            if ($action === 'verify') {
+                $adminModel->verifyUser($email, $userType);
+            } elseif ($action === 'reject') {
+                $adminModel->rejectUser($email, $userType);
+            }
+
+            header('Location: ../admin/dashboard?page=verifyuser&user=' . $userType);
             exit();
         }
     }
