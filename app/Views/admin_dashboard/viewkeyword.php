@@ -1,6 +1,4 @@
 <link rel="stylesheet" href="../public/css/admin_dashboard/keyword_view.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 
 <div class="keyword-content">
     <?php foreach ($categories as $category) : ?>
