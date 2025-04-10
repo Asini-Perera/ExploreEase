@@ -6,18 +6,17 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Address</th>
                 <th>Contact No</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <!-- <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Nuwan Samarasinghe
-                </td>
-                <td>nuwan.samarasinghe@example.com</td>
-                <td>+94 77 345 6789</td>
+                <td>Gourmet Bistro</td>
+                <td>contact@gourmetbistro.com</td>
+                <td>No. 10, Galle Road, Colombo 03, Sri Lanka</td>
+                <td>+94 77 123 4567</td>
                 <td class="action-buttons">
                     <button class="verify-btn">Verify</button>
                     <button class="reject-btn">Reject</button>
@@ -25,11 +24,9 @@
             </tr> -->
             <?php foreach ($users as $user) : ?>
                 <tr>
-                    <td class="profile-info">
-                        <img src="$user['ImgPath']" class="profile-img">
-                        <?= htmlspecialchars($user['Name']) ?>
-                    </td>
+                    <td><?= htmlspecialchars($user['Name']) ?></td>
                     <td><?= htmlspecialchars($user['Email']) ?></td>
+                    <td><?= htmlspecialchars($user['Address']) ?></td>
                     <td><?= htmlspecialchars($user['ContactNo']) ?></td>
                     <td class="action-buttons">
                         <form method="post" action="../admin/verifyUser">
