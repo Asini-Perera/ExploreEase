@@ -10,47 +10,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
                     Amal Perera
                 </td>
                 <td>amal.perera@example.com</td>
                 <td>+94 71 123 4567</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Nimal Silva
-                </td>
-                <td>nimal.silva@example.com</td>
-                <td>+94 71 234 5678</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Sunil Fernando
-                </td>
-                <td>sunil.fernando@example.com</td>
-                <td>+94 71 345 6789</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Kamal Jayasinghe
-                </td>
-                <td>kamal.jayasinghe@example.com</td>
-                <td>+94 71 456 7890</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Tharindu Wickramasinghe
-                </td>
-                <td>tharindu.wickramasinghe@example.com</td>
-                <td>+94 71 567 8901</td>
-            </tr>
-            </tr>
+            </tr> -->
+            <?php foreach ($searchResults as $user) : ?>
+                <tr>
+                    <td class="profile-info">
+                        <img src="$user['ImgPath']" class="profile-img">
+                        <?= htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']) ?>
+                    </td>
+                    <td><?= htmlspecialchars($user['Email']) ?></td>
+                    <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
