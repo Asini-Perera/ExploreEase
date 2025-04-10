@@ -12,6 +12,16 @@
             </tr>
         </thead>
         <tbody>
+            <!-- <tr>
+                <td>Gourmet Bistro</td>
+                <td>contact@gourmetbistro.com</td>
+                <td>No. 10, Galle Road, Colombo 03, Sri Lanka</td>
+                <td>+94 77 123 4567</td>
+                <td class="action-buttons">
+                    <button class="verify-btn">Verify</button>
+                    <button class="reject-btn">Reject</button>
+                </td>
+            </tr> -->
             <?php foreach ($users as $user) : ?>
                 <tr>
                     <td><?= htmlspecialchars($user['Name']) ?></td>

@@ -11,6 +11,18 @@
             </tr>
         </thead>
         <tbody>
+            <!-- <tr>
+                <td class="profile-info">
+                    <img src="../public/images/user.jpg" class="profile-img">
+                    Tharindu Jayasinghe
+                </td>
+                <td>tharindu.jayasinghe@example.com</td>
+                <td>+94 71 234 5678</td>
+                <td class="action-buttons">
+                    <button class="verify-btn">Verify</button>
+                    <button class="reject-btn">Reject</button>
+                </td>
+            </tr> -->
             <?php foreach ($users as $user) : ?>
                 <tr>
                     <td class="profile-info">
