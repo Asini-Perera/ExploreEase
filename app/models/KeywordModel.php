@@ -181,13 +181,13 @@ class KeywordModel
 
         foreach ($serviceProviders as &$serviceProvider) {
             if ($service === 'restaurant') {
-                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE r.RestaurantID = $serviceProvider[RestaurantID]";
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE (r.RestaurantID = $serviceProvider[RestaurantID] AND r.IsVerified = 0)";
             } else if ($service === 'hotel') {
-                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE h.HotelID = $serviceProvider[HotelID]";
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE (h.HotelID = $serviceProvider[HotelID] AND h.IsVerified = 0)";
             } else if ($service === 'heritagemarket') {
-                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE h.ShopID = $serviceProvider[ShopID]";
+                $sql = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE (h.ShopID = $serviceProvider[ShopID] AND h.IsVerified = 0)";
             } else if ($service === 'culturaleventorganizer') {
-                $sql  = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE o.OrganizerID = $serviceProvider[OrganizerID]";
+                $sql  = "SELECT DISTINCT k.CategoryID, c.CategoryName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID INNER JOIN category c ON k.CategoryID = c.CategoryID WHERE (o.OrganizerID = $serviceProvider[OrganizerID] AND o.IsVerified = 0)";
             }
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
@@ -196,13 +196,13 @@ class KeywordModel
 
             foreach ($serviceProvider['categories'] as &$category) {
                 if ($service === 'restaurant') {
-                    $sql = "SELECT k.KeywordID, k.KName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID WHERE r.RestaurantID = $serviceProvider[RestaurantID] AND k.CategoryID = $category[CategoryID]";
+                    $sql = "SELECT k.KeywordID, k.KName FROM restaurantkeyword r INNER JOIN keyword k ON r.KeywordID = k.KeywordID WHERE (r.RestaurantID = $serviceProvider[RestaurantID] AND r.IsVerified = 0) AND k.CategoryID = $category[CategoryID]";
                 } else if ($service === 'hotel') {
-                    $sql = "SELECT k.KeywordID, k.KName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE h.HotelID = $serviceProvider[HotelID] AND k.CategoryID = $category[CategoryID]";
+                    $sql = "SELECT k.KeywordID, k.KName FROM hotelkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE (h.HotelID = $serviceProvider[HotelID] AND h.IsVerified = 0) AND k.CategoryID = $category[CategoryID]";
                 } else if ($service === 'heritagemarket') {
-                    $sql = "SELECT k.KeywordID, k.KName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE h.ShopID = $serviceProvider[ShopID] AND k.CategoryID = $category[CategoryID]";
+                    $sql = "SELECT k.KeywordID, k.KName FROM heritagemarketkeyword h INNER JOIN keyword k ON h.KeywordID = k.KeywordID WHERE (h.ShopID = $serviceProvider[ShopID] AND h.IsVerified = 0) AND k.CategoryID = $category[CategoryID]";
                 } else if ($service === 'culturaleventorganizer') {
-                    $sql = "SELECT k.KeywordID, k.KName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID WHERE o.OrganizerID = $serviceProvider[OrganizerID] AND k.CategoryID = $category[CategoryID]";
+                    $sql = "SELECT k.KeywordID, k.KName FROM culturaleventorganizerkeyword o INNER JOIN keyword k ON o.KeywordID = k.KeywordID WHERE (o.OrganizerID = $serviceProvider[OrganizerID] AND o.IsVerified = 0) AND k.CategoryID = $category[CategoryID]";
                 }
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
@@ -212,5 +212,39 @@ class KeywordModel
         }
 
         return $serviceProviders;
+    }
+
+    public function verifyKeyword($keywordID, $userType, $serviceProviderID)
+    {
+        if ($userType === 'restaurant') {
+            $sql = "UPDATE restaurantkeyword SET IsVerified = 1 WHERE KeywordID = ? AND RestaurantID = ?";
+        } else if ($userType === 'hotel') {
+            $sql = "UPDATE hotelkeyword SET IsVerified = 1 WHERE KeywordID = ? AND HotelID = ?";
+        } else if ($userType === 'heritagemarket') {
+            $sql = "UPDATE heritagemarketkeyword SET IsVerified = 1 WHERE KeywordID = ? AND ShopID = ?";
+        } else if ($userType === 'culturaleventorganizer') {
+            $sql = "UPDATE culturaleventorganizerkeyword SET IsVerified = 1 WHERE KeywordID = ? AND OrganizerID = ?";
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ii', $keywordID, $serviceProviderID);
+        $stmt->execute();
+    }
+
+    public function rejectKeyword($keywordID, $userType, $serviceProviderID)
+    {
+        if ($userType === 'restaurant') {
+            $sql = "DELETE FROM restaurantkeyword WHERE KeywordID = ? AND RestaurantID = ?";
+        } else if ($userType === 'hotel') {
+            $sql = "DELETE FROM hotelkeyword WHERE KeywordID = ? AND HotelID = ?";
+        } else if ($userType === 'heritagemarket') {
+            $sql = "DELETE FROM heritagemarketkeyword WHERE KeywordID = ? AND ShopID = ?";
+        } else if ($userType === 'culturaleventorganizer') {
+            $sql = "DELETE FROM culturaleventorganizerkeyword WHERE KeywordID = ? AND OrganizerID = ?";
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ii', $keywordID, $serviceProviderID);
+        $stmt->execute();
     }
 }

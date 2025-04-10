@@ -11,8 +11,21 @@
                         <?php foreach ($category['keywords'] as $keyword) : ?>
                             <div class="keyword-actions">
                                 <p><?= htmlspecialchars($keyword['KName']) ?></p>
-                                <button class="verify-btn">Verify</button>
-                                <button class="reject-btn">Reject</button>
+                                <form method="post" action="../keyword/verify">
+                                    <input type="hidden" name="keyword" value="<?= htmlspecialchars($keyword['KeywordID']) ?>">
+                                    <input type="hidden" name="userType" value="<?= htmlspecialchars($verifyKeyword) ?>">
+                                    <?php if ($verifyKeyword === 'restaurant') : ?>
+                                        <input type="hidden" name="serviceProvider" value="<?= htmlspecialchars($serviceProvider['RestaurantID']) ?>">
+                                    <?php elseif ($verifyKeyword === 'hotel') : ?>
+                                        <input type="hidden" name="serviceProvider" value="<?= htmlspecialchars($serviceProvider['HotelID']) ?>">
+                                    <?php elseif ($verifyKeyword === 'heritagemarket') : ?>
+                                        <input type="hidden" name="serviceProvider" value="<?= htmlspecialchars($serviceProvider['ShopID']) ?>">
+                                    <?php elseif ($verifyKeyword === 'culturaleventorganizer') : ?>
+                                        <input type="hidden" name="serviceProvider" value="<?= htmlspecialchars($serviceProvider['OrganizerID']) ?>">
+                                    <?php endif; ?>
+                                    <button type="submit" name="action" value="verify" class="verify-btn">Verify</button>
+                                    <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                                </form>
                             </div>
                         <?php endforeach; ?>
                     </div>
