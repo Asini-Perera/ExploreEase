@@ -8,7 +8,8 @@
      <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
 </head>
 <body>
-<!-- header -->
+<!-- header --> 
+  <?php require_once __DIR__ . "/../Navbar.php"; ?>
 <header>
     <div class="container">
         <h1 class="c-name">ABC Cultural Center</h1>
@@ -16,7 +17,7 @@
     </div>
 </header>
 
-    <!-- nav-bar -->
+     <!-- nav-bar -->
 <section class="nav-bar">
     <nav>
         <ul class="nav-links">
@@ -29,193 +30,166 @@
     </nav>
 </section>
 
-<!-- about -->
 <section class="about-section" id="about">
-
     <div class="map-gallery">
         <div class="map">
-            <img src="../public/images/google-map.jpg" alt="map">
+            <img src="../public/images/google-map.jpg" alt="Map of ABC Cultural Center">
         </div>
 
         <div class="gallery">
             <div class="gallery-one">
-                <div>
-                <div class="gallery-img">
-                    <img src="../public/images/tradition.jpg" alt="cultural-event" class="gallery1-image1">
+                <div class="gallery-row">
+                    <div class="gallery-img">
+                        <img src="../public/images/tradition.jpg" alt="Traditional Art" class="gallery1-image1">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="../public/images/traditional-dancing.jpg" alt="Traditional Dancing" class="gallery1-image2">
+                    </div>
                 </div>
-
-                <div class="gallery-img">
-                    <img src="../public/images/traditional-dancing.jpg" alt="cultural-event" class="gallery1-image2">
+                <div class="gallery-main">
+                    <img src="../public/images/yaka.jpg" alt="Yaka Mask Dance" class="gallery-main-image">
                 </div>
-            </div>
-
-            <div>
-                <div class="gallery-img">
-                    <img src="../public/images/yaka.jpg" alt="cultural-event" class="gallery-main" class="gallery1-main">
-                </div>
-
-                
-            </div>
-            <div>
-                <div class="gallery-img">
-                    <img src="../public/images/baratha.jpg" alt="cultural-event" class="gallery1-image3">
-                </div>
-
-                <div class="gallery-img">
-                    <img src="../public/images/kolam.png" alt="cultural-event" class="gallery1-image4">
+                <div class="gallery-row">
+                    <div class="gallery-img">
+                        <img src="../public/images/baratha.jpg" alt="Bharatanatyam Dance" class="gallery1-image3">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="../public/images/kolam.png" alt="Kolam Performance" class="gallery1-image4">
+                    </div>
                 </div>
             </div>
-            </div>
-
             <div class="gallery-two">
                 <div class="gallery-img">
-                    <img src="../public/images/kolamdance01.jpg" alt="cultural-event" class="gallery2-image1">
+                    <img src="../public/images/kolamdance01.jpg" alt="Kolam Dance" class="gallery2-image1">
                 </div>
-
                 <div class="gallery-img">
-                    <img src="../public/images/rukada.jpg" alt="cultural-event" class="gallery2-image2">
+                    <img src="../public/images/rukada.jpg" alt="Rukada Puppet Performance" class="gallery2-image2">
                 </div>
-
                 <div class="gallery-img">
-                    <img src="../public/images/wes.jpg" alt="cultural-event" class="gallery2-image3">
+                    <img src="../public/images/wes.jpg" alt="Wes Dance" class="gallery2-image3">
                 </div>
-
                 <div class="gallery-img">
-                    <img src="../public/images/traditional-danse-2.jpg" alt="cultural-event" class="gallery2-image4">
-                </div> 
+                    <img src="../public/images/traditional-danse-2.jpg" alt="Traditional Dance" class="gallery2-image4">
+                </div>
             </div>
         </div>
     </div>
+<div class="about">
+    <div class="content">
+        <h3 class="abt-title">Welcome to ABC Cultural Center</h3>
+        <p class="description">
+            Immerse yourself in the vibrant world of art, culture, and traditions. At ABC Cultural Center, we celebrate heritage through captivating festivals, performances, and enriching workshops.
+        </p>
+        <p class="description">
+            Whether you're here to enjoy, learn, or create, our welcoming atmosphere and modern facilities make every moment unforgettable.
+        </p>
+        <a href="#learn-more" class="btn-primary">Learn More</a>
+    </div>
+</div>
 
-    <div class="about">
-        <div class="content">
-            <h3 class="abt-title">Welcome to ABC Cultural Center</h3>
-            <p class="description">ABC Cultural Center is a place where art, culture, and traditions come to life. We host festivals, performances, workshops, and exhibitions to celebrate our rich heritage.
-
-                With modern facilities and a friendly environment, it’s a great space to enjoy events, learn something new, or create special memories. Whether you’re visiting or organizing an event, ABC Cultural Center is here to make it a wonderful experience.</p>
-        </div>
-    </div>    
 </section>
 
-<!-- info -->
-<section class="info" id="info" style="">
+<section class="info" id="info">
+    <div class="info-slider">
+        <div class="info-list">
+            <div class="slide">
+                <img src="../public/images/yaka.jpg" alt="event" class="event-img">
+                <h3 class="slide-title">Year-End Cultural Feasta!</h3>
+                <p class="slide-description">Join us for an unforgettable cultural festival on <strong>2nd Dec 2024</strong>, from <strong>6 PM to 9 PM</strong>.</p>
+                <h4 class="slide-subtitle">Ticket Prices</h4>
+                <ul class="ticket-prices">
+                    <li><strong>Adult:</strong> Rs. 2000.00</li>
+                    <li><strong>Children:</strong> Rs. 1000.00</li>
+                </ul>
+                <button class="btn-more">More Details</button>
+            </div>
 
-        <div class="info-slider">
-            <div class="info-list">
-                <div class="slide" >
-                    <img src="../public/images/yaka.jpg" alt="event" class="food-img">
-                    <h3>Year end cultural Feasta!</h3>
-                    <p>this is our year end cultural festival. this will be held on 2nd Dec 2024 at 6p.m to 9p.m</p>
+            <div class="slide">
+                <img src="../public/images/baratha.jpg" alt="event" class="event-img">
+                <h3 class="slide-title">Year-End Cultural Feasta!</h3>
+                <p class="slide-description">Join us for an unforgettable cultural festival on <strong>2nd Dec 2024</strong>, from <strong>6 PM to 9 PM</strong>.</p>
+                <h4 class="slide-subtitle">Ticket Prices</h4>
+                <ul class="ticket-prices">
+                    <li><strong>Adult:</strong> Rs. 2000.00</li>
+                    <li><strong>Children:</strong> Rs. 1000.00</li>
+                </ul>
+                <button class="btn-more">More Details</button>
+            </div>
+            
+            <div class="slide">
+                <img src="../public/images/yaka.jpg" alt="event" class="event-img">
+                <h3 class="slide-title">Year-End Cultural Feasta!</h3>
+                <p class="slide-description">Join us for an unforgettable cultural festival on <strong>2nd Dec 2024</strong>, from <strong>6 PM to 9 PM</strong>.</p>
+                <h4 class="slide-subtitle">Ticket Prices</h4>
+                <ul class="ticket-prices">
+                    <li><strong>Adult:</strong> Rs. 2000.00</li>
+                    <li><strong>Children:</strong> Rs. 1000.00</li>
+                </ul>
+                <button class="btn-more">More Details</button>
+            </div>
 
-                    <h3>Ticket prices</h3>
-                    <ul>
-                        <li>Adult: Rs. 2000.00</li>
-                        <li>Children: Rs. 1000.00</li>
-
-                    </ul>
-                    <button>More details</button>
-                </div>
-
-                <div class="slide" >
-                    <img src="../public/images/baratha.jpg" alt="event" class="food-img">
-                    <h3>Year end cultural Feasta!</h3>
-                    <p>this is our year end cultural festival. this will be held on 2nd Dec 2024 at 6p.m to 9p.m</p>
-
-                    <h3>Ticket prices</h3>
-                    <ul>
-                        <li>Adult: Rs. 2000.00</li>
-                        <li>Children: Rs. 1000.00</li>
-
-                    </ul>
-                    <button>More details</button>
-                </div>
-                
-                <div class="slide" >
-                    <img src="../public/images/yaka.jpg" alt="event" class="food-img">
-                    <h3>Year end cultural Feasta!</h3>
-                    <p>this is our year end cultural festival. this will be held on 2nd Dec 2024 at 6p.m to 9p.m</p>
-
-                    <h3>Ticket prices</h3>
-                    <ul>
-                        <li>Adult: Rs. 2000.00</li>
-                        <li>Children: Rs. 1000.00</li>
-
-                    </ul>
-                    <button>More details</button>
-                </div>
-                
-                <div class="slide" >
-                    <img src="../public/images/yaka.jpg" alt="event" class="food-img">
-                    <h3>Year end cultural Feasta!</h3>
-                    <p>this is our year end cultural festival. this will be held on 2nd Dec 2024 at 6p.m to 9p.m</p>
-
-                    <h3>Ticket prices</h3>
-                    <ul>
-                        <li>Adult: Rs. 2000.00</li>
-                        <li>Children: Rs. 1000.00</li>
-
-                    </ul>
-                    <button>More details</button>
-                </div>
-              
+            <div class="slide">
+                <img src="../public/images/baratha.jpg" alt="event" class="event-img">
+                <h3 class="slide-title">Year-End Cultural Feasta!</h3>
+                <p class="slide-description">Join us for an unforgettable cultural festival on <strong>2nd Dec 2024</strong>, from <strong>6 PM to 9 PM</strong>.</p>
+                <h4 class="slide-subtitle">Ticket Prices</h4>
+                <ul class="ticket-prices">
+                    <li><strong>Adult:</strong> Rs. 2000.00</li>
+                    <li><strong>Children:</strong> Rs. 1000.00</li>
+                </ul>
+                <button class="btn-more">More Details</button>
             </div>
         </div>
-    </section>
-    
+    </div>
 </section>
 
-
-<!-- memories -->
 <section class="memories" id="memories">
     <div class="title">
         <h2 class="title-text">Our Memories</h2>
-    </div>
+    </div> 
 
     <div class="memory">
-        <div id="year-buttons">
-            <button class="year-button" data-year="2020">2024</button>
-            <button class="year-button" data-year="2021">2022</button>
-            <button class="year-button" data-year="2022">2023</button>
-            <button class="year-button" data-year="2023">2024</button>
+        <div id="year-buttons" class="year-buttons">
+            <button class="year-button" data-year="2020">2020</button>
+            <button class="year-button" data-year="2021">2021</button>
+            <button class="year-button" data-year="2022">2022</button>
+            <button class="year-button" data-year="2023">2023</button>
         </div>
-        <div id="action-buttons" >
+        <div id="action-buttons" class="action-buttons">
             <button class="action-button about-button" id="about-button" disabled>About</button>
             <button class="action-button images-button" id="images-button" disabled>Images</button>
             <button class="action-button videos-button" id="videos-button" disabled>Videos</button>
         </div>
-        <div id="memory-container">
-            <h2>Annual Cultural Feasta – Traditional Dancing Event (Held on 30th May 2023)</h2>
-            <p>The Annual Cultural Feasta held on 30th May 2023 was a spectacular celebration of tradition and heritage, bringing together people from all walks of life to honor the region’s rich cultural history through an evening of Traditional Dancing.The Traditional Dancing performances were the centerpiece of the event, showcasing a variety of vibrant and expressive dance styles from the region’s cultural repertoire. With the evening set against a backdrop of lively traditional music, attendees were treated to a captivating display of footwork, rhythms, and vibrant costumes.</p>
-            <p>The Annual Cultural Feasta was a resounding success, drawing a large crowd eager to celebrate the traditions that have been passed down through generations. It not only entertained but also educated attendees about the cultural significance of traditional dances and music, fostering a deeper appreciation for the region’s heritage.The event’s mix of high-energy performances, storytelling through dance, and community spirit left a lasting impression on everyone involved. Many attendees left with a renewed sense of pride in their cultural roots, making this event a key highlight of the year’s cultural calendar.</p>
-            <p>The 2023 Annual Cultural Feasta was an unforgettable evening that celebrated tradition, unity, and the vibrant art of Traditional Dancing. It was a perfect example of how cultural events can bring communities together to honor their shared history while providing entertainment and education.</p>
+        <div id="memory-container" class="memory-container">
+            <h2 class="memory-title">Annual Cultural Feasta – Traditional Dancing Event (Held on 30th May 2023)</h2>
+            <p class="memory-description">The Annual Cultural Feasta held on 30th May 2023 was a spectacular celebration of tradition and heritage, bringing together people from all walks of life to honor the region’s rich cultural history through an evening of Traditional Dancing.</p>
+            <p class="memory-description">The event showcased vibrant dance styles with traditional music, leaving attendees mesmerized by the storytelling and colorful costumes. It fostered a deeper appreciation for cultural roots, making it a memorable highlight of the year.</p>
+            <p class="memory-description">This unforgettable evening exemplified the unity and beauty of heritage through the vibrant art of Traditional Dancing.</p>
         </div>
     </div>
-
-    
 </section>
 
 
 <!-- bookings -->
 <section class="bookings" id="bookings">
     <div class="bookings-content">
-        <img src="../public/images/ticket.png" alt="booking">
+        <img src="../public/images/ticket.png" alt="Ticket" class="booking-image">
         <div class="ticket-purchase">
             <form action="">
-                <h3 class="booking_heading">Buy a ticket</h3>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Phone">
-                <input type="text" placeholder="Event Name">
-                <input type="date" placeholder="Date">
-                <input type="time" placeholder="Time" class="booking_time">
-                <label for="num_tickets" class="num_tickets">Number of Tickets</label>
-                <input type="number" min="1" max="25" placeholder="Number of Guests" class="num_members">
-                <button type="submit" class="book">Purchase Now</button>
+                <h3 class="booking-heading">Buy a Ticket</h3>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Phone" pattern="[0-9]{10}" required>
+                <input type="text" placeholder="Event Name" required>
+                <input type="date" required>
+                <input type="time" class="booking-time" required>
+                <label for="num_tickets" class="num-tickets">Number of Tickets</label>
+                <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
+                <button type="submit" class="book-button">Purchase Now</button>
             </form>
         </div>
     </div>
 </section>
-
 
  <!-- reviews -->
        <section class="reviews" id="reviews">
