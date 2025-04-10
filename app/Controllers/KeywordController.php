@@ -113,4 +113,33 @@ class KeywordController
     {
         require_once __DIR__ . '/../views/keyword_select.php';
     }
+
+    public function getUnverifiedKeywords($service)
+    {
+        $keywordModel = new KeywordModel($this->conn);
+        $serviceProviders = $keywordModel->getUnverifiedKeywords($service);
+
+        return $serviceProviders;
+    }
+
+    public function verifyKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $keywordID = $_POST['keyword'];
+            $service = $_POST['userType'];
+            $serviceProviderID = $_POST['serviceProvider'];
+            $action = $_POST['action'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            if ($action === 'verify') {
+                $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
+                // $_SESSION['success'] = 'Keyword verified successfully';
+            } elseif ($action === 'reject') {
+                $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
+                // $_SESSION['error'] = 'Keyword rejected successfully';
+            }
+
+            header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);
+        }
+    }
 }

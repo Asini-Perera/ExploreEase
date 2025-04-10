@@ -6,25 +6,22 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Address</th>
                 <th>Contact No</th>
             </tr>
         </thead>
         <tbody>
             <!-- <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Kasun Perera
-                </td>
-                <td>kasun.perera@example.com</td>
-                <td>+94 77 123 4567</td>
+                <td>Ancient Artifacts</td>
+                <td>info@ancientartifacts.lk</td>
+                <td>No. 15, Heritage Road, Colombo, Sri Lanka</td>
+                <td>+94 11 234 5678</td>
             </tr> -->
             <?php foreach ($searchResults as $user) : ?>
                 <tr>
-                    <td class="profile-info">
-                        <img src="<?= $user['ImgPath'] ?>" class="profile-img">
-                        <?= htmlspecialchars($user['Name']) ?>
-                    </td>
+                    <td><?= htmlspecialchars($user['Name']) ?></td>
                     <td><?= htmlspecialchars($user['Email']) ?></td>
+                    <td><?= htmlspecialchars($user['Address'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
                 </tr>
             <?php endforeach; ?>
