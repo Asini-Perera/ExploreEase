@@ -51,7 +51,7 @@ class SignupModel
 
         return $TravelerID;
     }
-    
+
     public function restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink)
     {
         // Hash the password
@@ -74,16 +74,16 @@ class SignupModel
         return $RestaurantID;
     }
 
-    public function hotel($name, $address, $contactNo, $email, $password, $website, $description, $smlink)
+    public function hotel($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $smlink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the hotel data
-        $sql = "INSERT INTO hotel (Name, Address, ContactNo, Email, Password, Website, Description, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO hotel (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, SMLink) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $smlink);
+        $stmt->bind_param('ssssddssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $smlink);
         $stmt->execute();
 
         // Get the HotelID

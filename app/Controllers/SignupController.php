@@ -37,7 +37,7 @@ class SignupController
 
     public function traveler()
     {
-       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $firstName = $_POST['firstname'];
             $lastName = $_POST['lastname'];
             $email = $_POST['email'];
@@ -87,7 +87,7 @@ class SignupController
                 header('Location: ../signup?user=traveler');
                 exit();
             }
-       }
+        }
     }
 
     public function restaurant()
@@ -150,6 +150,8 @@ class SignupController
             $email = $_POST['email'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
+            $latitude = $_POST['latitude'];
+            $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
             $socialMediaLinks = $_POST['smlink'];
@@ -171,7 +173,7 @@ class SignupController
                 exit();
             }
 
-            $HotelID = $signupModel->hotel($name, $address, $contactNo, $email, $password, $website, $description, $socialMediaLinks);
+            $HotelID = $signupModel->hotel($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $socialMediaLinks);
 
             // Redirect to Keyword entry page
             if ($HotelID) {
