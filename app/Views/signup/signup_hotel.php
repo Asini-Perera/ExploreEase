@@ -50,8 +50,8 @@
                     <div id="map" style="height: 400px; width: 100%; border: 1px solid #ccc; margin-bottom: 20px;"></div>
                 </div>
                 <!-- Hidden inputs to store coordinates -->
-                <input type="hidden" id="latitude" name="latitude" required>
-                <input type="hidden" id="longitude" name="longitude" required>
+                <input type="hidden" id="latitude" name="latitude" value="0" required>
+                <input type="hidden" id="longitude" name="longitude" value="0" required>
 
                 <div class="input-group">
                     <label for="contactNo">Contact Number</label>

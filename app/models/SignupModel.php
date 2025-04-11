@@ -83,7 +83,7 @@ class SignupModel
         $sql = "INSERT INTO hotel (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, SMLink) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssddssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $smlink);
+        $stmt->bind_param('sssssddsss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $smlink);
         $stmt->execute();
 
         // Get the HotelID
