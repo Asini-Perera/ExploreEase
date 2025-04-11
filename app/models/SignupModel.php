@@ -25,9 +25,8 @@ class SignupModel
                 $user['Type'] = $table;
                 return $user;
             }
-
-            return null;
         }
+        return null;
     }
 
     public function traveler($firstName, $lastName, $email, $password, $gender, $dob, $contactNo)
