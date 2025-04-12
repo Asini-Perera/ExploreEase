@@ -21,7 +21,7 @@
             <?php foreach ($searchResults as $user) : ?>
                 <tr>
                     <td class="profile-info">
-                        <img src="$user['ImgPath']" class="profile-img">
+                        <img src="<?= htmlspecialchars($user['ImgPath']) ?>" class="profile-img">
                         <?= htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']) ?>
                     </td>
                     <td><?= htmlspecialchars($user['Email']) ?></td>
