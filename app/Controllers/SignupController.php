@@ -99,6 +99,8 @@ class SignupController
             $email = $_POST['email'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
+            $latitude = $_POST['latitude'];
+            $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
             $openHours = $_POST['openhours'];
@@ -122,7 +124,7 @@ class SignupController
                 exit();
             }
 
-            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLinks);
+            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $cuisineType, $socialMediaLinks);
 
             // Redirect to Keyword entry page
             if ($RestaurantID) {
@@ -201,6 +203,8 @@ class SignupController
             $email = $_POST['email'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
+            $latitude = $_POST['latitude'];
+            $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
             $openHours = $_POST['openhours'];
@@ -223,7 +227,7 @@ class SignupController
                 exit();
             }
 
-            $ShopID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $socialMediaLinks);
+            $ShopID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $socialMediaLinks);
 
             // Redirect to Keyword entry page
             if ($ShopID) {

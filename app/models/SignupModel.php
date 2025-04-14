@@ -51,16 +51,16 @@ class SignupModel
         return $TravelerID;
     }
 
-    public function restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink)
+    public function restaurant($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $cuisineType, $socialMediaLink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the restaurant data
-        $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Website, Description, OpenHours, CuisineType, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, OpenHours, CuisineType, SMLink) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink);
+        $stmt->bind_param('sssssddsssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $cuisineType, $socialMediaLink);
         $stmt->execute();
 
         // Get the RestaurantID
@@ -95,16 +95,16 @@ class SignupModel
         return $HotelID;
     }
 
-    public function heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $smlink)
+    public function heritageMarket($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $smlink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the heritage market data
-        $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Website, Description, OpenHours, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, OpenHours, SMLink) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $openHours, $smlink);
+        $stmt->bind_param('sssssddssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $smlink);
         $stmt->execute();
 
         // Get the ShopID
