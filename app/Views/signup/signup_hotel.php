@@ -47,9 +47,9 @@
                 </div>
                 <div class="input-group">
                     <label>Pin Hotel Location on Map *</label>
-                    <div id="map" style="height: 400px; width: 100%; border: 1px solid #ccc; margin-bottom: 20px;"></div>
+                    <div id="map"></div>
                 </div>
-                <!-- Hidden inputs to store coordinates -->
+
                 <input type="hidden" id="latitude" name="latitude" value="0" required>
                 <input type="hidden" id="longitude" name="longitude" value="0" required>
 
@@ -77,7 +77,7 @@
 
     <script src="public/js/background_slideshow1.js"></script>
     <script src="public/js/signup_validation.js"></script>
-    <script src="public/js/map_integration.js"></script>
+    <script src="public/js/get_location.js"></script>
 </body>
 
 </html>
