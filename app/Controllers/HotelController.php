@@ -25,8 +25,17 @@ class HotelController
         $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
         $allowed_pages = ['dashboard', 'profile', 'room','post', 'bookings', 'reviews'];
         $mainContent = in_array($page, $allowed_pages) ? $page : '404';
+        
+        if($mainContent == 'dashboard') {
+            $hotalModel = new HotelModel($this->conn);
+            $TotalBookings = $hotalModel->getTotalBookings($_SESSION['HotelID']);
+            $TotalRooms = $hotalModel->getTotalRooms($_SESSION['HotelID']);
+            $TotalRevenue = $hotalModel->getTotalRevenue($_SESSION['HotelID']);
+            $TotalRevenueInLastWeek = $hotalModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
+            $TotalRatings = $hotalModel->getTotalRatings($_SESSION['HotelID']);
+            $TotalFeedbacks = $hotalModel->getTotalFeedbacks($_SESSION['HotelID']);
 
-        if ($mainContent == 'profile') {
+        }else if ($mainContent == 'profile') {
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             if ($action == 'edit') {
                 $verifiedAction = 'edit';
@@ -51,12 +60,13 @@ class HotelController
             $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
         }
 
-        require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
-    } else {
-        header('Location: ../login');
-        exit();
+            require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
+        } else {
+            header('Location: ../login');
+            exit();
+        }
     }
-    }
+
     public function viewRoom()
     {
         $hotelModel = new HotelModel($this->conn);
