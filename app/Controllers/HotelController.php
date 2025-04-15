@@ -186,4 +186,32 @@ class HotelController
         }
     }
 
+    public function editRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomID = $_POST['roomID'];
+            $room_type = $_POST['room_type'];
+            $price = $_POST['price'];
+            $capacity = $_POST['capacity'];
+            $description = $_POST['description'];
+            $image = isset($_FILES['roomImage']) ? $_FILES['roomImage'] : null;
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->editRoom($roomID, $room_type, $price, $capacity, $description);
+
+            $_SESSION['RoomType'] = $room_type;
+            $_SESSION['Price'] = $price;
+            $_SESSION['Capacity'] = $capacity;
+            $_SESSION['Description'] = $description;
+
+            // If image is uploaded, set the image path
+            if ($image['name']) {
+                $hotelModel->setImgPath($roomID, $image);
+            }
+
+            header('Location: ../hotel/dashboard?page=room');
+            exit();
+        }
+    }
+
 }

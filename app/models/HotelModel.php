@@ -10,18 +10,25 @@ class HotelModel
         $this->conn = $conn;
     }
 
-    public function getRoom($hotelID)
+    public function getRoom($hotelID, $roomID = null)
     {
         $sql = "SELECT * FROM room WHERE HotelID = ?";
+        if ($roomID) {
+            $sql .= " AND RoomID = ?";
+        }
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             throw new \Exception("SQL error: " . $this->conn->error);
         }
-        $stmt->bind_param('i', $hotelID);
+        if ($roomID) {
+            $stmt->bind_param('ii', $hotelID, $roomID);
+        } else {
+            $stmt->bind_param('i', $hotelID);
+        }
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $roomID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function addRoom($room_type, $price, $capacity,$description, $hotelID)
@@ -331,5 +338,13 @@ class HotelModel
             error_log("SQL Prepare Error: " . $this->conn->error);
             return 0;
         }
+    }
+
+    public function editRoom($roomID, $room_type, $price, $capacity, $description)
+    {
+        $sql = "UPDATE room SET Type = ?, Price = ?, MaxOccupancy = ?, Description = ? WHERE RoomID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $roomID);
+        $stmt->execute();
     }
 }

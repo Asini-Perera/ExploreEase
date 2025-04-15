@@ -22,18 +22,18 @@
             <?php
             if ($mainContent == 'profile' && $action == 'edit') {
                 require_once __DIR__ . '/edit_profile.php';
-            }elseif ($mainContent == 'profile' && $action == 'change-password') {
+            } elseif ($mainContent == 'profile' && $action == 'change-password') {
                 require_once __DIR__ . '/profile_changepassword.php';
-            } elseif ($mainContent == 'room' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_room.php";
+            } elseif ($mainContent == 'room' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_room.php';
+            } elseif ($mainContent == 'room' && $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_room.php';
             } elseif ($mainContent == 'post' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_post.php";
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
             ?>
-
-
         </div>
     </div>
 </body>
