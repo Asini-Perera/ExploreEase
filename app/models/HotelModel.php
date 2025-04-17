@@ -340,7 +340,7 @@ class HotelModel
         }
     }
 
-    public function editRoom($roomID, $room_type, $price, $capacity, $description)
+    public function updateRoom($roomID, $room_type, $price, $capacity, $description)
     {
         $sql = "UPDATE room SET Type = ?, Price = ?, MaxOccupancy = ?, Description = ? WHERE RoomID = ?";
         $stmt = $this->conn->prepare($sql);

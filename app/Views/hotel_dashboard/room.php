@@ -16,7 +16,7 @@
                 <th>Price</th>
                 <th>Capacity</th>
                 <th>Description</th>
-                <th>Image</th>
+                <!-- <th>Image</th> -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                     <td>Rs. <?= $room['Price'] ?></td>
                     <td><?= $room['MaxOccupancy'] ?></td>
                     <td><?= $room['Description'] ?></td>
-                    <td><img src="<?= $room['ImgPath'] ?>" class="room-img"></td>
+                    <!-- <td><img src="<?= $room['ImgPath'] ?>" class="room-img"></td> -->
                     <td class="action-buttons">
                         <button class="edit-btn"><a href="?page=room&action=edit&id=<?= $room['RoomID'] ?>">Edit</a></button>
                         <button class="delete-btn"><a href="?page=room&action=delete&id=<?= $room['RoomID'] ?>">Delete</a></button>
