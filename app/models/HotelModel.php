@@ -60,7 +60,7 @@ class HotelModel
 
         // Check the directory exists and create it
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 077, false);
+            mkdir($targetDir, 0777, true);
         }
 
         // Create the image path
@@ -74,7 +74,7 @@ class HotelModel
 
         // Enter the image path to the database
         if ($moving) {
-            $sql = "UPDATE roomimages SET ImgPath = ? WHERE RoomID = ?";
+           $sql = "UPDATE room SET ImgPath = ? WHERE RoomID = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param('si', $imgPath, $RoomID);
             $stmt->execute();
@@ -346,5 +346,25 @@ class HotelModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $roomID);
         $stmt->execute();
+    }
+
+    public function getRoomImage($roomID)
+    {
+        $sql = "SELECT ImgPath FROM room WHERE RoomID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            return null;
+        }
+        
+        $stmt->bind_param('i', $roomID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc()['ImgPath'];
+        }
+        
+        return null;
     }
 }

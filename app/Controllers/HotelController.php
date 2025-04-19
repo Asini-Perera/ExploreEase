@@ -27,13 +27,13 @@ class HotelController
         $mainContent = in_array($page, $allowed_pages) ? $page : '404';
         
         if($mainContent == 'dashboard') {
-            $hotalModel = new HotelModel($this->conn);
-            $TotalBookings = $hotalModel->getTotalBookings($_SESSION['HotelID']);
-            $TotalRooms = $hotalModel->getTotalRooms($_SESSION['HotelID']);
-            $TotalRevenue = $hotalModel->getTotalRevenue($_SESSION['HotelID']);
-            $TotalRevenueInLastWeek = $hotalModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
-            $TotalRatings = $hotalModel->getTotalRatings($_SESSION['HotelID']);
-            $TotalFeedbacks = $hotalModel->getTotalFeedbacks($_SESSION['HotelID']);
+            $hotelModel = new HotelModel($this->conn);
+            $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
+            $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
+            $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
+            $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
+            $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
+            $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
 
         }else if ($mainContent == 'profile') {
             $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -49,7 +49,7 @@ class HotelController
                 $verifiedAction = 'add';
             } elseif ($action == 'edit') {
                 $verifiedAction = 'edit';
-                // Fetch room details when editing
+                                // Fetch room details when editing
                 if (isset($_GET['id'])) {
                     $roomID = $_GET['id'];
                     $hotelModel = new HotelModel($this->conn);
@@ -63,9 +63,10 @@ class HotelController
                         $_SESSION['Capacity'] = $room['MaxOccupancy'];
                         $_SESSION['Description'] = $room['Description'];
                         // If you have image path, uncomment this line
-                        // $_SESSION['ImgPath'] = $room['ImgPath'];
+                        $_SESSION['ImgPath'] = $room['ImgPath'];
                     }
                 }
+
             } elseif ($action == 'delete') {
                 $verifiedAction = null;
                 $this->deleteRoom();
@@ -95,19 +96,37 @@ class HotelController
     public function addRoom()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if all required fields are provided
+            if (empty($_POST['room_type']) || empty($_POST['price']) || empty($_POST['capacity']) || empty($_POST['description'])) {
+                $_SESSION['error'] = "All fields are required!";
+                header('Location: ../hotel/dashboard?page=room&action=add');
+                exit();
+            }
+
+            // Check if image is uploaded
+            if (!isset($_FILES['roomImage']) || empty($_FILES['roomImage']['name'])) {
+                $_SESSION['error'] = "Room image is required!";
+                header('Location: ../hotel/dashboard?page=room&action=add');
+                exit();
+            }
+
             $room_type = $_POST['room_type'];
             $price = $_POST['price'];
             $capacity = $_POST['capacity'];
             $description = $_POST['description'];
-            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+            $image = $_FILES['roomImage'];
             $hotelID = $_SESSION['HotelID'];
 
             $hotelModel = new HotelModel($this->conn);
-            $roomID = $hotelModel->addRoom($room_type, $price, $capacity,$description, $hotelID);
+            $roomID = $hotelModel->addRoom($room_type, $price, $capacity, $description, $hotelID);
 
-            // If image is uploaded, set the image path
-            if($roomID && $image['name']) {
+            // Set the image path
+            if ($roomID) {
                 $hotelModel->setImgPath($roomID, $image);
+            } else {
+                $_SESSION['error'] = "Failed to add room. Please try again.";
+                header('Location: ../hotel/dashboard?page=room&action=add');
+                exit();
             }
 
             header('Location: ../hotel/dashboard?page=room');
@@ -178,12 +197,17 @@ class HotelController
             $price = $_POST['price'];
             $capacity = $_POST['capacity'];
             $description = $_POST['description'];
-            //$image = isset($_FILES['roomImage']) ? $_FILES['roomImage'] : null;
+            $image = $_FILES['roomImage'];
 
             $hotelModel = new HotelModel($this->conn);
 
             // Update room details in the database
             $hotelModel->updateRoom($roomID, $room_type, $price, $capacity, $description);
+
+            // If a new image is uploaded, update the image path
+            if ($image['name']) {
+                $hotelModel->setImgPath($roomID, $image);
+            }
             
             // Clear session variables
             unset($_SESSION['RoomID']);
@@ -191,6 +215,7 @@ class HotelController
             unset($_SESSION['Price']);
             unset($_SESSION['Capacity']);
             unset($_SESSION['Description']);
+            unset($_SESSION['ImgPath']);
             
             header('Location: ../hotel/dashboard?page=room');
             exit();

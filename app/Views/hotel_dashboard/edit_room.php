@@ -2,7 +2,7 @@
 
 <div class="edit-room-card">
     <h2>Edit Room</h2>
-    <form action="../hotel/updateRoom" method="POST" >
+    <form action="../hotel/updateRoom" method="POST" enctype="multipart/form-data">
         <!-- Add hidden input for room ID -->
         <input type="hidden" name="roomID" value="<?php echo isset($_SESSION['RoomID']) ? $_SESSION['RoomID'] : ''; ?>">
         
@@ -26,11 +26,16 @@
             <textarea id="description" name="description" placeholder="Enter description" required><?php echo isset($_SESSION['Description']) ? $_SESSION['Description'] : ''; ?></textarea>
         </div>
         
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label for="roomImage">Room Image</label>
-            <img src="<?php echo isset($_SESSION['ImgPath']) ? htmlspecialchars($_SESSION['ImgPath']) : '../public/images/default-room.png'; ?>" alt="Current Room Image" class="room-img-preview">
+            <?php if (isset($_SESSION['ImgPath']) && !empty($_SESSION['ImgPath'])): ?>
+                <img src="<?php echo htmlspecialchars($_SESSION['ImgPath']); ?>" alt="Current Room Image" class="current-room-image">
+            <?php else: ?>
+                <img src="../public/images/default-room.png" alt="No Image Available" class="current-room-image">
+            <?php endif; ?>
             <input type="file" id="roomImage" name="roomImage" accept="image/*">
-        </div> -->
+            <small><i>*Leave if you don't want to change the image</i></small>
+        </div>
         
         <div class="form-actions">
             <button type="submit" class="btn save-btn">Save Changes</button>
