@@ -133,7 +133,9 @@ class HotelModel
 
     public function getBookings($hotelID)
     {
-        $sql = "SELECT * FROM roombooking WHERE BookingID = ?";
+        $sql = "SELECT rb.* FROM roombooking rb
+                JOIN room r ON rb.RoomID = r.RoomID
+                WHERE r.HotelID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
         $stmt->execute();
@@ -422,5 +424,42 @@ class HotelModel
         return $result->fetch_assoc();
     }
 
+    public function getBookingsById($bookingID)
+    {
+        $sql = "SELECT * FROM roombooking WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $bookingID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status)
+    {
+        $sql = "UPDATE roombooking SET CheckInDate = ?, CheckOutDate = ?, Date = ?, Status = ? WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssi', $checkInDate, $checkOutDate, $date, $status, $bookingID);
+        $stmt->execute();
+    }
+    
+    public function deleteBooking($bookingID)
+    {
+        $sql = "DELETE FROM roombooking WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $bookingID);
+        $stmt->execute();
+    }
+
+    public function getBookingById($bookingID)
+    {
+        $sql = "SELECT * FROM roombooking WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $bookingID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
 
 }

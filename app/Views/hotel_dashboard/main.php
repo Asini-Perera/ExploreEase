@@ -31,9 +31,18 @@
             } elseif ($mainContent == 'post' && $verifiedAction == 'edit') {
                 require_once __DIR__ . '/edit_post.php';
             } elseif ($mainContent == 'post' && $verifiedAction == 'add') {
-                require_once __DIR__ . '/add_post.php';            
+                require_once __DIR__ . '/add_post.php';          
+            } elseif ($mainContent == 'bookings' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_booking.php';
             } else {
-                require_once __DIR__ . "/$mainContent.php";
+                // Check if the requested file exists
+                $file_path = __DIR__ . "/$mainContent.php";
+                if (file_exists($file_path)) {
+                    require_once $file_path;
+                } else {
+                    // If file doesn't exist, show 404 page
+                    require_once __DIR__ . "/404.php";
+                }
             }
             ?>
         </div>

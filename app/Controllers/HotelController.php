@@ -22,93 +22,142 @@ class HotelController
     public function dashboard()
     {
         if (isset($_SESSION['HotelID'])) {
-        $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-        $allowed_pages = ['dashboard', 'profile', 'room','post', 'bookings', 'reviews'];
-        $mainContent = in_array($page, $allowed_pages) ? $page : '404';
-        
-        if($mainContent == 'dashboard') {
-            $hotelModel = new HotelModel($this->conn);
-            $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
-            $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
-            $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
-            $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
-            $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
-            $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
+            $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
+            $action = isset($_GET['action']) ? $_GET['action'] : null;
+            
+            // Check if this is an updateBooking action (form submission)
+            if ($action === 'updateBooking' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Call the editBooking method directly
+                $this->editBooking();
+                return; // Stop execution after processing
+            }
+            
+            $allowed_pages = ['dashboard', 'profile', 'room','post', 'bookings', 'reviews'];
+            $mainContent = in_array($page, $allowed_pages) ? $page : '404';
+            
+            if($mainContent == 'dashboard') {
+                $hotelModel = new HotelModel($this->conn);
+                $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
+                $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
+                $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
+                $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
+                $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
+                $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
 
-        }else if ($mainContent == 'profile') {
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            if ($action == 'edit') {
-                $verifiedAction = 'edit';
-            }elseif ($action == 'change-password') {
-                $verifiedAction = 'change-password';
-            } 
-        } elseif ($mainContent == 'room') {
-            $rooms = $this->viewRoom();
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            if($action == 'add') {
-                $verifiedAction = 'add';
-            } elseif ($action == 'edit') {
-                $verifiedAction = 'edit';
-                                // Fetch room details when editing
-                if (isset($_GET['id'])) {
-                    $roomID = $_GET['id'];
-                    $hotelModel = new HotelModel($this->conn);
-                    $room = $hotelModel->getRoom($_SESSION['HotelID'], $roomID);
-                    
-                    if ($room) {
-                        // Store room details in session for the edit form
-                        $_SESSION['RoomID'] = $room['RoomID'];
-                        $_SESSION['RoomType'] = $room['Type'];
-                        $_SESSION['Price'] = $room['Price'];
-                        $_SESSION['Capacity'] = $room['MaxOccupancy'];
-                        $_SESSION['Description'] = $room['Description'];
-                        // If you have image path, uncomment this line
-                        $_SESSION['ImgPath'] = $room['ImgPath'];
+            }else if ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                }elseif ($action == 'change-password') {
+                    $verifiedAction = 'change-password';
+                } 
+            } elseif ($mainContent == 'room') {
+                $rooms = $this->viewRoom();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                                    // Fetch room details when editing
+                    if (isset($_GET['id'])) {
+                        $roomID = $_GET['id'];
+                        $hotelModel = new HotelModel($this->conn);
+                        $room = $hotelModel->getRoom($_SESSION['HotelID'], $roomID);
+                        
+                        if ($room) {
+                            // Store room details in session for the edit form
+                            $_SESSION['RoomID'] = $room['RoomID'];
+                            $_SESSION['RoomType'] = $room['Type'];
+                            $_SESSION['Price'] = $room['Price'];
+                            $_SESSION['Capacity'] = $room['MaxOccupancy'];
+                            $_SESSION['Description'] = $room['Description'];
+                            // If you have image path, uncomment this line
+                            $_SESSION['ImgPath'] = $room['ImgPath'];
+                        }
                     }
+
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteRoom();
+                } else {
+                    $verifiedAction = null;
+                }
+            } elseif ($mainContent == 'post') {
+                $posts = $this->viewPosts();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                    // Fetch post details when editing
+                    if (isset($_GET['id'])) {
+                        $postID = $_GET['id'];
+                        $hotelModel = new HotelModel($this->conn);
+                        $post = $hotelModel->getPost($_SESSION['HotelID'], $postID);
+                        
+                        if ($post) {
+                            // Store post details in session for the edit form
+                            $_SESSION['PostID'] = $post['PostID'];
+                            $_SESSION['Title'] = $post['Title'];
+                            $_SESSION['Description'] = $post['Description'];
+                            $_SESSION['ImgPath'] = $post['ImgPath'];
+                        }
+                    }
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deletePost();
+                } else {
+                    $verifiedAction = null;
                 }
 
-            } elseif ($action == 'delete') {
-                $verifiedAction = null;
-                $this->deleteRoom();
-            } else {
-                $verifiedAction = null;
-            }
-        } elseif ($mainContent == 'post') {
-            $posts = $this->viewPosts();
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            if ($action == 'add') {
-                $verifiedAction = 'add';
-            } elseif ($action == 'edit') {
-                $verifiedAction = 'edit';
-                // Fetch post details when editing
-                if (isset($_GET['id'])) {
-                    $postID = $_GET['id'];
-                    $hotelModel = new HotelModel($this->conn);
-                    $post = $hotelModel->getPost($_SESSION['HotelID'], $postID);
-                    
-                    if ($post) {
-                        // Store post details in session for the edit form
-                        $_SESSION['PostID'] = $post['PostID'];
-                        $_SESSION['Title'] = $post['Title'];
-                        $_SESSION['Description'] = $post['Description'];
-                        $_SESSION['ImgPath'] = $post['ImgPath'];
+            } elseif ($mainContent == 'bookings') {
+                
+                // Fetch bookings data for the hotel
+                $bookings = $this->viewBookings();
+                
+                // Check if we have a specific booking action
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                    // Fetch booking details when editing
+                    if (isset($_GET['id'])) {
+                        $bookingID = $_GET['id'];
+                        $hotelModel = new HotelModel($this->conn);
+                        $booking = $hotelModel->getBookingById($bookingID);
+                        
+                        if ($booking) {
+                            // Store booking details in session for the edit form
+                            $_SESSION['BookingID'] = $booking['BookingID'];
+                            $_SESSION['CheckInDate'] = $booking['CheckInDate'];
+                            $_SESSION['CheckOutDate'] = $booking['CheckOutDate'];
+                            
+                            // Handle either field name that might be used in the database
+                            if (isset($booking['BookingDate'])) {
+                                $_SESSION['Date'] = $booking['BookingDate'];
+                            } elseif (isset($booking['Date'])) {
+                                $_SESSION['Date'] = $booking['Date'];
+                            }
+                            
+                            $_SESSION['Status'] = $booking['Status'];
+                            
+                            // Debug - print booking data to error log
+                            error_log("Booking data: " . print_r($booking, true));
+                        }
                     }
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteBooking();
+                } else {
+                    $verifiedAction = null;
                 }
-            } elseif ($action == 'delete') {
-                $verifiedAction = null;
-                $this->deletePost();
-            } else {
-                $verifiedAction = null;
             }
 
+                require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
+            } else {
+                header('Location: ../login');
+                exit();
+            }
         }
-
-            require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
-        } else {
-            header('Location: ../login');
-            exit();
-        }
-    }
 
     public function viewRoom()
     {
@@ -208,6 +257,8 @@ class HotelController
     {
         $hotelModel = new HotelModel($this->conn);
         $bookings = $hotelModel->getBookings($_SESSION['HotelID']);
+        
+        return $bookings; // Return the bookings data
     }
 
     public function updateProfile()
@@ -358,6 +409,42 @@ class HotelController
 
             header('Location: ../hotel/dashboard?page=post');
             exit();
+        }
+    }
+
+    public function editBooking()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $bookingID = $_POST['bookingID'];
+            $checkInDate = $_POST['checkInDate'];
+            $checkOutDate = $_POST['checkOutDate'];
+            $date = $_POST['date'];
+            $status = $_POST['paymentStatus'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status);
+            
+            // Clear session variables
+            unset($_SESSION['BookingID']);
+            unset($_SESSION['CheckInDate']);
+            unset($_SESSION['CheckOutDate']);
+            unset($_SESSION['Date']);
+            unset($_SESSION['Status']);
+
+            header('Location: ../hotel/dashboard?page=bookings');
+            exit();
+        }
+    }
+
+    public function deleteBooking()
+    {
+        if (isset($_GET['id'])) {
+            $bookingID = $_GET['id'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->deleteBooking($bookingID);
+
+            header('Location: ../hotel/dashboard?page=bookings');
         }
     }
 }
