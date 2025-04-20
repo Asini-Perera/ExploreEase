@@ -20,47 +20,47 @@ class HeritageMarketController
         require_once __DIR__ . '/../models/SignupModel.php';
     }
 
-    
+
 
     public function dashboard()
     {
         if (isset($_SESSION['ShopID'])) {
-        $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-        $allowed_pages = ['dashboard', 'profile','product','reviews'];
-        $mainContent = in_array($page, $allowed_pages) ? $page : '404';
+            $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
+            $allowed_pages = ['dashboard', 'profile', 'product', 'reviews'];
+            $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
-        if ($mainContent == 'profile') {
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            if ($action == 'edit') {
-                $verifiedAction = 'edit';
-            }elseif ($action == 'change-password') {
-                $verifiedAction = 'change-password';
-            } 
-        } elseif ($mainContent == 'product') {
-            $products = $this->viewProducts();
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            if($action == 'add') {
-                $verifiedAction = 'add';
-            } elseif ($action == 'edit') {
-                $verifiedAction = 'edit';
-            } elseif ($action == 'delete') {
-                $verifiedAction = null;
-                $this->deleteProduct();
-            } else {
-                $verifiedAction = null;
+            if ($mainContent == 'profile') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                } elseif ($action == 'change-password') {
+                    $verifiedAction = 'change-password';
+                }
+            } elseif ($mainContent == 'product') {
+                $products = $this->viewProducts();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteProduct();
+                } else {
+                    $verifiedAction = null;
+                }
+            } elseif ($mainContent == 'post') {
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
             }
-        } elseif ($mainContent == 'post') {
-            $action = isset($_GET['action']) ? $_GET['action'] : null;
-            $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
-        }
 
-        require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
-    } else {
-        header('Location: ../login');
-        exit();
+            require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
+        } else {
+            header('Location: ../login');
+            exit();
+        }
     }
-    }
-    
+
 
     public function addProduct()
     {
@@ -71,12 +71,12 @@ class HeritageMarketController
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
             $shopID = $_SESSION['ShopID'];
 
-            $hotelModel = new HeritageMarketModel($this->conn);
-            $productID = $hotelModel->addProduct($product_name, $price,$description, $shopID);
+            $heritageMarketModel = new HeritageMarketModel($this->conn);
+            $productID = $heritageMarketModel->addProduct($product_name, $price, $description, $shopID);
 
             // If image is uploaded, set the image path
-            if( $productID && $image['name']) {
-                $hotelModel->setImgPath($productID, $image);
+            if ($productID && $image['name']) {
+                $heritageMarketModel->setImgPath($productID, $image);
             }
 
             header('Location: ../heritagemarket/dashboard?page=product');
@@ -89,7 +89,7 @@ class HeritageMarketController
             $productID = $_GET['id'];
 
             $heritageModel = new HeritagemarketModel($this->conn);
-            $heritageModel->deleteProduct( $productID);
+            $heritageModel->deleteProduct($productID);
 
             header('Location: ../heritagemarket/dashboard?page=room');
         }
@@ -97,8 +97,8 @@ class HeritageMarketController
 
     public function viewProducts()
     {
-        $heritageModel = new HeritageMarketModel($this->conn);
-        $products = $heritageModel->getProducts($_SESSION['ShopID']);
+        $heritageMarketModel = new HeritageMarketModel($this->conn);
+        $products = $heritageMarketModel->getProducts($_SESSION['ShopID']);
 
         return $products;
     }
@@ -132,10 +132,10 @@ class HeritageMarketController
             }
 
             $hotelModel = new HeritagemarketModel($this->conn);
-            $hotelModel->updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website,$sm_link,$open_hours);
+            $hotelModel->updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours);
 
-            $_SESSION['Email'] = $email; 
-            $_SESSION['Name'] = $name; 
+            $_SESSION['Email'] = $email;
+            $_SESSION['Name'] = $name;
             $_SESSION['Address'] = $address;
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
@@ -178,7 +178,7 @@ class HeritageMarketController
 
     public function shops(): void
     {
-       
+
 
         require_once __DIR__ . '/../Views/heritageMarket/heritageMarketView.php';
     }
@@ -186,17 +186,15 @@ class HeritageMarketController
 
     public function products(): void
     {
-       
+
 
         require_once __DIR__ . '/../Views/heritageMarket/products.php';
     }
 
     public function review(): void
     {
-       
+
 
         require_once __DIR__ . '/../Views/heritageMarket/review.php';
     }
-
-
 }

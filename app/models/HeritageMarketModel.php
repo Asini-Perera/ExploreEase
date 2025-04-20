@@ -21,13 +21,13 @@ class HeritageMarketModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addProduct($product_name, $price,$description, $shopID)
+    public function addProduct($product_name, $price, $description, $shopID)
     {
-        $sql = "INSERT INTO product (Name,Price, Description, ShopID) VALUES (?, ?, ?, ?,?)";
+        $sql = "INSERT INTO product (Name, Price, Description, ShopID) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdsi',$product_name, $price,$description, $shopID);
+        $stmt->bind_param('sdsi', $product_name, $price, $description, $shopID);
         $stmt->execute();
-        
+
         return $stmt->insert_id;
     }
 
@@ -80,11 +80,11 @@ class HeritageMarketModel
     }
 
     //update profile
-    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website,$sm_link,$open_hours)
+    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours)
     {
         $sql = "UPDATE heritagemarket SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ?,OpenHours = ? WHERE ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssss',$heritageID, $email, $name,  $address, $contactNo, $description,  $website,$sm_link,$open_hours);
+        $stmt->bind_param('sssssss', $heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours);
         $stmt->execute();
     }
 
@@ -120,7 +120,4 @@ class HeritageMarketModel
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    
-   
 }

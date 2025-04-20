@@ -23,10 +23,10 @@
 
             <?php foreach ($products as $product) : ?>
                 <tr>
-                    <td><?= $product['Type'] ?></td>
+                    <td><?= $product['Name'] ?></td>
                     <td>Rs. <?= $product['Price'] ?></td>
                     <td><?= $product['Description'] ?></td>
-                    <td><img src="<?= $room['ImgPath'] ?>" class="product-img"></td>
+                    <td><img src="<?= $product['ImgPath'] ?>" class="product-img"></td>
                     <td class="action-buttons">
                         <button class="edit-btn"><a href="?page=product&action=edit&id=<?= $product['ProductID'] ?>">Edit</a></button>
                         <button class="delete-btn"><a href="?page=product&action=delete&id=<?= $product['ProductID'] ?>">Delete</a></button>

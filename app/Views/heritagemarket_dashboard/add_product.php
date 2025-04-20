@@ -2,8 +2,8 @@
 
 <div class="form-content">
     <h1>Product Form </h1>
-    
-    <form method="post" action="../heritage/addProduct">
+
+    <form method="post" action="../heritagemarket/addProduct">
         <div class="form-group">
             <label for="product_name">Product Name</label>
             <input type="text" id="product_name" name="product_name" placeholder="Enter product name">
@@ -20,7 +20,7 @@
             <label for="image">Image</label>
             <input type="file" id="image" name="image">
         </div>
-        
+
         <button type="submit" id="add-product">Add Product</button>
 
 
