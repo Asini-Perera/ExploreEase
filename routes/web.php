@@ -53,9 +53,9 @@ $router->add('hotel/update', 'HotelController@updateProfile');  // Update profil
 $router->add('hotel/changepassword', 'HotelController@changePassword');  // Change password for hotel
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
-$router->add('heritageMarket/shops', 'HeritageMarketController@shops');
-$router->add('heritageMarket/products', 'HeritageMarketController@products');
-$router->add('heritageMarket/review', 'HeritageMarketController@review');
+$router->add('heritagemarket/shops', 'HeritageMarketController@shops');
+$router->add('heritagemarket/products', 'HeritageMarketController@products');
+$router->add('heritagemarket/review', 'HeritageMarketController@review');
 
 $router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
 $router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer

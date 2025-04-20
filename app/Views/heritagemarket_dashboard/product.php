@@ -5,7 +5,7 @@
         <h1>Product List</h1>
 
         <div class="action-buttons">
-            <a class="add-btn" href="?page=post&action=add">Add Product</a>
+            <a class="add-btn" href="?page=product&action=add">Add Product</a>
         </div>
     </div>
 
