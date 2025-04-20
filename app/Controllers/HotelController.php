@@ -74,8 +74,33 @@ class HotelController
                 $verifiedAction = null;
             }
         } elseif ($mainContent == 'post') {
+            $posts = $this->viewPosts();
             $action = isset($_GET['action']) ? $_GET['action'] : null;
-            $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+            if ($action == 'add') {
+                $verifiedAction = 'add';
+            } elseif ($action == 'edit') {
+                $verifiedAction = 'edit';
+                // Fetch post details when editing
+                if (isset($_GET['id'])) {
+                    $postID = $_GET['id'];
+                    $hotelModel = new HotelModel($this->conn);
+                    $post = $hotelModel->getPost($_SESSION['HotelID'], $postID);
+                    
+                    if ($post) {
+                        // Store post details in session for the edit form
+                        $_SESSION['PostID'] = $post['PostID'];
+                        $_SESSION['Title'] = $post['Title'];
+                        $_SESSION['Description'] = $post['Description'];
+                        $_SESSION['ImgPath'] = $post['ImgPath'];
+                    }
+                }
+            } elseif ($action == 'delete') {
+                $verifiedAction = null;
+                $this->deletePost();
+            } else {
+                $verifiedAction = null;
+            }
+
         }
 
             require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
@@ -145,6 +170,40 @@ class HotelController
         }
     }
 
+    public function updateRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $hotelID = $_SESSION['HotelID'];
+            $roomID = $_POST['roomID'];
+            $room_type = $_POST['room_type'];
+            $price = $_POST['price'];
+            $capacity = $_POST['capacity'];
+            $description = $_POST['description'];
+            $image = $_FILES['roomImage'];
+
+            $hotelModel = new HotelModel($this->conn);
+
+            // Update room details in the database
+            $hotelModel->updateRoom($roomID, $room_type, $price, $capacity, $description);
+
+            // If a new image is uploaded, update the image path
+            if ($image['name']) {
+                $hotelModel->setImgPath($roomID, $image);
+            }
+            
+            // Clear session variables
+            unset($_SESSION['RoomID']);
+            unset($_SESSION['RoomType']);
+            unset($_SESSION['Price']);
+            unset($_SESSION['Capacity']);
+            unset($_SESSION['Description']);
+            unset($_SESSION['ImgPath']);
+            
+            header('Location: ../hotel/dashboard?page=room');
+            exit();
+        }
+    }
+
     public function viewBookings()
     {
         $hotelModel = new HotelModel($this->conn);
@@ -188,40 +247,6 @@ class HotelController
         }
     }
 
-    public function updateRoom()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $hotelID = $_SESSION['HotelID'];
-            $roomID = $_POST['roomID'];
-            $room_type = $_POST['room_type'];
-            $price = $_POST['price'];
-            $capacity = $_POST['capacity'];
-            $description = $_POST['description'];
-            $image = $_FILES['roomImage'];
-
-            $hotelModel = new HotelModel($this->conn);
-
-            // Update room details in the database
-            $hotelModel->updateRoom($roomID, $room_type, $price, $capacity, $description);
-
-            // If a new image is uploaded, update the image path
-            if ($image['name']) {
-                $hotelModel->setImgPath($roomID, $image);
-            }
-            
-            // Clear session variables
-            unset($_SESSION['RoomID']);
-            unset($_SESSION['RoomType']);
-            unset($_SESSION['Price']);
-            unset($_SESSION['Capacity']);
-            unset($_SESSION['Description']);
-            unset($_SESSION['ImgPath']);
-            
-            header('Location: ../hotel/dashboard?page=room');
-            exit();
-        }
-    }
-
     public function changePassword()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -246,6 +271,93 @@ class HotelController
                 header('Location: ../hotel/dashboard?page=profile&action=change-password');
                 exit();
             }
+        }
+    }
+
+    public function viewPosts()
+    {
+        $hotelModel = new HotelModel($this->conn);
+        $posts = $hotelModel->getPost($_SESSION['HotelID']);
+
+        return $posts;
+    }
+
+    public function addPost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if all required fields are provided
+            if (empty($_POST['title']) || empty($_POST['description'])) {
+                $_SESSION['error'] = "All fields are required!";
+                header('Location: ../hotel/dashboard?page=post&action=add');
+                exit();
+            }
+
+            // Check if image is uploaded
+            if (!isset($_FILES['postImage']) || empty($_FILES['postImage']['name'])) {
+                $_SESSION['error'] = "Post image is required!";
+                header('Location: ../hotel/dashboard?page=post&action=add');
+                exit();
+            }
+
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = $_FILES['postImage'];
+            $hotelID = $_SESSION['HotelID'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $postID = $hotelModel->addPost($title, $description, $hotelID);
+
+            // Set the image path
+            if ($postID) {
+                $hotelModel->setImagePath($postID, $image);
+            } else {
+                $_SESSION['error'] = "Failed to add post. Please try again.";
+                header('Location: ../hotel/dashboard?page=post&action=add');
+                exit();
+            }
+
+            header('Location: ../hotel/dashboard?page=post');
+        }
+    }
+
+    public function deletePost()
+    {
+        if (isset($_GET['id'])) {
+            $postID = $_GET['id'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->deletePost($postID);
+
+            header('Location: ../hotel/dashboard?page=post');
+        }
+    }
+
+    public function updatePost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $postID = $_POST['postID'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = $_FILES['postImage'];
+
+            $hotelModel = new HotelModel($this->conn);
+
+            // Update post details in the database
+            $hotelModel->updatePost($postID, $title, $description);
+
+            // If a new image is uploaded, update the image path
+            if ($image['name']) {
+                $hotelModel->setImagePath($postID, $image);
+            }
+
+            // Clear session variables
+            unset($_SESSION['PostID']);
+            unset($_SESSION['Title']);
+            unset($_SESSION['Description']);
+            unset($_SESSION['ImgPath']);
+
+            header('Location: ../hotel/dashboard?page=post');
+            exit();
         }
     }
 }

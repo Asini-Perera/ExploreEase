@@ -142,16 +142,6 @@ class HotelModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addPost($room_type, $price, $capacity,$description, $hotelID)
-    {
-        $sql = "INSERT INTO room (Type,Price, MaxOccupancy, Description, HotelID) VALUES (?, ?, ?, ?,?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $hotelID);
-        $stmt->execute();
-        
-        return $stmt->insert_id;
-    }
-
     public function setImagePath($PostID, $fileName)
     {
         // Get temp image path
@@ -192,15 +182,22 @@ class HotelModel
         }
     }
 
-    public function getPosts($hotelID)
+    public function getPost($hotelID, $postID = null)
     {
-        $sql = "SELECT * FROM hotelpost WHERE PostID = ?";
+        $sql = "SELECT * FROM hotelpost WHERE HotelID = ?";
+        if ($postID) {
+            $sql .= " AND PostID = ?";
+        }
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $hotelID);
+        if ($postID) {
+            $stmt->bind_param('ii', $hotelID, $postID);
+        } else {
+            $stmt->bind_param('i', $hotelID);
+        }
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+        
+        return $postID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getTotalBookings($hotelId) {
@@ -367,4 +364,63 @@ class HotelModel
         
         return null;
     }
+
+    public function addPost($title, $description, $hotelID)
+    {
+        $sql = "INSERT INTO hotelpost (Title, Description, HotelID) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssi', $title, $description, $hotelID);
+        $stmt->execute();
+        
+        return $stmt->insert_id;
+    }
+
+    public function getPostImage($postID)
+    {
+        $sql = "SELECT ImgPath FROM hotelpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            return null;
+        }
+        
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc()['ImgPath'];
+        }
+        
+        return null;
+    }
+
+    public function deletePost($postID)
+    {
+        $sql = "DELETE FROM hotelpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+    }
+
+    public function updatePost($postID, $title, $description)
+    {
+        $sql = "UPDATE hotelpost SET Title = ?, Description = ? WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssi', $title, $description, $postID);
+        $stmt->execute();
+    }
+
+    public function getPostById($postID)
+    {
+        $sql = "SELECT * FROM hotelpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+
 }

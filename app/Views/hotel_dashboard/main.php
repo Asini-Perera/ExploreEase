@@ -28,8 +28,10 @@
                 require_once __DIR__ . '/edit_room.php';
             } elseif ($mainContent == 'room' && $verifiedAction == 'add') {
                 require_once __DIR__ . '/add_room.php';
-            } elseif ($mainContent == 'post' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_post.php";
+            } elseif ($mainContent == 'post' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_post.php';
+            } elseif ($mainContent == 'post' && $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_post.php';            
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
