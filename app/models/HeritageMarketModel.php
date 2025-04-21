@@ -92,7 +92,7 @@ class HeritageMarketModel
     {
         $sql = "UPDATE heritagemarket SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ?,OpenHours = ? WHERE ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssss', $heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours);
+        $stmt->bind_param('ssssssssi', $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours, $heritageID);
         $stmt->execute();
     }
 

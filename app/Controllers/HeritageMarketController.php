@@ -127,7 +127,7 @@ class HeritageMarketController
     public function updateProfile()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $heritageID = $_SESSION['HeritageID'];
+            $heritageID = $_SESSION['ShopID'];
             $email = $_POST['email'];
             $name = $_POST['name'];
             $address = $_POST['address'];
@@ -137,11 +137,11 @@ class HeritageMarketController
             $sm_link = $_POST['sm_link'];
             $open_hours = $_POST['open_hours'];
 
-            // Check if the email is already exists
+            // Check if the email is already exists and it's not the same as the current one
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
 
-            if ($user) {
+            if ($user && $user['ShopID'] != $heritageID) {
                 header('Location: ../heritagemarket/dashboard?page=profile');
                 exit();
             }

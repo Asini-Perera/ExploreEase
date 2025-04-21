@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <th>Name</th>
-                <td>J<?php echo $_SESSION['Name']; ?></td>
+                <td><?php echo $_SESSION['Name']; ?></td>
             </tr>
 
             <tr>

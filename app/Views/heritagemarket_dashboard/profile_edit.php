@@ -3,7 +3,7 @@
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
 
-    <form id="edit-profile-form" action="../heritage/update" method="POST">
+    <form id="edit-profile-form" action="../heritagemarket/updateProfile" method="POST">
 
         <div class="form-group">
             <label for="email">Email</label>
@@ -45,14 +45,3 @@
 
     </form>
 </div>
-
-<!-- <script>
-function toggleEditForm() {
-    var form = document.getElementById('edit-profile-form');
-    if (form.style.display === 'none') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
-    }
-}
-</script> -->

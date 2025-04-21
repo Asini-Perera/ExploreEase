@@ -57,6 +57,7 @@ $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard'); 
 $router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
 $router->add('heritagemarket/editProduct', 'HeritageMarketController@editProduct');  // Edit product for heritage market
 $router->add('heritagemarket/deleteProduct', 'HeritageMarketController@deleteProduct');  // Delete product for heritage market
+$router->add('heritagemarket/updateProfile', 'HeritageMarketController@updateProfile');  // Update profile for heritage market
 $router->add('heritagemarket/shops', 'HeritageMarketController@shops');
 $router->add('heritagemarket/products', 'HeritageMarketController@products');
 $router->add('heritagemarket/review', 'HeritageMarketController@review');
