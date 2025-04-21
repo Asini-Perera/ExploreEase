@@ -118,11 +118,11 @@ class HeritageMarketModel
         $stmt->execute();
     }
 
-    public function getReviews($hotelID)
+    public function getReviews($shopID)
     {
-        $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
+        $sql = "SELECT hf.*, t.FirstName, t.LastName FROM heritagemarketfeedback hf INNER JOIN traveler t ON hf.TravelerID = t.TravelerID WHERE hf.ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $hotelID);
+        $stmt->bind_param('i', $shopID);
         $stmt->execute();
         $result = $stmt->get_result();
 

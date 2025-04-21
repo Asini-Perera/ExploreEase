@@ -43,9 +43,9 @@ class HeritageMarketController
                     $heritageMarketModel = new HeritageMarketModel($this->conn);
                     $product = $heritageMarketModel->getProductById($productID);
                 }
-            } elseif ($mainContent == 'post') {
-                $action = isset($_GET['action']) ? $_GET['action'] : null;
-                $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+            } elseif ($mainContent == 'reviews') {
+                $heritageMarketModel = new HeritageMarketModel($this->conn);
+                $reviews = $heritageMarketModel->getReviews($_SESSION['ShopID']);
             }
 
             require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';

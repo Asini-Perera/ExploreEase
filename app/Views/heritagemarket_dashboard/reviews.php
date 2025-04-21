@@ -15,7 +15,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <?php foreach ($reviews as $review) : ?>
+                <tr>
+                    <td><?= $review['Date'] ?></td>
+                    <td><?= $review['Rating'] ?></td>
+                    <td><?= $review['Comment'] ?></td>
+                    <td><?= $review['Response'] ?></td>
+                    <td><?= $review['FirstName'] . ' ' . $review['LastName'] ?></td>
+                    <td class="action-buttons">
+                        <?php if (empty($review['Response'])) : ?>
+                            <button class="reply-btn">Reply</button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <!-- <tr>
                 <td>2021-09-01</td>
                 <td>5.0</td>
                 <td>Great experience</td>
@@ -64,7 +78,7 @@
                 <td class="action-buttons">
                     
                 </td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 </div>
