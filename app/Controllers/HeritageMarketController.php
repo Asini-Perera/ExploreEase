@@ -167,7 +167,7 @@ class HeritageMarketController
     public function changePassword()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $heritageID = $_SESSION['HeritageID'];
+            $heritageID = $_SESSION['ShopID'];
             $currentPassword = $_POST['currentPassword'];
             $newPassword = $_POST['newPassword'];
             $confirmPassword = $_POST['confirmPassword'];
@@ -178,14 +178,14 @@ class HeritageMarketController
             if ($valid) {
                 if ($newPassword === $confirmPassword) {
                     $heritageModel->changePassword($heritageID, $newPassword);
-                    header('Location: ../heritage/dashboard?page=profile');
+                    header('Location: ../heritagemarket/dashboard?page=profile');
                     exit();
                 } else {
-                    header('Location: ../heritage/dashboard?page=profile&action=change-password');
+                    header('Location: ../heritagemarket/dashboard?page=profile&action=changepassword');
                     exit();
                 }
             } else {
-                header('Location: ../heritage/dashboard?page=profile&action=change-password');
+                header('Location: ../heritagemarket/dashboard?page=profile&action=changepassword');
                 exit();
             }
         }
