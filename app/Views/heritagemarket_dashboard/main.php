@@ -27,16 +27,17 @@
                 } else {
                     require_once __DIR__ . "/$mainContent.php";
                 }
-            } elseif ($mainContent == 'profile' && $action == 'change-password') {
-                require_once __DIR__ . '/profile_changepassword.php';
-            } elseif ($mainContent == 'product' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_product.php";
+            } elseif ($mainContent == 'product') {
+                if ($verifiedAction) {
+                    require_once __DIR__ . "/$mainContent" . "_" . "$verifiedAction.php";
+                } else {
+                    require_once __DIR__ . "/$mainContent.php";
+                }
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
             ?>
         </div>
-    </div>
     </div>
 </body>
 

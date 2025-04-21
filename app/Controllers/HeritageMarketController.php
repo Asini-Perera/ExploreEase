@@ -36,16 +36,8 @@ class HeritageMarketController
             } elseif ($mainContent == 'product') {
                 $products = $this->viewProducts();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'add') {
-                    $verifiedAction = 'add';
-                } elseif ($action == 'edit') {
-                    $verifiedAction = 'edit';
-                } elseif ($action == 'delete') {
-                    $verifiedAction = null;
-                    $this->deleteProduct();
-                } else {
-                    $verifiedAction = null;
-                }
+                $allowedActions = ['add', 'edit'];
+                $verifiedAction = in_array($action, $allowedActions) ? $action : null;
             } elseif ($mainContent == 'post') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
