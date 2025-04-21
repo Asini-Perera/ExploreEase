@@ -31,11 +31,8 @@ class HeritageMarketController
 
             if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'edit') {
-                    $verifiedAction = 'edit';
-                } elseif ($action == 'change-password') {
-                    $verifiedAction = 'change-password';
-                }
+                $allowedActions = ['edit', 'changepassword'];
+                $profileAction = in_array($action, $allowedActions) ? $action : null;
             } elseif ($mainContent == 'product') {
                 $products = $this->viewProducts();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;

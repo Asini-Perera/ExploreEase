@@ -6,10 +6,10 @@
 
         <div class="action-buttons">
             <a class="edit-btn" href="?page=profile&action=edit">Edit Profile</a>
-            <a class="edit-btn" href="?page=profile&action=change-password">Change Password</a>
+            <a class="edit-btn" href="?page=profile&action=changepassword">Change Password</a>
         </div>
     </div>
-    
+
     <table>
         <tbody>
             <tr>
@@ -20,7 +20,7 @@
                 <th>Name</th>
                 <td>J<?php echo $_SESSION['Name']; ?></td>
             </tr>
-            
+
             <tr>
                 <th>Address</th>
                 <td><?php echo $_SESSION['Address']; ?></td>
