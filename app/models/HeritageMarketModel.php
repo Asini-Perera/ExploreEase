@@ -31,6 +31,14 @@ class HeritageMarketModel
         return $stmt->insert_id;
     }
 
+    public function editProduct($productID, $product_name, $price, $description)
+    {
+        $sql = "UPDATE product SET Name = ?, Price = ?, Description = ? WHERE ProductID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sdsi', $product_name, $price, $description, $productID);
+        $stmt->execute();
+    }
+
     public function setImgPath($ProductID, $fileName)
     {
         // Get temp image path
@@ -119,5 +127,16 @@ class HeritageMarketModel
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductByID($productID)
+    {
+        $sql = "SELECT * FROM product WHERE ProductID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $productID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
     }
 }

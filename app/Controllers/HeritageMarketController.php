@@ -38,6 +38,11 @@ class HeritageMarketController
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $allowedActions = ['add', 'edit'];
                 $verifiedAction = in_array($action, $allowedActions) ? $action : null;
+                if ($verifiedAction == 'edit') {
+                    $productID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $heritageMarketModel = new HeritageMarketModel($this->conn);
+                    $product = $heritageMarketModel->getProductById($productID);
+                }
             } elseif ($mainContent == 'post') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
@@ -65,6 +70,27 @@ class HeritageMarketController
 
             // If image is uploaded, set the image path
             if ($productID && $image['name']) {
+                $heritageMarketModel->setImgPath($productID, $image);
+            }
+
+            header('Location: ../heritagemarket/dashboard?page=product');
+        }
+    }
+
+    public function editProduct()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productID = $_POST['productID'];
+            $product_name = $_POST['product_name'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+
+            $heritageMarketModel = new HeritageMarketModel($this->conn);
+            $heritageMarketModel->editProduct($productID, $product_name, $price, $description);
+
+            // If image is uploaded, set the image path
+            if ($image['name']) {
                 $heritageMarketModel->setImgPath($productID, $image);
             }
 
