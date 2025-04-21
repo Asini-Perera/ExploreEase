@@ -35,20 +35,39 @@ th {
     align-items: center;
 } */
 
-.action-buttons button {
-    width: 60px;
+.action-buttons button,
+.action-buttons a {
+    width: 100px;
     padding: 8px 10px;
-    margin: 0 5px;
+    margin: 5px;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    text-align: center;
+    text-decoration: none;
 }
 
-.reply-btn {
+.edit-btn {
     background-color: #6fa857;
 }
 
-.reply-btn:hover {
-    background-color: #225522;
+.edit-btn:hover {
+    background-color: #225522; 
+}
+
+.add-btn {
+    background-color: #F1C232;
+}
+
+.add-btn:hover {
+    background-color: #dfb32f;
+}
+
+.delete-btn {
+    background-color: #d9534f;
+}
+
+.delete-btn:hover {
+    background-color: #c9302c;
 }

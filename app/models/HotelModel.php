@@ -462,4 +462,15 @@ class HotelModel
         return $result->fetch_assoc();
     }
 
+    public function getReviewById($FeedbackID)
+    {
+        $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $FeedbackID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
 }

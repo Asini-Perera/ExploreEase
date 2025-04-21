@@ -150,7 +150,33 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
+            } elseif ($mainContent == 'reviews') {
+                $hotelModel = new HotelModel($this->conn);
+                $reviews = $hotelModel->getReviews($_SESSION['HotelID']);
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'reply') {
+                    $verifiedAction = 'reply';
+                    // Fetch review details when replying
+                    if (isset($_GET['id'])) {
+                        $reviewID = $_GET['id'];
+                        $hotelModel = new HotelModel($this->conn);
+                        $review = $hotelModel->getReviewById($reviewID);
+                        
+                        if ($review) {
+                            // Store review details in session for the reply form
+                            $_SESSION['ReviewID'] = $review['FeedbackID'];
+                            $_SESSION['Comment'] = $review['Comment'];
+                            $_SESSION['Response'] = $review['Response'];
+                            $_SESSION['TravellerID'] = $review['TravellerID'];
+                        }
+                    }
+                } else {
+                    $verifiedAction = null;
+                }
+            } else {
+                $verifiedAction = null;
             }
+
 
                 require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
             } else {

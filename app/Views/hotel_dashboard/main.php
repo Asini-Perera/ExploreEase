@@ -34,6 +34,8 @@
                 require_once __DIR__ . '/add_post.php';          
             } elseif ($mainContent == 'bookings' && $verifiedAction == 'edit') {
                 require_once __DIR__ . '/edit_booking.php';
+            } elseif ($mainContent == 'reviews' && $verifiedAction == 'reply') {
+                require_once __DIR__ . '/reply_review.php';            
             } else {
                 // Check if the requested file exists
                 $file_path = __DIR__ . "/$mainContent.php";
