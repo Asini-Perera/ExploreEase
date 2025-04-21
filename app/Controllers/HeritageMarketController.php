@@ -106,7 +106,7 @@ class HeritageMarketController
             $heritageModel = new HeritagemarketModel($this->conn);
             $heritageModel->deleteProduct($productID);
 
-            header('Location: ../heritagemarket/dashboard?page=room');
+            header('Location: ../heritagemarket/dashboard?page=product');
         }
     }
 
