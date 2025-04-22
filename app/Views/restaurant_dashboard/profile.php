@@ -43,6 +43,14 @@
                 <th>Description</th>
                 <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
+            <tr>
+                <th>Social Media Links</th>
+                <td><?php echo $_SESSION['SMLink'] ?? 'Not available';  ?></td>
+            </tr>
+            <tr>
+                <th>Menu PDF</th>
+                <td><?php echo $_SESSION['MenuPDF'] ?? 'Not available' ; ?></td>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -2,13 +2,15 @@
 
 <h1>New Bookings</h1>
 
-<div class="menu-container">
+<div class="booking-container">
     <table>
         <thead>
             <tr>
                 <th>Customer Name</th>
-                <th>Booking Date</th>
-                <th>Booking Time</th>
+                <th>Date </th>
+                <th>Booking Date </th>
+                <th>Time </th>
+                <th >Special Request</th>
                 <th>Number of Guests</th>
                 <th>Actions</th>
             </tr>
@@ -17,7 +19,9 @@
             <tr>
                 <td>Nimal Perera</td>
                 <td>2024.10.18</td>
+                <td>2024.10.18</td>
                 <td>12:30 PM</td>
+                <td  >None</td>
                 <td>4</td>
                 <td class="action-buttons">
                     <button class="reply-btn" id="sendTableBtn">Send Table No</button>
@@ -26,7 +30,9 @@
             <tr>
                 <td>Kamal Silva</td>
                 <td>2024.10.18</td>
+                <td>2024.10.18</td>
                 <td>1:00 PM</td>
+                <td  >None</td>
                 <td>2</td>
                 <td class="action-buttons">
                     <button class="reply-btn" id="sendTableBtn">Send Table No</button>
@@ -35,7 +41,9 @@
             <tr>
                 <td>Sunil Fernando</td>
                 <td>2024.10.18</td>
+                <td>2024.10.18</td>
                 <td>1:30 PM</td>
+                <td  >None of the are book tables  </td>
                 <td>3</td>
                 <td class="action-buttons">
                     <button class="reply-btn" id="sendTableBtn">Send Table No</button>

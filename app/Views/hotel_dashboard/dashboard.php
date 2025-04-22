@@ -6,7 +6,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Room Bookings</h2>
-                    <h1>15</h1>
+                    <h1><?php echo $TotalBookings; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/room.jpeg" alt="Traveler">  
@@ -18,7 +18,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Rooms</h2>
-                    <h1>45</h1>
+                    <h1><?php echo $TotalRooms; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/rooms.jpeg" alt="Menu">
@@ -30,7 +30,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Revenue</h2>
-                    <h1>$213</h1>
+                    <h1>$<?php echo $TotalRevenue; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/revenue.jpeg" alt="Traveler">
@@ -42,7 +42,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Revenue in last Week</h2>
-                    <h1>$32</h1>
+                    <h1>$<?php echo $TotalRevenueInLastWeek; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/revenue2.jpeg" alt="Restaurant">
@@ -53,7 +53,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Ratings</h2>
-                    <h1>5.0 ⭐</h1>
+                    <h1><?php echo $TotalRatings; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/ratings.jpeg" alt="Heritage Market">
@@ -64,7 +64,7 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Feedbacks</h2>
-                    <h1>75</h1>
+                    <h1><?php echo $TotalFeedbacks; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/feedback.png" alt="Cultural Event Organizer">

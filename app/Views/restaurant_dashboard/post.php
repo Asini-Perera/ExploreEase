@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/restaurant_dashboard/post_list.css">
 
-<div class="menu-container">
+<div class="post-container">
     <div class="top">
             <h1>Post List</h1><span></span>
 
@@ -19,25 +19,31 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
+
+        <?php foreach ($posts as $post) : ?>
             <tr>
-                <td>11.11 offer</td>
-                <td>Enjoy a special discount on 11.11 with our exclusive offer. Don't miss out on this limited-time deal!</td>
-                <td>2024.12.01</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
+                <td><?= $post['Title'] ?></td>
+                <td><?= htmlspecialchars($post['Description']) ?></td>
+                <td> <?= date('d-m-Y', strtotime($post['Date'])) ?></td>
+                <td><img src="<?= $post['ImgPath'] ?>" class="post-img"></td>
                 <td class="action-buttons">
-                    <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                    <button class="delete-btn">Delete</button>
+                    <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
+                    <button class="delete-btn">  <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</button>
                 </td>
             </tr>
-            <tr>
+             
+          <?php endforeach; ?> 
+
+            <!-- <tr>
                 <td>Seasonal Offer</td>
                 <td>Celebrate the season with our special menu and discounts. Perfect for a cozy meal with loved ones.</td>
                 <td>2024.10.25</td>
                 <td><img src="../public/images/food.jpg" class="food-img"></td>
                 <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
+                    <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
+                    <button class="delete-btn">  <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</button>
                 </td>
             </tr>
             <tr>
@@ -49,8 +55,7 @@
                 <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
                 <button class="delete-btn">Delete</button>
                 </td>
-            </tr>
-           
+            </tr> -->
         </tbody>
     </table>
 </div>
