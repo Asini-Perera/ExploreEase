@@ -7,6 +7,7 @@
     <title>Hotel Signup</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="public/css/signup_form.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8"></script>
 </head>
 
 <body>
@@ -45,6 +46,14 @@
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
+                    <label>Pin Hotel Location on Map *</label>
+                    <div id="map"></div>
+                </div>
+
+                <input type="hidden" id="latitude" name="latitude" value="0" required>
+                <input type="hidden" id="longitude" name="longitude" value="0" required>
+
+                <div class="input-group">
                     <label for="contactNo">Contact Number</label>
                     <input type="text" id="contactNo" name="contactNo"><br><br>
                 </div>
@@ -68,6 +77,7 @@
 
     <script src="public/js/background_slideshow1.js"></script>
     <script src="public/js/signup_validation.js"></script>
+    <script src="public/js/get_location.js"></script>
 </body>
 
 </html>

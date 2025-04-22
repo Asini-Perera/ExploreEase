@@ -492,7 +492,7 @@
 
 .booking-image img {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     border-radius: 15px;
     object-fit: cover;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
@@ -503,7 +503,7 @@
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-    max-width: 550px;
+    max-width: 650px;
     width: 100%;
     text-align: center;
     box-sizing: border-box;
@@ -522,18 +522,30 @@
 .input-group {
     display: flex;
     justify-content: space-between;
-    gap: 15px;
+    /* gap: 20px; */
     margin-bottom: 20px;
 }
 
 .input-field {
     width: 48%;
-    padding: 15px;
+    padding: 13px;
     font-size: 1.1rem;
     border-radius: 8px;
     border: 2px solid #ddd;
     background-color: #fafafa;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; 
+    margin: 2px;
+}
+
+.input-field special-requests{
+    width: 100%;
+    padding: 13px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background-color: #fafafa;
+    transition: all 0.3s ease; 
+    margin: 2px;
 }
 
 .input-field:focus {

@@ -7,6 +7,7 @@
     <title>Restaurant Dashboard</title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/dashboard_templates/basic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -28,6 +29,10 @@
                 require_once __DIR__ . "/$verifiedAction" . "_menu.php";
             } elseif ($mainContent == 'post' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_post.php";
+            }elseif ($mainContent == 'bookings' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_bookings.php";
+            }elseif ($mainContent == 'reviews' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_reviews.php";
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }

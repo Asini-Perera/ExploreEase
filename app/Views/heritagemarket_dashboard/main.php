@@ -7,6 +7,7 @@
     <title>Heritage Market Dashboard</title>
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../public/css/dashboard_templates/basic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -20,20 +21,23 @@
         <!-- Main Content -->
         <div class="main-content">
             <?php
-            if ($mainContent == 'profile' && $action == 'edit') {
-                require_once __DIR__ . '/edit_profile.php';
-            } elseif ($mainContent == 'profile' && $action == 'change-password') {
-                require_once __DIR__ . '/profile_changepassword.php';
-            } elseif ($mainContent == 'product' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_product.php";
+            if ($mainContent == 'profile') {
+                if ($profileAction) {
+                    require_once __DIR__ . "/$mainContent" . "_" . "$profileAction.php";
+                } else {
+                    require_once __DIR__ . "/$mainContent.php";
+                }
+            } elseif ($mainContent == 'product') {
+                if ($verifiedAction) {
+                    require_once __DIR__ . "/$mainContent" . "_" . "$verifiedAction.php";
+                } else {
+                    require_once __DIR__ . "/$mainContent.php";
+                }
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
             ?>
-
-
         </div>
-    </div>
     </div>
 </body>
 

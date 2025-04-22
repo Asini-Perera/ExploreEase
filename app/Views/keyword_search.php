@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Section</title>
-    
+
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
     <link rel="stylesheet" href="../public/css/searchbykeyword.css?v=1">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8"></script>
 </head>
+
 <body>
     <?php require_once __DIR__ . '/Navbar.php'; ?>
-     <main>
+    <main>
         <section class="search-by-keywords" aria-label="Explore Sri Lanka">
             <div class="content-wrapper">
                 <div class="hero-section">
@@ -68,12 +71,40 @@
                 </section>
                 <button type="button" class="show-more">Show more</button>
                 <h2>Map View</h2>
-                <div class="map-container" aria-label="Map of attractions">
-                    <img src="../public/images/map.png" alt="Map of attractions" class="map-image">
+                <div id="map" class="map-container" aria-label="Map of attractions" style="height:500px; width:100%;">
+                    <!-- The Google Map will be rendered here -->
                 </div>
+                <script>
+                    function initMap() {
+                        // Replace these coordinates with your desired location's latitude and longitude.
+                        const initialLocation = {
+                            lat: 6.9271,
+                            lng: 79.8612
+                        };
+
+                        // Create a new map instance and render it into the 'map' container.
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            center: initialLocation,
+                            zoom: 12, // Adjust the zoom level as needed.
+                        });
+
+                        // Optionally, place a marker at the initial center point.
+                        new google.maps.Marker({
+                            position: initialLocation,
+                            map: map,
+                            title: "Attraction Location",
+                        });
+                    }
+
+                    // Ensure the map loads once the window's content has fully loaded.
+                    window.onload = initMap;
+                </script>
+
+
             </div>
         </section>
     </main>
     <?php require_once __DIR__ . '/logedFooter.php'; ?>
 </body>
+
 </html>
