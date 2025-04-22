@@ -118,12 +118,6 @@ class HeritageMarketController
         return $products;
     }
 
-    // public function viewReviews()
-    // {
-    //     $hotelModel = new HotelModel($this->conn);
-    //     $reviews = $hotelModel->getReviews($_SESSION['HotelID']);
-    // }
-
     public function updateProfile()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -188,6 +182,19 @@ class HeritageMarketController
                 header('Location: ../heritagemarket/dashboard?page=profile&action=changepassword');
                 exit();
             }
+        }
+    }
+
+    public function reviewResponse()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $reviewID = $_POST['review_id'];
+            $response = $_POST['response'];
+
+            $heritageMarketModel = new HeritageMarketModel($this->conn);
+            $heritageMarketModel->addResponse($reviewID, $response);
+
+            header('Location: ../heritagemarket/dashboard?page=reviews');
         }
     }
 

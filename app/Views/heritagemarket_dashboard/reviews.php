@@ -17,14 +17,25 @@
         <tbody>
             <?php foreach ($reviews as $review) : ?>
                 <tr>
-                    <td><?= $review['Date'] ?></td>
-                    <td><?= $review['Rating'] ?></td>
-                    <td><?= $review['Comment'] ?></td>
-                    <td><?= $review['Response'] ?></td>
-                    <td><?= $review['FirstName'] . ' ' . $review['LastName'] ?></td>
+                    <td><?= htmlspecialchars($review['Date']) ?></td>
+                    <td><?= htmlspecialchars($review['Rating']) ?></td>
+                    <td><?= htmlspecialchars($review['Comment']) ?></td>
+                    <td>
+                        <?php if (!empty($review['Response'])) : ?>
+                            <?= htmlspecialchars($review['Response']) ?>
+                        <?php else : ?>
+                            <form id="response-form-<?= $review['FeedbackID'] ?>" action="../heritagemarket/reviewResponse" method="POST" class="response-form" style="display:none;">
+                                <input type="hidden" name="review_id" value="<?= $review['FeedbackID'] ?>">
+                                <textarea name="response" placeholder="Type your response..." required></textarea>
+                                <button type="submit" class="save-response-btn">Save</button>
+                                <button type="button" class="cancel-response-btn" onclick="cancelResponse(<?= $review['FeedbackID'] ?>)">Cancel</button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($review['FirstName'] . ' ' . $review['LastName']) ?></td>
                     <td class="action-buttons">
                         <?php if (empty($review['Response'])) : ?>
-                            <button class="reply-btn">Reply</button>
+                            <button class="reply-btn" onclick="showResponseForm(<?= $review['FeedbackID'] ?>)">Reply</button>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -82,3 +93,5 @@
         </tbody>
     </table>
 </div>
+
+<script src="../public/js/dashboard_templates/response_form.js"></script>

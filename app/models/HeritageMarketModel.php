@@ -129,6 +129,14 @@ class HeritageMarketModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function addResponse($reviewID, $response)
+    {
+        $sql = "UPDATE heritagemarketfeedback SET Response = ? WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $response, $reviewID);
+        $stmt->execute();
+    }
+
     public function getProductByID($productID)
     {
         $sql = "SELECT * FROM product WHERE ProductID = ?";
