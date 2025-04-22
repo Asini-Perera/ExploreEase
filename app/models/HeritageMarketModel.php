@@ -195,9 +195,9 @@ class HeritageMarketModel
             return 0.0;
         }
     }
-    public function getFeedbacksAbove4($shopID)
+    public function getFeedbacksWith5($shopID)
     {
-        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ? AND Rating > 4.0";
+        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ? AND Rating = 5.0";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $shopID);
         $stmt->execute();

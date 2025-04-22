@@ -16,11 +16,11 @@
     <div class="tile">
         <div class="tile-content">
             <div class="tile-text">
-                <h2>Total Feedbacks above 4.0</h2>
-                <h1><?php echo $feedbacksAbove4; ?></h1>
+                <h2>Total Feedbacks with 5.0</h2>
+                <h1><?php echo $feedbacksWith5; ?></h1>
             </div>
             <div class="tile-image">
-                <img src="../public/images/media.jpeg" alt="Traveler">
+                <img src="../public/images/5stars.png" alt="Traveler">
             </div>
         </div>
     </div>

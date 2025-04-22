@@ -34,7 +34,7 @@ class HeritageMarketController
                 $totalProducts = $heritageMarketModel->getTotalProducts($_SESSION['ShopID']);
                 $totalReviews = $heritageMarketModel->getTotalReviews($_SESSION['ShopID']);
                 $averageRatings = $heritageMarketModel->getAverageRatings($_SESSION['ShopID']);
-                $feedbacksAbove4 = $heritageMarketModel->getFeedbacksAbove4($_SESSION['ShopID']);
+                $feedbacksWith5 = $heritageMarketModel->getFeedbacksWith5($_SESSION['ShopID']);
             } elseif ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $allowedActions = ['edit', 'changepassword'];
