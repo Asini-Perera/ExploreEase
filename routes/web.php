@@ -45,6 +45,7 @@ $router->add('restaurant/addMenu', 'RestaurantController@addMenu');  // Add menu
 $router->add('restaurant/deleteMenu', 'RestaurantController@deleteMenu');  // Delete menu for restaurant
 $router->add('restaurant/update', 'RestaurantController@updateProfile');  // Update profile for restaurant
 $router->add('restaurant/changepassword', 'RestaurantController@changePassword');  // Change password for restaurant
+$router->add('restaurant/post', 'HomeController@post');  // Add post for restaurant
 $router->add('restaurant/addPost', 'RestaurantController@addPost');  // Add post for restaurant
 $router->add('restaurant/deletePost', 'RestaurantController@deletePost');  // Delete post for restaurant
 $router->add('restaurant/editPost', 'RestaurantController@editPost');  // Edit post for restaurant
@@ -65,11 +66,23 @@ $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
 $router->add('hotel/deleteRoom', 'HotelController@deleteRoom');  // Delete room for hotel
 $router->add('hotel/update', 'HotelController@updateProfile');  // Update profile for hotel
 $router->add('hotel/changepassword', 'HotelController@changePassword');  // Change password for hotel
+$router->add('hotel/updateRoom', 'HotelController@updateRoom');  // Update room details for hotel
+$router->add('hotel/addPost', 'HotelController@addPost');  // Add post for hotel
+$router->add('hotel/deletePost', 'HotelController@deletePost');  // Delete post for hotel
+$router->add('hotel/updatePost', 'HotelController@updatePost');  // Update post for hotel
+$router->add('hotel/reviews', 'HotelController@reviews');  // View reviews for hotel
+$router->add('hotel/replyReview', 'HotelController@replyReview');  // Process review replies
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
-$router->add('heritageMarket/shops', 'HeritageMarketController@shops');
-$router->add('heritageMarket/products', 'HeritageMarketController@products');
-$router->add('heritageMarket/review', 'HeritageMarketController@review');
+$router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
+$router->add('heritagemarket/editProduct', 'HeritageMarketController@editProduct');  // Edit product for heritage market
+$router->add('heritagemarket/deleteProduct', 'HeritageMarketController@deleteProduct');  // Delete product for heritage market
+$router->add('heritagemarket/updateProfile', 'HeritageMarketController@updateProfile');  // Update profile for heritage market
+$router->add('heritagemarket/changepassword', 'HeritageMarketController@changePassword');  // Change password for heritage market
+$router->add('heritagemarket/reviewResponse', 'HeritageMarketController@reviewResponse');  // Heritage Market review response
+$router->add('heritagemarket/shops', 'HeritageMarketController@shops');
+$router->add('heritagemarket/products', 'HeritageMarketController@products');
+$router->add('heritagemarket/review', 'HeritageMarketController@review');
 
 $router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
 $router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
@@ -83,7 +96,5 @@ $router->add('service/hotel', 'HomeController@travelerside_hotel');  // travelle
 $router->add('service/restaurant', 'HomeController@travelerside_restaurant');  // traveller side restaurant view
 $router->add('service/cultural_event', 'HomeController@travelerside_cultural_event');  // traveller side cultural event view
 $router->add('service/menu', 'HomeController@travelerside_menu');  // traveller side menu view
-
-$router->add('restaurant/post', 'HomeController@post');  // Add post for restaurant
 
 $router->add('reviews', 'HomeController@siteReview');  // Add post for restaurant

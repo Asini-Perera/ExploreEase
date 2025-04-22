@@ -20,37 +20,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>11.11 offer</td>
-                <td>Enjoy a special discount on 11.11 with our exclusive offer. Don't miss out on this limited-time deal!</td>
-                <td>2024.12.01</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td class="action-buttons">
-                    <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Seasonal Offer</td>
-                <td>Celebrate the season with our special menu and discounts. Perfect for a cozy meal with loved ones.</td>
-                <td>2024.10.25</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Package offer</td>
-                <td>Take advantage of our package offer and enjoy a variety of dishes at a great price. Ideal for group dining.</td>
-                <td>2024.10.10</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-           
+            <?php foreach ($posts as $post) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($post['Title']) ?></td>
+                    <td><?= htmlspecialchars($post['Description']) ?></td>
+                    <td><?= htmlspecialchars($post['Date']) ?></td>
+                    <td>
+                        <?php if (!empty($post['ImgPath']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $post['ImgPath'])): ?>
+                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="room-img" alt="Post Image">
+                        <?php else: ?>
+                            <img src="../public/images/default-post.png" class="room-img" alt="Default Post Image">
+                        <?php endif; ?>
+                    </td>
+                    <td class="action-buttons">
+                        <a class="edit-btn" href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a>
+                        <a class="delete-btn" href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
