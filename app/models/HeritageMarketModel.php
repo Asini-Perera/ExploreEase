@@ -147,4 +147,67 @@ class HeritageMarketModel
 
         return $result->fetch_assoc();
     }
+
+    public function getTotalProducts($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM product WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
+
+    public function getTotalReviews($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
+
+    public function getAverageRatings($shopID)
+    {
+        $sql = "SELECT AVG(Rating) AS average FROM heritagemarketfeedback WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (float)$row['average'];
+        } else {
+            return 0.0;
+        }
+    }
+    public function getFeedbacksAbove4($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ? AND Rating > 4.0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
 }

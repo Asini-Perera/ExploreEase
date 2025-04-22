@@ -29,7 +29,13 @@ class HeritageMarketController
             $allowed_pages = ['dashboard', 'profile', 'product', 'reviews'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
-            if ($mainContent == 'profile') {
+            if ($mainContent == 'dashboard') {
+                $heritageMarketModel = new HeritageMarketModel($this->conn);
+                $totalProducts = $heritageMarketModel->getTotalProducts($_SESSION['ShopID']);
+                $totalReviews = $heritageMarketModel->getTotalReviews($_SESSION['ShopID']);
+                $averageRatings = $heritageMarketModel->getAverageRatings($_SESSION['ShopID']);
+                $feedbacksAbove4 = $heritageMarketModel->getFeedbacksAbove4($_SESSION['ShopID']);
+            } elseif ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 $allowedActions = ['edit', 'changepassword'];
                 $profileAction = in_array($action, $allowedActions) ? $action : null;
