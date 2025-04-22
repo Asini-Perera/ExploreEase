@@ -92,18 +92,19 @@
                     </div>
                 </div>
             </div>
-<div class="about" id="about">
-    <div class="about-content">
-        <h3 class="abt-title">Welcome to Our Restaurant</h3>
-        <p class="description">
-            Our restaurant offers a unique blend of contemporary design and timeless elegance, providing the perfect backdrop for an unforgettable dining experience. Whether you're here for an intimate dinner, a celebration with friends, or a business gathering, our attentive service and warm ambiance promise to make your visit truly special.
-            <br><br>
-            Our talented chefs craft each dish with care, using only the finest seasonal ingredients sourced from local farms and trusted suppliers. The menu is a celebration of both classic and innovative flavors, offering a variety of dishes that will captivate your taste buds and elevate your dining experience. From delicate appetizers to indulgent entrees and decadent desserts, every bite is designed to delight.
-            <br><br>
-            Join us for an experience that will leave you craving more.
-        </p>
-    </div>
-</div>
+
+        <div class="about" id="about">
+            <div class="about-content">
+                <h3 class="abt-title">Welcome to Our Restaurant</h3>
+                <p class="description">
+                    Our restaurant offers a unique blend of contemporary design and timeless elegance, providing the perfect backdrop for an unforgettable dining experience. Whether you're here for an intimate dinner, a celebration with friends, or a business gathering, our attentive service and warm ambiance promise to make your visit truly special.
+                    <br><br>
+                    Our talented chefs craft each dish with care, using only the finest seasonal ingredients sourced from local farms and trusted suppliers. The menu is a celebration of both classic and innovative flavors, offering a variety of dishes that will captivate your taste buds and elevate your dining experience. From delicate appetizers to indulgent entrees and decadent desserts, every bite is designed to delight.
+                    <br><br>
+                    Join us for an experience that will leave you craving more.
+                </p>
+            </div>
+        </div>
 
 
         </section>
@@ -208,14 +209,15 @@
     </div>
 
     <div class="booking-form">
-        <form action="">
+        <form action="../restaurant/addBooking" method="post">
             <h3 class="booking-heading">Book a Table</h3>
             <input type="text" placeholder="Your Name" class="input-field" required>
             <input type="email" placeholder="Your Email" class="input-field" required>
-            <input type="text" placeholder="Phone Number" class="input-field" required>
-            <input type="date" placeholder="Select Date" class="input-field" required>
-            <input type="time" placeholder="Select Time" class="input-field booking-time" required>
+            <!-- <input type="text" placeholder="Phone Number" class="input-field" required> -->
+            <input type="timestamp" placeholder="Select Date and time" class="input-field" required>
+            <!-- <input type="time" placeholder="Select Time" class="input-field booking-time" required> -->
             <input type="number" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
+            <textarea placeholder="Special Requests" rows="5" cols="10" class="input-field special-request"></textarea>
             <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
         </form>
 
@@ -278,6 +280,7 @@
             <div class="response">
                 <p>Thank you for your review! We’re glad you enjoyed your stay. We hope to see you again soon!</p>
             </div>
+            
         </div>
         <div class="review-slide">
             <div class="review">
@@ -354,10 +357,11 @@
 </section>
     </div>
     <div class="review-button-container1">
-    <a href="http://localhost/ExploreEase/heritageMarket/review" class="review-button1">Add a Review</a>
-</div>
-     <?php require_once __DIR__ . "/../logedFooter.php"; ?>
-    <script src="../public/js/restaurant.js"></script>
+    <a href="http://localhost/ExploreEase/restaurant/reviewForm" class="review-button1">Add a Review</a>
+    
+    </div>
+        <?php require_once __DIR__ . "/../logedFooter.php"; ?>
+        <script src="../public/js/restaurant.js"></script>
 </body>
 
 </html>
