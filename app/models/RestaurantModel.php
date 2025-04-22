@@ -270,7 +270,34 @@ class RestaurantModel
 
 
     //bookings
-    
+    public function saveBooking($name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID)
+    {
+        $sql = "INSERT INTO tablebooking (Name, Email, BookingDate, BookingTime, NoOfGuests, SpecialRequest, RestaurantID, TravelerID) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssisii', $name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID);
+        $stmt->execute();
+
+        $sql = "SELECT BookingID FROM tablebooking WHERE TravelerID = ? AND RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ii', $travelerID ,$restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $feedbackID = $result->fetch_assoc()['FeedbackID'];
+        
+        return $feedbackID;
+
+    }
+
+    public function getBookings($restaurantID)
+    {
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     //reviews
     public function addReview($name, $email, $rating, $comment, $restaurantID, $travelerID)
@@ -317,66 +344,75 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-    
 
-    public function getBookings($restaurantID)
-    {
-        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $restaurantID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+   
 
   
 
-    // public function getTotalBookings($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalBookings 
-    //             FROM RoomBooking rb
-    //             JOIN Room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    public function getTotalBookings($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalBookings 
+                FROM tablebooking WHERE RestaurantID = ?";
         
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalBookings'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalBookings'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
-    // public function getTotalRooms($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalRooms 
-    //             FROM Room 
-    //             WHERE HotelID = ?";
+    public function getTotalMenus($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalMenus 
+                FROM menu 
+                WHERE RestaurantID = ?";
         
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalRooms'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalMenus'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
+    public function getTotalReviews($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalReviews
+                FROM restaurantfeedback 
+                WHERE RestaurantID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalReviews'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
     // public function getTotalRevenue($hotelId) {
     //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
     //             FROM RoomBooking rb
@@ -423,11 +459,11 @@ class RestaurantModel
     //     }
     // }
 
-    // public function getTotalRatings($hotelId) {
+    // public function getTotalRatings($restaurantId) {
     //     $sql = "SELECT COUNT(*) AS totalRatings 
-    //             FROM HotelFeedback hf
-    //             JOIN Room r ON hf.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    //             FROM restaurantfeedback rf
+    //             JOIN Room r ON hf.RestaurantID = r.RoomID
+    //             WHERE r.RestaurantID = ?";
         
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
@@ -446,28 +482,27 @@ class RestaurantModel
     //     }
     // }
 
-    // public function getTotalFeedbacks($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalFeedbacks 
-    //             FROM HotelFeedback hf
-    //             JOIN Room r ON hf.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    public function getTotalPosts($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalPosts 
+                FROM restaurantpost  
+                WHERE RestaurantID = ?";
         
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalFeedbacks'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalPosts'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
    
 }

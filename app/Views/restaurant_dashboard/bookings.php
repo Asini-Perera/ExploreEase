@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Customer Name</th>
+                <th>Email</th>
                 <th>Date </th>
                 <th>Booking Date </th>
                 <th>Time </th>
@@ -16,19 +17,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td class="action-buttons">
-                    <button class="reply-btn" id="sendTableBtn">Send Table No</button>
-                </td>
-            </tr>
-            
              
+            
+            <?php if (!empty($bookings) && is_array($bookings)): ?>
+                <?php foreach ($bookings as $booking): ?>
+                <tr>
+                    <td><?= htmlspecialchars($booking['Name']) ?></td>
+                    <td><?= htmlspecialchars($booking['Email']) ?></td>
+                    <td><?= date('Y-d-m', strtotime($booking['Date'])) ?></td>
+                    <td><?= $booking['BookingDate'] ?></td>
+                    <td><?= $booking['BookingTime'] ?></td>
+                    <td><?= $booking['NoOfGuests'] ?></td>
+                    <td><?= htmlspecialchars($booking['SpecialRequest']) ?></td>
+                    <td class="action-buttons">
+                    <button class="reply-btn" id="sendTableBtn">Send Table No</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+            <?php else: ?>
+                <tr><td colspan="6">No reviews found.</td></tr>
+            <?php endif; ?>  
 
                     <!-- Modal -->
                     <div id="tableNoModal" class="modal">

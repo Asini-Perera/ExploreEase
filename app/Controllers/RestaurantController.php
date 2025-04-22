@@ -29,12 +29,13 @@ class RestaurantController
 
             // Check if the user is allowed to perform the action
             if($mainContent == 'dashboard'){
-                // $restaurantModel = new RestaurantModel($this->conn);
-                // $TotalBookings = $restaurantModel->getTotalBookings($_SESSION['RestaurantID']);
-                // $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
-                // $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
-                // $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
-                // $TotalRatings = $restaurantModel->getTotalRatings($_SESSION['RestaurantID']);
+                $restaurantModel = new RestaurantModel($this->conn);
+                $TotalBookings = $restaurantModel->getTotalBookings($_SESSION['RestaurantID']);
+                $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
+                $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
+                $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
+                //$TotalRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
+               // $TotalPackages = $restaurantModel->getTotalPackages($_SESSION['RestaurantID']);
             }
             elseif($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -84,19 +85,24 @@ class RestaurantController
                     $verifiedAction = null;
                 }
             }elseif($mainContent == 'bookings'){
-                // $reviews = $this -> viewBookings();
-                // $action = isset($_GET['action']) ? $_GET['action'] : null;
-                // if($action == 'add'){
-                //     $verifiedAction = 'add';
-                // } elseif ($action == 'sendTN') {
-                //     $verifiedAction = 'sendTN';
-                // } elseif ($action == 'delete') {
-                //     $verifiedAction = null;
-                //     $this->deleteBooking();
-                // } else {
-                //     $verifiedAction = null;
-                // }
-            }elseif($mainContent == 'reviews'){
+                  $bookings = $this -> viewBooking();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add'){
+                    $verifiedAction = 'add';
+                } elseif ($action == 'sendTN') {
+                    $verifiedAction = 'sendTN';
+                }else {
+                    $verifiedAction = null;
+                }
+            }elseif($mainContent == 'booking_list'){
+                $bookings = $this -> viewBooking();
+              $action = isset($_GET['action']) ? $_GET['action'] : null;
+              if($action == 'add'){
+                  $verifiedAction = 'add';
+              }else {
+                  $verifiedAction = null;
+              }
+          }elseif($mainContent == 'reviews'){
                 $reviews = $this -> viewReview();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if($action == 'add'){
@@ -326,23 +332,33 @@ class RestaurantController
     
     //bookings 
 
-    // public function addBooking()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $name = $_POST['name'];
-    //         $email = $_POST['email'];
-    //         $date_booking = $_POST['date_booking']; 
-    //         $no_people = $_POST['no_people'];
-    //         $special_request = $_POST['special_Request']; 
-    //         $restaurantID = $_SESSION['UserID'];
+    public function addBooking()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['customer_name'];
+            $email = $_POST['email'];
+            $date_booking = $_POST['date_booking']; 
+            $time_booking = $_POST['time_booking'];
+            $no_people = $_POST['no_people'];
+            $special_request = $_POST['special_Request']; 
+            $restaurantID = $_SESSION['RestaurantID'];
+            $travelerID = $_SESSION['TravelerID'];
 
-    //         $restaurantModel = new RestaurantModel($this->conn);
-    //         $bookingID = $restaurantModel->addBooking($title,$description,  $restaurantID);
+            $restaurantModel = new RestaurantModel($this->conn);
+            $bookingID = $restaurantModel->saveBooking($name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID,  $travelerID);
 
 
-    //         header('Location: ../restaurant/dashboard?page=bookings');
-    //     } 
-    // }
+            header('Location: ../views/service_traveller_sice_view/restaurant.php?restaurant_id=' . $restaurantID . '&booking_id=' . $bookingID);
+        } 
+    }
+
+    public function viewBooking()
+    {
+        $restaurantModel = new RestaurantModel ($this->conn);
+        $bookings = $restaurantModel->getBookings($_SESSION['RestaurantID']);
+        
+        return $bookings; // Return the bookings data
+    }
 
     //reviews
     public function reviewForm(): void
@@ -391,13 +407,7 @@ class RestaurantController
     //     }
     // }
 
-    public function viewBooking()
-    {
-        $restaurantModel = new RestaurantModel ($this->conn);
-        $bookings = $restaurantModel->getBookings($_SESSION['RestaurantID']);
-        
-        return $bookings; // Return the bookings data
-    }
+   
 
      
 
