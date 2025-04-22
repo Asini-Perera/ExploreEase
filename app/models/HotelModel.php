@@ -473,4 +473,15 @@ class HotelModel
         return $result->fetch_assoc();
     }
 
+    public function updateReviewResponse($reviewID, $response)
+    {
+        $sql = "UPDATE hotelfeedback SET Response = ? WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param('si', $response, $reviewID);
+            return $stmt->execute();
+        }
+        return false;
+    }
+
 }

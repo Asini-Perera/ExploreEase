@@ -35,10 +35,11 @@
                             <td><?= isset($review['Rating']) ? $review['Rating'] : 'N/A' ?></td>
                             <td><?= isset($review['Comment']) ? $review['Comment'] : 'N/A' ?></td>
                             <td><?= isset($review['Response']) ? $review['Response'] : 'N/A' ?></td>
-                            <td><?= isset($review['FirstName']) && isset($review['LastName']) ? 
-                                $review['FirstName'] . ' ' . $review['LastName'] : 'N/A' ?></td>
+                            <td><?= isset($review['TravelerID']) ? $review['TravelerID'] : 'N/A' ?></td>
                             <td class="action-buttons">
-                                <button class="reply-btn"><a href="?page=reviews&action=reply&id=<?= $review['FeedbackID'] ?>">Reply</a></button>
+                                <button class="reply-btn">
+                                    <a href="?page=reviews&action=reply&id=<?= $review['FeedbackID'] ?>" style="color: white; text-decoration: none;">Reply</a>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>        

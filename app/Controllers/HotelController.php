@@ -473,4 +473,36 @@ class HotelController
             header('Location: ../hotel/dashboard?page=bookings');
         }
     }
+
+    public function replyReview()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (empty($_POST['reviewID']) || empty($_POST['response'])) {
+                $_SESSION['error'] = "Review ID and response are required";
+                header('Location: ../hotel/dashboard?page=reviews');
+                exit();
+            }
+
+            $reviewID = $_POST['reviewID'];
+            $response = $_POST['response'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $success = $hotelModel->updateReviewResponse($reviewID, $response);
+
+            if ($success) {
+                $_SESSION['success'] = "Response submitted successfully";
+            } else {
+                $_SESSION['error'] = "Failed to submit response";
+            }
+
+            // Clear session variables
+            unset($_SESSION['ReviewID']);
+            unset($_SESSION['Comment']);
+            unset($_SESSION['Response']);
+            unset($_SESSION['TravellerID']);
+
+            header('Location: ../hotel/dashboard?page=reviews');
+            exit();
+        }
+    }
 }
