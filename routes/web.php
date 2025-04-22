@@ -51,6 +51,12 @@ $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
 $router->add('hotel/deleteRoom', 'HotelController@deleteRoom');  // Delete room for hotel
 $router->add('hotel/update', 'HotelController@updateProfile');  // Update profile for hotel
 $router->add('hotel/changepassword', 'HotelController@changePassword');  // Change password for hotel
+$router->add('hotel/updateRoom', 'HotelController@updateRoom');  // Update room details for hotel
+$router->add('hotel/addPost', 'HotelController@addPost');  // Add post for hotel
+$router->add('hotel/deletePost', 'HotelController@deletePost');  // Delete post for hotel
+$router->add('hotel/updatePost', 'HotelController@updatePost');  // Update post for hotel
+$router->add('hotel/reviews', 'HotelController@reviews');  // View reviews for hotel
+$router->add('hotel/replyReview', 'HotelController@replyReview');  // Process review replies
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritageMarket/shops', 'HeritageMarketController@shops');
