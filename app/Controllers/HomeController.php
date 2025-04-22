@@ -51,7 +51,7 @@ class HomeController
 
     public function travelerside_menu()
     {
-        require_once __DIR__ . '/../Views/service_traveller_side_view/menu_pdf.php';
+        require_once __DIR__ . '/../Views/restaurant/menu_pdf.php';
     }
 
     public function post()
@@ -62,4 +62,6 @@ class HomeController
     {
         require_once __DIR__ . '/../Views/siteReview.php';
     }
+
+     
 }

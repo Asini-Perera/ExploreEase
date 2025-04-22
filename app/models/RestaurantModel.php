@@ -146,6 +146,7 @@ class RestaurantModel
         $stmt->bind_param("sdsii", $name, $price, $category, $popularDish, $menuID);
         $stmt->execute();
     }
+    
     public function deleteMenu($menuID)
     {
         $sql = "DELETE FROM menu WHERE MenuID = ?";

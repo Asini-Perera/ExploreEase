@@ -54,7 +54,7 @@ class RestaurantController
                     $menuID = isset($_GET['id']) ? $_GET['id'] : null;
                     
                     $restaurantModel = new RestaurantModel($this->conn);
-                    $menuItem = $restaurantModel->getMenuItem($menuID);
+                    $menuItem = $restaurantModel->getMenuItem($menuID); 
 
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
@@ -232,7 +232,7 @@ class RestaurantController
             $restaurantID = $_SESSION['RestaurantID'];
         
             $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->updateMenu( $name, $price, $category,    $popularDish,$menuID);
+            $restaurantModel->updateMenu( $name, $price, $category, $popularDish,$menuID);
         
             //If a new image is uploaded, update the image path
             if ($image['name']) {
@@ -339,7 +339,7 @@ class RestaurantController
     //reviews
     public function reviewForm(): void
     {
-       require_once __DIR__ . '/../Views/restaurant_dashboard/add_review.php';
+       require_once __DIR__ . '/../Views/restaurant/add_review.php';
     }
 
 
