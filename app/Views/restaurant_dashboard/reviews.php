@@ -16,7 +16,7 @@
         </thead>
 
         <tbody>
-        <!-- <?php if (!empty($reviews) && is_array($reviews)): ?> -->
+        <?php if (!empty($reviews) && is_array($reviews)): ?>
     <?php foreach ($reviews as $feedback): ?>
         <tr>
             <td><?= htmlspecialchars($feedback['FirstName'].' '. $feedback['LastName']) ?></td>
@@ -29,9 +29,10 @@
             </td>
         </tr>
     <?php endforeach; ?>
-<!-- <?php else: ?>
-    <tr><td colspan="6">No reviews found.</td></tr>
-<?php endif; ?> -->
+    
+    <?php else: ?>
+        <tr><td colspan="6">No reviews found.</td></tr>
+    <?php endif; ?>  
 
 
 

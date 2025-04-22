@@ -211,13 +211,13 @@
     <div class="booking-form">
         <form action="../restaurant/addBooking" method="post">
             <h3 class="booking-heading">Book a Table</h3>
-            <input type="text" placeholder="Your Name" class="input-field" required>
-            <input type="email" placeholder="Your Email" class="input-field" required>
+            <input type="text" name="customer_name" placeholder="Your Name" class="input-field" required>
+            <input type="email" name="email" placeholder="Your Email" class="input-field" required>
             <!-- <input type="text" placeholder="Phone Number" class="input-field" required> -->
-            <input type="timestamp" placeholder="Select Date and time" class="input-field" required>
-            <!-- <input type="time" placeholder="Select Time" class="input-field booking-time" required> -->
-            <input type="number" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
-            <textarea placeholder="Special Requests" rows="5" cols="10" class="input-field special-request"></textarea>
+            <input type="date" placeholder="Select Date" class="input-field" required>
+            <input type="time" name="time" placeholder="Select Time" class="input-field booking-time" required>
+            <input type="number" name="guests" min="1" max="25" placeholder="Number of Guests" class="input-field guests" required>
+            <textarea name="requests" placeholder="Special Requests" rows="5"  class="input-field special-request"></textarea>
             <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
         </form>
 

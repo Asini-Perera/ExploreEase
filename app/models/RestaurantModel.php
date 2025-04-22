@@ -188,6 +188,18 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    
+    public function getPostItem($postID)
+    {
+        $sql = "SELECT * FROM restaurantpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
 
     public function deletePost($postID)
     {
@@ -197,14 +209,65 @@ class RestaurantModel
         $stmt->execute();
     }
 
-    // public function updatePost($postID, $title, $description)
-    // {
-    //     $query = "UPDATE posts SET title = ?, description = ? WHERE id = ?";
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bind_param("ssi", $title, $description, $postID);
-    //     $stmt->execute();
-    //     $stmt->close();
-    // }
+    public function updatePost($title, $description,$postID)
+    {
+        $query = "UPDATE restaurantpost SET title = ?, description = ? WHERE PostID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ssi", $title, $description, $postID);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function setPostImgPath($PostID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $PostID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/post/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/post/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE restaurantpost SET ImgPath = ? WHERE PostID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $PostID);
+            $stmt->execute();
+        }
+    }
+
+    public function getPostImgPath($PostID)
+    {
+        $sql = "SELECT ImgPath FROM restaurantpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $PostID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
 
     //bookings
     
@@ -228,15 +291,6 @@ class RestaurantModel
         return $feedbackID;
     }
 
-    // public function getReview($restaurantID,$travelerID){
-    //     $sql = "SELECT * FROM restaurantfeedback WHERE RestaurantID = ? AND TravelerID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('ii', $restaurantID,$travelerID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
     public function getReview($restaurantID)
     {
         $sql = " SELECT rf.* , t.FirstName, t.LastName FROM restaurantfeedback rf
@@ -265,84 +319,18 @@ class RestaurantModel
     
     
 
-    public function deleteReview($feedbackID)
+    public function getBookings($restaurantID)
     {
-        $sql = "DELETE FROM restaurantfeedback WHERE FeedbackID = ?";
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $feedbackID);
+        $stmt->bind_param('i', $restaurantID);
         $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // public function getBookings($hotelID)
-    // {
-    //     $sql = "SELECT rb.* FROM roombooking rb
-    //             JOIN room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('i', $hotelID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
-
-    // public function setImagePath($PostID, $fileName)
-    // {
-    //     // Get temp image path
-    //     $tempImgPath = $fileName['tmp_name'];
-
-    //     // Get the file name (original file name from the upload)
-    //     $originalFileName = $fileName['name'];
-
-    //     // Get the file extention
-    //     $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
-
-    //     // Create a new file name
-    //     $newFileName = $PostID . '.' . $extention;
-
-    //     // Define the target directory
-    //     $targetDir = __DIR__ . '/../../public/images/database/hotel_post/';
-
-    //     // Check the directory exists and create it
-    //     if (!is_dir($targetDir)) {
-    //         mkdir($targetDir, 077, false);
-    //     }
-
-    //     // Create the image path
-    //     $imgDir = $targetDir . $newFileName;
-
-    //     // Move the image to the target directory
-    //     $moving = move_uploaded_file($tempImgPath, $imgDir);
-
-    //     // Define the image path
-    //     $imgPath = '/ExploreEase/public/images/database/hotel_post/' . $newFileName;
-
-    //     // Enter the image path to the database
-    //     if ($moving) {
-    //         $sql = "UPDATE hotelpost SET ImgPath = ? WHERE PostID = ?";
-    //         $stmt = $this->conn->prepare($sql);
-    //         $stmt->bind_param('si', $imgPath, $PostID);
-    //         $stmt->execute();
-    //     }
-    // }
-
-    // public function getPost($hotelID, $postID = null)
-    // {
-    //     $sql = "SELECT * FROM hotelpost WHERE HotelID = ?";
-    //     if ($postID) {
-    //         $sql .= " AND PostID = ?";
-    //     }
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($postID) {
-    //         $stmt->bind_param('ii', $hotelID, $postID);
-    //     } else {
-    //         $stmt->bind_param('i', $hotelID);
-    //     }
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     return $postID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
-    // }
+  
 
     // public function getTotalBookings($hotelId) {
     //     $sql = "SELECT COUNT(*) AS totalBookings 
@@ -481,62 +469,5 @@ class RestaurantModel
     //     }
     // }
 
-    // public function updateRoom($roomID, $room_type, $price, $capacity, $description)
-    // {
-    //     $sql = "UPDATE room SET Type = ?, Price = ?, MaxOccupancy = ?, Description = ? WHERE RoomID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $roomID);
-    //     $stmt->execute();
-    // }
-
-    // public function getRoomImage($roomID)
-    // {
-    //     $sql = "SELECT ImgPath FROM room WHERE RoomID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-        
-    //     if (!$stmt) {
-    //         return null;
-    //     }
-        
-    //     $stmt->bind_param('i', $roomID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     if ($result && $result->num_rows > 0) {
-    //         return $result->fetch_assoc()['ImgPath'];
-    //     }
-        
-    //     return null;
-    // }
-
-    // public function addPost($title, $description, $hotelID)
-    // {
-    //     $sql = "INSERT INTO hotelpost (Title, Description, HotelID) VALUES (?, ?, ?)";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('ssi', $title, $description, $hotelID);
-    //     $stmt->execute();
-        
-    //     return $stmt->insert_id;
-    // }
-
-    // public function getPostImage($postID)
-    // {
-    //     $sql = "SELECT ImgPath FROM hotelpost WHERE PostID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-        
-    //     if (!$stmt) {
-    //         return null;
-    //     }
-        
-    //     $stmt->bind_param('i', $postID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     if ($result && $result->num_rows > 0) {
-    //         return $result->fetch_assoc()['ImgPath'];
-    //     }
-        
-    //     return null;
-    // }
-
+   
 }

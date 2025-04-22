@@ -17,37 +17,18 @@
         </thead>
         <tbody>
             <tr>
-                <td>Nimal Perera</td>
-                <td>2024.10.18</td>
-                <td>2024.10.18</td>
-                <td>12:30 PM</td>
-                <td  >None</td>
-                <td>4</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
                 <td class="action-buttons">
                     <button class="reply-btn" id="sendTableBtn">Send Table No</button>
                 </td>
             </tr>
-            <tr>
-                <td>Kamal Silva</td>
-                <td>2024.10.18</td>
-                <td>2024.10.18</td>
-                <td>1:00 PM</td>
-                <td  >None</td>
-                <td>2</td>
-                <td class="action-buttons">
-                    <button class="reply-btn" id="sendTableBtn">Send Table No</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Sunil Fernando</td>
-                <td>2024.10.18</td>
-                <td>2024.10.18</td>
-                <td>1:30 PM</td>
-                <td  >None of the are book tables  </td>
-                <td>3</td>
-                <td class="action-buttons">
-                    <button class="reply-btn" id="sendTableBtn">Send Table No</button>
-                </td>
+            
+             
 
                     <!-- Modal -->
                     <div id="tableNoModal" class="modal">
@@ -64,8 +45,8 @@
                     <script src="https://smtpjs.com/v3/smtp.js"></script>
                     <script src="../public/js/restaurant_dashboard/table_no.js"></script>
 
-                </td>
-            </tr>
+                
+             
         </tbody>
     </table>
 </div>

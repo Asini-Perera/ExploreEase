@@ -62,7 +62,7 @@ class RestaurantController
                 } else {
                     $verifiedAction = null;
                 }
-                // $verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
+                
             } elseif ($mainContent == 'post') {
                 //$action = isset($_GET['action']) ? $_GET['action'] : null;
                 //$verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
@@ -72,25 +72,30 @@ class RestaurantController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+
+                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $restaurantModel = new RestaurantModel($this->conn);
+                    $postItem = $restaurantModel->getPostItem($postID);
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
                 } else {
                     $verifiedAction = null;
                 }
-            // }elseif($mainContent == 'post'){
-            //     $reviews = $this -> viewBookings();
-            //     $action = isset($_GET['action']) ? $_GET['action'] : null;
-            //     if($action == 'add'){
-            //         $verifiedAction = 'add';
-            //     } elseif ($action == 'sendTN') {
-            //         $verifiedAction = 'sendTN';
-            //     } elseif ($action == 'delete') {
-            //         $verifiedAction = null;
-            //         $this->deleteBooking();
-            //     } else {
-            //         $verifiedAction = null;
-            //     }
+            }elseif($mainContent == 'bookings'){
+                // $reviews = $this -> viewBookings();
+                // $action = isset($_GET['action']) ? $_GET['action'] : null;
+                // if($action == 'add'){
+                //     $verifiedAction = 'add';
+                // } elseif ($action == 'sendTN') {
+                //     $verifiedAction = 'sendTN';
+                // } elseif ($action == 'delete') {
+                //     $verifiedAction = null;
+                //     $this->deleteBooking();
+                // } else {
+                //     $verifiedAction = null;
+                // }
             }elseif($mainContent == 'reviews'){
                 $reviews = $this -> viewReview();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -98,10 +103,7 @@ class RestaurantController
                     $verifiedAction = 'add';
                 } elseif ($action == 'reply') {
                     $verifiedAction = 'reply';
-                } elseif ($action == 'delete') {
-                    $verifiedAction = null;
-                    $this->deleteReview();
-                } else {
+                }else {
                     $verifiedAction = null;
                 }
             }
@@ -261,21 +263,7 @@ class RestaurantController
     public function addPost()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            // Check if all required fields are provided
-            // if (empty($_POST['title']) || empty($_POST['description'])) {
-            //     $_SESSION['error'] = "All fields are required!";
-            //     header('Location: ../restaurant/dashboard?page=post&action=add');
-            //     exit();
-            // }
-
-            // Check if image is uploaded
-            // if (!isset($_FILES['postImage']) || empty($_FILES['postImage']['name'])) {
-            //     $_SESSION['error'] = "Post image is required!";
-            //     header('Location: ../restaurant/dashboard?page=post&action=add');
-            //     exit();
-            // }
-
+ 
             $title = $_POST['title'];
             $description = $_POST['description'];
             $image = $_FILES['post-image']; 
@@ -286,9 +274,9 @@ class RestaurantController
 
             
             // If image is uploaded, set the image path
-            // if($postID && $image['name']) {
-            //     $restaurantModel->setPostImgPath($postID, $image);
-            // }
+            if($postID && $image['name']) {
+                $restaurantModel->setPostImgPath($postID, $image);
+            }
 
             header('Location: ../restaurant/dashboard?page=post');
         }
@@ -303,6 +291,26 @@ class RestaurantController
         return $posts;
     }
 
+    public function editPost(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+            $postID = $_POST['postID'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = $_FILES['post-image']; 
+            $restaurantID = $_SESSION['RestaurantID'];
+        
+            $restaurantModel = new RestaurantModel($this->conn);
+            $restaurantModel->updatePost( $title, $description, $postID);
+        
+            //If a new image is uploaded, update the image path
+            if ($image['name']) {
+                $restaurantModel->setPostImgPath($postID, $image);
+            }
+
+            header("Location: dashboard?page=post");
+            exit();
+        }
+    }
     public function deletePost()
     {
         if (isset($_GET['id'])) {
@@ -369,18 +377,6 @@ class RestaurantController
         return $reviews; // Return the reviews data
     }
     
-
-    public function deleteReview()
-    {
-        if (isset($_GET['id'])) {
-            $reviewID = $_GET['id'];
-
-            $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->deleteReview($reviewID);
-
-            header('Location: ../restaurant/dashboard?page=reviews');
-        }
-    }
     
     // public function replyReview()
     // {
@@ -395,77 +391,16 @@ class RestaurantController
     //     }
     // }
 
-    // public function viewBooking()
-    // {
-    //     $hotelModel = new RestaurantModel ($this->conn);
-    //     $bookings = $hotelModel->getBookings($_SESSION['RestaurantID']);
+    public function viewBooking()
+    {
+        $restaurantModel = new RestaurantModel ($this->conn);
+        $bookings = $restaurantModel->getBookings($_SESSION['RestaurantID']);
         
-    //     return $bookings; // Return the bookings data
-    // }
+        return $bookings; // Return the bookings data
+    }
 
-    // public function updatePost()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $postID = $_POST['postID'];
-    //         $title = $_POST['title'];
-    //         $description = $_POST['description'];
-    //         $image = $_FILES['postImage'];
+     
 
-    //         $hotelModel = new HotelModel($this->conn);
-
-    //         // Update post details in the database
-    //         $hotelModel->updatePost($postID, $title, $description);
-
-    //         // If a new image is uploaded, update the image path
-    //         if ($image['name']) {
-    //             $hotelModel->setImagePath($postID, $image);
-    //         }
-
-    //         // Clear session variables
-    //         unset($_SESSION['PostID']);
-    //         unset($_SESSION['Title']);
-    //         unset($_SESSION['Description']);
-    //         unset($_SESSION['ImgPath']);
-
-    //         header('Location: ../hotel/dashboard?page=post');
-    //         exit();
-    //     }
-    // }
-
-    // public function editBooking()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $bookingID = $_POST['bookingID'];
-    //         $checkInDate = $_POST['checkInDate'];
-    //         $checkOutDate = $_POST['checkOutDate'];
-    //         $date = $_POST['date'];
-    //         $status = $_POST['paymentStatus'];
-
-    //         $hotelModel = new RestaurantModel($this->conn);
-    //         $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status);
-            
-    //         // Clear session variables
-    //         unset($_SESSION['BookingID']);
-    //         unset($_SESSION['CheckInDate']);
-    //         unset($_SESSION['CheckOutDate']);
-    //         unset($_SESSION['Date']);
-    //         unset($_SESSION['Status']);
-
-    //         header('Location: ../hotel/dashboard?page=bookings');
-    //         exit();
-    //     }
-    // }
-
-    // public function deleteBooking()
-    // {
-    //     if (isset($_GET['id'])) {
-    //         $bookingID = $_GET['id'];
-
-    //         $restaurantModel = new RestaurantModel($this->conn);
-    //         $restaurantModel->deleteBooking($bookingID);
-
-    //         header('Location: ../restaurant/dashboard?page=booking_list');
-    //     }
-    // }
+     
 
 }
