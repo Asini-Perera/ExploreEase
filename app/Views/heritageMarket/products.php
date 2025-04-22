@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="../public/css/heritagemarket/products.css?v=1">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
 </head>
+
 <body>
-     <?php require_once __DIR__ . '/../Navbar.php'; ?>
+    <?php require_once __DIR__ . '/../Navbar.php'; ?>
     <main>
-       
+
         <h2 class="page-title">Our Products</h2>
         <div id="product-list" class="product-container">
             <!-- Product Card 1 -->
@@ -37,7 +39,7 @@
                     <p class="product-price">$30.00</p>
                 </div>
             </div>
-            
+
             <div class="product-card">
                 <img src="../public/images/ceramicc1.jpg" alt="Product 3" class="product-image">
                 <div class="product-details">
@@ -82,10 +84,11 @@
             </div>
         </div>
         <div class="review-button-container1">
-    <a href="http://localhost/ExploreEase/heritageMarket/review" class="review-button1">Add a Review</a>
-</div>
+            <a href="http://localhost/ExploreEase/heritagemarket/review" class="review-button1">Add a Review</a>
+        </div>
 
     </main>
     <?php require_once __DIR__ . '/../logedFooter.php'; ?>
 </body>
+
 </html>
