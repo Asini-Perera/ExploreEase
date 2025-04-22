@@ -3,10 +3,10 @@
 <div class="form-content">
     <h1>Edit Menu</h1>
     
-    <form method="post" action="">
+    <form method="POST" action="../restaurant/editMenu" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Food Name:</label>
-            <input type="text" name="title" id="title" class="form-control" placeholder="Enter food name" required>
+            <input type="text" name="title" id="title" class="form-control" placeholder="Enter food name"  value="<?= htmlspecialchars($menuItem['FoodName']) ?>" required>
         </div>
         <div class="form-group">
             <label for="price">Price:</label>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="action-buttons">
-            <button type="button" class="discard-btn" onclick="">Discard</button>
+            <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
             <button type="submit" class="save-btn" onclick="">Save</button>     
         </div>
 

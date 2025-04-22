@@ -3,7 +3,7 @@
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
     
-    <form id="edit-profile-form" action="../restaurant/update" method="POST">
+    <form id="edit-profile-form" action="../restaurant/update" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?php echo $_SESSION['Name']; ?>">
@@ -36,10 +36,18 @@
             <label for="description">Description</label>
             <input type="text" id="description" name="description" value="<?php echo $_SESSION['Description']; ?>">
         </div>
+        <div class="form-group">
+            <label for="sm_link">SMLink</label>
+            <input type="text" id="smlink" name="smlink" value="<?php echo $_SESSION['SMLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="menupdf">Menu PDF</label>
+            <input type="file" id="menupdf" name="menupdf" >
+        </div>
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
-            <button type="submit" class="save-btn" onclick="">Save</button>     
+            <button type="submit" class="save-btn" onclick=" ">Save</button>     
         </div>
         
     </form>

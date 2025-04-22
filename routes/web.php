@@ -45,6 +45,20 @@ $router->add('restaurant/addMenu', 'RestaurantController@addMenu');  // Add menu
 $router->add('restaurant/deleteMenu', 'RestaurantController@deleteMenu');  // Delete menu for restaurant
 $router->add('restaurant/update', 'RestaurantController@updateProfile');  // Update profile for restaurant
 $router->add('restaurant/changepassword', 'RestaurantController@changePassword');  // Change password for restaurant
+$router->add('restaurant/addPost', 'RestaurantController@addPost');  // Add post for restaurant
+$router->add('restaurant/deletePost', 'RestaurantController@deletePost');  // Delete post for restaurant
+$router->add('restaurant/editPost', 'RestaurantController@editPost');  // Edit post for restaurant
+$router->add('restaurant/editMenu', 'RestaurantController@editMenu');  // Edit menu for restaurant
+$router->add('restaurant/bookings', 'RestaurantController@bookings');  // Restaurant bookings
+$router->add('restaurant/booking_list', 'RestaurantController@booking_list');  // Restaurant booking list
+$router->add('restaurant/booking_list/delete', 'RestaurantController@deleteBooking');  // Delete booking for restaurant
+$router->add('restaurant/booking_list/edit', 'RestaurantController@editBooking');  // Edit booking for restaurant
+$router->add('restaurant/booking_list/sendTable', 'RestaurantController@sendTable');  // Send table number for booking
+$router->add('restaurant/booking_list/sendTableEmail', 'RestaurantController@sendTableEmail');  // Send table number email for booking
+$router->add('restaurant/review', 'RestaurantController@review');  // Restaurant review
+$router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   // Restaurant review reply
+$router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
+$router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
