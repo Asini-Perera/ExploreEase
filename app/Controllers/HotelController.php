@@ -39,8 +39,10 @@ class HotelController
                 $hotelModel = new HotelModel($this->conn);
                 $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
                 $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
-                $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
-                $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
+                // $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
+                // $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
+                $TotalCustomers = $hotelModel->getTotalCustomers($_SESSION['HotelID']);
+                $TotalPosts = $hotelModel->getTotalPosts($_SESSION['HotelID']);
                 $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
                 $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
 

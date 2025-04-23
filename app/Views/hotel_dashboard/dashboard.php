@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="tile">
+        <!-- <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Revenue</h2>
@@ -46,6 +46,28 @@
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/revenue2.jpeg" alt="Restaurant">
+                </div>
+            </div>
+        </div> -->
+        <div class="tile">
+            <div class="tile-content">
+                <div class="tile-text">
+                    <h2>Total Customers</h2>
+                    <h1><?php echo $TotalCustomers; ?></h1>
+                </div>
+                <div class="tile-image">
+                    <img src="../public/images/traveler1.png" alt="Traveler">
+                </div>
+            </div>
+        </div>
+        <div class="tile">
+            <div class="tile-content">
+                <div class="tile-text">
+                    <h2>Total Posts</h2>
+                    <h1><?php echo $TotalPosts; ?></h1>
+                </div>
+                <div class="tile-image">
+                    <img src="../public/images/post.svg" alt="Menu">
                 </div>
             </div>
         </div>

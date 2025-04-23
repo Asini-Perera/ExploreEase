@@ -120,7 +120,7 @@ class HotelModel
         $stmt->execute();
     }
 
-    public function getReviews($hotelID)
+    public function getReviewsByFeedbackID($hotelID)
     {
         $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
         $stmt = $this->conn->prepare($sql);
@@ -247,19 +247,65 @@ class HotelModel
         }
     }
 
-    public function getTotalRevenue($hotelId) {
-        $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
-                FROM RoomBooking rb
-                JOIN Room r ON rb.RoomID = r.RoomID
-                WHERE r.HotelID = ?";
+    // public function getTotalRevenue($hotelId) {
+    //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
+    //             FROM RoomBooking rb
+    //             JOIN Room r ON rb.RoomID = r.RoomID
+    //             WHERE r.HotelID = ?";
         
+    //     $stmt = $this->conn->prepare($sql);
+    //     if ($stmt) {
+    //         $stmt->bind_param("i", $hotelId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+    //         if ($result) {
+    //             return $result->fetch_assoc()['totalRevenue'];
+    //         } else {
+    //             error_log("SQL Error: " . $this->conn->error);
+    //             return 0;
+    //         }
+    //     } else {
+    //         error_log("SQL Prepare Error: " . $this->conn->error);
+    //         return 0;
+    //     }
+    // }
+
+    // public function getTotalRevenueInLastWeek($hotelId) {
+    //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenueLastWeek 
+    //             FROM RoomBooking rb
+    //             JOIN Room r ON rb.RoomID = r.RoomID
+    //             WHERE r.HotelID = ? AND rb.BookingDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+        
+    //     $stmt = $this->conn->prepare($sql);
+    //     if ($stmt) {
+    //         $stmt->bind_param("i", $hotelId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+    //         if ($result) {
+    //             return $result->fetch_assoc()['totalRevenueLastWeek'];
+    //         } else {
+    //             error_log("SQL Error: " . $this->conn->error);
+    //             return 0;
+    //         }
+    //     } else {
+    //         error_log("SQL Prepare Error: " . $this->conn->error);
+    //         return 0;
+    //     }
+    // }
+
+    public function getTotalCustomers($hotelID){
+        $sql = "SELECT COUNT(DISTINCT rb.TravelerID) AS totalCustomers 
+                FROM roombooking rb
+                JOIN room r ON rb.RoomID = r.RoomID
+                WHERE r.HotelID = ?";
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("i", $hotelId);
+            $stmt->bind_param("i", $hotelID);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result) {
-                return $result->fetch_assoc()['totalRevenue'];
+                return $result->fetch_assoc()['totalCustomers'];
             } else {
                 error_log("SQL Error: " . $this->conn->error);
                 return 0;
@@ -270,11 +316,10 @@ class HotelModel
         }
     }
 
-    public function getTotalRevenueInLastWeek($hotelId) {
-        $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenueLastWeek 
-                FROM RoomBooking rb
-                JOIN Room r ON rb.RoomID = r.RoomID
-                WHERE r.HotelID = ? AND rb.BookingDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+    public function getTotalPosts($hotelId) {
+        $sql = "SELECT COUNT(*) AS totalPosts 
+                FROM HotelPost 
+                WHERE HotelID = ?";
         
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
@@ -282,7 +327,7 @@ class HotelModel
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result) {
-                return $result->fetch_assoc()['totalRevenueLastWeek'];
+                return $result->fetch_assoc()['totalPosts'];
             } else {
                 error_log("SQL Error: " . $this->conn->error);
                 return 0;
@@ -294,10 +339,9 @@ class HotelModel
     }
 
     public function getTotalRatings($hotelId) {
-        $sql = "SELECT COUNT(*) AS totalRatings 
-                FROM HotelFeedback hf
-                JOIN Room r ON hf.RoomID = r.RoomID
-                WHERE r.HotelID = ?";
+        $sql = "SELECT COALESCE(AVG(hf.Rating), 0) AS totalRating 
+            FROM HotelFeedback hf
+            WHERE HotelID = ?";
         
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
@@ -305,7 +349,8 @@ class HotelModel
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result) {
-                return $result->fetch_assoc()['totalRatings'];
+                $totalRating = $result->fetch_assoc()['totalRating'];
+                return $totalRating ? (int)$totalRating : 0;
             } else {
                 error_log("SQL Error: " . $this->conn->error);
                 return 0;
@@ -318,9 +363,8 @@ class HotelModel
 
     public function getTotalFeedbacks($hotelId) {
         $sql = "SELECT COUNT(*) AS totalFeedbacks 
-                FROM HotelFeedback hf
-                JOIN Room r ON hf.RoomID = r.RoomID
-                WHERE r.HotelID = ?";
+                FROM HotelFeedback
+                WHERE HotelID = ?";
         
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
@@ -462,17 +506,17 @@ class HotelModel
         return $result->fetch_assoc();
     }
 
-    public function getReviewById($FeedbackID)
+    public function getReviews($hotelID)
     {
-        $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
+        $sql = "SELECT * FROM hotelfeedback WHERE HotelID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $FeedbackID);
+        $stmt->bind_param('i', $hotelID);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_assoc();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
-
+    
     public function updateReviewResponse($reviewID, $response)
     {
         $sql = "UPDATE hotelfeedback SET Response = ? WHERE FeedbackID = ?";
