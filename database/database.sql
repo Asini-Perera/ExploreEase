@@ -617,3 +617,15 @@ ADD
     TikTokLink VARCHAR(255),
 ADD
     YoutubeLink VARCHAR(255);
+
+-- Add Tagline column to Hotel table
+ALTER TABLE
+    Hotel
+ADD
+    Tagline VARCHAR(255);
+
+-- Add Tagline column to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    Tagline VARCHAR(255);
