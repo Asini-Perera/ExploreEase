@@ -90,8 +90,9 @@ button {
     text-align: center;
     /* Center align text */
     line-height: 1.2;
-    
+
 }
+
 .location-prompt {
     color: var(--white);
     margin-top: 10px;
@@ -145,7 +146,7 @@ button {
 
 .search-placeholder {
     width: 150px;
-      
+
     max-width: 100%;
     flex-grow: 1;
     margin: auto 0;
@@ -172,30 +173,31 @@ button {
     padding: 5px;
     border-radius: 4px;
     margin-right: auto;
-    
+
 }
 
 .locate-icon {
     width: 20px;
     /* Smaller icon size */
     height: 20px;
-    
+
     /* Maintain aspect ratio */
 }
 
 /* Adjust text size */
 .locate-text {
     font-size: 0.9rem;
-    
+
 }
+
 .filters-section {
-    margin-top: 150px;
+    margin-top: 200px;
     font-size: 0.9rem;
     text-align: left;
     margin-right: 10px;
     position: relative;
-        /* so that the button can be positioned relative to it */
-        padding-bottom: 60px;
+    /* so that the button can be positioned relative to it */
+    padding-bottom: 60px;
 }
 
 .filters-section .section-title {
@@ -223,7 +225,7 @@ button {
     /* No additional margins */
     padding: 8px 12px;
     /* Adjust padding */
-   
+
     /* Optional: Add borders to each option */
     border-radius: 4px;
     /* Slightly rounded corners */
@@ -234,6 +236,7 @@ button {
     transition: background-color 0.2s;
     /* Smooth hover effect */
 }
+
 .filters-section .option-group {
     display: flex;
     /* Align items horizontally */
@@ -245,7 +248,7 @@ button {
     /* Adjust text size */
     padding: 5px 10px;
     /* Add padding */
-    
+
     /* Optional: Add borders */
     border-radius: 4px;
     /* Rounded corners */
@@ -349,28 +352,28 @@ button {
 
 /* Container for the Next button */
 .next-button-container {
-        display: block;
-        font-size: 16px;
-        font-weight: 500;
-        text-align: center;
-        margin-bottom: 60px;
-        margin-left: 500px;
-        cursor: pointer;
-       
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 60px;
+    margin-left: 500px;
+    cursor: pointer;
+
 }
 
 /* Styling for the Next button */
 #next-button {
-        background-color: #f1c232;
-        color: #000000;
-        border: none;
-        text-shadow: none;
-        padding: 15px 25px;
-        border: none;
-        border-radius: 30px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        
+    background-color: #f1c232;
+    color: #000000;
+    border: none;
+    text-shadow: none;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
 }
 
 #next-button:hover {

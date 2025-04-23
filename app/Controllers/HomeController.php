@@ -4,6 +4,8 @@ namespace app\Controllers;
 
 use app\Models\HomeModel;
 
+use app\Controllers\KeywordController;
+
 class HomeController
 {
     private $conn;
@@ -15,6 +17,9 @@ class HomeController
 
         // Include the HomeModel
         require_once __DIR__ . '/../models/HomeModel.php';
+
+        // Include the KeywordController
+        require_once __DIR__ . '/../controllers/KeywordController.php';
     }
 
     public function index()
