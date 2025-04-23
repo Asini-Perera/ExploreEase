@@ -18,7 +18,7 @@
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/07f99c8b75a628dd8375eeb83fa2e5bbc9a50211e8eb020e2f7cb24ee36dfb2c?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Scenic landscape of Sri Lanka" class="hero-image" />
                 <div class="hero-content">
                     <h1 id="main-heading" class="hero-title">Explore The<br />Most Beautiful Places<br />Around Sri Lanka</h1>
-                    <p class="location-prompt" id="location-label">where are you located now?</p>
+                    <p class="location-prompt" id="location-label">Where are you located now?</p>
                     <form class="search-container" role="search" aria-labelledby="location-label">
                         <div class="search-input-group">
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc1de7bb3105164d1745555a0ae8ef7f54747be425d0d898d1f3526f3dd70df0?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="search-icon" aria-hidden="true" />
@@ -88,15 +88,71 @@
 
 
                 <div class="next-button-container">
-                    <a href='http://localhost/ExploreEase/search/keyword' class="next-button-link">
-                        <button id="next-button">Next</button>
-                    </a>
+                    <form id="keyword-location-form" method="POST" action="http://localhost/ExploreEase/search/keyword">
+                        <input type="hidden" name="latitude" id="latitude">
+                        <input type="hidden" name="longitude" id="longitude">
+                        <input type="hidden" name="keyword_ids" id="keyword_ids">
+                        <button type="submit" id="next-button">Next</button>
+                    </form>
                 </div>
             </header>
 
         </section>
     </main>
     <?php require_once __DIR__ . '/logedFooter.php'; ?>
+
+    <script>
+        let selectedKeywordIDs = [];
+        let currentLatitude = null;
+        let currentLongitude = null;
+
+        // Get location on clicking "Locate Me"
+        document.querySelector('.locate-group').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        currentLatitude = position.coords.latitude;
+                        currentLongitude = position.coords.longitude;
+                        console.log("Location fetched:", currentLatitude, currentLongitude);
+                    },
+                    (error) => {
+                        alert("Location permission denied or unavailable.");
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported in this browser.");
+            }
+        });
+
+        // Track selected checkboxes
+        document.querySelectorAll('input[type="checkbox"][name="amenities"]').forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                const value = checkbox.value;
+                if (checkbox.checked) {
+                    if (!selectedKeywordIDs.includes(value)) {
+                        selectedKeywordIDs.push(value);
+                    }
+                } else {
+                    selectedKeywordIDs = selectedKeywordIDs.filter(id => id !== value);
+                }
+                console.log("Selected Keyword IDs:", selectedKeywordIDs);
+            });
+        });
+
+        // Before form submission: attach data to hidden fields
+        document.getElementById('keyword-location-form').addEventListener('submit', function(e) {
+            if (currentLatitude === null || currentLongitude === null) {
+                e.preventDefault();
+                alert("Please click 'Locate Me' to allow location access before proceeding.");
+                return;
+            }
+
+            document.getElementById('latitude').value = currentLatitude;
+            document.getElementById('longitude').value = currentLongitude;
+            document.getElementById('keyword_ids').value = JSON.stringify(selectedKeywordIDs); // Send as JSON string
+        });
+    </script>
+
 </body>
 
 </html>

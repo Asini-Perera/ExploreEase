@@ -22,6 +22,7 @@ $router->add('service/cultural_event', 'HomeController@travelerside_cultural_eve
 $router->add('service/menu', 'HomeController@travelerside_menu');  // traveller side menu view
 $router->add('reviews', 'HomeController@siteReview');  // Site reviews page
 $router->add('review/save', 'HomeController@saveReview');  // Save review process
+$router->add('filter/keyword', 'HomeController@filterKeyword');  // Filter by keyword process
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users

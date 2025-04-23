@@ -100,4 +100,13 @@ class HomeController
             exit();
         }
     }
+
+    public function filterKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $latitude = $_POST['latitude'] ?? null;
+            $longitude = $_POST['longitude'] ?? null;
+            $keywordIDs = json_decode($_POST['keyword_ids'] ?? '[]', true);
+        }
+    }
 }
