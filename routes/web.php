@@ -16,6 +16,12 @@ $router->add('loged_home', 'HomeController@loged_index');  // Home route for use
 $router->add('logout', 'HomeController@logout');  // Logout route for users
 $router->add('search/keyword', 'HomeController@keywordsearch');  // Keyword search page for travelers
 $router->add('search/location', 'HomeController@locationsearch');  // Search by location page for users
+$router->add('service/hotel', 'HomeController@travelerside_hotel');  // traveller side hotel view
+$router->add('service/restaurant', 'HomeController@travelerside_restaurant');  // traveller side restaurant view
+$router->add('service/cultural_event', 'HomeController@travelerside_cultural_event');  // traveller side cultural event view
+$router->add('service/menu', 'HomeController@travelerside_menu');  // traveller side menu view
+$router->add('reviews', 'HomeController@siteReview');  // Site reviews page
+$router->add('review/save', 'HomeController@saveReview');  // Save review process
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -91,10 +97,3 @@ $router->add('culturaleventorganizer/addPost', 'CulturalEventOrganizerController
 $router->add('culturaleventorganizer/deletePost', 'CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
 $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
-
-$router->add('service/hotel', 'HomeController@travelerside_hotel');  // traveller side hotel view
-$router->add('service/restaurant', 'HomeController@travelerside_restaurant');  // traveller side restaurant view
-$router->add('service/cultural_event', 'HomeController@travelerside_cultural_event');  // traveller side cultural event view
-$router->add('service/menu', 'HomeController@travelerside_menu');  // traveller side menu view
-
-$router->add('reviews', 'HomeController@siteReview');  // Add post for restaurant

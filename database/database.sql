@@ -515,3 +515,12 @@ ALTER TABLE
 ADD
     WeekdayOpenHours VARCHAR(100),
     WeekendOpenHours VARCHAR(100);
+
+-- Add Feedback table for Website
+CREATE TABLE Feedback (
+    FeedbackID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Rating INT NOT NULL,
+    Comment TEXT
+);
