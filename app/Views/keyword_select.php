@@ -83,110 +83,18 @@
                                 </button>
                             </li>
                         </ul>
-                    </nav>
-
-                    <nav aria-label="Destination type filters">
-                        <h2 id="travel-style" class="section-title">What kind of experience are you looking for during your stay?</h2>
-                        <ul class="filter-list" role="list">
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Family-Friendly</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Kid-Friendly</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Luxury Experience</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Adventure-Focused</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Budget-Friendly</span>
-                                </button>
-                            </li>
-
-                        </ul>
-                    </nav>
-
-                    <nav aria-label="Destination type filters">
-                        <h2 id="travel-style" class="section-title">Which of these services are most important to you?</h2>
-                        <ul class="filter-list" role="list">
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Online Booking</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>24/7 Availability</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Loyalty Programs</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Group Discounts</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Customer Support</span>
-                                </button>
-                            </li>
-
-                        </ul>
-                    </nav>
-
-                    <nav aria-label="Destination type filters">
-                        <h2 id="travel-style" class="section-title">How important are these ratings and reviews to you when choosing where to stay?</h2>
-                        <ul class="filter-list" role="list">
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Highly Rated</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Top Reviewed</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>New on Platform</span>
-                                </button>
-                            </li>
-                            <li><button class="option-group" type="button">
-                                    <input type="checkbox" name="amenities" value="wifi" aria-labelledby="wifi-label" />
-                                    <span>Trusted Vendor</span>
-                                </button>
-                            </li>
-
-
-                        </ul>
                     </nav> -->
                 </section>
 
+
+                <div class="next-button-container">
+                    <a href='http://localhost/ExploreEase/search/keyword' class="next-button-link">
+                        <button id="next-button">Next</button>
+                    </a>
+                </div>
+            </header>
+
         </section>
-        <div class="next-button-container">
-            <a href='http://localhost/ExploreEase/search/keyword' class="next-button-link">
-                <button id="next-button">Next</button>
-            </a>
-        </div>
-        </header>
-
-
     </main>
     <?php require_once __DIR__ . '/logedFooter.php'; ?>
 </body>
