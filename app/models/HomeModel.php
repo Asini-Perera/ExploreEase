@@ -18,4 +18,11 @@ class HomeModel
         $stmt->bind_param("ssis", $name, $email, $rating, $comment);
         $stmt->execute();
     }
+
+    public function getReviews()
+    {
+        $sql = "SELECT * FROM feedback ORDER BY RAND()";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

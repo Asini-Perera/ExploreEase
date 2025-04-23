@@ -19,11 +19,15 @@ class HomeController
 
     public function index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/home.php';
     }
 
     public function loged_index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
