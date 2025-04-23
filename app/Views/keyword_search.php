@@ -1,3 +1,8 @@
+<?php
+$places = $_SESSION['places'] ?? [];
+unset($_SESSION['places']);
+// 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,32 +76,58 @@
                 </section>
                 <button type="button" class="show-more">Show more</button>
                 <h2>Map View</h2>
+                <p>Click on the markers to see more details about each location.</p>
                 <div id="map" class="map-container" aria-label="Map of attractions" style="height:500px; width:100%;">
                     <!-- The Google Map will be rendered here -->
                 </div>
-                <script>
-                    function initMap() {
-                        // Replace these coordinates with your desired location's latitude and longitude.
-                        const initialLocation = {
-                            lat: 6.9271,
-                            lng: 79.8612
-                        };
 
-                        // Create a new map instance and render it into the 'map' container.
-                        const map = new google.maps.Map(document.getElementById("map"), {
-                            center: initialLocation,
-                            zoom: 12, // Adjust the zoom level as needed.
+
+
+
+                <script>
+                    const placesFromPHP = <?php echo json_encode($places, JSON_NUMERIC_CHECK); ?>;
+
+                    console.log("placesFromPHP =", placesFromPHP);
+                    if (placesFromPHP.length) {
+                        console.log("Places found:", placesFromPHP);
+                    } else {
+                        console.log("No places found.");
+                    }
+
+                    function initMap() {
+                        const map = new google.maps.Map(document.getElementById('map'), {
+                            center: {
+                                lat: 6.9271,
+                                lng: 79.9612
+                            }, // Default center (Colombo)
+                            zoom: 12,
                         });
 
-                        // Optionally, place a marker at the initial center point.
-                        new google.maps.Marker({
-                            position: initialLocation,
-                            map: map,
-                            title: "Attraction Location",
+                        if (!placesFromPHP.length) {
+                            alert("No places found for the selected keywords.");
+                            return;
+                        }
+
+                        placesFromPHP.forEach(place => {
+                            const marker = new google.maps.Marker({
+                                position: {
+                                    lat: parseFloat(place.Latitude),
+                                    lng: parseFloat(place.Longitude)
+                                },
+                                map: map,
+                                title: place.Name,
+                            });
+
+                            const infoWindow = new google.maps.InfoWindow({
+                                content: `<h3>${place.Name}</h3><p>${place.Description}</p>`,
+                            });
+
+                            marker.addListener('click', () => {
+                                infoWindow.open(map, marker);
+                            });
                         });
                     }
 
-                    // Ensure the map loads once the window's content has fully loaded.
                     window.onload = initMap;
                 </script>
 
