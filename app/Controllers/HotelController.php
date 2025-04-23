@@ -308,25 +308,34 @@ class HotelController
             $website = $_POST['website'];
             $sm_link = $_POST['sm_link'];
             
-            // Check if the email is already exists
+            // Check if the email exists and belongs to another user
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
-
-            if ($user) {
-                header('Location: ../hotel/dashboard?page=profile');
+            
+            // Only check for email uniqueness if the email has changed
+            if ($user && $user['HotelID'] != $hotelID && $email != $_SESSION['Email']) {
+                $_SESSION['error'] = "Email already exists!";
+                header('Location: ../hotel/dashboard?page=profile&action=edit');
                 exit();
             }
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link );
-
-            $_SESSION['Email'] = $email; 
-            $_SESSION['Name'] = $name; 
-            $_SESSION['Address'] = $address;
-            $_SESSION['ContactNo'] = $contactNo;
-            $_SESSION['Description'] = $description;
-            $_SESSION['Website'] = $website;
-            $_SESSION['SMLink'] = $sm_link;
+            $success = $hotelModel->updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $sm_link);
+            
+            if ($success) {
+                // Update session variables
+                $_SESSION['Email'] = $email; 
+                $_SESSION['Name'] = $name; 
+                $_SESSION['Address'] = $address;
+                $_SESSION['ContactNo'] = $contactNo;
+                $_SESSION['Description'] = $description;
+                $_SESSION['Website'] = $website;
+                $_SESSION['SMLink'] = $sm_link;
+                
+                $_SESSION['success'] = "Profile updated successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to update profile!";
+            }
 
             header('Location: ../hotel/dashboard?page=profile');
             exit();

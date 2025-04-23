@@ -14,34 +14,34 @@
         <tbody>
             <tr>
                 <th>Email</th>
-                <td><?php echo $_SESSION['Email']; ?></td>
+                <td><?php echo isset($_SESSION['Email']) ? $_SESSION['Email'] : ''; ?></td>
             </tr>
 
             <tr>
                 <th>Name</th>
-                <td><?php echo $_SESSION['Name']; ?></td>
+                <td><?php echo isset($_SESSION['Name']) ? $_SESSION['Name'] : ''; ?></td>
             </tr>
             
             
             <tr>
                 <th>Address</th>
-                <td><?php echo $_SESSION['Address']; ?></td>
+                <td><?php echo isset($_SESSION['Address']) ? $_SESSION['Address'] : ''; ?></td>
             </tr>
             <tr>
                 <th>Contact No</th>
-                <td><?php echo $_SESSION['ContactNo']; ?></td>
+                <td><?php echo isset($_SESSION['ContactNo']) ? $_SESSION['ContactNo'] : ''; ?></td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td><?php echo $_SESSION['Description']; ?></td>
+                <td><?php echo isset($_SESSION['Description']) ? $_SESSION['Description'] : ''; ?></td>
             </tr>
             <tr>
                 <th>Website</th>
-                <td><?php echo $_SESSION['Website']; ?></td>
+                <td><?php echo isset($_SESSION['Website']) ? $_SESSION['Website'] : ''; ?></td>
             </tr>
             <tr>
                 <th>SMLink</th>
-                <td><?php echo $_SESSION['SMLink']; ?></td>
+                <td><?php echo isset($_SESSION['SMLink']) ? $_SESSION['SMLink'] : ''; ?></td>
             </tr>
         </tbody>
     </table>

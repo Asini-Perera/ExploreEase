@@ -90,12 +90,13 @@ class HotelModel
     }
 
     //update profile
-    public function updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link)
+    public function updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $sm_link)
     {
         $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ? WHERE HotelID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('isssssss',$hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link);
-        $stmt->execute();
+        $stmt->bind_param('sssssssi', $email, $name, $address, $contactNo, $description, $website, $sm_link, $hotelID);
+        $result = $stmt->execute();
+        return $result; // Return true on success, false on failure
     }
 
     public function checkCurrentPassword($hotelID, $currentPassword)
