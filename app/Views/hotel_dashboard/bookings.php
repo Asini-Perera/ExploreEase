@@ -15,7 +15,7 @@
                 <th>CheckOutDate</th>
                 <th>Date</th>
                 <th>Payment Status</th>
-                <th>Room</th>
+                <th>Room No</th>
                 <th>Traveler</th>
                 <th>Actions</th>
             </tr>
@@ -32,7 +32,9 @@
                     <td><?= isset($booking['Date']) ? $booking['Date'] : 'N/A' ?></td>
                     <td><?= isset($booking['Status']) ? $booking['Status'] : 'N/A' ?></td>
                     <td><?= isset($booking['RoomID']) ? $booking['RoomID'] : 'N/A' ?></td>
-                    <td><?= isset($booking['TravelerID']) ? $booking['TravelerID'] : 'N/A' ?></td>
+                    <td><?= isset($booking['FirstName']) && isset($booking['LastName']) ? 
+                          $booking['FirstName'] . ' ' . $booking['LastName'] : 
+                          (isset($booking['TravelerID']) ? $booking['TravelerID'] : 'N/A') ?></td>
                     <td class="action-buttons">
                         <button class="edit-btn"><a href="?page=bookings&action=edit&id=<?= $booking['BookingID'] ?>">Edit</a></button>
                         <button class="delete-btn"><a href="?page=bookings&action=delete&id=<?= $booking['BookingID'] ?>">Delete</a></button>

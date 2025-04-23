@@ -137,6 +137,17 @@ class HotelController
                             $_SESSION['RoomID'] = $booking['RoomID'];
                             $_SESSION['TravelerID'] = $booking['TravelerID'];
                             
+                            // Get traveler details
+                            $traveler = $hotelModel->getTravelerById($booking['TravelerID']);
+                            if ($traveler) {
+                                $_SESSION['TravelerName'] = $traveler['FirstName'] . ' ' . $traveler['LastName'];
+                            } else {
+                                $_SESSION['TravelerName'] = 'Unknown';
+                            }
+                            
+                            // Fetch all rooms for this hotel to populate the dropdown
+                            $_SESSION['AvailableRooms'] = $hotelModel->getRoom($_SESSION['HotelID']);
+                            
                             // Debug - print booking data to error log
                             error_log("Booking data: " . print_r($booking, true));
                         }

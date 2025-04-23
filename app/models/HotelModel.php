@@ -131,10 +131,22 @@ class HotelModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getTravelerById($travelerId) {
+        $sql = "SELECT * FROM traveler WHERE TravelerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $travelerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+
     public function getBookings($hotelID)
     {
-        $sql = "SELECT rb.* FROM roombooking rb
+        $sql = "SELECT rb.*, t.FirstName, t.LastName 
+                FROM roombooking rb
                 JOIN room r ON rb.RoomID = r.RoomID
+                LEFT JOIN traveler t ON rb.TravelerID = t.TravelerID
                 WHERE r.HotelID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
@@ -508,7 +520,10 @@ class HotelModel
 
     public function getReviews($hotelID)
     {
-        $sql = "SELECT * FROM hotelfeedback WHERE HotelID = ?";
+        $sql = "SELECT hf.*, t.FirstName, t.LastName 
+                FROM hotelfeedback hf
+                LEFT JOIN traveler t ON hf.TravelerID = t.TravelerID
+                WHERE hf.HotelID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
         $stmt->execute();
