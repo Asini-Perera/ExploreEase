@@ -2,15 +2,37 @@
 
 namespace app\Controllers;
 
+use app\Models\HomeModel;
+
+use app\Controllers\KeywordController;
+
 class HomeController
 {
+    private $conn;
+    public function __construct()
+    {
+        require_once __DIR__ . '/../../config/config.php';
+        global $conn;
+        $this->conn = $conn;
+
+        // Include the HomeModel
+        require_once __DIR__ . '/../models/HomeModel.php';
+
+        // Include the KeywordController
+        require_once __DIR__ . '/../controllers/KeywordController.php';
+    }
+
     public function index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/home.php';
     }
 
     public function loged_index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
@@ -43,7 +65,7 @@ class HomeController
         require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
     }
 
-    
+
     public function travelerside_cultural_event()
     {
         require_once __DIR__ . '/../Views/service_traveller_side_view/cultural_event.php';
@@ -63,5 +85,28 @@ class HomeController
         require_once __DIR__ . '/../Views/siteReview.php';
     }
 
-     
+    public function saveReview()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $rating = $_POST['rating'];
+            $comment = $_POST['comments'];
+
+            $homeModel = new HomeModel($this->conn);
+            $homeModel->saveReview($name, $email, $rating, $comment);
+
+            header('Location: ../loged_home');
+            exit();
+        }
+    }
+
+    public function filterKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $latitude = $_POST['latitude'] ?? null;
+            $longitude = $_POST['longitude'] ?? null;
+            $keywordIDs = json_decode($_POST['keyword_ids'] ?? '[]', true);
+        }
+    }
 }

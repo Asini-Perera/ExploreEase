@@ -274,6 +274,7 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $userType = $_POST['userType'];
+            $page = $_POST['page'];
             $action = $_POST['action'];
 
             $adminModel = new AdminModel($this->conn);
@@ -283,7 +284,7 @@ class AdminController
                 $adminModel->rejectUser($email, $userType);
             }
 
-            header('Location: ../admin/dashboard?page=verifyuser&user=' . $userType);
+            header('Location: ../admin/dashboard?page=' . $page . '&user=' . $userType);
             exit();
         }
     }
