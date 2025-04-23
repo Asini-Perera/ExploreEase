@@ -132,20 +132,16 @@ class HotelController
                             $_SESSION['BookingID'] = $booking['BookingID'];
                             $_SESSION['CheckInDate'] = $booking['CheckInDate'];
                             $_SESSION['CheckOutDate'] = $booking['CheckOutDate'];
-                            
-                            // Handle either field name that might be used in the database
-                            if (isset($booking['BookingDate'])) {
-                                $_SESSION['Date'] = $booking['BookingDate'];
-                            } elseif (isset($booking['Date'])) {
-                                $_SESSION['Date'] = $booking['Date'];
-                            }
-                            
+                            $_SESSION['Date'] = $booking['Date'];
                             $_SESSION['Status'] = $booking['Status'];
+                            $_SESSION['RoomID'] = $booking['RoomID'];
+                            $_SESSION['TravelerID'] = $booking['TravelerID'];
                             
                             // Debug - print booking data to error log
                             error_log("Booking data: " . print_r($booking, true));
                         }
                     }
+                    
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteBooking();
@@ -448,9 +444,10 @@ class HotelController
             $checkOutDate = $_POST['checkOutDate'];
             $date = $_POST['date'];
             $status = $_POST['paymentStatus'];
+            $roomID = $_POST['roomID'];
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status);
+            $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status, $roomID);
             
             // Clear session variables
             unset($_SESSION['BookingID']);
@@ -458,6 +455,7 @@ class HotelController
             unset($_SESSION['CheckOutDate']);
             unset($_SESSION['Date']);
             unset($_SESSION['Status']);
+            unset($_SESSION['RoomID']);
 
             header('Location: ../hotel/dashboard?page=bookings');
             exit();

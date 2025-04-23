@@ -36,6 +36,16 @@
                 <option value="Cancelled" <?php echo (isset($_SESSION['Status']) && $_SESSION['Status'] == 'Cancelled') ? 'selected' : ''; ?>>Cancelled</option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="roomID">Room</label>
+            <input type="text" id="roomID" name="roomID" value="<?php echo isset($_SESSION['RoomID']) ? $_SESSION['RoomID'] : ''; ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="travelerID">Traveler ID</label>
+            <input type="text" id="travelerID" name="travelerID" value="<?php echo isset($_SESSION['TravelerID']) ? $_SESSION['TravelerID'] : ''; ?>" readonly>
+        </div>
         
         <div class="form-actions">
             <button type="submit" class="btn save-btn">Save Changes</button>

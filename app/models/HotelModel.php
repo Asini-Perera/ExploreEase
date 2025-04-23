@@ -479,11 +479,11 @@ class HotelModel
         return $result->fetch_assoc();
     }
 
-    public function updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status)
+    public function updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status, $roomID)
     {
-        $sql = "UPDATE roombooking SET CheckInDate = ?, CheckOutDate = ?, Date = ?, Status = ? WHERE BookingID = ?";
+        $sql = "UPDATE roombooking SET CheckInDate = ?, CheckOutDate = ?, Date = ?, Status = ?, RoomID = ? WHERE BookingID = ?";        
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssi', $checkInDate, $checkOutDate, $date, $status, $bookingID);
+        $stmt->bind_param('ssssii', $checkInDate, $checkOutDate, $date, $status, $roomID, $bookingID);
         $stmt->execute();
     }
     
@@ -526,6 +526,17 @@ class HotelModel
             return $stmt->execute();
         }
         return false;
+    }
+
+    public function getReviewById($feedbackID)
+    {
+        $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $feedbackID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
     }
 
 }
