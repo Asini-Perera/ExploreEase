@@ -21,22 +21,28 @@
                     <button class="reject-btn">Delete</button>
                 </td>
             </tr> -->
-            <?php foreach ($searchResults as $user) : ?>
+            <?php if (empty($searchResults)) : ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['Name']) ?></td>
-                    <td><?= htmlspecialchars($user['Email']) ?></td>
-                    <td><?= htmlspecialchars($user['Address'] ?? 'N/A') ?></td>
-                    <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
-                    <td class="action-buttons">
-                        <form method="post" action="../admin/verifyUser">
-                            <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
-                            <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
-                            <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
-                            <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
-                        </form>
-                    </td>
+                    <td colspan="5" class="no-results" style="text-align: center;">No results found.</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php else : ?>
+                <?php foreach ($searchResults as $user) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['Name']) ?></td>
+                        <td><?= htmlspecialchars($user['Email']) ?></td>
+                        <td><?= htmlspecialchars($user['Address'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                        <td class="action-buttons">
+                            <form method="post" action="../admin/verifyUser">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                                <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
+                                <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
+                                <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
