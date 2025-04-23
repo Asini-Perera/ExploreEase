@@ -29,11 +29,12 @@ class HomeModel
     public function getPlacesByKeyword($latitude, $longitude, $keywordIDs)
     {
         $keywordIDs = implode(',', array_map('intval', $keywordIDs));
-        $sql = "SELECT *, (6371 * acos(cos(radians(?)) * cos(radians(Latitude)) * cos(radians(Longitude) - radians(?)) + sin(radians(?)) * sin(radians(Latitude)))) AS distance
-                FROM hotel h INNER JOIN hotelkeyword hk ON h.HotelID = hk.HotelID
-                WHERE hk.KeywordID IN ($keywordIDs)
-                HAVING distance < 100
-                ORDER BY distance ASC";
+        $sql = "SELECT h.*, MIN((6371 * acos(cos(radians(?)) * cos(radians(Latitude)) * cos(radians(Longitude) - radians(?)) + sin(radians(?)) * sin(radians(Latitude))))) AS distance
+            FROM hotel h INNER JOIN hotelkeyword hk ON h.HotelID = hk.HotelID
+            WHERE hk.KeywordID IN ($keywordIDs)
+            GROUP BY h.HotelID
+            HAVING distance < 100
+            ORDER BY distance ASC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ddd", $latitude, $longitude, $latitude);
         $stmt->execute();

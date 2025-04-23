@@ -25,7 +25,7 @@ unset($_SESSION['places']);
                     <h1>Explore Sri Lanka</h1>
                     <p>Based on your location and interests</p>
                 </div>
-                <nav aria-label="Interest categories">
+                <!-- <nav aria-label="Interest categories">
                     <ul class="interest-categories">
                         <li><button type="button">Culture</button></li>
                         <li><button type="button">History</button></li>
@@ -33,11 +33,20 @@ unset($_SESSION['places']);
                         <li><button type="button">Food</button></li>
                         <li><button type="button">Adventure</button></li>
                     </ul>
-                </nav>
+                </nav> -->
                 <section aria-labelledby="top-attractions-heading">
-                    <h2 id="top-attractions-heading">Top attractions</h2>
+                    <h2 id="top-attractions-heading">Nearest places</h2>
                     <ul class="attractions-list">
-                        <li>
+                        <?php foreach ($places as $place) : ?>
+                            <li>
+                                <article>
+                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
+                                    <h3><?= htmlspecialchars($place['Name']) ?></h3>
+                                    <p><?= htmlspecialchars($place['Tagline']) ?></p>
+                                </article>
+                            </li>
+                        <?php endforeach; ?>
+                        <!-- <li>
                             <article>
                                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Galle Face Green" loading="lazy">
                                 <h3>Galle Face Green</h3>
@@ -71,10 +80,10 @@ unset($_SESSION['places']);
                                 <h3>Independence Memorial Hall</h3>
                                 <p>Memorial</p>
                             </article>
-                        </li>
+                        </li> -->
                     </ul>
                 </section>
-                <button type="button" class="show-more">Show more</button>
+                <!-- <button type="button" class="show-more">Show more</button> -->
                 <h2>Map View</h2>
                 <p>Click on the markers to see more details about each location.</p>
                 <div id="map" class="map-container" aria-label="Map of attractions" style="height:500px; width:100%;">
