@@ -22,7 +22,6 @@
                 <td><?php echo isset($_SESSION['Name']) ? $_SESSION['Name'] : ''; ?></td>
             </tr>
             
-            
             <tr>
                 <th>Address</th>
                 <td><?php echo isset($_SESSION['Address']) ? $_SESSION['Address'] : ''; ?></td>
