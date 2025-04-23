@@ -56,28 +56,48 @@
 
 
                 <div class="input-group">
-                    <label for="contactNo">Contact Number</label>
-                    <input type="text" id="contactNo" name="contactNo"><br><br>
+                    <label for="contactNo">Contact Number *</label>
+                    <input type="text" id="contactNo" name="contactNo" required><br><br>
                 </div>
                 <div class="input-group">
                     <label for="website">Restaurant Website</label>
                     <input type="url" id="website" name="website"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description"></textarea><br><br>
+                    <label for="description">Description *</label>
+                    <textarea id="description" name="description" required></textarea><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="open_hours">Open Hours</label>
-                    <input type="text" id="open_hours" name="openhours"><br><br>
+                    <label for="weekdays_openhours">Weekdays Open Hours *</label>
+                    <input type="text" id="weekdays_openhours" name="weekdays_openhours" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="cuisine_types">Cuisine Type</label>
-                    <input type="text" id="cuisine_types" name="cuisinetype"><br><br>
+                    <label for="weekends_openhours">Weekends Open Hours *</label>
+                    <input type="text" id="weekends_openhours" name="weekends_openhours" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="smlink">Social Media Links</label>
-                    <input type="text" id="smlink" name="smlink"><br><br>
+                    <label for="cuisine_types">Cuisine Type *</label>
+                    <input type="text" id="cuisine_types" name="cuisinetype" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="tagline">Tagline *</label>
+                    <input type="text" id="tagline" name="tagline" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="facebook_link">Facebook Link</label>
+                    <input type="url" id="facebook_link" name="facebook_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="instagram_link">Instagram Link</label>
+                    <input type="url" id="instagram_link" name="instagram_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="tiktok_link">TikTok Link</label>
+                    <input type="url" id="tiktok_link" name="tiktok_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="youtube_link">YouTube Link</label>
+                    <input type="url" id="youtube_link" name="youtube_link"><br><br>
                 </div>
 
                 <button type="submit">Next</button>
