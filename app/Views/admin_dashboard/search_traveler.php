@@ -9,6 +9,7 @@
                 <th>Gender</th>
                 <th>Date of Birth</th>
                 <th>Contact No</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,9 @@
                 <td>Female</td>
                 <td>1992-08-22</td>
                 <td>+94 77 123 4567</td>
+                <td class="action-buttons">
+                    <button class="reject-btn">Delete</button>
+                </td>
             </tr> -->
             <?php foreach ($searchResults as $user) : ?>
                 <tr>
@@ -32,6 +36,14 @@
                     <td><?= htmlspecialchars($user['Gender'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($user['DOB'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                    <td class="action-buttons">
+                        <form method="post" action="../admin/verifyUser">
+                            <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                            <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
+                            <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
+                            <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
