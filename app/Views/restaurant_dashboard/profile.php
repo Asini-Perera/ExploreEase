@@ -9,7 +9,7 @@
             <a class="edit-btn" href="?page=profile&action=change-password">Change Password</a>
         </div>
     </div>
-    
+
     <table>
         <tbody>
             <tr>
@@ -33,11 +33,13 @@
             </tr>
             <tr>
                 <th>Weekdays Open Hours</th>
-                <td><?php echo $_SESSION['WeekdayOpenHours'] ?? ' ' ; ?></td>
+
+                <td><?php echo $_SESSION['WeekdayOpenHours']; ?></td>
             </tr>
             <tr>
-                <th>Weekdays Open Hours</th>
-                <td><?php echo $_SESSION['WeekendOpenHours'] ?? ' ' ; ?></td>
+                <th>Weekend Open Hours</th>
+                <td><?php echo $_SESSION['WeekendOpenHours']; ?></td>
+
             </tr>
             <tr>
                 <th>Cuisine Types</th>
@@ -48,28 +50,30 @@
                 <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
             <tr>
-                <th>Tag Line</th>
-                <td><?php echo $_SESSION['Tagline'] ?? ' ' ; ?></td>
+
+                <th>Tagline</th>
+                <td><?php echo $_SESSION['Tagline']; ?></td>
             </tr>
             <tr>
                 <th>Facebook Link</th>
-                <td><?php echo $_SESSION['FacebookLink'] ?? ' ' ; ?></td>
+                <td><?php echo $_SESSION['FacebookLink']; ?></td>
             </tr>
             <tr>
                 <th>Instagram Link</th>
-                <td><?php echo $_SESSION['InstagramLink'] ?? ' ' ; ?></td>
+                <td><?php echo $_SESSION['InstagramLink']; ?></td>
             </tr>
             <tr>
                 <th>TikTok Link</th>
-                <td><?php echo $_SESSION['TikTokLink'] ?? ' ' ; ?></td>
+                <td><?php echo $_SESSION['TikTokLink']; ?></td>
             </tr>
             <tr>
-                <th>YouTube Link</th>
-                <td><?php echo $_SESSION['YouTubeLink'] ?? ' ' ; ?></td>
+                <th>Youtube Link</th>
+                <td><?php echo $_SESSION['YoutubeLink']; ?></td>
+
             </tr>
             <tr>
                 <th>Menu PDF</th>
-                <td><?php echo $_SESSION['MenuPDF'] ?? 'Not available' ; ?></td>
+                <td><?php echo $_SESSION['MenuPDF'] ?? 'Not available'; ?></td>
             </tr>
         </tbody>
     </table>

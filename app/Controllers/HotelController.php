@@ -37,14 +37,17 @@ class HotelController
 
             if ($mainContent == 'dashboard') {
                 $hotelModel = new HotelModel($this->conn);
-                // $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
-                // $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
+
+                $TotalBookings = $hotelModel->getTotalBookings($_SESSION['HotelID']);
+                $TotalRooms = $hotelModel->getTotalRooms($_SESSION['HotelID']);
                 // $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
                 // $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
-                // $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
-                // $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
+                $TotalCustomers = $hotelModel->getTotalCustomers($_SESSION['HotelID']);
+                $TotalPosts = $hotelModel->getTotalPosts($_SESSION['HotelID']);
+                $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
+                $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
+            } elseif ($mainContent == 'profile') {
 
-            } else if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
@@ -129,14 +132,22 @@ class HotelController
                             $_SESSION['CheckInDate'] = $booking['CheckInDate'];
                             $_SESSION['CheckOutDate'] = $booking['CheckOutDate'];
 
-                            // Handle either field name that might be used in the database
-                            if (isset($booking['BookingDate'])) {
-                                $_SESSION['Date'] = $booking['BookingDate'];
-                            } elseif (isset($booking['Date'])) {
-                                $_SESSION['Date'] = $booking['Date'];
+                            $_SESSION['Date'] = $booking['Date'];
+                            $_SESSION['Status'] = $booking['Status'];
+                            $_SESSION['RoomID'] = $booking['RoomID'];
+                            $_SESSION['TravelerID'] = $booking['TravelerID'];
+
+                            // Get traveler details
+                            $traveler = $hotelModel->getTravelerById($booking['TravelerID']);
+                            if ($traveler) {
+                                $_SESSION['TravelerName'] = $traveler['FirstName'] . ' ' . $traveler['LastName'];
+                            } else {
+                                $_SESSION['TravelerName'] = 'Unknown';
                             }
 
-                            $_SESSION['Status'] = $booking['Status'];
+                            // Fetch all rooms for this hotel to populate the dropdown
+                            $_SESSION['AvailableRooms'] = $hotelModel->getRoom($_SESSION['HotelID']);
+
 
                             // Debug - print booking data to error log
                             error_log("Booking data: " . print_r($booking, true));
@@ -295,27 +306,49 @@ class HotelController
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
             $website = $_POST['website'];
-            $sm_link = $_POST['sm_link'];
+            $tagline = $_POST['tagline'];
+            $facebook_link = $_POST['facebook_link'];
+            $instagram_link = $_POST['instagram_link'];
+            $tiktok_link = $_POST['tiktok_link'];
+            $youtube_link = $_POST['youtube_link'];
 
-            // Check if the email is already exists
+
+
+            // Check if the email exists and belongs to another user
+
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
 
-            if ($user) {
-                header('Location: ../hotel/dashboard?page=profile');
+            // Only check for email uniqueness if the email has changed
+            if ($user && $user['HotelID'] != $hotelID && $email != $_SESSION['Email']) {
+                $_SESSION['error'] = "Email already exists!";
+                header('Location: ../hotel/dashboard?page=profile&action=edit');
                 exit();
             }
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateHotel($hotelID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link);
 
-            $_SESSION['Email'] = $email;
-            $_SESSION['Name'] = $name;
-            $_SESSION['Address'] = $address;
-            $_SESSION['ContactNo'] = $contactNo;
-            $_SESSION['Description'] = $description;
-            $_SESSION['Website'] = $website;
-            $_SESSION['SMLink'] = $sm_link;
+            $success = $hotelModel->updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $tagline, $facebook_link, $instagram_link, $tiktok_link, $youtube_link);
+
+            if ($success) {
+                // Update session variables
+                $_SESSION['Email'] = $email;
+                $_SESSION['Name'] = $name;
+                $_SESSION['Address'] = $address;
+                $_SESSION['ContactNo'] = $contactNo;
+                $_SESSION['Description'] = $description;
+                $_SESSION['Website'] = $website;
+                $_SESSION['Tagline'] = $tagline;
+                $_SESSION['FacebookLink'] = $facebook_link;
+                $_SESSION['InstagramLink'] = $instagram_link;
+                $_SESSION['TikTokLink'] = $tiktok_link;
+                $_SESSION['YoutubeLink'] = $youtube_link;
+
+                $_SESSION['success'] = "Profile updated successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to update profile!";
+            }
+
 
             header('Location: ../hotel/dashboard?page=profile');
             exit();
@@ -444,9 +477,12 @@ class HotelController
             $checkOutDate = $_POST['checkOutDate'];
             $date = $_POST['date'];
             $status = $_POST['paymentStatus'];
+            $roomID = $_POST['roomID'];
 
             $hotelModel = new HotelModel($this->conn);
-            $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status);
+
+            $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status, $roomID);
+
 
             // Clear session variables
             unset($_SESSION['BookingID']);
@@ -454,6 +490,7 @@ class HotelController
             unset($_SESSION['CheckOutDate']);
             unset($_SESSION['Date']);
             unset($_SESSION['Status']);
+            unset($_SESSION['RoomID']);
 
             header('Location: ../hotel/dashboard?page=bookings');
             exit();

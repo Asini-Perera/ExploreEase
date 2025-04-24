@@ -21,19 +21,25 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($menus as $food) : ?>
+            <?php if (!empty($menus) && is_array($menus)): ?>
+                <?php foreach ($menus as $food) : ?>
+                    <tr>
+                        <td><?= $food['FoodName'] ?></td>
+                        <td>Rs. <?= $food['Price'] ?></td>
+                        <td><?= $food['FoodCategory'] ?></td>
+                        <td><img src="<?= $food['ImgPath'] ?>" class="food-img"></td>
+                        <td><?= $food['IsPopular'] == 1 ? 'Yes' : 'No' ?></td>
+                        <td class="action-buttons">
+                            <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
+                            <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?= $food['FoodName'] ?></td>
-                    <td>Rs. <?= $food['Price'] ?></td>
-                    <td><?= $food['FoodCategory'] ?></td>
-                    <td><img src="<?= $food['ImgPath'] ?>" class="food-img"></td>
-                    <td><?= $food['IsPopular'] == 1 ? 'Yes' : 'No' ?></td>
-                    <td class="action-buttons">
-                        <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
-                        <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
-                    </td>
+                    <td colspan="6" style="text-align: center;">No menu items found.</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
