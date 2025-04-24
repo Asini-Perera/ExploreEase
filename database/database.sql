@@ -514,4 +514,118 @@ ALTER TABLE
     Restaurant
 ADD
     WeekdayOpenHours VARCHAR(100),
+ADD
     WeekendOpenHours VARCHAR(100);
+
+-- Add Feedback table for Website
+CREATE TABLE Feedback (
+    FeedbackID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Rating INT NOT NULL,
+    Comment TEXT
+);
+
+-- Remove OpenHours column from HeritageMarket table
+ALTER TABLE
+    HeritageMarket DROP COLUMN OpenHours;
+
+-- Add WeekdayOpenHours column and WeekendOpenHours column to HeritageMarket table
+ALTER TABLE
+    HeritageMarket
+ADD
+    WeekdayOpenHours VARCHAR(100),
+ADD
+    WeekendOpenHours VARCHAR(100);
+
+-- Remove SMLink column from Traveler table
+ALTER TABLE
+    Traveler DROP COLUMN SMLink;
+
+-- Remove SMLink column from Hotel table
+ALTER TABLE
+    Hotel DROP COLUMN SMLink;
+
+-- Remove SMLink column from CulturalEventOrganizer table
+ALTER TABLE
+    CulturalEventOrganizer DROP COLUMN SMLink;
+
+-- Remove SMLink column from HeritageMarket table
+ALTER TABLE
+    HeritageMarket DROP COLUMN SMLink;
+
+-- Remove SMLink column from Restaurant table
+ALTER TABLE
+    Restaurant DROP COLUMN SMLink;
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Traveler table
+ALTER TABLE
+    Traveler
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Hotel table
+ALTER TABLE
+    Hotel
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to CulturalEventOrganizer table
+ALTER TABLE
+    CulturalEventOrganizer
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to HeritageMarket table
+ALTER TABLE
+    HeritageMarket
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add Tagline column to Hotel table
+ALTER TABLE
+    Hotel
+ADD
+    Tagline VARCHAR(255);
+
+-- Add Tagline column to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    Tagline VARCHAR(255);
