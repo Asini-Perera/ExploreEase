@@ -32,14 +32,39 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addEvent($title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID)
+    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
     {
-        $sql = "INSERT INTO room (EventID, `Name`, `Address`, `Longitude`, `Latitude`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) VALUES (?, ?, ?, ?,?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdisi', $title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID);
-        $stmt->execute();
-        
-        return $stmt->insert_id;
+        try {
+            // Log the SQL operation starting
+            error_log("Adding new event for organizer ID: $organizerID");
+            
+            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $this->conn->prepare($sql);
+            
+            if (!$stmt) {
+                error_log("SQL prepare error: " . $this->conn->error);
+                return false;
+            }
+            
+            $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+            
+            $result = $stmt->execute();
+            
+            if (!$result) {
+                error_log("SQL execute error: " . $stmt->error);
+                return false;
+            }
+            
+            $insertId = $stmt->insert_id;
+            error_log("Event added successfully with ID: $insertId");
+            
+            return $insertId;
+        } catch (\Exception $e) {
+            error_log("Exception in addEvent model: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
@@ -306,5 +331,43 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalFeedbacks'];
     }
 
-    
+    public function setEventImage($eventID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+        
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extension
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = 'event_' . $eventID . '.' . $extension;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $eventID);
+            $stmt->execute();
+        }
+    }
 }

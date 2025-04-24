@@ -37,14 +37,6 @@ class CulturalEventOrganizerController
                 $TotalRatings = $eventModel->getTotalRatings($_SESSION['OrganizerID']);
                 $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
                 $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
-            } elseif ($mainContent == 'bookings') {
-                // Handle bookings page logic here
-            } elseif ($mainContent == 'reviews') {
-                // Handle reviews page logic here
-            } elseif ($mainContent == '404') {
-                // Handle 404 page logic here
-            } elseif ($mainContent == 'settings') {
-                // Handle settings page logic here
             }
             else if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -101,27 +93,61 @@ class CulturalEventOrganizerController
     public function addEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $title = $_POST['title'];
-            $address = $_POST['address'];
-            $date = $_POST['date'];
-            $start_time = $_POST['start_time'];
-            $end_time = $_POST['end_time'];
-            $description = $_POST['description'];
-            $capacity = $_POST['capacity'];
-            $price = $_POST['price'];
-            $status = $_POST['status'];
-            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-            $eventID = $_SESSION['EventID'];
-
-            $eventModel = new CulturalEventOrganizerModel($this->conn);
-            $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $eventID);
-
-            // If image is uploaded, set the image path
-            if ($eventID && $image['name']) {
-                $eventModel->setImgPath($eventID, $image);
+            try {
+                // Log the beginning of the event addition process
+                error_log("Starting event addition process");
+                
+                $title = $_POST['title'] ?? '';
+                $address = $_POST['address'] ?? '';
+                $date = $_POST['date'] ?? '';
+                $start_time = $_POST['start_time'] ?? '';
+                $end_time = $_POST['end_time'] ?? '';
+                $description = $_POST['description'] ?? '';
+                $capacity = $_POST['capacity'] ?? 0;
+                $price = $_POST['price'] ?? 0;
+                $status = $_POST['status'] ?? '';
+                $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+                $organizerID = $_SESSION['OrganizerID'] ?? 0;
+                
+                // Basic validation
+                if (empty($title) || empty($address) || empty($date) || empty($organizerID)) {
+                    error_log("Event addition failed: Missing required fields");
+                    header('Location: dashboard?page=event&error=missing_fields');
+                    exit();
+                }
+                
+                // Log the data being used
+                error_log("Event data: Title=$title, Address=$address, Date=$date, OrganizerID=$organizerID");
+                
+                $eventModel = new CulturalEventOrganizerModel($this->conn);
+                $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+                
+                if (!$eventID) {
+                    error_log("Failed to add event to database");
+                    header('Location: dashboard?page=event&error=db_error');
+                    exit();
+                }
+                
+                error_log("Event added successfully with ID: $eventID");
+                
+                // If image is uploaded, set the image path
+                if ($eventID && $image && !empty($image['name'])) {
+                    $eventModel->setEventImage($eventID, $image);
+                    error_log("Image added for event ID: $eventID");
+                }
+                
+                // Redirect with success parameter
+                header('Location: dashboard?page=event&success=added');
+                exit();
+            } catch (\Exception $e) {
+                error_log("Exception in addEvent: " . $e->getMessage());
+                header('Location: dashboard?page=event&error=exception');
+                exit();
             }
-
-            header('Location: ../culturalevent/dashboard?page=event');
+        } else {
+            // If not POST request, redirect to the event page
+            header('Location: dashboard?page=event');
+            exit();
         }
     }
 
@@ -133,7 +159,7 @@ class CulturalEventOrganizerController
             $eventModel = new CulturalEventOrganizerModel($this->conn);
             $eventModel->deleteEvent($roomID);
 
-            header('Location: ../culturalevent/dashboard?page=event');
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
     }
 
