@@ -1,6 +1,6 @@
 <?php
 $places = $_SESSION['places'] ?? [];
-unset($_SESSION['places']);
+// unset($_SESSION['places']);
 // 
 ?>
 <!DOCTYPE html>
@@ -155,7 +155,7 @@ unset($_SESSION['places']);
                             });
 
                             const infoWindow = new google.maps.InfoWindow({
-                                content: `<h3>${place.Name}</h3><p>${place.Description}</p><p><strong>Type:</strong> ${place.type}</p>`,
+                                content: `<a href="../link/service?type=${encodeURIComponent(place.type)}&id=${encodeURIComponent(place.ID)}"><h3>${place.Name}</h3></a><p>${place.Tagline}</p><p><strong>Type:</strong> ${place.type}</p>`,
                             });
 
                             marker.addListener('click', () => {
