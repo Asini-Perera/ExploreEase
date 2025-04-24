@@ -42,6 +42,60 @@ th {
     align-items: center;
 } */
 
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left:50%;
+    top:20%;
+    overflow: auto;
+    width: 40%;
+    height: 52%;
+    /* background-color: #d9d9d9; */
+}
+  
+.modal-content {
+    background-color: #d9d9d9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: 250px;
+    text-align: center;
+
+}
+  
+.close-btn {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #225522;  
+}
+  
+.modal-content h3{
+    font-size: 18px;
+    color: #000;
+    margin: 1.5vh 0;
+}
+
+.modal-content input{
+    width: 200px;
+    height: 3vh;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+#submitTableNo{
+    margin-top: 3vh;
+    width: 120px;
+    height: 30px;
+    font-size: 16px;
+    background-color:#F1C232 ;
+    border-radius: 10px;
+    color: #000;
+}
+
 .action-buttons button {
     width: 60px;
     padding: 8px 10px;

@@ -25,8 +25,20 @@
             <textarea id="description" name="description"><?php echo $_SESSION['Description']; ?></textarea>
         </div>
         <div class="form-group">
-            <label for="sm_link">Social Media Link</label>
-            <input type="text" id="sm_link" name="sm_link" value="<?php echo $_SESSION['SMLink']; ?>">
+            <label for="sm_link">Facebook Link</label>
+            <input type="text" id="facebookLink" name="facebook_link" value="<?php echo $_SESSION['FacebookLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="sm_link">Instagram Link</label>
+            <input type="text" id="instagramLink" name="instagram_link" value="<?php echo $_SESSION['InstagramLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="sm_link">TikTok Link</label>
+            <input type="text" id="tiktoklink" name="tiktok_link" value="<?php echo $_SESSION['TikTokLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="sm_link">YouTube Link</label>
+            <input type="text" id="youtubeLink" name="youtube_link" value="<?php echo $_SESSION['YouTubeLink'] ?? ''; ?>">
         </div>
 
         <div class="action-buttons">

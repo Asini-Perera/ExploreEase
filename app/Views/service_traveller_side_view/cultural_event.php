@@ -172,26 +172,26 @@
     </section>
 
 
-    <!-- bookings -->
-    <section class="bookings" id="bookings">
-        <div class="bookings-content">
-            <img src="../public/images/ticket.png" alt="Ticket" class="booking-image">
-            <div class="ticket-purchase">
-                <form action="">
-                    <h3 class="booking-heading">Buy a Ticket</h3>
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="tel" placeholder="Phone" pattern="[0-9]{10}" required>
-                    <input type="text" placeholder="Event Name" required>
-                    <input type="date" required>
-                    <input type="time" class="booking-time" required>
-                    <label for="num_tickets" class="num-tickets">Number of Tickets</label>
-                    <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
-                    <button type="submit" class="book-button">Purchase Now</button>
-                </form>
-            </div>
+<!-- bookings -->
+<section class="bookings" id="bookings">
+    <div class="bookings-content">
+        <img src="../public/images/ticket.png" alt="Ticket" class="booking-image">
+        <div class="ticket-purchase">
+            <form action="">
+                <h3 class="booking-heading">Buy a Ticket</h3>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Phone" pattern="[0-9]{10}" required>
+                <input type="text" placeholder="Event Name" required>
+                <input type="date" required>
+                <input type="time" class="booking-time" required>
+                <label for="num_tickets" class="num-tickets">Number of Tickets</label>
+                <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
+                <button type="submit" class="book-button">Purchase Now</button>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- reviews -->
     <section class="reviews" id="reviews">

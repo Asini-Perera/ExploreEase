@@ -33,11 +33,13 @@
             </tr>
             <tr>
                 <th>Weekdays Open Hours</th>
+
                 <td><?php echo $_SESSION['WeekdayOpenHours']; ?></td>
             </tr>
             <tr>
                 <th>Weekend Open Hours</th>
                 <td><?php echo $_SESSION['WeekendOpenHours']; ?></td>
+
             </tr>
             <tr>
                 <th>Cuisine Types</th>
@@ -48,6 +50,7 @@
                 <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
             <tr>
+
                 <th>Tagline</th>
                 <td><?php echo $_SESSION['Tagline']; ?></td>
             </tr>
@@ -66,6 +69,7 @@
             <tr>
                 <th>Youtube Link</th>
                 <td><?php echo $_SESSION['YoutubeLink']; ?></td>
+
             </tr>
             <tr>
                 <th>Menu PDF</th>
