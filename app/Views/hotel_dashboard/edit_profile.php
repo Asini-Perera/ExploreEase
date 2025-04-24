@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" cols="91" rows="10" placeholder="Enter description" value="<?php echo $_SESSION['Description']; ?>"></textarea>
+            <input type="text" id="description" name="description" placeholder="Enter description" value="<?php echo $_SESSION['Description']; ?>">
         </div>
         <div class="form-group">
             <label for="website">Website</label>

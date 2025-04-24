@@ -12,6 +12,7 @@
     <table>
         <thead>
             <tr>
+                <th>Room No</th>
                 <th>Room Type</th>
                 <th>Price</th>
                 <th>Capacity</th>
@@ -23,6 +24,7 @@
         <tbody>
             <?php foreach ($rooms as $room) : ?>
                 <tr>
+                    <td><?= $room['RoomID'] ?></td>
                     <td><?= $room['Type'] ?></td>
                     <td>Rs. <?= $room['Price'] ?></td>
                     <td><?= $room['MaxOccupancy'] ?></td>
