@@ -46,9 +46,7 @@ class HotelController
                 $TotalPosts = $hotelModel->getTotalPosts($_SESSION['HotelID']);
                 $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
                 $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
-
-            }else if ($mainContent == 'profile') {
-                $mainContent == 'profile') {
+            } elseif ($mainContent == 'profile') {
 
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
@@ -138,7 +136,7 @@ class HotelController
                             $_SESSION['Status'] = $booking['Status'];
                             $_SESSION['RoomID'] = $booking['RoomID'];
                             $_SESSION['TravelerID'] = $booking['TravelerID'];
-                            
+
                             // Get traveler details
                             $traveler = $hotelModel->getTravelerById($booking['TravelerID']);
                             if ($traveler) {
@@ -146,16 +144,15 @@ class HotelController
                             } else {
                                 $_SESSION['TravelerName'] = 'Unknown';
                             }
-                            
+
                             // Fetch all rooms for this hotel to populate the dropdown
                             $_SESSION['AvailableRooms'] = $hotelModel->getRoom($_SESSION['HotelID']);
-                            
+
 
                             // Debug - print booking data to error log
                             error_log("Booking data: " . print_r($booking, true));
                         }
                     }
-                    
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteBooking();
@@ -309,14 +306,19 @@ class HotelController
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
             $website = $_POST['website'];
-            $sm_link = $_POST['sm_link'];
+            $tagline = $_POST['tagline'];
+            $facebook_link = $_POST['facebook_link'];
+            $instagram_link = $_POST['instagram_link'];
+            $tiktok_link = $_POST['tiktok_link'];
+            $youtube_link = $_POST['youtube_link'];
 
-            
+
+
             // Check if the email exists and belongs to another user
 
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
-            
+
             // Only check for email uniqueness if the email has changed
             if ($user && $user['HotelID'] != $hotelID && $email != $_SESSION['Email']) {
                 $_SESSION['error'] = "Email already exists!";
@@ -326,18 +328,22 @@ class HotelController
 
             $hotelModel = new HotelModel($this->conn);
 
-            $success = $hotelModel->updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $sm_link);
-            
+            $success = $hotelModel->updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $tagline, $facebook_link, $instagram_link, $tiktok_link, $youtube_link);
+
             if ($success) {
                 // Update session variables
-                $_SESSION['Email'] = $email; 
-                $_SESSION['Name'] = $name; 
+                $_SESSION['Email'] = $email;
+                $_SESSION['Name'] = $name;
                 $_SESSION['Address'] = $address;
                 $_SESSION['ContactNo'] = $contactNo;
                 $_SESSION['Description'] = $description;
                 $_SESSION['Website'] = $website;
-                $_SESSION['SMLink'] = $sm_link;
-                
+                $_SESSION['Tagline'] = $tagline;
+                $_SESSION['FacebookLink'] = $facebook_link;
+                $_SESSION['InstagramLink'] = $instagram_link;
+                $_SESSION['TikTokLink'] = $tiktok_link;
+                $_SESSION['YoutubeLink'] = $youtube_link;
+
                 $_SESSION['success'] = "Profile updated successfully!";
             } else {
                 $_SESSION['error'] = "Failed to update profile!";
@@ -476,7 +482,7 @@ class HotelController
             $hotelModel = new HotelModel($this->conn);
 
             $hotelModel->updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status, $roomID);
-            
+
 
             // Clear session variables
             unset($_SESSION['BookingID']);
