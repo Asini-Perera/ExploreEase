@@ -24,10 +24,29 @@ class CulturalEventOrganizerController
     {
         if (isset($_SESSION['OrganizerID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
-            $mainContent = in_array($page, $allowed_pages) ? $page : '404';
+            $action = isset($_GET['action']) ? $_GET['action'] : null;
 
-            if ($mainContent == 'profile') {
+            $allowedPages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
+            $mainContent = in_array($page, $allowedPages) ? $page : '404'; // Default to 404 if page is not allowed
+
+            if ($mainContent == 'dashboard') {
+                $eventModel = new CulturalEventOrganizerModel($this->conn);
+                $TotalBookings = $eventModel->getTotalBookings($_SESSION['OrganizerID']);
+                $TotalEvents = $eventModel->getTotalEvents($_SESSION['OrganizerID']);
+                $TotalPosts = $eventModel->getTotalPosts($_SESSION['OrganizerID']);
+                $TotalRatings = $eventModel->getTotalRatings($_SESSION['OrganizerID']);
+                $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
+                $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
+            } elseif ($mainContent == 'bookings') {
+                // Handle bookings page logic here
+            } elseif ($mainContent == 'reviews') {
+                // Handle reviews page logic here
+            } elseif ($mainContent == '404') {
+                // Handle 404 page logic here
+            } elseif ($mainContent == 'settings') {
+                // Handle settings page logic here
+            }
+            else if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
