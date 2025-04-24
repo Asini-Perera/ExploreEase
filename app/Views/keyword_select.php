@@ -20,14 +20,14 @@
                     <h1 id="main-heading" class="hero-title">Explore The<br />Most Beautiful Places<br />Around Sri Lanka</h1>
                     <p class="location-prompt" id="location-label">Where are you located now?</p>
                     <form class="search-container" role="search" aria-labelledby="location-label">
-                        <div class="search-input-group">
+                        <!-- <div class="search-input-group">
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc1de7bb3105164d1745555a0ae8ef7f54747be425d0d898d1f3526f3dd70df0?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="search-icon" aria-hidden="true" />
                             <input type="text"
                                 id="location-search"
                                 class="search-placeholder"
                                 placeholder="Try 'Mount Lavinia'"
                                 aria-label="Search location" />
-                        </div>
+                        </div> -->
                         <div class="vertical-divider" role="separator" aria-hidden="true"></div>
                         <button type="button" class="locate-group" aria-label="Use current location">
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8427c59ebeb624f0a13ae0f7cfbcc59782e5b955ca6afc044ccec2f1ab90e6ed?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="" class="locate-icon" aria-hidden="true" />
