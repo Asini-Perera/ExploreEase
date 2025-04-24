@@ -6,11 +6,11 @@
     <form id="edit-profile-form" action="../culturaleventorganizer/update" method="POST">
         <div class="form-group">
             <label for="profile_image">Profile Image</label>
-            <input type="file" id="profile_image" name="profile_image">
+            <?php echo '<img src="' . $_SESSION['ProfileImage'] . '" alt="Profile Image" class="profile-img">'; ?>   
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?php echo $_SESSION['Email']; ?>">
+            <input type="email" id="email" name="email" value="<?php echo $_SESSION['Email']; ?>" readonly>
         </div>
         <div class="form-group">
             <label for="name">Name</label>
@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description"><?php echo $_SESSION['Description']; ?></textarea>
+            <input type="text" id="description" name="description" value="<?php echo $_SESSION['Description']; ?>">
         </div>
         <div class="form-group">
             <label for="sm_link">Facebook Link</label>
