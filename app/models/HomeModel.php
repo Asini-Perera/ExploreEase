@@ -68,15 +68,34 @@ class HomeModel
         INNER JOIN restaurantkeyword rk ON r.RestaurantID = rk.RestaurantID
         WHERE rk.KeywordID IN ($placeholders)
 
-        ORDER BY distance ASC";
+        UNION
+
+        SELECT s.ShopID AS ID, s.Name, s.Tagline, s.Description, s.Latitude, s.Longitude,
+               'heritagemarket' AS type,
+               (6371 * acos(cos(radians(?)) * cos(radians(s.Latitude)) * cos(radians(s.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(s.Latitude)))) AS distance
+        FROM heritagemarket s
+        INNER JOIN heritagemarketkeyword sk ON s.ShopID = sk.ShopID
+        WHERE sk.KeywordID IN ($placeholders)
+
+        HAVING distance < 1000
+
+        ORDER BY distance ASC
+        ";
 
         $stmt = $this->conn->prepare($sql);
 
-        // Merge parameters: lat/lon x2 + keywords x2
-        $params = array_merge([$latitude, $longitude, $latitude], $keywordIDs, [$latitude, $longitude, $latitude], $keywordIDs);
+        // Merge parameters: lat/lon x3 + keywords x3
+        $params = array_merge(
+            [$latitude, $longitude, $latitude],
+            $keywordIDs,
+            [$latitude, $longitude, $latitude],
+            $keywordIDs,
+            [$latitude, $longitude, $latitude],
+            $keywordIDs
+        );
 
-        // Create type string: 3 'd' + keyword count * 2 's'
-        $types = str_repeat('d', 3) . str_repeat('s', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('s', count($keywordIDs));
+        // Create type string: 3 'd' + keyword count * 3 'i'
+        $types = str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs));
 
         $stmt->bind_param($types, ...$params);
         $stmt->execute();
