@@ -10,6 +10,17 @@ class CulturalEventOrganizerModel
         $this->conn = $conn;
     }
 
+    public function getAllEvents($organizerID)
+    {
+        $sql = "SELECT * FROM culturalevent WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getEvent($eventID)
     {
         $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
@@ -31,11 +42,32 @@ class CulturalEventOrganizerModel
         return $stmt->insert_id;
     }
 
+    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
+    {
+        $sql = "UPDATE culturaleventorganizer SET 
+                `Name` = ?, 
+                `Email` = ?, 
+                `ContactNo` = ?, 
+                `Description` = ?, 
+                `FacebookLink` = ?,
+                `InstagramLink` = ?,
+                `TikTokLink` = ?,
+                `YouTubeLink` = ?
+                WHERE OrganizerID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssisssssi', $name, $email, $contactNo, $description, 
+                          $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
+        $stmt->execute();
+        
+        return $stmt->affected_rows > 0;
+    }
+    
     public function setImgPath($OrganizerID, $fileName)
     {
         // Get temp image path
         $tempImgPath = $fileName['tmp_name'];
-
+        
         // Get the file name (original file name from the upload)
         $originalFileName = $fileName['name'];
 
@@ -80,14 +112,6 @@ class CulturalEventOrganizerModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc()['ImgPath'];
-    }
-
-    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $smLink)
-    {
-        $sql = "UPDATE culturaleventorganizer SET `Name` = ?, `Email` = ?, `ContactNo` = ?, `Description` = ?, `SMLink` = ? WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssissi', $name, $email, $contactNo, $description, $smLink, $OrganizerID);
-        $stmt->execute();
     }
 
     public function checkCurrentPassword($OrganizerID, $currentPassword)
@@ -148,4 +172,139 @@ class CulturalEventOrganizerModel
         $stmt->bind_param('i', $postID);
         $stmt->execute();
     }
+
+    public function getTotalBookings($organizerID)
+    {
+        $sql = "SELECT COUNT(*) as TotalBookings FROM booking WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalBookings'];
+    }
+
+    public function getTotalEvents($organizerID)
+    {
+        $sql = "SELECT COUNT(*) as TotalEvents FROM culturalevent WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalEvents'];
+    }
+
+    public function getTotalPosts($organizerID)
+    {
+        $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalPosts'];
+    }
+
+    public function getTotalRatings($organizerID)
+    {
+        $sql = "SELECT COUNT(*) as TotalRatings FROM rating WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalRatings'];
+    }
+
+    public function getTotalRevenue($organizerID)
+    {
+        $sql = "SELECT SUM(TotalPrice) as TotalRevenue FROM booking WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalRevenue'];
+    }
+
+    public function getTotalCustomers($organizerID)
+    {
+        $sql = "SELECT COUNT(DISTINCT CustomerID) as TotalCustomers FROM booking WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalCustomers'];
+    }
+
+    public function getTotalFeedbacks($organizerID)
+    {
+        $sql = "SELECT COUNT(*) as TotalFeedbacks FROM feedback WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $stmt = $this->conn->prepare($sql);
+        
+        // Check if prepare was successful
+        if (!$stmt) {
+            // Log the error for debugging
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return 0; // Return a default value
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()['TotalFeedbacks'];
+    }
+
+    
 }
