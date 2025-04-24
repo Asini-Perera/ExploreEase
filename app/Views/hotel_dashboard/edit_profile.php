@@ -12,7 +12,7 @@
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Enter name" value="<?php echo $_SESSION['Name']; ?>">
         </div>
-               
+
         <div class="form-group">
             <label for="address">Address</label>
             <input type="text" id="address" name="address" placeholder="Enter address" value="<?php echo $_SESSION['Address']; ?>">
@@ -30,8 +30,24 @@
             <input type="text" id="website" name="website" placeholder="Enter website" value="<?php echo $_SESSION['Website']; ?>">
         </div>
         <div class="form-group">
-            <label for="sm_link">SMLink</label>
-            <input type="text" id="sm_link" name="sm_link" placeholder="Enter SMLink" value="<?php echo $_SESSION['SMLink']; ?>">
+            <label for="tagline">Tagline</label>
+            <input type="text" id="tagline" name="tagline" placeholder="Enter tagline" value="<?php echo $_SESSION['Tagline']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="facebook_link">Facebook Link</label>
+            <input type="text" id="facebook_link" name="facebook_link" placeholder="Enter Facebook link" value="<?php echo $_SESSION['FacebookLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="instagram_link">Instagram Link</label>
+            <input type="text" id="instagram_link" name="instagram_link" placeholder="Enter Instagram link" value="<?php echo $_SESSION['InstagramLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="tiktok_link">TikTok Link</label>
+            <input type="text" id="tiktok_link" name="tiktok_link" placeholder="Enter TikTok link" value="<?php echo $_SESSION['TikTokLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="youtube_link">Youtube Link</label>
+            <input type="text" id="youtube_link" name="youtube_link" placeholder="Enter Youtube link" value="<?php echo $_SESSION['YoutubeLink']; ?>">
         </div>
 
         <div class="action-buttons">
