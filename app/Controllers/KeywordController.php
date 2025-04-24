@@ -111,6 +111,7 @@ class KeywordController
 
     public function keywordselect()
     {
+        $categories = $this->getCategoriesWithKeywords();
         require_once __DIR__ . '/../views/keyword_select.php';
     }
 
