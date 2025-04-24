@@ -107,6 +107,15 @@ class HomeController
             $latitude = $_POST['latitude'] ?? null;
             $longitude = $_POST['longitude'] ?? null;
             $keywordIDs = json_decode($_POST['keyword_ids'] ?? '[]', true);
+
+            $homeModel = new HomeModel($this->conn);
+            $places = $homeModel->getPlacesByKeyword($latitude, $longitude, $keywordIDs);
+
+            session_start();
+            $_SESSION['places'] = $places;
+
+            header('Location: ../search/keyword');
+            exit();
         }
     }
 }

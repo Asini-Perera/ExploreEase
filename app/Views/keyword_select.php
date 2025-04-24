@@ -42,7 +42,7 @@
                             <ul class="filter-list" role="list">
                                 <?php foreach ($category['keywords'] as $keyword) : ?>
                                     <li><button class="option-group" type="button">
-                                            <input type="checkbox" name="amenities" value="<?= htmlspecialchars($keyword['KName']) ?>" aria-labelledby="<?= htmlspecialchars($keyword['KName']) ?>-label" />
+                                            <input type="checkbox" name="amenities" value="<?= htmlspecialchars($keyword['KeywordID']) ?>" aria-labelledby="<?= htmlspecialchars($keyword['KName']) ?>-label" />
                                             <span><?= htmlspecialchars($keyword['KName']) ?></span>
                                         </button>
                                     </li>
@@ -88,7 +88,7 @@
 
 
                 <div class="next-button-container">
-                    <form id="keyword-location-form" method="POST" action="http://localhost/ExploreEase/search/keyword">
+                    <form id="keyword-location-form" method="POST" action="http://localhost/ExploreEase/filter/keyword">
                         <input type="hidden" name="latitude" id="latitude">
                         <input type="hidden" name="longitude" id="longitude">
                         <input type="hidden" name="keyword_ids" id="keyword_ids">
