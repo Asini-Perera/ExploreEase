@@ -58,7 +58,7 @@ class SignupModel
 
         // Insert the restaurant data
         $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, CuisineType, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sssssddssssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
