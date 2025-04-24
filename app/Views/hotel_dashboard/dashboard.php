@@ -74,7 +74,7 @@
         <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
-                    <h2>Total Ratings</h2>
+                    <h2>Average Ratings</h2>
                     <h1><?php echo $TotalRatings; ?></h1>
                 </div>
                 <div class="tile-image">
