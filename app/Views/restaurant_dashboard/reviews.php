@@ -25,8 +25,24 @@
                     <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
                     <td><?= htmlspecialchars($feedback['Response']) ?></td>
                     <td class="action-buttons">
-                        <button class="reply-btn" id="openReply">Reply</button>
+                        <button class="reply-btn" id="sendReply" onclick="openPopup()">Reply</button>
                     </td>
+
+                    <div class="popup" id="popup">
+                    <div class="modal-content">
+                        <form action="../../controllers/TableBookingController.php?action=sendTableNo" method="POST" id="tableNoForm">
+                        <input type="hidden" name="review_id" id="reviewIdInput" value="<?= htmlspecialchars($feedback['FeedbackID']) ?>">
+                        <span class="close-btn">&times;</span>
+
+                        <h3>Add Reply</h3>
+                        
+                        <textarea placeholder="Add reply here" >
+
+                        </textarea>
+                        
+                        <button type="submit" id="submitReply" onclick="closePopup()" >Ok</button>
+                        </form>
+                    </div>
                 </tr>
             <?php endforeach; ?>
     

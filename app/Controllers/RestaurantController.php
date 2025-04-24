@@ -34,7 +34,7 @@ class RestaurantController
                 $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
                 $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
                 $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
-                //$TotalRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
+                $AverageRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
                // $TotalPackages = $restaurantModel->getTotalPackages($_SESSION['RestaurantID']);
             }
             elseif($mainContent == 'profile') {
@@ -394,18 +394,18 @@ class RestaurantController
     }
     
     
-    // public function replyReview()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $reviewID = $_POST['review_id'];
-    //         $reply = $_POST['reply'];
+    public function replyReview()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $reviewID = $_POST['review_id'];
+            $reply = $_POST['reply'];
 
-    //         $restaurantModel = new RestaurantModel($this->conn);
-    //         $restaurantModel->replyReview($reviewID, $reply);
+            $restaurantModel = new RestaurantModel($this->conn);
+            $restaurantModel->replyReview($reviewID, $reply);
 
-    //         header('Location: ../restaurant/dashboard?page=reviews');
-    //     }
-    // }
+            header('Location: ../restaurant/dashboard?page=reviews');
+        }
+    }
 
    
 

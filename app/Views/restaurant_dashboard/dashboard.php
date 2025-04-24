@@ -49,8 +49,8 @@
         <div class="tile">
             <div class="tile-content">
                 <div class="tile-text">
-                    <h2>Total Ratings</h2>
-                    <h1>5.0 ⭐</h1>
+                    <h2>Average Ratings</h2>
+                    <h1><?php echo $AverageRatings ; ?> ⭐</h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/ratings.jpeg" alt="Heritage Market">

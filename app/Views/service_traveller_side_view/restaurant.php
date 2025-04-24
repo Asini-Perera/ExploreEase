@@ -221,6 +221,7 @@
 
             <input type="hidden" name="restaurant_id" value="<?= $restaurantID ?>">
             <input type="hidden" name="traveler_id" value="<?= $travelerID ?>">
+            
 
             <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
         </form>

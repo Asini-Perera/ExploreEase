@@ -299,6 +299,15 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function updateTableNo($bookingID, $tableNo)
+    {
+        $sql = "UPDATE tablebooking SET TableNo = ? WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $tableNo, $bookingID);
+        $stmt->execute();
+    }
+    
+
     //reviews
     public function addReview($name, $email, $rating, $comment, $restaurantID, $travelerID)
     {
@@ -344,7 +353,13 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-
+    public function replyReview($reviewID, $reply)
+    {
+        $sql = "UPDATE restaurantfeedback SET Response = ? WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $reply, $reviewID);
+        $stmt->execute();
+    }
    
 
   
@@ -413,42 +428,34 @@ class RestaurantModel
             return 0;
         }
     }
-    // public function getTotalRevenue($hotelId) {
-    //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
-    //             FROM RoomBooking rb
-    //             JOIN Room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
-        
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalRevenue'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
 
-    // public function getTotalRevenueInLastWeek($hotelId) {
-    //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenueLastWeek 
-    //             FROM RoomBooking rb
-    //             JOIN Room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ? AND rb.BookingDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+    public function getAverageRating($restaurantID)
+    {
+        $sql = "SELECT AVG(Rating) AS average FROM restaurantfeedback WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (float)$row['average'];
+        } else {
+            return 0.0;
+        }
+    }
+    // public function getTotalReviews($restaurantId) {
+    //     $sql = "SELECT COUNT(*) AS totalReviews
+    //             FROM restaurantfeedback 
+    //             WHERE RestaurantID = ?";
         
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
+    //         $stmt->bind_param("i", $restaurantId);
     //         $stmt->execute();
     //         $result = $stmt->get_result();
     //         if ($result) {
-    //             return $result->fetch_assoc()['totalRevenueLastWeek'];
+    //             return $result->fetch_assoc()['totalReviews'];
     //         } else {
     //             error_log("SQL Error: " . $this->conn->error);
     //             return 0;
@@ -458,6 +465,9 @@ class RestaurantModel
     //         return 0;
     //     }
     // }
+    
+
+  
 
     // public function getTotalRatings($restaurantId) {
     //     $sql = "SELECT COUNT(*) AS totalRatings 

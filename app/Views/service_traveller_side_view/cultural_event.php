@@ -184,7 +184,7 @@
                 <input type="date" required>
                 <input type="time" class="booking-time" required>
                 <label for="num_tickets" class="num-tickets">Number of Tickets</label>
-                <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
+                <input type="number" min="1" max="25" placeholder="tickets" class="num-tickets" required>
                 <button type="submit" class="book-button">Purchase Now</button>
             </form>
         </div>
