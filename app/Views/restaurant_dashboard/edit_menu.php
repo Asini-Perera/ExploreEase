@@ -4,6 +4,8 @@
     <h1>Edit Menu</h1>
     
     <form method="POST" action="../restaurant/editMenu" enctype="multipart/form-data">
+        <input type="hidden" name="menuID" value="<?php echo isset($menuItem['MenuID']) ? $menuItem['MenuID'] : ''; ?>">
+        
         <div class="form-group">
             <label for="title">Food Name:</label>
             <input type="text" name="title" id="title" class="form-control" placeholder="Enter food name"  value="<?= htmlspecialchars($menuItem['FoodName']) ?>" required>

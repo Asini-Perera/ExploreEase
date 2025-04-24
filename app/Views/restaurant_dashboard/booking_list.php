@@ -2,64 +2,42 @@
 
 <h1>Bookings</h1>
 
-<div class="menu-container">
+<div class="booking-container">
     <table>
         <thead>
             <tr>
                 <th>Customer Name</th>
+                <th>Email</th>
                 <th>Date</th>
                 <th>Booking Date</th>
                 <th>Time </th>
                 <th>Number of Guests</th>
                 <th>Special Request</th>
-                <th>Table Number</th>
-                <th>Actions</th>
+                <th>Table Number</th> 
             </tr>
         </thead>
         
         <tbody>
- 
-            <!-- <?php foreach ($bookings as $booking): ?>
+        <?php if (!empty($bookings) && is_array($bookings)): ?>
+            <?php foreach ($bookings as $reservation): ?>
                 <tr>
-                    <td><?= htmlspecialchars($booking['Name']) ?></td>
-                    <td><?= $booking['BookingDate']  ?></td>
-                    <td><?= $booking['BookingDate']  ?></td>
-                    <td><?= $booking['NoOfGuests']  ?></td>
-                    <td><?= htmlspecialchars($booking['SpecialRequest'])  ?></td>
-                    <td><?= $booking['TableNumber']  ?></td>
-                    <td class="action-buttons"> 
-                        <button class="delete-btn"><a href="?page=booking_list&action=delete&id=<?= $booking ['BookingID'] ?>">Delete</a></button>
-                    </td>
+                    <td><?= htmlspecialchars($reservation['Name']) ?></td>
+                    <td><?= htmlspecialchars($reservation['Email']) ?></td>
+                    <td><?= date('d-m-Y', strtotime($reservation['Date'])) ?></td>
+                    <td><?= $reservation['BookingDate']  ?></td>
+                    <td><?= $reservation['BookingTime']  ?></td>
+                    <td><?= $reservation['NoOfGuests']  ?></td>
+                    <td><?= htmlspecialchars($reservation['SpecialRequest'])  ?></td>
+                    <td><?= $reservation['TableNumber']  ?></td>
+                    
                 </tr>
 
-            <?php endforeach; ?>   -->
-                <tr>
-                    <td>John Doe</td>
-                    <td>2024.10.18</td>
-                    <td>2024.10.18</td>
-                    <td>12:30 PM</td>
-                    <td>4</td>
-                    <td>none </td>
-                    <td>5</td>
-                    <td class="action-buttons">
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-            <tr>
-                <td>Jane Doe</td>
-                <td>2024.10.18</td>
-                <td>2024.10.18</td>
-                <td>1:00 PM</td>
-                <td>2</td> 
-                <td>none</td>
-                <td>3</td>
-                <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            
+            <?php endforeach; ?>  
+                
+            <?php else: ?>
+                <tr><td colspan="6" style="text-align: center;">No bookings found.</td></tr>
+            <?php endif; ?> 
+
         </tbody>
     </table>
 </div>

@@ -16,22 +16,23 @@
         </thead>
 
         <tbody>
-        <!-- <?php if (!empty($reviews) && is_array($reviews)): ?> -->
-    <?php foreach ($reviews as $feedback): ?>
-        <tr>
-            <td><?= htmlspecialchars($feedback['FirstName'].' '. $feedback['LastName']) ?></td>
-            <td><?= date('d-m-Y', strtotime($feedback['Date'])) ?></td>
-            <td><?= htmlspecialchars($feedback['Rating']) ?></td>
-            <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
-            <td><?= htmlspecialchars($feedback['Response']) ?></td>
-            <td class="action-buttons">
-                <button class="reply-btn" id="openReply">Reply</button>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-<!-- <?php else: ?>
-    <tr><td colspan="6">No reviews found.</td></tr>
-<?php endif; ?> -->
+        <?php if (!empty($reviews) && is_array($reviews)): ?>
+            <?php foreach ($reviews as $feedback): ?>
+                <tr>
+                    <td><?= htmlspecialchars($feedback['FirstName'].' '. $feedback['LastName']) ?></td>
+                    <td><?= date('d-m-Y', strtotime($feedback['Date'])) ?></td>
+                    <td><?= htmlspecialchars($feedback['Rating']) ?></td>
+                    <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
+                    <td><?= htmlspecialchars($feedback['Response']) ?></td>
+                    <td class="action-buttons">
+                        <button class="reply-btn" id="openReply">Reply</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+    
+        <?php else: ?>
+            <tr><td colspan="6">No reviews found.</td></tr>
+        <?php endif; ?>  
 
 
 
