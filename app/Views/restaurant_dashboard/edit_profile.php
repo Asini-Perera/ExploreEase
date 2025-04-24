@@ -70,8 +70,40 @@
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
-            <button type="submit" class="save-btn" onclick=" ">Save</button>     
+            <button type="button" class="save-btn" >Save</button>     
         </div>
         
     </form>
 </div>
+
+
+<dialog id="openDialog">
+    <p>Are you sure do you want to edit details?</p>
+    <div class="dialog-buttons">
+        <button id="confirm" class="confirm-btn">Yes</button>
+        <button id="cancel" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+
+<script>
+    const dialog = document.getElementById('openDialog');
+    const confirmButton = document.getElementById('confirm');
+    const cancelButton = document.getElementById('cancel');
+    const saveButton = document.querySelector('.save-btn');
+    const form = document.getElementById('edit-profile-form');
+
+    saveButton.addEventListener('click', () => {
+        dialog.showModal(); // Show the confirmation dialog
+    });
+
+    confirmButton.addEventListener('click', () => {
+        dialog.close();
+        form.submit(); // Submit the form when "Yes" is clicked
+    });
+
+    cancelButton.addEventListener('click', () => {
+        dialog.close(); // Close the dialog on "No"
+        window.location.href = 'http://localhost/ExploreEase/restaurant/dashboard?page=profile'; // Redirect without saving
+    });
+</script>
