@@ -333,41 +333,82 @@ class CulturalEventOrganizerModel
 
     public function setEventImage($eventID, $fileName)
     {
-        // Get temp image path
-        $tempImgPath = $fileName['tmp_name'];
-        
-        // Get the file name (original file name from the upload)
-        $originalFileName = $fileName['name'];
-
-        // Get the file extension
-        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
-
-        // Create a new file name
-        $newFileName = 'event_' . $eventID . '.' . $extension;
-
-        // Define the target directory
-        $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
-
-        // Check the directory exists and create it
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        // Create the image path
-        $imgDir = $targetDir . $newFileName;
-
-        // Move the image to the target directory
-        $moving = move_uploaded_file($tempImgPath, $imgDir);
-
-        // Define the image path
-        $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
-
-        // Enter the image path to the database
-        if ($moving) {
-            $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param('si', $imgPath, $eventID);
-            $stmt->execute();
+        try {
+            // Log the start of image upload process
+            error_log("Starting to set image for event ID: $eventID");
+            
+            // Get temp image path
+            $tempImgPath = $fileName['tmp_name'];
+            
+            // Get the file name (original file name from the upload)
+            $originalFileName = $fileName['name'];
+    
+            // Get the file extension
+            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+    
+            // Create a new file name
+            $newFileName = 'event_' . $eventID . '.' . $extension;
+    
+            // Define the target directory
+            $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
+    
+            // Check the directory exists and create it
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
+                error_log("Created directory: $targetDir");
+            }
+    
+            // Create the image path
+            $imgDir = $targetDir . $newFileName;
+    
+            // Move the image to the target directory
+            $moving = move_uploaded_file($tempImgPath, $imgDir);
+    
+            // Define the image path
+            $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
+    
+            // Enter the image path to the database
+            if ($moving) {
+                error_log("Image moved successfully to: $imgDir");
+                
+                // Verify table structure
+                $checkSql = "SHOW COLUMNS FROM culturalevent LIKE 'ImgPath'";
+                $checkResult = $this->conn->query($checkSql);
+                
+                if ($checkResult->num_rows == 0) {
+                    error_log("ImgPath column does not exist in culturalevent table");
+                    // Add the column if it doesn't exist
+                    $alterSql = "ALTER TABLE culturalevent ADD COLUMN ImgPath VARCHAR(255)";
+                    $this->conn->query($alterSql);
+                    error_log("Added ImgPath column to culturalevent table");
+                }
+                
+                $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
+                error_log("SQL query: $sql with params: $imgPath, $eventID");
+                
+                $stmt = $this->conn->prepare($sql);
+                
+                if (!$stmt) {
+                    error_log("Prepare failed: " . $this->conn->error);
+                    return false;
+                }
+                
+                $stmt->bind_param('si', $imgPath, $eventID);
+                $result = $stmt->execute();
+                
+                if (!$result) {
+                    error_log("Execute failed: " . $stmt->error);
+                    return false;
+                }
+                
+                return true;
+            } else {
+                error_log("Failed to move uploaded file");
+                return false;
+            }
+        } catch (\Exception $e) {
+            error_log("Exception in setEventImage: " . $e->getMessage());
+            return false;
         }
     }
 }

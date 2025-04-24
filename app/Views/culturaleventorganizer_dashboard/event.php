@@ -38,12 +38,12 @@
                             <td data-label="Price"><?= htmlspecialchars($event['TicketPrice']) ?></td>
                             <td data-label="Status"><?= htmlspecialchars($event['Status']) ?></td>
                             <td data-label="Image">
-                                <?php if (!empty($event['ImgPath']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $event['ImgPath'])): ?>
-                                    <img src="<?= htmlspecialchars($event['ImgPath']) ?>" class="event-img" alt="Event Image">
-                                <?php else: ?>
-                                    <img src="../public/images/default-event.png" class="event-img" alt="Default Event Image">
-                                <?php endif; ?>
-
+    <?php if (!empty($event['ImgPath'])): ?>
+        <img src="<?= htmlspecialchars($event['ImgPath']) ?>" class="event-img" alt="Event Image">
+    <?php else: ?>
+        <img src="../public/images/default-event.png" class="event-img" alt="Default Event Image">
+    <?php endif; ?>
+</td>
                             <td data-label="Actions">
                                 <div class="action-buttons">
                                     <a href="?page=event&action=edit&id=<?= $event['EventID'] ?>" class="edit-btn">Edit</a>

@@ -76,7 +76,7 @@ th {
 
 .add-btn {
     background-color: #F1C232;
-    color: #333 !important;
+    color: #333;
 }
 
 .add-btn:hover {
@@ -89,4 +89,33 @@ th {
 
 .delete-btn:hover {
     background-color: #c9302c;
+}
+
+/* Fixed size styling for event images */
+.event-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure the image column has a consistent width */
+table td[data-label="Image"] {
+    width: 70px;
+    min-width: 70px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Add hover effect for better user experience */
+.event-img:hover {
+    cursor: pointer;
+    transform: scale(2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    z-index: 100;
+    position: relative;
 }

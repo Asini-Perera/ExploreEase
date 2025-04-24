@@ -97,6 +97,10 @@ class CulturalEventOrganizerController
                 // Log the beginning of the event addition process
                 error_log("Starting event addition process");
                 
+                // Check if form data is available
+                error_log("POST data: " . print_r($_POST, true));
+                error_log("FILES data: " . print_r($_FILES, true));
+                
                 $title = $_POST['title'] ?? '';
                 $address = $_POST['address'] ?? '';
                 $date = $_POST['date'] ?? '';
@@ -106,7 +110,7 @@ class CulturalEventOrganizerController
                 $capacity = $_POST['capacity'] ?? 0;
                 $price = $_POST['price'] ?? 0;
                 $status = $_POST['status'] ?? '';
-                $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+                $image = isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK ? $_FILES['image'] : null;
                 $organizerID = $_SESSION['OrganizerID'] ?? 0;
                 
                 // Basic validation
@@ -131,23 +135,23 @@ class CulturalEventOrganizerController
                 error_log("Event added successfully with ID: $eventID");
                 
                 // If image is uploaded, set the image path
-                if ($eventID && $image && !empty($image['name'])) {
-                    $eventModel->setEventImage($eventID, $image);
-                    error_log("Image added for event ID: $eventID");
+                if ($eventID && $image) {
+                    $result = $eventModel->setEventImage($eventID, $image);
+                    if ($result) {
+                        error_log("Image added successfully for event ID: $eventID");
+                    } else {
+                        error_log("Failed to add image for event ID: $eventID");
+                    }
                 }
                 
                 // Redirect with success parameter
                 header('Location: dashboard?page=event&success=added');
                 exit();
             } catch (\Exception $e) {
-                error_log("Exception in addEvent: " . $e->getMessage());
+                error_log("Exception in addEvent: " . $e->getMessage() . "\n" . $e->getTraceAsString());
                 header('Location: dashboard?page=event&error=exception');
                 exit();
             }
-        } else {
-            // If not POST request, redirect to the event page
-            header('Location: dashboard?page=event');
-            exit();
         }
     }
 
