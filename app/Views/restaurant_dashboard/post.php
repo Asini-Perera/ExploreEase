@@ -35,27 +35,7 @@
             </tr>
              
           <?php endforeach; ?> 
-
-            <!-- <tr>
-                <td>Seasonal Offer</td>
-                <td>Celebrate the season with our special menu and discounts. Perfect for a cozy meal with loved ones.</td>
-                <td>2024.10.25</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td class="action-buttons">
-                    <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
-                    <button class="delete-btn">  <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Package offer</td>
-                <td>Take advantage of our package offer and enjoy a variety of dishes at a great price. Ideal for group dining.</td>
-                <td>2024.10.10</td>
-                <td><img src="../public/images/food.jpg" class="food-img"></td>
-                <td class="action-buttons">
-                <button class="edit-btn"><a href="?page=post&action=edit">Edit</a></button>
-                <button class="delete-btn">Delete</button>
-                </td>
-            </tr> -->
+ 
         </tbody>
     </table>
 </div>

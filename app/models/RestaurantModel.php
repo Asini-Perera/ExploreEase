@@ -188,6 +188,18 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    
+    public function getPostItem($postID)
+    {
+        $sql = "SELECT * FROM restaurantpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
 
     public function deletePost($postID)
     {
@@ -197,17 +209,95 @@ class RestaurantModel
         $stmt->execute();
     }
 
-    // public function updatePost($postID, $title, $description)
-    // {
-    //     $query = "UPDATE posts SET title = ?, description = ? WHERE id = ?";
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bind_param("ssi", $title, $description, $postID);
-    //     $stmt->execute();
-    //     $stmt->close();
-    // }
+    public function updatePost($title, $description,$postID)
+    {
+        $query = "UPDATE restaurantpost SET title = ?, description = ? WHERE PostID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ssi", $title, $description, $postID);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function setPostImgPath($PostID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $PostID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/post/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/post/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE restaurantpost SET ImgPath = ? WHERE PostID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $PostID);
+            $stmt->execute();
+        }
+    }
+
+    public function getPostImgPath($PostID)
+    {
+        $sql = "SELECT ImgPath FROM restaurantpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $PostID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
 
     //bookings
-    
+    public function saveBooking($name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID)
+    {
+        $sql = "INSERT INTO tablebooking (Name, Email, BookingDate, BookingTime, NoOfGuests, SpecialRequest, RestaurantID, TravelerID) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssisii', $name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID);
+        $stmt->execute();
+
+        $sql = "SELECT BookingID FROM tablebooking WHERE TravelerID = ? AND RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ii', $travelerID ,$restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $feedbackID = $result->fetch_assoc()['FeedbackID'];
+        
+        return $feedbackID;
+
+    }
+
+    public function getBookings($restaurantID)
+    {
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     //reviews
     public function addReview($name, $email, $rating, $comment, $restaurantID, $travelerID)
@@ -228,15 +318,6 @@ class RestaurantModel
         return $feedbackID;
     }
 
-    // public function getReview($restaurantID,$travelerID){
-    //     $sql = "SELECT * FROM restaurantfeedback WHERE RestaurantID = ? AND TravelerID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('ii', $restaurantID,$travelerID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
     public function getReview($restaurantID)
     {
         $sql = " SELECT rf.* , t.FirstName, t.LastName FROM restaurantfeedback rf
@@ -263,132 +344,75 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-    
 
-    public function deleteReview($feedbackID)
-    {
-        $sql = "DELETE FROM restaurantfeedback WHERE FeedbackID = ?";
+   
+
+  
+
+    public function getTotalBookings($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalBookings 
+                FROM tablebooking WHERE RestaurantID = ?";
+        
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $feedbackID);
-        $stmt->execute();
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalBookings'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
     }
 
-    // public function getBookings($hotelID)
-    // {
-    //     $sql = "SELECT rb.* FROM roombooking rb
-    //             JOIN room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('i', $hotelID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
-
-    // public function setImagePath($PostID, $fileName)
-    // {
-    //     // Get temp image path
-    //     $tempImgPath = $fileName['tmp_name'];
-
-    //     // Get the file name (original file name from the upload)
-    //     $originalFileName = $fileName['name'];
-
-    //     // Get the file extention
-    //     $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
-
-    //     // Create a new file name
-    //     $newFileName = $PostID . '.' . $extention;
-
-    //     // Define the target directory
-    //     $targetDir = __DIR__ . '/../../public/images/database/hotel_post/';
-
-    //     // Check the directory exists and create it
-    //     if (!is_dir($targetDir)) {
-    //         mkdir($targetDir, 077, false);
-    //     }
-
-    //     // Create the image path
-    //     $imgDir = $targetDir . $newFileName;
-
-    //     // Move the image to the target directory
-    //     $moving = move_uploaded_file($tempImgPath, $imgDir);
-
-    //     // Define the image path
-    //     $imgPath = '/ExploreEase/public/images/database/hotel_post/' . $newFileName;
-
-    //     // Enter the image path to the database
-    //     if ($moving) {
-    //         $sql = "UPDATE hotelpost SET ImgPath = ? WHERE PostID = ?";
-    //         $stmt = $this->conn->prepare($sql);
-    //         $stmt->bind_param('si', $imgPath, $PostID);
-    //         $stmt->execute();
-    //     }
-    // }
-
-    // public function getPost($hotelID, $postID = null)
-    // {
-    //     $sql = "SELECT * FROM hotelpost WHERE HotelID = ?";
-    //     if ($postID) {
-    //         $sql .= " AND PostID = ?";
-    //     }
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($postID) {
-    //         $stmt->bind_param('ii', $hotelID, $postID);
-    //     } else {
-    //         $stmt->bind_param('i', $hotelID);
-    //     }
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
+    public function getTotalMenus($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalMenus 
+                FROM menu 
+                WHERE RestaurantID = ?";
         
-    //     return $postID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
-    // }
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalMenus'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
-    // public function getTotalBookings($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalBookings 
-    //             FROM RoomBooking rb
-    //             JOIN Room r ON rb.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    public function getTotalReviews($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalReviews
+                FROM restaurantfeedback 
+                WHERE RestaurantID = ?";
         
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalBookings'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
-
-    // public function getTotalRooms($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalRooms 
-    //             FROM Room 
-    //             WHERE HotelID = ?";
-        
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalRooms'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
-
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalReviews'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
     // public function getTotalRevenue($hotelId) {
     //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
     //             FROM RoomBooking rb
@@ -435,11 +459,11 @@ class RestaurantModel
     //     }
     // }
 
-    // public function getTotalRatings($hotelId) {
+    // public function getTotalRatings($restaurantId) {
     //     $sql = "SELECT COUNT(*) AS totalRatings 
-    //             FROM HotelFeedback hf
-    //             JOIN Room r ON hf.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    //             FROM restaurantfeedback rf
+    //             JOIN Room r ON hf.RestaurantID = r.RoomID
+    //             WHERE r.RestaurantID = ?";
         
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
@@ -458,85 +482,27 @@ class RestaurantModel
     //     }
     // }
 
-    // public function getTotalFeedbacks($hotelId) {
-    //     $sql = "SELECT COUNT(*) AS totalFeedbacks 
-    //             FROM HotelFeedback hf
-    //             JOIN Room r ON hf.RoomID = r.RoomID
-    //             WHERE r.HotelID = ?";
+    public function getTotalPosts($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalPosts 
+                FROM restaurantpost  
+                WHERE RestaurantID = ?";
         
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalFeedbacks'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalPosts'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
-    // public function updateRoom($roomID, $room_type, $price, $capacity, $description)
-    // {
-    //     $sql = "UPDATE room SET Type = ?, Price = ?, MaxOccupancy = ?, Description = ? WHERE RoomID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $roomID);
-    //     $stmt->execute();
-    // }
-
-    // public function getRoomImage($roomID)
-    // {
-    //     $sql = "SELECT ImgPath FROM room WHERE RoomID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-        
-    //     if (!$stmt) {
-    //         return null;
-    //     }
-        
-    //     $stmt->bind_param('i', $roomID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     if ($result && $result->num_rows > 0) {
-    //         return $result->fetch_assoc()['ImgPath'];
-    //     }
-        
-    //     return null;
-    // }
-
-    // public function addPost($title, $description, $hotelID)
-    // {
-    //     $sql = "INSERT INTO hotelpost (Title, Description, HotelID) VALUES (?, ?, ?)";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param('ssi', $title, $description, $hotelID);
-    //     $stmt->execute();
-        
-    //     return $stmt->insert_id;
-    // }
-
-    // public function getPostImage($postID)
-    // {
-    //     $sql = "SELECT ImgPath FROM hotelpost WHERE PostID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-        
-    //     if (!$stmt) {
-    //         return null;
-    //     }
-        
-    //     $stmt->bind_param('i', $postID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-        
-    //     if ($result && $result->num_rows > 0) {
-    //         return $result->fetch_assoc()['ImgPath'];
-    //     }
-        
-    //     return null;
-    // }
-
+   
 }

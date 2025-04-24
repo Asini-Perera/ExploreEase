@@ -103,10 +103,14 @@ class SignupController
             $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
-            $openHours = $_POST['openhours'];
+            $weekdaysOpenHours = $_POST['weekdays_openhours'];
+            $weekendsOpenHours = $_POST['weekends_openhours'];
             $cuisineType = $_POST['cuisinetype'];
-            $socialMediaLinks = $_POST['smlink'];
-
+            $tagline = $_POST['tagline'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
             // Check if email already exists
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
@@ -124,7 +128,7 @@ class SignupController
                 exit();
             }
 
-            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $cuisineType, $socialMediaLinks);
+            $RestaurantID = $signupModel->restaurant($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             // Redirect to Keyword entry page
             if ($RestaurantID) {
@@ -156,7 +160,11 @@ class SignupController
             $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
-            $socialMediaLinks = $_POST['smlink'];
+            $tagline = $_POST['tagline'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
 
             // Check if email already exists
             $signupModel = new SignupModel($this->conn);
@@ -175,7 +183,7 @@ class SignupController
                 exit();
             }
 
-            $HotelID = $signupModel->hotel($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $socialMediaLinks);
+            $HotelID = $signupModel->hotel($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             // Redirect to Keyword entry page
             if ($HotelID) {
@@ -207,8 +215,14 @@ class SignupController
             $longitude = $_POST['longitude'];
             $website = $_POST['website'];
             $description = $_POST['description'];
-            $openHours = $_POST['openhours'];
-            $socialMediaLinks = $_POST['smlink'];
+            $weekdaysOpenHours = $_POST['weekdays_openhours'];
+            $weekendsOpenHours = $_POST['weekends_openhours'];
+            $tagline = $_POST['tagline'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
+
 
             // Check if email already exists
             $signupModel = new SignupModel($this->conn);
@@ -227,7 +241,7 @@ class SignupController
                 exit();
             }
 
-            $ShopID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $openHours, $socialMediaLinks);
+            $ShopID = $signupModel->heritageMarket($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             // Redirect to Keyword entry page
             if ($ShopID) {

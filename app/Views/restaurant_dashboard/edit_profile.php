@@ -4,6 +4,9 @@
     <h1>Edit Profile Details</h1>
     
     <form id="edit-profile-form" action="../restaurant/update" method="POST" enctype="multipart/form-data">
+
+        <input type="hidden" name="restaurantID" value="<?php echo $_SESSION['RestaurantID']; ?>">
+
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?php echo $_SESSION['Name']; ?>">

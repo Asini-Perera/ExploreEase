@@ -481,9 +481,9 @@
     display: flex;
     align-items: flex-start;
     /* Align content at the top */
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* Ensure space between image and form */
-    padding: 80px 20px;
+    padding: 80px 40px;
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     color: #333;
     gap: 30px;
@@ -503,12 +503,14 @@
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-    max-width: 650px;
+    max-width: 750px;
     width: 100%;
     text-align: center;
     box-sizing: border-box;
     animation: fadeIn 1s ease;
 }
+
+
 
 .booking-heading {
     font-size: 2.4rem;
@@ -537,16 +539,7 @@
     margin: 2px;
 }
 
-.input-field special-requests{
-    width: 100%;
-    padding: 13px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    background-color: #fafafa;
-    transition: all 0.3s ease; 
-    margin: 2px;
-}
+ 
 
 .input-field:focus {
     outline: none;
