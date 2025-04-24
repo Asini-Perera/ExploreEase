@@ -57,7 +57,7 @@ class HomeModel
                (6371 * acos(cos(radians(?)) * cos(radians(h.Latitude)) * cos(radians(h.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(h.Latitude)))) AS distance
         FROM hotel h
         INNER JOIN hotelkeyword hk ON h.HotelID = hk.HotelID
-        WHERE hk.KeywordID IN ($placeholders)
+        WHERE (hk.KeywordID IN ($placeholders) AND h.IsVerified = 1)
 
         UNION
 
@@ -66,7 +66,7 @@ class HomeModel
                (6371 * acos(cos(radians(?)) * cos(radians(r.Latitude)) * cos(radians(r.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(r.Latitude)))) AS distance
         FROM restaurant r
         INNER JOIN restaurantkeyword rk ON r.RestaurantID = rk.RestaurantID
-        WHERE rk.KeywordID IN ($placeholders)
+        WHERE (rk.KeywordID IN ($placeholders) AND r.IsVerified = 1)
 
         UNION
 
@@ -75,7 +75,7 @@ class HomeModel
                (6371 * acos(cos(radians(?)) * cos(radians(s.Latitude)) * cos(radians(s.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(s.Latitude)))) AS distance
         FROM heritagemarket s
         INNER JOIN heritagemarketkeyword sk ON s.ShopID = sk.ShopID
-        WHERE sk.KeywordID IN ($placeholders)
+        WHERE (sk.KeywordID IN ($placeholders) AND s.IsVerified = 1)
 
         HAVING distance < 1000
 
