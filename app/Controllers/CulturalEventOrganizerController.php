@@ -35,12 +35,14 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'change-password';
                 }
             } elseif ($mainContent == 'event') {
-                // $events = $this->viewEvent();
+                $events = $this->viewEvent();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteEvent();
@@ -54,6 +56,11 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+
+                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                    $postItem = $organizerModel->getPostItem($postID);
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
@@ -70,13 +77,7 @@ class CulturalEventOrganizerController
         }
     }
 
-    public function viewEvent()
-    {
-        $eventModel = new CulturalEventOrganizerModel($this->conn);
-        $events = $eventModel->getEvent($_SESSION['EventID']);
-
-        return $events;
-    }
+   
 
     public function addEvent()
     {
@@ -91,7 +92,7 @@ class CulturalEventOrganizerController
             $price = $_POST['price'];
             $status = $_POST['status'];
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-            $eventID = $_SESSION['EventID'];
+            $eventID = $_SESSION['organizerID'];
 
             $eventModel = new CulturalEventOrganizerModel($this->conn);
             $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $eventID);
@@ -101,19 +102,27 @@ class CulturalEventOrganizerController
                 $eventModel->setImgPath($eventID, $image);
             }
 
-            header('Location: ../culturalevent/dashboard?page=event');
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
+    }
+
+    public function viewEvent()
+    {
+        $organizerModel = new CulturalEventOrganizerModel($this->conn);
+        $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
+
+        return $events;
     }
 
     public function deleteEvent()
     {
         if (isset($_GET['id'])) {
-            $roomID = $_GET['id'];
+            $eventID = $_GET['id'];
 
-            $eventModel = new CulturalEventOrganizerModel($this->conn);
-            $eventModel->deleteEvent($roomID);
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $organizerModel->deleteEvent($eventID);
 
-            header('Location: ../culturalevent/dashboard?page=event');
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
     }
 
@@ -125,7 +134,10 @@ class CulturalEventOrganizerController
             $email = $_POST['email'];
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
-            $smLink = $_POST['sm_link'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
             // Check if email already exists
@@ -138,7 +150,7 @@ class CulturalEventOrganizerController
             }
 
             $organizerModel = new CulturalEventOrganizerModel($this->conn);
-            $organizerModel->updateOrganizer($organizerID, $name, $email, $contactNo, $description, $smLink);
+            $organizerModel->updateOrganizer($organizerID, $name, $email, $contactNo, $description,  $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             if ($profileImage['name']) {
                 $organizerModel->setImgPath($organizerID, $profileImage);
@@ -148,7 +160,10 @@ class CulturalEventOrganizerController
             $_SESSION['Email'] = $email;
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
-            $_SESSION['SMLink'] = $smLink;
+            $_SESSION['FacebookLink'] = $facebookLink;
+            $_SESSION['InstagramLink'] = $instagramLink;
+            $_SESSION['TikTokLink'] = $tiktokLink;
+            $_SESSION['YouTubeLink'] = $youtubeLink;
             $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
 
             header('Location: ../culturaleventorganizer/dashboard?page=profile');

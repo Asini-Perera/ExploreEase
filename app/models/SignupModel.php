@@ -124,9 +124,9 @@ class SignupModel
 
         // Insert the cultural event organizer data
         $sql = "INSERT INTO culturaleventorganizer (Name, Email, Password, ContactNo, Description, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssss', $name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
+        $stmt->bind_param('sssssssss', $name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the OrganizerID

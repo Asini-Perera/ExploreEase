@@ -36,70 +36,11 @@
                 <td>Rs. 500.00</td>
                 <td>Active</td>
                 <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;"><a href="?page=event&action=edit&id=<?= $post['EventID'] ?>"></a>Edit</button>
+                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;"><a href="?page=event&action=delete&id=<?= $post['EventID'] ?>">Delete</a></button>
                 </td>
             </tr>
-            <tr>
-                <td>Poson Poya</td>
-                <td>Anuradhapura</td>
-                <td>2021-06-24</td>
-                <td>08:00:00</td>
-                <td>20:00:00</td>
-                <td>Poson Poya is a festival celebrated by Buddhists in Sri Lanka.</td>
-                <td>800</td>
-                <td>Rs. 300.00</td>
-                <td>Active</td>
-                <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Christmas</td>
-                <td>Colombo</td>
-                <td>2021-12-25</td>
-                <td>18:00:00</td>
-                <td>23:59:00</td>
-                <td>Christmas is a festival celebrated by Christians all over the world.</td>
-                <td>1500</td>
-                <td>Rs. 1000.00</td>
-                <td>Active</td>
-                <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>New Year</td>
-                <td>Colombo</td>
-                <td>2022-01-01</td>
-                <td>00:00:00</td>
-                <td>02:00:00</td>
-                <td>New Year is celebrated by people all over the world.</td>
-                <td>2000</td>
-                <td>Rs. 1500.00</td>
-                <td>Active</td>
-                <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Vesak Poya</td>
-                <td>Colombo</td>
-                <td>2021-05-26</td>
-                <td>06:00:00</td>
-                <td>18:00:00</td>
-                <td>Vesak Poya is a festival celebrated by Buddhists in Sri Lanka.</td>
-                <td>1200</td>
-                <td>Rs. 400.00</td>
-                <td>Active</td>
-                <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
-                </td>
-            </tr>
+            
         </tbody>
     </table>
 </div>
