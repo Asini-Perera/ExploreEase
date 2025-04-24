@@ -54,12 +54,13 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'change-password';
                 }
             } elseif ($mainContent == 'event') {
-                // $events = $this->viewEvent();
+                $events = $this->viewEvent();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+                    
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteEvent();
@@ -92,7 +93,7 @@ class CulturalEventOrganizerController
     public function viewEvent()
     {
         $eventModel = new CulturalEventOrganizerModel($this->conn);
-        $events = $eventModel->getEvent($_SESSION['EventID']);
+        $events = $eventModel->getAllEvents($_SESSION['OrganizerID']);
 
         return $events;
     }
