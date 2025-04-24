@@ -144,30 +144,54 @@ class CulturalEventOrganizerController
             $email = $_POST['email'];
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
-            $smLink = $_POST['sm_link'];
+            
+            // Get individual social media links
+            $facebookLink = $_POST['facebook_link'] ?? '';
+            $instagramLink = $_POST['instagram_link'] ?? '';
+            $tiktokLink = $_POST['tiktok_link'] ?? '';
+            $youtubeLink = $_POST['youtube_link'] ?? '';
+            
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
-            // Check if email already exists
-            $signupModel = new SignupModel($this->conn);
-            $user = $signupModel->getUserByEmail($email);
-
-            if ($user) {
-                header('Location: ../culturaleventorganizer/dashboard?page=profile&action=edit&error=email-exists');
-                exit();
+            // Only check for email existence if the user is changing their email
+            $currentEmail = $_SESSION['Email'];
+            if ($email !== $currentEmail) {
+                $signupModel = new SignupModel($this->conn);
+                $user = $signupModel->getUserByEmail($email);
+                
+                // Email exists and belongs to someone else
+                if ($user) {
+                    header('Location: ../culturaleventorganizer/dashboard?page=profile&action=edit&error=email-exists');
+                    exit();
+                }
             }
 
             $organizerModel = new CulturalEventOrganizerModel($this->conn);
-            $organizerModel->updateOrganizer($organizerID, $name, $email, $contactNo, $description, $smLink);
+            $organizerModel->updateOrganizer(
+                $organizerID, 
+                $name, 
+                $email, 
+                $contactNo, 
+                $description, 
+                $facebookLink,
+                $instagramLink,
+                $tiktokLink,
+                $youtubeLink
+            );
 
-            if ($profileImage['name']) {
+            if ($profileImage && !empty($profileImage['name'])) {
                 $organizerModel->setImgPath($organizerID, $profileImage);
             }
 
+            // Update session variables
             $_SESSION['Name'] = $name;
             $_SESSION['Email'] = $email;
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
-            $_SESSION['SMLink'] = $smLink;
+            $_SESSION['FacebookLink'] = $facebookLink;
+            $_SESSION['InstagramLink'] = $instagramLink;
+            $_SESSION['TikTokLink'] = $tiktokLink;
+            $_SESSION['YouTubeLink'] = $youtubeLink;
             $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
 
             header('Location: ../culturaleventorganizer/dashboard?page=profile');

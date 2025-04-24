@@ -31,11 +31,32 @@ class CulturalEventOrganizerModel
         return $stmt->insert_id;
     }
 
+    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
+    {
+        $sql = "UPDATE culturaleventorganizer SET 
+                `Name` = ?, 
+                `Email` = ?, 
+                `ContactNo` = ?, 
+                `Description` = ?, 
+                `FacebookLink` = ?,
+                `InstagramLink` = ?,
+                `TikTokLink` = ?,
+                `YouTubeLink` = ?
+                WHERE OrganizerID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssisssssi', $name, $email, $contactNo, $description, 
+                          $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
+        $stmt->execute();
+        
+        return $stmt->affected_rows > 0;
+    }
+    
     public function setImgPath($OrganizerID, $fileName)
     {
         // Get temp image path
         $tempImgPath = $fileName['tmp_name'];
-
+        
         // Get the file name (original file name from the upload)
         $originalFileName = $fileName['name'];
 
@@ -80,14 +101,6 @@ class CulturalEventOrganizerModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc()['ImgPath'];
-    }
-
-    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $smLink)
-    {
-        $sql = "UPDATE culturaleventorganizer SET `Name` = ?, `Email` = ?, `ContactNo` = ?, `Description` = ?, `SMLink` = ? WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssissi', $name, $email, $contactNo, $description, $smLink, $OrganizerID);
-        $stmt->execute();
     }
 
     public function checkCurrentPassword($OrganizerID, $currentPassword)
