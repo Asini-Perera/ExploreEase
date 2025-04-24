@@ -31,13 +31,13 @@ class HotelModel
         return $roomID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addRoom($room_type, $price, $capacity,$description, $hotelID)
+    public function addRoom($room_type, $price, $capacity, $description, $hotelID)
     {
         $sql = "INSERT INTO room (Type,Price, MaxOccupancy, Description, HotelID) VALUES (?, ?, ?, ?,?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sdisi', $room_type, $price, $capacity, $description, $hotelID);
         $stmt->execute();
-        
+
         return $stmt->insert_id;
     }
 
@@ -74,7 +74,7 @@ class HotelModel
 
         // Enter the image path to the database
         if ($moving) {
-           $sql = "UPDATE room SET ImgPath = ? WHERE RoomID = ?";
+            $sql = "UPDATE room SET ImgPath = ? WHERE RoomID = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param('si', $imgPath, $RoomID);
             $stmt->execute();
@@ -90,11 +90,11 @@ class HotelModel
     }
 
     //update profile
-    public function updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $sm_link)
+    public function updateHotel($hotelID, $email, $name, $address, $contactNo, $description, $website, $tagline, $facebook_link, $instagram_link, $tiktok_link, $youtube_link)
     {
-        $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ? WHERE HotelID = ?";
+        $sql = "UPDATE hotel SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, Tagline = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YoutubeLink = ? WHERE HotelID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssssi', $email, $name, $address, $contactNo, $description, $website, $sm_link, $hotelID);
+        $stmt->bind_param('sssssssssssi', $email, $name, $address, $contactNo, $description, $website, $tagline, $facebook_link, $instagram_link, $tiktok_link, $youtube_link, $hotelID);
         $result = $stmt->execute();
         return $result; // Return true on success, false on failure
     }
@@ -132,13 +132,14 @@ class HotelModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getTravelerById($travelerId) {
+    public function getTravelerById($travelerId)
+    {
         $sql = "SELECT * FROM traveler WHERE TravelerID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $travelerId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
 
@@ -211,16 +212,17 @@ class HotelModel
         }
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $postID ? $result->fetch_assoc() : $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getTotalBookings($hotelId) {
+    public function getTotalBookings($hotelId)
+    {
         $sql = "SELECT COUNT(*) AS totalBookings 
                 FROM RoomBooking rb
                 JOIN Room r ON rb.RoomID = r.RoomID
                 WHERE r.HotelID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $hotelId);
@@ -238,11 +240,12 @@ class HotelModel
         }
     }
 
-    public function getTotalRooms($hotelId) {
+    public function getTotalRooms($hotelId)
+    {
         $sql = "SELECT COUNT(*) AS totalRooms 
                 FROM Room 
                 WHERE HotelID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $hotelId);
@@ -265,7 +268,7 @@ class HotelModel
     //             FROM RoomBooking rb
     //             JOIN Room r ON rb.RoomID = r.RoomID
     //             WHERE r.HotelID = ?";
-        
+
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
     //         $stmt->bind_param("i", $hotelId);
@@ -288,7 +291,7 @@ class HotelModel
     //             FROM RoomBooking rb
     //             JOIN Room r ON rb.RoomID = r.RoomID
     //             WHERE r.HotelID = ? AND rb.BookingDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
-        
+
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
     //         $stmt->bind_param("i", $hotelId);
@@ -306,7 +309,8 @@ class HotelModel
     //     }
     // }
 
-    public function getTotalCustomers($hotelID){
+    public function getTotalCustomers($hotelID)
+    {
         $sql = "SELECT COUNT(DISTINCT rb.TravelerID) AS totalCustomers 
                 FROM roombooking rb
                 JOIN room r ON rb.RoomID = r.RoomID
@@ -329,11 +333,12 @@ class HotelModel
         }
     }
 
-    public function getTotalPosts($hotelId) {
+    public function getTotalPosts($hotelId)
+    {
         $sql = "SELECT COUNT(*) AS totalPosts 
                 FROM HotelPost 
                 WHERE HotelID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $hotelId);
@@ -351,11 +356,12 @@ class HotelModel
         }
     }
 
-    public function getTotalRatings($hotelId) {
+    public function getTotalRatings($hotelId)
+    {
         $sql = "SELECT COALESCE(AVG(hf.Rating), 0) AS totalRating 
             FROM HotelFeedback hf
             WHERE HotelID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $hotelId);
@@ -374,11 +380,12 @@ class HotelModel
         }
     }
 
-    public function getTotalFeedbacks($hotelId) {
+    public function getTotalFeedbacks($hotelId)
+    {
         $sql = "SELECT COUNT(*) AS totalFeedbacks 
                 FROM HotelFeedback
                 WHERE HotelID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $hotelId);
@@ -408,19 +415,19 @@ class HotelModel
     {
         $sql = "SELECT ImgPath FROM room WHERE RoomID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             return null;
         }
-        
+
         $stmt->bind_param('i', $roomID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result && $result->num_rows > 0) {
             return $result->fetch_assoc()['ImgPath'];
         }
-        
+
         return null;
     }
 
@@ -430,7 +437,7 @@ class HotelModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssi', $title, $description, $hotelID);
         $stmt->execute();
-        
+
         return $stmt->insert_id;
     }
 
@@ -438,19 +445,19 @@ class HotelModel
     {
         $sql = "SELECT ImgPath FROM hotelpost WHERE PostID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             return null;
         }
-        
+
         $stmt->bind_param('i', $postID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result && $result->num_rows > 0) {
             return $result->fetch_assoc()['ImgPath'];
         }
-        
+
         return null;
     }
 
@@ -494,12 +501,12 @@ class HotelModel
 
     public function updateBooking($bookingID, $checkInDate, $checkOutDate, $date, $status, $roomID)
     {
-        $sql = "UPDATE roombooking SET CheckInDate = ?, CheckOutDate = ?, Date = ?, Status = ?, RoomID = ? WHERE BookingID = ?";        
+        $sql = "UPDATE roombooking SET CheckInDate = ?, CheckOutDate = ?, Date = ?, Status = ?, RoomID = ? WHERE BookingID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssssii', $checkInDate, $checkOutDate, $date, $status, $roomID, $bookingID);
         $stmt->execute();
     }
-    
+
     public function deleteBooking($bookingID)
     {
         $sql = "DELETE FROM roombooking WHERE BookingID = ?";
@@ -532,7 +539,7 @@ class HotelModel
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+
     public function updateReviewResponse($reviewID, $response)
     {
         $sql = "UPDATE hotelfeedback SET Response = ? WHERE FeedbackID = ?";
@@ -551,8 +558,7 @@ class HotelModel
         $stmt->bind_param('i', $feedbackID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
-
 }
