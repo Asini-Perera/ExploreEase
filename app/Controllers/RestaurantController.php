@@ -139,43 +139,53 @@ class RestaurantController
             $instagramLink = $_POST['instagram_link'];
             $tiktokLink = $_POST['tiktok_link'];
             $youtubeLink = $_POST['youtube_link'];
-            $menupdf = $_FILES['menupdf'];
-
-            // Check if the email is already exists
+            
+            // Check if the email already exists
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
-
-            if ($user) {
+            
+            if ($user && $user['Email'] !== $_SESSION['Email']) {
+                $_SESSION['error'] = "Email already exists!";
                 header('Location: ../restaurant/dashboard?page=profile');
                 exit();
             }
-
+            
             $restaurantModel = new RestaurantModel($this->conn);
-            $sucess = $restaurantModel->updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf);
+            
+            // Initialize menuPDFPath variable
+            $menuPDFPath = $_SESSION['MenuPDF'] ?? '';
+            
+            // If a new menu PDF was uploaded, process it
+            if (isset($_FILES['menupdf']) && $_FILES['menupdf']['error'] == 0) {
+                $menuPDFPath = $restaurantModel->setMenuPDFPath($restaurantID, $_FILES['menupdf']);
+            }
+            
+            $success = $restaurantModel->updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, 
+                $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, 
+                $instagramLink, $tiktokLink, $youtubeLink, $tagline, $menuPDFPath);
 
-           if($sucess) {
-            $_SESSION['Name'] = $name;  
-            $_SESSION['Address'] = $address;
-            $_SESSION['ContactNo'] = $contactNo;
-            $_SESSION['Email'] = $email;
-            $_SESSION['Website'] = $website;
-            $_SESSION['WeekdayOpenHours'] = $weekdaysOpenHours;
-            $_SESSION['WeekendOpenHours'] = $weekendsOpenHours;
-            $_SESSION['CuisineType'] = $cuisineType;
-            $_SESSION['Description'] = $description;
-            $_SESSION['Tagline'] = $tagline;
-            $_SESSION['FacebookLink'] = $facebookLink;
-            $_SESSION['InstagramLink'] = $instagramLink;
-            $_SESSION['TikTokLink'] = $tiktokLink;
-            $_SESSION['YouTubeLink'] = $youtubeLink;
-            $_SESSION['MenuPDF'] = $menupdf;
+           if($success) {
+                $_SESSION['Name'] = $name;  
+                $_SESSION['Address'] = $address;
+                $_SESSION['ContactNo'] = $contactNo;
+                $_SESSION['Email'] = $email;
+                $_SESSION['Website'] = $website;
+                $_SESSION['WeekdayOpenHours'] = $weekdaysOpenHours;
+                $_SESSION['WeekendOpenHours'] = $weekendsOpenHours;
+                $_SESSION['CuisineType'] = $cuisineType;
+                $_SESSION['Description'] = $description;
+                $_SESSION['Tagline'] = $tagline;
+                $_SESSION['FacebookLink'] = $facebookLink;
+                $_SESSION['InstagramLink'] = $instagramLink;
+                $_SESSION['TikTokLink'] = $tiktokLink;
+                $_SESSION['YouTubeLink'] = $youtubeLink;
+                $_SESSION['MenuPDF'] = $menuPDFPath;
 
-            $_SESSION['success'] = "Profile updated successfully!";
-           }else{
-            $_SESSION['error'] = "Failed to update profile!";
+                $_SESSION['success'] = "Profile updated successfully!";
+           } else {
+                $_SESSION['error'] = "Failed to update profile!";
            }
           
-
             header('Location: ../restaurant/dashboard?page=profile');
             exit();
         }

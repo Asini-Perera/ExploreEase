@@ -73,7 +73,13 @@
             </tr>
             <tr>
                 <th>Menu PDF</th>
-                <td><?php echo $_SESSION['MenuPDF'] ?? 'Not available'; ?></td>
+                <td>
+                    <?php if(!empty($_SESSION['MenuPDF'])): ?>
+                        <a href="<?php echo $_SESSION['MenuPDF']; ?>" target="_blank">View Menu PDF</a>
+                    <?php else: ?>
+                        Not available
+                    <?php endif; ?>
+                </td>
             </tr>
         </tbody>
     </table>
