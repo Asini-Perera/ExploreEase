@@ -83,4 +83,22 @@ class HomeModel
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getHotelById($id)
+    {
+        $sql = "SELECT * FROM hotel WHERE HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getRestaurantById($id)
+    {
+        $sql = "SELECT * FROM restaurant WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }
