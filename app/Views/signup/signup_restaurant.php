@@ -68,7 +68,7 @@
                     <textarea id="description" name="description" required></textarea><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="weekdays_openhours">Weekdays Open Hours *</label>
+                    <label for="weekdaysOpenhours">Weekdays Open Hours *</label>
                     <input type="text" id="weekdays_openhours" name="weekdays_openhours" required><br><br>
                 </div>
                 <div class="input-group">

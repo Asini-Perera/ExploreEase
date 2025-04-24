@@ -269,7 +269,10 @@ class SignupController
             $confirmPassword = $_POST['confirm_password'];
             $contactNo = $_POST['contactNo'];
             $description = $_POST['description'];
-            $socialMediaLinks = $_POST['smlink'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
             // Check if email already exists
@@ -289,7 +292,7 @@ class SignupController
                 exit();
             }
 
-            $OrganizerID = $signupModel->culturalEventOrganizer($name, $email, $password, $contactNo, $description, $socialMediaLinks);
+            $OrganizerID = $signupModel->culturalEventOrganizer($name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             // If image is uploaded, set the image path
             if ($OrganizerID && $profileImage['name']) {

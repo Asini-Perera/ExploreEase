@@ -130,10 +130,15 @@ class RestaurantController
             $contactNo = $_POST['contact_no'];
             $email = $_POST['email'];
             $website = $_POST['website'];
-            $openHours = $_POST['open_hours'];
+            $weekdaysOpenHours = $_POST['weekdays_openhours'];
+            $weekendsOpenHours = $_POST['weekends_openhours'];
             $cuisineType = $_POST['cuisine_types'];
             $description = $_POST['description'];
-            $socialMediaLinks = $_POST['smlink'];
+            $tagline = $_POST['tagline'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
             $menupdf = $_FILES['menupdf'];
 
             // Check if the email is already exists
@@ -146,7 +151,7 @@ class RestaurantController
             }
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $sucess = $restaurantModel->updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $socialMediaLinks, $menupdf);
+            $sucess = $restaurantModel->updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf);
 
            if($sucess) {
             $_SESSION['Name'] = $name;  
@@ -154,10 +159,15 @@ class RestaurantController
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Email'] = $email;
             $_SESSION['Website'] = $website;
-            $_SESSION['OpenHours'] = $openHours;
+            $_SESSION['WeekdayOpenHours'] = $weekdaysOpenHours;
+            $_SESSION['WeekendOpenHours'] = $weekendsOpenHours;
             $_SESSION['CuisineType'] = $cuisineType;
             $_SESSION['Description'] = $description;
-            $_SESSION['SMLink'] = $socialMediaLinks;
+            $_SESSION['Tagline'] = $tagline;
+            $_SESSION['FacebookLink'] = $facebookLink;
+            $_SESSION['InstagramLink'] = $instagramLink;
+            $_SESSION['TikTokLink'] = $tiktokLink;
+            $_SESSION['YouTubeLink'] = $youtubeLink;
             $_SESSION['MenuPDF'] = $menupdf;
 
             $_SESSION['success'] = "Profile updated successfully!";

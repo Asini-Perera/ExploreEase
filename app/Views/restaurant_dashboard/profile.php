@@ -32,8 +32,12 @@
                 <td><?php echo $_SESSION['Website']; ?></td>
             </tr>
             <tr>
-                <th>Open Hours</th>
-                <td><?php echo $_SESSION['OpenHours']; ?></td>
+                <th>Weekdays Open Hours</th>
+                <td><?php echo $_SESSION['WeekdayOpenHours'] ?? ' ' ; ?></td>
+            </tr>
+            <tr>
+                <th>Weekdays Open Hours</th>
+                <td><?php echo $_SESSION['WeekendOpenHours'] ?? ' ' ; ?></td>
             </tr>
             <tr>
                 <th>Cuisine Types</th>
@@ -44,8 +48,24 @@
                 <td><?php echo $_SESSION['Description']; ?></td>
             </tr>
             <tr>
-                <th>Social Media Links</th>
-                <td><?php echo $_SESSION['SMLink'] ?? 'Not available';  ?></td>
+                <th>Tag Line</th>
+                <td><?php echo $_SESSION['Tagline'] ?? ' ' ; ?></td>
+            </tr>
+            <tr>
+                <th>Facebook Link</th>
+                <td><?php echo $_SESSION['FacebookLink'] ?? ' ' ; ?></td>
+            </tr>
+            <tr>
+                <th>Instagram Link</th>
+                <td><?php echo $_SESSION['InstagramLink'] ?? ' ' ; ?></td>
+            </tr>
+            <tr>
+                <th>TikTok Link</th>
+                <td><?php echo $_SESSION['TikTokLink'] ?? ' ' ; ?></td>
+            </tr>
+            <tr>
+                <th>YouTube Link</th>
+                <td><?php echo $_SESSION['YouTubeLink'] ?? ' ' ; ?></td>
             </tr>
             <tr>
                 <th>Menu PDF</th>

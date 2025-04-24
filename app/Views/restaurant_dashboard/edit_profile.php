@@ -24,24 +24,44 @@
             <input type="email" id="email" name="email" value="<?php echo $_SESSION['Email']; ?>">
         </div>
         <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" value="<?php echo $_SESSION['Description']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="tagline">Tag Line</label>
+            <input type="text" id="tagline" name="tagline" value="<?php echo $_SESSION['Tagline'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
             <label for="website">Website</label>
             <input type="text" id="website" name="website" value="<?php echo $_SESSION['Website']; ?>">
         </div>
         <div class="form-group">
-            <label for="open_hours">Open Hours</label>
-            <input type="text" id="open_hours" name="open_hours" value="<?php echo $_SESSION['OpenHours']; ?>">
+            <label for="open_hours">Weekdays Open Hours</label>
+            <input type="text" id="open_hours" name="weekdays_openhours" value="<?php echo $_SESSION['WeekdayOpenHours'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="open_hours">Weekends Open Hours</label>
+            <input type="text" id="open_hours" name="weekends_openhours" value="<?php echo $_SESSION['WeekendOpenHours'] ?? ''; ?>">
         </div>
         <div class="form-group">
             <label for="cuisine_types">Cuisine Types</label>
             <input type="text" id="cuisine_types" name="cuisine_types" value="<?php echo $_SESSION['CuisineType']; ?>">
         </div>
         <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description" value="<?php echo $_SESSION['Description']; ?>">
+            <label for="sm_link">Facebook Link</label>
+            <input type="text" id="facebookLink" name="facebook_link" value="<?php echo $_SESSION['FacebookLink'] ?? ''; ?>">
         </div>
         <div class="form-group">
-            <label for="sm_link">SMLink</label>
-            <input type="text" id="smlink" name="smlink" value="<?php echo $_SESSION['SMLink'] ?? ''; ?>">
+            <label for="sm_link">Instagram Link</label>
+            <input type="text" id="instagramLink" name="instagram_link" value="<?php echo $_SESSION['InstagramLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="sm_link">TikTok Link</label>
+            <input type="text" id="tiktoklink" name="tiktok_link" value="<?php echo $_SESSION['TikTokLink'] ?? ''; ?>">
+        </div>
+        <div class="form-group">
+            <label for="sm_link">YouTube Link</label>
+            <input type="text" id="youtubeLink" name="youtube_link" value="<?php echo $_SESSION['YouTubeLink'] ?? ''; ?>">
         </div>
         <div class="form-group">
             <label for="menupdf">Menu PDF</label>

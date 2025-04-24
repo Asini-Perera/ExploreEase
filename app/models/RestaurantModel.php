@@ -10,16 +10,16 @@ class RestaurantModel
         $this->conn = $conn;
     }
 
-    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $socialMediaLinks, $menupdf)
+    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf)
     {
-        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, OpenHours = ?, CuisineType = ?, Description = ?, SMLink = ?, MenuPDF = ? WHERE RestaurantID = ?";
+        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, CuisineType = ?, Description = ?,FacebookLink = ?,InstagramLink = ?,TikTokLink = ?,YouTubeLink = ?, MenuPDF = ?, Tagline = ? WHERE RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
             die("Prepare failed: " . $this->conn->error);
         }
 
-        $stmt->bind_param('ssssssssssi', $name, $address, $contactNo, $email, $website, $openHours, $cuisineType, $description, $socialMediaLinks, $menupdf, $restaurantID);
+        $stmt->bind_param('sssssssssssssssi', $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf, $restaurantID);
         $result = $stmt->execute();
 
         return $result;
