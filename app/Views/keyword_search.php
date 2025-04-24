@@ -42,7 +42,7 @@ unset($_SESSION['places']);
                                 <article>
                                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
                                     <h3><?= htmlspecialchars($place['Name']) ?></h3>
-                                    <p><?= htmlspecialchars($place['Tagline']) ?></p>
+                                    <p><?= htmlspecialchars($place['type']) ?></p>
                                 </article>
                             </li>
                         <?php endforeach; ?>
@@ -117,7 +117,28 @@ unset($_SESSION['places']);
                             return;
                         }
 
+                        // placesFromPHP.forEach(place => {
+                        //     const marker = new google.maps.Marker({
+                        //         position: {
+                        //             lat: parseFloat(place.Latitude),
+                        //             lng: parseFloat(place.Longitude)
+                        //         },
+                        //         map: map,
+                        //         title: place.Name,
+                        //     });
+
+                        //     const infoWindow = new google.maps.InfoWindow({
+                        //         content: `<h3>${place.Name}</h3><p>${place.Description}</p>`,
+                        //     });
+
+                        //     marker.addListener('click', () => {
+                        //         infoWindow.open(map, marker);
+                        //     });
+                        // });
+
                         placesFromPHP.forEach(place => {
+                            const markerColor = place.type === 'hotel' ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+
                             const marker = new google.maps.Marker({
                                 position: {
                                     lat: parseFloat(place.Latitude),
@@ -125,16 +146,20 @@ unset($_SESSION['places']);
                                 },
                                 map: map,
                                 title: place.Name,
+                                icon: {
+                                    url: markerColor
+                                }
                             });
 
                             const infoWindow = new google.maps.InfoWindow({
-                                content: `<h3>${place.Name}</h3><p>${place.Description}</p>`,
+                                content: `<h3>${place.Name}</h3><p>${place.Description}</p><p><strong>Type:</strong> ${place.type}</p>`,
                             });
 
                             marker.addListener('click', () => {
                                 infoWindow.open(map, marker);
                             });
                         });
+
                     }
 
                     window.onload = initMap;
