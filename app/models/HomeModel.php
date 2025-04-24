@@ -50,7 +50,7 @@ class HomeModel
         // Sanitize and prepare keyword placeholders
         $placeholders = implode(',', array_fill(0, count($keywordIDs), '?'));
 
-        // SQL to combine both hotel and restaurant
+        // filter using formula of haversine
         $sql = "
         SELECT h.HotelID AS ID, h.Name, h.Tagline, h.Description, h.Latitude, h.Longitude,
                'hotel' AS type,
