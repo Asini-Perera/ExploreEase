@@ -49,13 +49,26 @@
                     <textarea id="description" name="description"></textarea><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="smlink">Social Media Link:</label>
-                    <input type="url" id="smlink" name="smlink" value=""><br><br>
+                    <label for="facebook_link">Facebook Link</label>
+                    <input type="url" id="facebook_link" name="facebook_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="instagram_link">Instagram Link</label>
+                    <input type="url" id="instagram_link" name="instagram_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="tiktok_link">TikTok Link</label>
+                    <input type="url" id="tiktok_link" name="tiktok_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="youtube_link">YouTube Link</label>
+                    <input type="url" id="youtube_link" name="youtube_link"><br><br>
                 </div>
                 <div class="input-group">
                     <label for="profile_image">Profile Image:</label>
                     <input type="file" id="profile_image" name="profile_image"><br><br>
                 </div>
+
 
                 <button type="submit">Next</button>
             </form>
