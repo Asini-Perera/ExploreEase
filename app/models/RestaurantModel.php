@@ -10,19 +10,59 @@ class RestaurantModel
         $this->conn = $conn;
     }
 
-    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf)
+    public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $tagline, $menuPDFPath)
     {
-        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, CuisineType = ?, Description = ?,FacebookLink = ?,InstagramLink = ?,TikTokLink = ?,YouTubeLink = ?, MenuPDF = ?, Tagline = ? WHERE RestaurantID = ?";
+        $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, CuisineType = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?, Tagline = ?, MenuPDF = ? WHERE RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
             die("Prepare failed: " . $this->conn->error);
         }
 
-        $stmt->bind_param('sssssssssssssssi', $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink,$tagline, $menupdf, $restaurantID);
+        $stmt->bind_param('sssssssssssssssi', $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $tagline, $menuPDFPath, $restaurantID);
         $result = $stmt->execute();
 
         return $result;
+    }
+
+    // Add new method to handle PDF uploads
+    public function setMenuPDFPath($restaurantID, $fileData)
+    {
+        // Get temp file path
+        $tempFilePath = $fileData['tmp_name'];
+        
+        // Get original filename
+        $originalFileName = $fileData['name'];
+        
+        // Get file extension
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+        
+        // Only allow PDF files
+        if (strtolower($extension) != 'pdf') {
+            return false;
+        }
+        
+        // Create new filename with restaurant ID
+        $newFileName = 'menu_' . $restaurantID . '_' . time() . '.' . $extension;
+        
+        // Define target directory
+        $targetDir = __DIR__ . '/../../public/files/menu/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+        
+        // Define target path
+        $targetPath = $targetDir . $newFileName;
+        
+        // Move the uploaded file
+        if (move_uploaded_file($tempFilePath, $targetPath)) {
+            // Return the relative path to be stored in the database
+            return '/ExploreEase/public/files/menu/' . $newFileName;
+        }
+        
+        return false;
     }
 
     public function checkCurrentPassword($restaurantID, $currentPassword)
