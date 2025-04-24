@@ -365,21 +365,24 @@ CREATE TABLE PasswordReset (
 );
 
 -- Delete token after expiry
-DELIMITER //
-CREATE EVENT IF NOT EXISTS delete_expired_tokens
-ON SCHEDULE EVERY 1 DAY
-DO
-BEGIN
-    DELETE FROM PasswordReset WHERE Expiry < NOW();
+DELIMITER / / CREATE EVENT IF NOT EXISTS delete_expired_tokens ON SCHEDULE EVERY 1 DAY DO BEGIN
+DELETE FROM
+    PasswordReset
+WHERE
+    Expiry < NOW();
+
 END;
-//
-DELIMITER ;
+
+/ / DELIMITER;
 
 -- Enable the event scheduler
-SET GLOBAL event_scheduler = ON;
+SET
+    GLOBAL event_scheduler = ON;
 
 -- Insert into the Category table
-INSERT INTO Category (CategoryName) VALUES
+INSERT INTO
+    Category (CategoryName)
+VALUES
     ('Location'),
     ('Customer Experience'),
     ('Accesibility'),
@@ -387,7 +390,9 @@ INSERT INTO Category (CategoryName) VALUES
     ('Features & Highlights');
 
 -- Insert into the Keyword table
-INSERT INTO Keyword (KName, CategoryID) VALUES
+INSERT INTO
+    Keyword (KName, CategoryID)
+VALUES
     ('Beachside', 1),
     ('City Center', 1),
     ('Mountain View', 1),
@@ -416,24 +421,42 @@ INSERT INTO Keyword (KName, CategoryID) VALUES
     ('Historical Sites', 5),
     ('Cultural Experience', 5),
     ('Adventure Activities', 5);
-    
+
 -- Add ImgPath column to Traveler table
-ALTER TABLE Traveler ADD ImgPath VARCHAR(255);
+ALTER TABLE
+    Traveler
+ADD
+    ImgPath VARCHAR(255);
 
 -- Add IsVerified column to HotelKeyword table
-ALTER TABLE HotelKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+ALTER TABLE
+    HotelKeyword
+ADD
+    IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add IsVerified column to CulturalEventOrganizerKeyword table
-ALTER TABLE CulturalEventOrganizerKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+ALTER TABLE
+    CulturalEventOrganizerKeyword
+ADD
+    IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add IsVerified column to RestaurantKeyword table
-ALTER TABLE RestaurantKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+ALTER TABLE
+    RestaurantKeyword
+ADD
+    IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add IsVerified column to HeritageMarketKeyword table
-ALTER TABLE HeritageMarketKeyword ADD IsVerified TINYINT(1) DEFAULT 0;
+ALTER TABLE
+    HeritageMarketKeyword
+ADD
+    IsVerified TINYINT(1) DEFAULT 0;
 
 -- Add Ispopular column to Menu table
-ALTER TABLE Menu ADD IsPopular TINYINT(1) DEFAULT 0;
+ALTER TABLE
+    Menu
+ADD
+    IsPopular TINYINT(1) DEFAULT 0;
 
 -- Create the RestaurantPost table
 CREATE TABLE RestaurantPost (
@@ -465,14 +488,144 @@ CREATE TABLE CulturalEventOrganizerPost (
     FOREIGN KEY (OrganizerID) REFERENCES CulturalEventOrganizer(OrganizerID)
 );
 
--- Add Title column to RestaurantPost table
-ALTER TABLE RestaurantPost ADD Title VARCHAR(255) NOT NULL;
+-- Create the TableBooking table
+CREATE TABLE TableBooking (
+    BookingID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    NoOfGuests INT NOT NULL,
+    SpecialRequest TEXT,
+    TableNumber INT NOT NULL,
+    Date DATE NOT NULL,
+    BookingDate DATE NOT NULL,
+    BookingTime TIME NOT NULL,
+    TravelerID INT NOT NULL,
+    RestaurantID INT NOT NULL,
+    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID)
+);
 
--- Add Title column to HotelPost table
-ALTER TABLE HotelPost ADD Title VARCHAR(255) NOT NULL;
+-- Remove OpenHours column from Restaurant table
+ALTER TABLE
+    Restaurant DROP COLUMN OpenHours;
 
--- Add Title column to CulturalEventOrganizerPost table
-ALTER TABLE CulturalEventOrganizerPost ADD Title VARCHAR(255) NOT NULL;
+-- Add WeekdayOpenHours column and WeekendOpenHours column to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    WeekdayOpenHours VARCHAR(100),
+ADD
+    WeekendOpenHours VARCHAR(100);
 
--- Add ImgPath column to Room table
-ALTER TABLE Room ADD ImgPath VARCHAR(255);
+-- Add Feedback table for Website
+CREATE TABLE Feedback (
+    FeedbackID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Rating INT NOT NULL,
+    Comment TEXT
+);
+
+-- Remove OpenHours column from HeritageMarket table
+ALTER TABLE
+    HeritageMarket DROP COLUMN OpenHours;
+
+-- Add WeekdayOpenHours column and WeekendOpenHours column to HeritageMarket table
+ALTER TABLE
+    HeritageMarket
+ADD
+    WeekdayOpenHours VARCHAR(100),
+ADD
+    WeekendOpenHours VARCHAR(100);
+
+-- Remove SMLink column from Traveler table
+ALTER TABLE
+    Traveler DROP COLUMN SMLink;
+
+-- Remove SMLink column from Hotel table
+ALTER TABLE
+    Hotel DROP COLUMN SMLink;
+
+-- Remove SMLink column from CulturalEventOrganizer table
+ALTER TABLE
+    CulturalEventOrganizer DROP COLUMN SMLink;
+
+-- Remove SMLink column from HeritageMarket table
+ALTER TABLE
+    HeritageMarket DROP COLUMN SMLink;
+
+-- Remove SMLink column from Restaurant table
+ALTER TABLE
+    Restaurant DROP COLUMN SMLink;
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Traveler table
+ALTER TABLE
+    Traveler
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Hotel table
+ALTER TABLE
+    Hotel
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to CulturalEventOrganizer table
+ALTER TABLE
+    CulturalEventOrganizer
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to HeritageMarket table
+ALTER TABLE
+    HeritageMarket
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    FacebookLink VARCHAR(255),
+ADD
+    InstagramLink VARCHAR(255),
+ADD
+    TikTokLink VARCHAR(255),
+ADD
+    YoutubeLink VARCHAR(255);
+
+-- Add Tagline column to Hotel table
+ALTER TABLE
+    Hotel
+ADD
+    Tagline VARCHAR(255);
+
+-- Add Tagline column to Restaurant table
+ALTER TABLE
+    Restaurant
+ADD
+    Tagline VARCHAR(255);

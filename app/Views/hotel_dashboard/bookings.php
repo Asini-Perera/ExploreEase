@@ -1,57 +1,53 @@
 <link rel="stylesheet" href="../public/css/hotel_dashboard/bookings.css">
 
-<h1>Bookings</h1>
+<div class="menu-container">
+    <div class="top">
+        <h1>Bookings</h1><span></span>
+        <!-- <div class="action-buttons">
+            <button class="add-btn"><a href="?page=booking&action=add">Add Booking</a></button>
+        </div> -->
+    </div>
 
-<div class="room-container">
     <table>
         <thead>
             <tr>
                 <th>CheckInDate</th>
                 <th>CheckOutDate</th>
-                <th>Status</th>
                 <th>Date</th>
-                <th>Amount</th>
                 <th>Payment Status</th>
+                <th>Room No</th>
+                <th>Traveler</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>2024.10.18</td>
-                <td>2024.10.20</td>
-                <td>Confirmed</td>
-                <td>2024.10.18</td>
-                <td>3000</td>
-                <td>Paid</td>
-                <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>2024.10.20</td>
-                <td>Confirmed</td>
-                <td>2024.10.18</td>
-                <td>3000</td>
-                <td>Paid</td>
-                <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>2024.10.20</td>
-                <td>Confirmed</td>
-                <td>2024.10.18</td>
-                <td>3000</td>
-                <td>Paid</td>
-                <td class="action-buttons">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </td>
-            </tr>
+            <?php 
+            
+            if (isset($bookings) && !empty($bookings)): 
+                foreach ($bookings as $booking): 
+            ?>
+                <tr>
+                    <td><?= isset($booking['CheckInDate']) ? $booking['CheckInDate'] : 'N/A' ?></td>
+                    <td><?= isset($booking['CheckOutDate']) ? $booking['CheckOutDate'] : 'N/A' ?></td>
+                    <td><?= isset($booking['Date']) ? $booking['Date'] : 'N/A' ?></td>
+                    <td><?= isset($booking['Status']) ? $booking['Status'] : 'N/A' ?></td>
+                    <td><?= isset($booking['RoomID']) ? $booking['RoomID'] : 'N/A' ?></td>
+                    <td><?= isset($booking['FirstName']) && isset($booking['LastName']) ? 
+                          $booking['FirstName'] . ' ' . $booking['LastName'] : 
+                          (isset($booking['TravelerID']) ? $booking['TravelerID'] : 'N/A') ?></td>
+                    <td class="action-buttons">
+                        <button class="edit-btn"><a href="?page=bookings&action=edit&id=<?= $booking['BookingID'] ?>">Edit</a></button>
+                        <button class="delete-btn"><a href="?page=bookings&action=delete&id=<?= $booking['BookingID'] ?>">Delete</a></button>
+                    </td>
+                </tr>
+            <?php 
+                endforeach; 
+            else: 
+            ?>
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 20px;">No booking records found</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
