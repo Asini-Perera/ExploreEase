@@ -25,9 +25,8 @@ class SignupModel
                 $user['Type'] = $table;
                 return $user;
             }
-
-            return null;
         }
+        return null;
     }
 
     public function traveler($firstName, $lastName, $email, $password, $gender, $dob, $contactNo)
@@ -51,17 +50,17 @@ class SignupModel
 
         return $TravelerID;
     }
-    
-    public function restaurant($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink)
+
+    public function restaurant($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the restaurant data
-        $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Website, Description, OpenHours, CuisineType, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, CuisineType, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $openHours, $cuisineType, $socialMediaLink);
+        $stmt->bind_param('sssssddssssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the RestaurantID
@@ -74,16 +73,16 @@ class SignupModel
         return $RestaurantID;
     }
 
-    public function hotel($name, $address, $contactNo, $email, $password, $website, $description, $smlink)
+    public function hotel($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the hotel data
-        $sql = "INSERT INTO hotel (Name, Address, ContactNo, Email, Password, Website, Description, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO hotel (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, Tagline, FacebookLink, InstagramLink, TikTokLink, YoutubeLink) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $smlink);
+        $stmt->bind_param('sssssddsssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the HotelID
@@ -96,16 +95,16 @@ class SignupModel
         return $HotelID;
     }
 
-    public function heritageMarket($name, $address, $contactNo, $email, $password, $website, $description, $openHours, $smlink)
+    public function heritageMarket($name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the heritage market data
-        $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Website, Description, OpenHours, SMLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $name, $address, $contactNo, $email, $password, $website, $description, $openHours, $smlink);
+        $stmt->bind_param('sssssddsssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the ShopID
@@ -118,16 +117,16 @@ class SignupModel
         return $ShopID;
     }
 
-    public function culturalEventOrganizer($name, $email, $password, $contactNo, $description, $smlink)
+    public function culturalEventOrganizer($name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
         // Hash the password
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the cultural event organizer data
-        $sql = "INSERT INTO culturaleventorganizer (Name, Email, Password, ContactNo, Description, SMLink) 
+        $sql = "INSERT INTO culturaleventorganizer (Name, Email, Password, ContactNo, Description, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssss', $name, $email, $password, $contactNo, $description, $smlink);
+        $stmt->bind_param('ssssssssss', $name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the OrganizerID

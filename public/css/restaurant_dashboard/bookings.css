@@ -66,7 +66,7 @@ th {
 }
   
   /* Modal Styles */
-.modal {
+.popup {
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1;
@@ -79,31 +79,35 @@ th {
 }
   
 .modal-content {
-    background-color: #225522;
+    background-color: #d9d9d9;
     padding: 20px;
     border-radius: 8px;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 250px;
     text-align: center;
 
 }
   
+.open-popup{
+    visibility:visible;
+    top:0;
+}
 .close-btn {
     float: right;
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    color: #fff;  
+    color: #225522;  
 }
   
 .modal-content h3{
     font-size: 18px;
-    color: #fff;
+    color: #000;
     margin: 1.5vh 0;
 }
 
 .modal-content input{
-    width: 300px;
+    width: 200px;
     height: 3vh;
     padding: 12px;
     border-radius: 10px;
@@ -112,7 +116,7 @@ th {
 
 #submitTableNo{
     margin-top: 3vh;
-    width: 100px;
+    width: 120px;
     height: 30px;
     font-size: 16px;
     background-color:#F1C232 ;
