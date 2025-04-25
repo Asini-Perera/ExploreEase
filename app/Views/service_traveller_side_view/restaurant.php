@@ -210,15 +210,34 @@
 
     <div class="booking-form">
         <form action="">
-            <h3 class="booking-heading">Book a Table</h3>
-            <input type="text" placeholder="Your Name" class="input-field" required>
-            <input type="email" placeholder="Your Email" class="input-field" required>
-            <input type="text" placeholder="Phone Number" class="input-field" required>
-            <input type="date" placeholder="Select Date" class="input-field" required>
-            <input type="time" placeholder="Select Time" class="input-field booking-time" required>
-            <input type="number" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
-            <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
-        </form>
+    <h3 class="booking-heading">Book a Table</h3>
+
+    <div class="input-group">
+        <input type="text" placeholder="Your Name" class="input-field" required>
+        <input type="email" placeholder="Your Email" class="input-field" required>
+    </div>
+
+    <div class="input-group">
+        <input type="text" placeholder="Phone Number" class="input-field" required>
+        <input type="date" placeholder="Select Date" class="input-field" required>
+    </div>
+
+    <div class="input-group">
+        <input type="time" value="--:--" class="input-field booking-time" required>
+        <input type="number" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
+    </div>
+
+    
+<textarea 
+    placeholder="Special Requests (optional)" 
+    class="input-field textarea-field"
+    rows="4"
+></textarea>
+
+
+    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
+</form>
+
 
         <!-- Popup Confirmation -->
         <div class="popup" id="popup">
