@@ -22,10 +22,16 @@
         <tbody>
             <?php foreach ($posts as $post) : ?>
                 <tr>
-                    <td><?= $post['Title'] ?></td>
-                    <td><?= $post['Description'] ?></td>
-                    <td><?= $post['Date'] ?></td>
-                    <td><img src="<?= $post['ImgPath'] ?>" class="food-img"></td>
+                <td><?= htmlspecialchars($post['Title']) ?></td>
+                    <td><?= htmlspecialchars($post['Description']) ?></td>
+                    <td><?= htmlspecialchars($post['Date']) ?></td>
+                    <td>
+                        <?php if (!empty($post['ImgPath']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $post['ImgPath'])): ?>
+                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="room-img" alt="Post Image">
+                        <?php else: ?>
+                            <img src="../public/images/default-post.png" class="room-img" alt="Default Post Image">
+                        <?php endif; ?>
+                    </td>
                     <td class="action-buttons">
                         <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
                         <button class="delete-btn"><a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a></button>

@@ -155,6 +155,79 @@ class CulturalEventOrganizerController
         }
     }
 
+    public function updateEvent()
+    {
+        // Check if user is logged in
+        if (!isset($_SESSION['OrganizerID'])) {
+            header('Location: ../login');
+            exit();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Log the form data for debugging
+            error_log("Update Event POST data: " . print_r($_POST, true));
+            
+            // Get form data
+            $eventID = $_POST['event_id'];
+            $title = $_POST['title'];
+            $address = $_POST['address'];
+            $date = $_POST['date'];
+            $description = isset($_POST['description']) ? $_POST['description'] : '';
+            $price = isset($_POST['price']) ? (float)$_POST['price'] : 0; // Changed from ticketPrice to price
+            $start_time = isset($_POST['start_time']) ? $_POST['start_time'] : null;
+            $end_time = isset($_POST['end_time']) ? $_POST['end_time'] : null;
+            $capacity = isset($_POST['capacity']) ? (int)$_POST['capacity'] : 0;
+            $status = isset($_POST['status']) ? $_POST['status'] : 'Active';
+            $organizerID = $_SESSION['OrganizerID'];
+            
+            // Handle image upload if provided
+            $image = isset($_FILES['image']) && $_FILES['image']['name'] ? $_FILES['image'] : null;
+
+            // Validate event belongs to this organizer
+            $eventModel = new CulturalEventOrganizerModel($this->conn);
+            $eventData = $eventModel->getEvent($eventID);
+            
+            if (empty($eventData) || $eventData[0]['OrganizerID'] != $organizerID) {
+                $_SESSION['error'] = "You don't have permission to edit this event";
+                header('Location: ../culturaleventorganizer/dashboard?page=event');
+                exit();
+            }
+
+            // Update event in database with all required parameters
+            $success = $eventModel->updateEvent(
+                $eventID, 
+                $title, 
+                $address, 
+                $date, 
+                $start_time, 
+                $end_time, 
+                $description, 
+                $capacity, 
+                $price, 
+                $status
+            );
+            
+            // Handle image update if provided
+            if ($success && $image && $image['name']) {
+                $eventModel->setEventImage($eventID, $image); // Changed from updateEventImage to setEventImage
+            }
+
+            // Set success message and redirect
+            if ($success) {
+                $_SESSION['success'] = "Event updated successfully";
+            } else {
+                $_SESSION['error'] = "Failed to update event";
+            }
+            
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
+            exit();
+        } else {
+            // If not POST request, redirect to dashboard
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
+            exit();
+        }
+    }
+    
     public function deleteEvent()
     {
         if (isset($_GET['id'])) {

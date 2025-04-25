@@ -25,10 +25,22 @@
                 require_once __DIR__ . '/edit_profile.php';
             } elseif ($mainContent == 'profile' && $action == 'change-password') {
                 require_once __DIR__ . '/profile_changepassword.php';
-            } elseif ($mainContent == 'event' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_event.php";
-            } elseif ($mainContent == 'post' && $verifiedAction != null) {
-                require_once __DIR__ . "/$verifiedAction" . "_post.php";
+            } elseif ($mainContent == 'event' && $verifiedAction != 'edit' && $verifiedAction != 'add') {
+                require_once __DIR__ . '/event.php';
+            } elseif ($mainContent == 'event' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_event.php';
+            } elseif ($mainContent == 'event' && $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_event.php';
+            } elseif ($mainContent == 'post' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_post.php';
+            } elseif ($mainContent == 'post' && $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_post.php';
+            } elseif ($mainContent == 'post' && $verifiedAction != 'edit') {
+                require_once __DIR__ . '/post.php';
+            } elseif ($mainContent == 'event' && $verifiedAction == 'delete') {
+                require_once __DIR__ . '/delete_event.php';
+            } elseif ($mainContent == 'post' && $verifiedAction == 'delete') {
+                require_once __DIR__ . '/delete_post.php';
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
