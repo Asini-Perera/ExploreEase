@@ -67,66 +67,25 @@ class CulturalEventOrganizerModel
         }
     }
 
-    public function updateEvent($eventID, $title, $address, $date, $description = '', $price = 0, $start_time = null, $end_time = null, $capacity = null, $status = 'Active')
+    public function updateEvent($eventID, $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status)
     {
         try {
-            error_log("Updating event ID: $eventID with title: $title");
-            
-            // Building query dynamically based on available parameters
-            $sql = "UPDATE culturalevent SET `Name` = ?, `Address` = ?, `Date` = ?, `Description` = ?, `TicketPrice` = ?";
-            $params = [$title, $address, $date, $description, $price];
-            $types = "ssssd";
-            
-            // Add optional parameters if provided
-            if ($start_time !== null) {
-                $sql .= ", `StartTime` = ?";
-                $params[] = $start_time;
-                $types .= "s";
-            }
-            
-            if ($end_time !== null) {
-                $sql .= ", `EndTime` = ?";
-                $params[] = $end_time;
-                $types .= "s";
-            }
-            
-            if ($capacity !== null) {
-                $sql .= ", `Capacity` = ?";
-                $params[] = $capacity;
-                $types .= "i";
-            }
-            
-            // Always include status
-            $sql .= ", `Status` = ?";
-            $params[] = $status;
-            $types .= "s";
-            
-            // Complete the query
-            $sql .= " WHERE EventID = ?";
-            $params[] = $eventID;
-            $types .= "i";
-            
-            error_log("SQL query: $sql");
-            
+            $sql = "UPDATE culturalevent SET 
+                    `Name` = ?, 
+                    `Address` = ?, 
+                    `Date` = ?, 
+                    `StartTime` = ?, 
+                    `EndTime` = ?, 
+                    `Description` = ?, 
+                    `Capacity` = ?, 
+                    `TicketPrice` = ?, 
+                    `Status` = ? 
+                    WHERE EventID = ?";
             $stmt = $this->conn->prepare($sql);
-            
-            if (!$stmt) {
-                error_log("SQL prepare error in updateEvent: " . $this->conn->error);
-                return false;
-            }
-            
-            // Dynamic parameter binding
-            $stmt->bind_param($types, ...$params);
-            
-            $result = $stmt->execute();
-            
-            if (!$result) {
-                error_log("SQL execute error in updateEvent: " . $stmt->error);
-                return false;
-            }
-            
-            error_log("Event updated successfully: ID $eventID");
-            return true;
+            $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $eventID);
+            $stmt->execute();
+
+            return $stmt->affected_rows > 0;
         } catch (\Exception $e) {
             error_log("Exception in updateEvent: " . $e->getMessage());
             return false;

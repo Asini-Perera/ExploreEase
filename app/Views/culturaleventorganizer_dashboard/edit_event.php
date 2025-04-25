@@ -89,9 +89,9 @@ $event = $eventData[0];
                 
         <div class="form-group">
             <label for="image">Current Image:</label>
-            <?php if (!empty($event['Image'])): ?>
+            <?php if (!empty($event['ImgPath'])): ?>
             <div class="image-preview" style="width: 200px; height: 150px; margin-bottom: 10px; border: 1px solid #ddd; overflow: hidden;">
-                <img src="../public/uploads/events/<?= htmlspecialchars($event['Image']) ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="<?= htmlspecialchars($event['ImgPath']) ?>" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <?php else: ?>
             <div class="image-preview" style="width: 200px; height: 150px; margin-bottom: 10px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
@@ -100,7 +100,6 @@ $event = $eventData[0];
             <?php endif; ?>
             <input type="file" name="image" id="image" class="form-control">
         </div>
-
         <button type="submit" id="update-event">Update Event</button>
     </form>
 </div>

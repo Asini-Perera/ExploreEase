@@ -206,10 +206,9 @@ class CulturalEventOrganizerController
                 $price, 
                 $status
             );
-            
-            // Handle image update if provided
+
             if ($success && $image && $image['name']) {
-                $eventModel->setEventImage($eventID, $image); // Changed from updateEventImage to setEventImage
+                $eventModel->setEventImage($eventID, $image);
             }
 
             // Set success message and redirect
