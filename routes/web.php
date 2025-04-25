@@ -24,6 +24,8 @@ $router->add('reviews', 'HomeController@siteReview');  // Site reviews page
 $router->add('review/save', 'HomeController@saveReview');  // Save review process
 $router->add('filter/keyword', 'HomeController@filterKeyword');  // Filter by keyword process
 $router->add('link/service', 'HomeController@linkService');  // Link service page for displaying
+$router->add('review', 'HomeController@addReview');  // Add review page for users
+$router->add('review/save', 'HomeController@saveServiceReview');  // Save review process
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users

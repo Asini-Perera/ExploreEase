@@ -317,4 +317,12 @@ class CulturalEventOrganizerModel
 
         return $result->fetch_assoc()['TotalFeedbacks'];
     }
+
+    public function addReview($OrganizerID, $travelerID, $rating, $review, $date)
+    {
+        $sql = "INSERT INTO culturaleventfeedback (OrganizerID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iiiss', $OrganizerID, $travelerID, $rating, $review, $date);
+        $stmt->execute();
+    }
 }

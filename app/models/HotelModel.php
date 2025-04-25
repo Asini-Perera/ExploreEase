@@ -561,4 +561,12 @@ class HotelModel
 
         return $result->fetch_assoc();
     }
+
+    public function addReview($hotelID, $travelerID, $rating, $review, $date)
+    {
+        $sql = "INSERT INTO hotelfeedback (HotelID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iiiss', $hotelID, $travelerID, $rating, $review, $date);
+        return $stmt->execute();
+    }
 }
