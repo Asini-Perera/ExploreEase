@@ -367,68 +367,57 @@ class CulturalEventOrganizerModel
             
             // Get the file name (original file name from the upload)
             $originalFileName = $fileName['name'];
-    
+
             // Get the file extension
             $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
-    
+
             // Create a new file name
             $newFileName = 'event_' . $eventID . '.' . $extension;
-    
+
             // Define the target directory
             $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
-    
-            // Check the directory exists and create it
+
+            // Check if the directory exists and create it if not
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                if (!mkdir($targetDir, 0777, true)) {
+                    error_log("Failed to create directory: $targetDir");
+                    return false;
+                }
                 error_log("Created directory: $targetDir");
             }
-    
+
             // Create the image path
             $imgDir = $targetDir . $newFileName;
-    
+
             // Move the image to the target directory
             $moving = move_uploaded_file($tempImgPath, $imgDir);
-    
-            // Define the image path
+
+            // Define the image path for the database
             $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
-    
-            // Enter the image path to the database
+
+            // Update the database with the image path
             if ($moving) {
                 error_log("Image moved successfully to: $imgDir");
-                
-                // Verify table structure
-                $checkSql = "SHOW COLUMNS FROM culturalevent LIKE 'ImgPath'";
-                $checkResult = $this->conn->query($checkSql);
-                
-                if ($checkResult->num_rows == 0) {
-                    error_log("ImgPath column does not exist in culturalevent table");
-                    // Add the column if it doesn't exist
-                    $alterSql = "ALTER TABLE culturalevent ADD COLUMN ImgPath VARCHAR(255)";
-                    $this->conn->query($alterSql);
-                    error_log("Added ImgPath column to culturalevent table");
-                }
-                
                 $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
-                error_log("SQL query: $sql with params: $imgPath, $eventID");
-                
                 $stmt = $this->conn->prepare($sql);
                 
                 if (!$stmt) {
-                    error_log("Prepare failed: " . $this->conn->error);
+                    error_log("Failed to prepare SQL statement: " . $this->conn->error);
                     return false;
                 }
                 
                 $stmt->bind_param('si', $imgPath, $eventID);
                 $result = $stmt->execute();
-                
+
                 if (!$result) {
-                    error_log("Execute failed: " . $stmt->error);
+                    error_log("Failed to update image path in database: " . $stmt->error);
                     return false;
                 }
-                
+
                 return true;
             } else {
-                error_log("Failed to move uploaded file");
+                $uploadError = error_get_last();
+                error_log("Failed to move uploaded file. Error: " . ($uploadError ? $uploadError['message'] : 'Unknown error'));
                 return false;
             }
         } catch (\Exception $e) {

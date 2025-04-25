@@ -208,7 +208,10 @@ class CulturalEventOrganizerController
             );
 
             if ($success && $image && $image['name']) {
-                $eventModel->setEventImage($eventID, $image);
+                $imageUploadSuccess = $eventModel->setEventImage($eventID, $image);
+                if (!$imageUploadSuccess) {
+                    $_SESSION['error'] = "Event updated, but failed to upload image.";
+                }
             }
 
             // Set success message and redirect
