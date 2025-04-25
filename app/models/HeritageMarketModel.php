@@ -21,14 +21,22 @@ class HeritageMarketModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addProduct($product_name, $price,$description, $shopID)
+    public function addProduct($product_name, $price, $description, $shopID)
     {
-        $sql = "INSERT INTO product (Name,Price, Description, ShopID) VALUES (?, ?, ?, ?,?)";
+        $sql = "INSERT INTO product (Name, Price, Description, ShopID) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdsi',$product_name, $price,$description, $shopID);
+        $stmt->bind_param('sdsi', $product_name, $price, $description, $shopID);
         $stmt->execute();
-        
+
         return $stmt->insert_id;
+    }
+
+    public function editProduct($productID, $product_name, $price, $description)
+    {
+        $sql = "UPDATE product SET Name = ?, Price = ?, Description = ? WHERE ProductID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sdsi', $product_name, $price, $description, $productID);
+        $stmt->execute();
     }
 
     public function setImgPath($ProductID, $fileName)
@@ -80,11 +88,11 @@ class HeritageMarketModel
     }
 
     //update profile
-    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website,$sm_link,$open_hours)
+    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours)
     {
         $sql = "UPDATE heritagemarket SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ?,OpenHours = ? WHERE ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssss',$heritageID, $email, $name,  $address, $contactNo, $description,  $website,$sm_link,$open_hours);
+        $stmt->bind_param('ssssssssi', $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours, $heritageID);
         $stmt->execute();
     }
 
@@ -110,17 +118,96 @@ class HeritageMarketModel
         $stmt->execute();
     }
 
-    public function getReviews($hotelID)
+    public function getReviews($shopID)
     {
-        $sql = "SELECT * FROM hotelfeedback WHERE FeedbackID = ?";
+        $sql = "SELECT hf.*, t.FirstName, t.LastName FROM heritagemarketfeedback hf INNER JOIN traveler t ON hf.TravelerID = t.TravelerID WHERE hf.ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $hotelID);
+        $stmt->bind_param('i', $shopID);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    
-   
+    public function addResponse($reviewID, $response)
+    {
+        $sql = "UPDATE heritagemarketfeedback SET Response = ? WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $response, $reviewID);
+        $stmt->execute();
+    }
+
+    public function getProductByID($productID)
+    {
+        $sql = "SELECT * FROM product WHERE ProductID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $productID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getTotalProducts($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM product WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
+
+    public function getTotalReviews($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
+
+    public function getAverageRatings($shopID)
+    {
+        $sql = "SELECT AVG(Rating) AS average FROM heritagemarketfeedback WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (float)$row['average'];
+        } else {
+            return 0.0;
+        }
+    }
+    public function getFeedbacksWith5($shopID)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM heritagemarketfeedback WHERE ShopID = ? AND Rating = 5.0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $shopID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row) {
+            return (int)$row['total'];
+        } else {
+            return 0;
+        }
+    }
 }

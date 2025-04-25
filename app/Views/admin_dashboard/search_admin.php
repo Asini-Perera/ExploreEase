@@ -7,50 +7,45 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact No</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
                     Amal Perera
                 </td>
                 <td>amal.perera@example.com</td>
                 <td>+94 71 123 4567</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Nimal Silva
+                <td class="action-buttons">
+                    <button class="reject-btn">Delete</button>
                 </td>
-                <td>nimal.silva@example.com</td>
-                <td>+94 71 234 5678</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Sunil Fernando
-                </td>
-                <td>sunil.fernando@example.com</td>
-                <td>+94 71 345 6789</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Kamal Jayasinghe
-                </td>
-                <td>kamal.jayasinghe@example.com</td>
-                <td>+94 71 456 7890</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Tharindu Wickramasinghe
-                </td>
-                <td>tharindu.wickramasinghe@example.com</td>
-                <td>+94 71 567 8901</td>
-            </tr>
-            </tr>
+            </tr> -->
+            <?php if (empty($searchResults)) : ?>
+                <tr>
+                    <td colspan="4" class="no-results" style="text-align: center;">No results found.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($searchResults as $user) : ?>
+                    <tr>
+                        <td class="profile-info">
+                            <img src="<?= htmlspecialchars($user['ImgPath']) ?>" class="profile-img">
+                            <?= htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']) ?>
+                        </td>
+                        <td><?= htmlspecialchars($user['Email']) ?></td>
+                        <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                        <td class="action-buttons">
+                            <form method="post" action="../admin/verifyUser">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                                <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
+                                <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
+                                <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

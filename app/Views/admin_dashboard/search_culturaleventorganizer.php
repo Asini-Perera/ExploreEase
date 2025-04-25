@@ -7,89 +7,45 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact No</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
                     Kasun Perera
                 </td>
                 <td>kasun.perera@example.com</td>
                 <td>+94 77 123 4567</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Tharushi Silva
+                <td class="action-buttons">
+                    <button class="reject-btn">Delete</button>
                 </td>
-                <td>tharushi.silva@example.com</td>
-                <td>+94 76 234 5678</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Ruwan Jayasinghe
-                </td>
-                <td>ruwan.jayasinghe@example.com</td>
-                <td>+94 71 345 6789</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Nimal Perera
-                </td>
-                <td>nimal.perera@example.com</td>
-                <td>+94 77 456 7890</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Sanduni Rajapaksha
-                </td>
-                <td>sanduni.rajapaksha@example.com</td>
-                <td>+94 76 567 8901</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Amila Fernando
-                </td>
-                <td>amila.fernando@example.com</td>
-                <td>+94 71 678 9012</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Chamara Weerasinghe
-                </td>
-                <td>chamara.weerasinghe@example.com</td>
-                <td>+94 77 789 0123</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Ishara Gunawardena
-                </td>
-                <td>ishara.gunawardena@example.com</td>
-                <td>+94 76 890 1234</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Nuwan Senanayake
-                </td>
-                <td>nuwan.senanayake@example.com</td>
-                <td>+94 71 901 2345</td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Dilini Perera
-                </td>
-                <td>dilini.perera@example.com</td>
-                <td>+94 77 012 3456</td>
-            </tr>
+            </tr> -->
+            <?php if (empty($searchResults)) : ?>
+                <tr>
+                    <td colspan="4" class="no-results" style="text-align: center;">No results found.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($searchResults as $user) : ?>
+                    <tr>
+                        <td class="profile-info">
+                            <img src="<?= htmlspecialchars($user['ImgPath']) ?>" class="profile-img">
+                            <?= htmlspecialchars($user['Name']) ?>
+                        </td>
+                        <td><?= htmlspecialchars($user['Email']) ?></td>
+                        <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                        <td class="action-buttons">
+                            <form method="post" action="../admin/verifyUser">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                                <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
+                                <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
+                                <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

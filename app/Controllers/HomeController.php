@@ -2,15 +2,37 @@
 
 namespace app\Controllers;
 
+use app\Models\HomeModel;
+
+use app\Controllers\KeywordController;
+
 class HomeController
 {
+    private $conn;
+    public function __construct()
+    {
+        require_once __DIR__ . '/../../config/config.php';
+        global $conn;
+        $this->conn = $conn;
+
+        // Include the HomeModel
+        require_once __DIR__ . '/../models/HomeModel.php';
+
+        // Include the KeywordController
+        require_once __DIR__ . '/../controllers/KeywordController.php';
+    }
+
     public function index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/home.php';
     }
 
     public function loged_index()
     {
+        $homeModel = new HomeModel($this->conn);
+        $reviews = $homeModel->getReviews();
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
@@ -43,7 +65,7 @@ class HomeController
         require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
     }
 
-    
+
     public function travelerside_cultural_event()
     {
         require_once __DIR__ . '/../Views/service_traveller_side_view/cultural_event.php';
@@ -51,7 +73,7 @@ class HomeController
 
     public function travelerside_menu()
     {
-        require_once __DIR__ . '/../Views/service_traveller_side_view/menu_pdf.php';
+        require_once __DIR__ . '/../Views/restaurant/menu_pdf.php';
     }
 
     public function post()
@@ -61,9 +83,5 @@ class HomeController
     public function siteReview()
     {
         require_once __DIR__ . '/../Views/siteReview.php';
-    }
-    public function contactus()
-    {
-        require_once __DIR__ . '/../Views/Contactus.php';
     }
 }

@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
                 <td class="profile-info">
                     <img src="../public/images/user.jpg" class="profile-img">
                     Nuwan Samarasinghe
@@ -22,31 +22,32 @@
                     <button class="verify-btn">Verify</button>
                     <button class="reject-btn">Reject</button>
                 </td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Amaya Wickramaratne
-                </td>
-                <td>amaya.wickramaratne@example.com</td>
-                <td>+94 76 876 5432</td>
-                <td class="action-buttons">
-                    <button class="verify-btn">Verify</button>
-                    <button class="reject-btn">Reject</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="profile-info">
-                    <img src="../public/images/user.jpg" class="profile-img">
-                    Dilan Fernando
-                </td>
-                <td>dilan.fernando@example.com</td>
-                <td>+94 71 123 4567</td>
-                <td class="action-buttons">
-                    <button class="verify-btn">Verify</button>
-                    <button class="reject-btn">Reject</button>
-                </td>
-            </tr>
+            </tr> -->
+            <?php if (empty($users)) : ?>
+                <tr>
+                    <td colspan="4" class="no-results" style="text-align: center;">No results found.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td class="profile-info">
+                            <img src="<?= htmlspecialchars($user['ImgPath']) ?>" class="profile-img">
+                            <?= htmlspecialchars($user['Name']) ?>
+                        </td>
+                        <td><?= htmlspecialchars($user['Email']) ?></td>
+                        <td><?= htmlspecialchars($user['ContactNo']) ?></td>
+                        <td class="action-buttons">
+                            <form method="post" action="../admin/verifyUser">
+                                <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
+                                <input type="hidden" name="userType" value="<?= htmlspecialchars($verifyUser) ?>">
+                                <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
+                                <button type="submit" name="action" value="verify" class="verify-btn">Verify</button>
+                                <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

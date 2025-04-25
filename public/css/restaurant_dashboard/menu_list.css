@@ -81,3 +81,9 @@ th {
 .delete-btn:hover {
     background-color: #c9302c;
 }
+
+.food-img{
+    width: 150px;
+    height: 150px; 
+    justify-content: center;    
+}

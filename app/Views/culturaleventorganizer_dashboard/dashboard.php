@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/culturalevent_dashboard/dashboard.css">
 
-    <h1>Welcome to the Service Provider Dashboard👋</h1>
+    <h1>Welcome to the Cultural Event Organizer Dashboard👋</h1>
     <div class="tiles">
         <div class="tile">
             <div class="tile-content">

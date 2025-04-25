@@ -39,7 +39,7 @@ class KeywordController
     public function saveKeywords()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
-            
+
             $keywords = $_POST['keywords'];
             if (isset($_SESSION['TravelerID'])) {
                 $userID = $_SESSION['TravelerID'];
@@ -57,10 +57,10 @@ class KeywordController
                 $userID = $_SESSION['OrganizerID'];
                 $table = 'culturaleventorganizerkeyword';
             }
-        
+
             $keywordModel = new KeywordModel($this->conn);
-            $keywordModel->saveKeywords($table,$userID, $keywords);
-        } 
+            $keywordModel->saveKeywords($table, $userID, $keywords);
+        }
 
         if (isset($_SESSION['TravelerID'])) {
             header('Location: ../');
@@ -76,7 +76,7 @@ class KeywordController
             $keyword = $_POST['keyword'];
 
             $keywordModel = new KeywordModel($this->conn);
-            
+
             $addition = $keywordModel->addKeyword($category, $keyword);
 
             if ($addition) {
@@ -85,8 +85,7 @@ class KeywordController
                 $_SESSION['error'] = 'Failed to add keyword';
             }
 
-            header('Location: ../admin/dashboard?page=keyword&action=add');
-
+            header('Location: ../admin/dashboard?page=viewkeyword');
         }
     }
 
@@ -97,7 +96,7 @@ class KeywordController
             $keyword = $_POST['keyword'];
 
             $keywordModel = new KeywordModel($this->conn);
-            
+
             $deletion = $keywordModel->deleteKeyword($category, $keyword);
 
             if ($deletion) {
@@ -106,13 +105,42 @@ class KeywordController
                 $_SESSION['error'] = 'Failed to delete keyword';
             }
 
-            header('Location: ../admin/dashboard?page=keyword&action=delete');
-
+            header('Location: ../admin/dashboard?page=viewkeyword');
         }
     }
-    
-     public function keywordselect()
+
+    public function keywordselect()
     {
+        $categories = $this->getCategoriesWithKeywords();
         require_once __DIR__ . '/../views/keyword_select.php';
+    }
+
+    public function getUnverifiedKeywords($service)
+    {
+        $keywordModel = new KeywordModel($this->conn);
+        $serviceProviders = $keywordModel->getUnverifiedKeywords($service);
+
+        return $serviceProviders;
+    }
+
+    public function verifyKeyword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $keywordID = $_POST['keyword'];
+            $service = $_POST['userType'];
+            $serviceProviderID = $_POST['serviceProvider'];
+            $action = $_POST['action'];
+
+            $keywordModel = new KeywordModel($this->conn);
+            if ($action === 'verify') {
+                $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
+                // $_SESSION['success'] = 'Keyword verified successfully';
+            } elseif ($action === 'reject') {
+                $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
+                // $_SESSION['error'] = 'Keyword rejected successfully';
+            }
+
+            header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);
+        }
     }
 }

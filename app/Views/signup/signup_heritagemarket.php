@@ -7,6 +7,8 @@
     <title>Heritage Market Signup</title>
     <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="public/css/signup_form.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8"></script>
+
 </head>
 
 <body>
@@ -45,24 +47,52 @@
                     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="contactNo">Contact Number</label>
-                    <input type="text" id="contactNo" name="contactNo"><br><br>
+                    <label>Pin Heritage Market Location on Map *</label>
+                    <div id="map"></div>
+                </div>
+
+                <input type="hidden" id="latitude" name="latitude" value="0" required>
+                <input type="hidden" id="longitude" name="longitude" value="0" required>
+
+                <div class="input-group">
+                    <label for="contactNo">Contact Number *</label>
+                    <input type="text" id="contactNo" name="contactNo" required><br><br>
                 </div>
                 <div class="input-group">
                     <label for="website">Heritage Market Website</label>
                     <input type="url" id="website" name="website"><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description"></textarea><br><br>
+                    <label for="description">Description *</label>
+                    <textarea id="description" name="description" required></textarea><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="open_hours">Open Hours</label>
-                    <input type="text" id="open_hours" name="openhours"><br><br>
+                    <label for="weekdays_openhours">Weekdays Open Hours *</label>
+                    <input type="text" id="weekdays_openhours" name="weekdays_openhours" required><br><br>
                 </div>
                 <div class="input-group">
-                    <label for="smlink">Social Media Links</label>
-                    <input type="url" id="smlink" name="smlink"><br><br>
+                    <label for="weekends_openhours">Weekends Open Hours *</label>
+                    <input type="text" id="weekends_openhours" name="weekends_openhours" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="tagline">Tagline *</label>
+                    <input type="text" id="tagline" name="tagline" required><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="facebook_link">Facebook Link</label>
+                    <input type="url" id="facebook_link" name="facebook_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="instagram_link">Instagram Link</label>
+                    <input type="url" id="instagram_link" name="instagram_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="tiktok_link">TikTok Link</label>
+                    <input type="url" id="tiktok_link" name="tiktok_link"><br><br>
+                </div>
+                <div class="input-group">
+                    <label for="youtube_link">YouTube Link</label>
+                    <input type="url" id="youtube_link" name="youtube_link"><br><br>
                 </div>
 
                 <button type="submit">Next</button>
@@ -72,6 +102,7 @@
 
     <script src="public/js/background_slideshow1.js"></script>
     <script src="public/js/signup_validation.js"></script>
+    <script src="public/js/get_location.js"></script>
 </body>
 
 </html>

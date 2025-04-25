@@ -6,65 +6,56 @@
     <table>
         <thead>
             <tr>
-                <th>Feedback ID</th>
+                <th>Name</th>
                 <th>Date</th>
                 <th>Rating</th>
                 <th>Feedback</th>
-                <th>Traveler</th>
+                <th>Response</th>
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>2024.10.18</td>
-                <td>4.5</td>
-                <td>Good food and service</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2024.10.18</td>
-                <td>3.5</td>
-                <td>Food was good but service was slow</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>2024.10.18</td>
-                <td>5.0</td>
-                <td>Excellent food and service</td>
-                <td>John Smith</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>2024.10.18</td>
-                <td>4.0</td>
-                <td>Good food and service</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>2024.10.18</td>
-                <td>3.0</td>
-                <td>Food was good but service was slow</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
+            <?php if (!empty($reviews) && is_array($reviews)): ?>
+                <?php foreach ($reviews as $feedback): ?>
+                    <tr>
+                       <td><?= htmlspecialchars($feedback['FirstName'].' '. $feedback['LastName']) ?></td>
+                    <td><?= date('d-m-Y', strtotime($feedback['Date'])) ?></td>
+                    <td><?= htmlspecialchars($feedback['Rating']) ?></td>
+                    <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
+                    <td><?= htmlspecialchars($feedback['Response']) ?></td>
+                    <td class="action-buttons">
+                        <button class="reply-btn" id="sendReply" onclick="openPopup()">Reply</button>
+                    </td>
+
+                    <div class="popup" id="popup">
+                    <div class="modal-content">
+                        <form action="../../controllers/TableBookingController.php?action=sendTableNo" method="POST" id="tableNoForm">
+                        <input type="hidden" name="review_id" id="reviewIdInput" value="<?= htmlspecialchars($feedback['FeedbackID']) ?>">
+                        <span class="close-btn">&times;</span>
+
+                        <h3>Add Reply</h3>
+                        
+                        <textarea placeholder="Add reply here" >
+
+                        </textarea>
+                        
+                        <button type="submit" id="submitReply" onclick="closePopup()" >Ok</button>
+                        </form>
+                    </div>
+                    </tr>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+                <tr>
+
+                    <td colspan="6" style="text-align: center;">No reviews found.</td>
+
+                </tr>
+            <?php endif; ?>
+
+
+
         </tbody>
     </table>
 </div>

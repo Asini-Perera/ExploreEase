@@ -6,7 +6,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Travelers</h2>
-                <h1>1500</h1>
+                <h1><?php echo $totalTravelers ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/traveler1.png" alt="Traveler">
@@ -17,7 +17,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Restaurants</h2>
-                <h1>300</h1>
+                <h1><?php echo $totalRestaurants ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/restaurant.webp" alt="Restaurant">
@@ -28,7 +28,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Hotels</h2>
-                <h1>120</h1>
+                <h1><?php echo $totalHotels ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/hotel12.jpg" alt="Hotel">
@@ -38,11 +38,11 @@
     <div class="tile">
         <div class="tile-content">
             <div class="tile-text">
-                <h2>New Travelers in this month</h2>
-                <h1>200</h1>
+                <h2>Total Admins</h2>
+                <h1><?php echo $totalAdmins ?></h1>
             </div>
             <div class="tile-image">
-                <img src="../public/images/traveler2.webp" alt="Traveler">
+                <img src="../public/images/admin.jpg" alt="Admin">
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Heritage Markets</h2>
-                <h1>50</h1>
+                <h1><?php echo $totalHeritageMarkets ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/heritagemarket.webp" alt="Heritage Market">
@@ -61,7 +61,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Cultural Event Organizers</h2>
-                <h1>75</h1>
+                <h1><?php echo $totalCulturalEventOrganizers ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/culturaleventorganizer.jpg" alt="Cultural Event Organizer">
@@ -69,4 +69,3 @@
         </div>
     </div>
 </div>
-
