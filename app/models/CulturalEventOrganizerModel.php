@@ -21,25 +21,16 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getEvent($eventID)
-    {
-        $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $eventID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+ 
 
 
-    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
-    {
-        $sql = "UPDATE culturaleventorganizer SET Name = ?, Email = ?, ContactNo = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?  WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssi', $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
-        $stmt->execute();
-    }
+    // public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
+    // {
+    //     $sql = "UPDATE culturaleventorganizer SET Name = ?, Email = ?, ContactNo = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?  WHERE OrganizerID = ?";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->bind_param('ssssssssi', $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
+    //     $stmt->execute();
+    // }
 
     public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
