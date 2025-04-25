@@ -10,9 +10,11 @@ class RestaurantModel
         $this->conn = $conn;
     }
 
+
     public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $tagline, $menuPDFPath)
     {
         $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, CuisineType = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?, Tagline = ?, MenuPDF = ? WHERE RestaurantID = ?";
+
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {

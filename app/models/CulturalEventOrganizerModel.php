@@ -32,14 +32,13 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addEvent($title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID)
+
+    public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
-        $sql = "INSERT INTO room (EventID, `Name`, `Address`, `Longitude`, `Latitude`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) VALUES (?, ?, ?, ?,?)";
+        $sql = "UPDATE culturaleventorganizer SET Name = ?, Email = ?, ContactNo = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?  WHERE OrganizerID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sdisi', $title, $address, $date,$start_time,$end_time,$description, $capacity,$price,$status,$eventID);
+        $stmt->bind_param('ssssssssi', $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
         $stmt->execute();
-        
-        return $stmt->insert_id;
     }
 
     public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
@@ -96,7 +95,7 @@ class CulturalEventOrganizerModel
 
         // Enter the image path to the database
         if ($moving) {
-            $sql = "UPDATE traveler SET ImgPath = ? WHERE TravelerID = ?";
+            $sql = "UPDATE culturaleventorganizer SET ImgPath = ? WHERE OrganizerID = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param('si', $imgPath, $OrganizerID);
             $stmt->execute();
@@ -113,6 +112,7 @@ class CulturalEventOrganizerModel
 
         return $result->fetch_assoc()['ImgPath'];
     }
+
 
     public function checkCurrentPassword($OrganizerID, $currentPassword)
     {
@@ -136,6 +136,39 @@ class CulturalEventOrganizerModel
         $stmt->execute();
     }
 
+    
+    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
+    {
+        $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssi',$title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function getEvent($organizerID)
+    {
+        $sql = "SELECT * FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getEventItem($postID)
+    {
+        $sql = "SELECT * FROM culturaleventorganizerpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
     public function deleteEvent($eventID)
     {
         $sql = "DELETE FROM culturalevent WHERE EventID = ?";
@@ -165,6 +198,17 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostItem($postID)
+    {
+        $sql = "SELECT * FROM culturaleventorganizerpost WHERE PostID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
     public function deletePost($postID)
     {
         $sql = "DELETE FROM culturaleventorganizerpost WHERE PostID = ?";
