@@ -118,4 +118,34 @@ class HomeController
             exit();
         }
     }
+
+    public function linkService()
+    {
+        $type = $_GET['type'] ?? null;
+        $id = $_GET['id'] ?? null;
+
+        if ($type && $id) {
+            $homeModel = new HomeModel($this->conn);
+
+            if ($type === 'hotel') {
+                $hotel = $homeModel->getHotelById($id);
+
+                if ($hotel) {
+                    require_once __DIR__ . '/../Views/service_traveller_side_view/hotel.php';
+                } else {
+                    echo "Hotel not found.";
+                }
+            } elseif ($type === 'restaurant') {
+                $restaurant = $homeModel->getRestaurantById($id);
+                if ($restaurant) {
+                    require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
+                } else {
+                    echo "Restaurant not found.";
+                }
+            }
+        } else {
+            header('Location: ../loged_home');
+            exit();
+        }
+    }
 }
