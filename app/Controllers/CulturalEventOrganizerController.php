@@ -60,7 +60,7 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
-                    
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteEvent();
@@ -74,6 +74,11 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+
+                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                    $postItem = $organizerModel->getPostItem($postID);
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
@@ -90,6 +95,7 @@ class CulturalEventOrganizerController
         }
     }
 
+
     public function viewEvent()
     {
         $eventModel = new CulturalEventOrganizerModel($this->conn);
@@ -97,6 +103,7 @@ class CulturalEventOrganizerController
 
         return $events;
     }
+
 
     public function addEvent()
     {
@@ -111,7 +118,7 @@ class CulturalEventOrganizerController
             $price = $_POST['price'];
             $status = $_POST['status'];
             $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-            $eventID = $_SESSION['EventID'];
+            $eventID = $_SESSION['organizerID'];
 
             $eventModel = new CulturalEventOrganizerModel($this->conn);
             $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $eventID);
@@ -121,19 +128,27 @@ class CulturalEventOrganizerController
                 $eventModel->setImgPath($eventID, $image);
             }
 
-            header('Location: ../culturalevent/dashboard?page=event');
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
+    }
+
+    public function viewEvent()
+    {
+        $organizerModel = new CulturalEventOrganizerModel($this->conn);
+        $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
+
+        return $events;
     }
 
     public function deleteEvent()
     {
         if (isset($_GET['id'])) {
-            $roomID = $_GET['id'];
+            $eventID = $_GET['id'];
 
-            $eventModel = new CulturalEventOrganizerModel($this->conn);
-            $eventModel->deleteEvent($roomID);
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $organizerModel->deleteEvent($eventID);
 
-            header('Location: ../culturalevent/dashboard?page=event');
+            header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
     }
 
@@ -145,6 +160,7 @@ class CulturalEventOrganizerController
             $email = $_POST['email'];
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
+
             
             // Get individual social media links
             $facebookLink = $_POST['facebook_link'] ?? '';
@@ -152,6 +168,7 @@ class CulturalEventOrganizerController
             $tiktokLink = $_POST['tiktok_link'] ?? '';
             $youtubeLink = $_POST['youtube_link'] ?? '';
             
+
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
             // Only check for email existence if the user is changing their email
@@ -168,6 +185,7 @@ class CulturalEventOrganizerController
             }
 
             $organizerModel = new CulturalEventOrganizerModel($this->conn);
+
             $organizerModel->updateOrganizer(
                 $organizerID, 
                 $name, 
@@ -181,6 +199,7 @@ class CulturalEventOrganizerController
             );
 
             if ($profileImage && !empty($profileImage['name'])) {
+
                 $organizerModel->setImgPath($organizerID, $profileImage);
             }
 

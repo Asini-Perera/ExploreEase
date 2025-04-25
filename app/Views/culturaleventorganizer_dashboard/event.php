@@ -24,6 +24,7 @@
                 <th>Actions</th>
             </tr>
         </thead>
+
        <tbody>
             <?php if (isset($events) && !empty($events)): ?>
                 <?php foreach ($events as $event): ?>
@@ -51,5 +52,8 @@
                 </tr>
             <?php endif; ?>
        </tbody>
+
+            
+
     </table>
 </div>
