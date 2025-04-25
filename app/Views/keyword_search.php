@@ -1,5 +1,7 @@
 <?php
 $places = $_SESSION['places'] ?? [];
+$latitude = $_SESSION['latitude'] ?? null;
+$longitude = $_SESSION['longitude'] ?? null;
 // unset($_SESSION['places']);
 // 
 ?>
@@ -168,6 +170,30 @@ $places = $_SESSION['places'] ?? [];
                                 infoWindow.open(map, marker);
                             });
                         });
+
+                        if (<?= $latitude && $longitude ? 'true' : 'false' ?>) {
+                            const currentLocationMarker = new google.maps.Marker({
+                                position: {
+                                    lat: <?= $latitude ?>,
+                                    lng: <?= $longitude ?>
+                                },
+                                map: map,
+                                title: "Your Current Location",
+                                icon: {
+                                    url: "https://maps.google.com/mapfiles/kml/shapes/man.png", // 👈 a human marker icon
+                                    scaledSize: new google.maps.Size(40, 40) // optional: scale the icon
+                                }
+                            });
+
+                            const currentLocationInfo = new google.maps.InfoWindow({
+                                content: `<h3>Your Current Location</h3>`
+                            });
+
+                            currentLocationMarker.addListener('click', () => {
+                                currentLocationInfo.open(map, currentLocationMarker);
+                            });
+                        }
+
 
                     }
 

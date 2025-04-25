@@ -113,6 +113,8 @@ class HomeController
 
             session_start();
             $_SESSION['places'] = $places;
+            $_SESSION['latitude'] = $latitude;
+            $_SESSION['longitude'] = $longitude;
 
             header('Location: ../search/keyword');
             exit();
