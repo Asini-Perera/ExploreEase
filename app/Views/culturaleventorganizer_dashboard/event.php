@@ -24,23 +24,36 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Esala Perehara</td>
-                <td>Kandy</td>
-                <td>2021-07-14</td>
-                <td>10:00:00</td>
-                <td>22:00:00</td>
-                <td>Esala Perehara is a grand festival celebrated with elegant costumes and is held in Kandy.</td>
-                <td>1000</td>
-                <td>Rs. 500.00</td>
-                <td>Active</td>
-                <td class="action-buttons">
-                    <button class="edit-btn" style="background-color: #6fa857; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;"><a href="?page=event&action=edit&id=<?= $post['EventID'] ?>"></a>Edit</button>
-                    <button class="delete-btn" style="background-color: #d9534f; width: 100px; padding: 8px 10px; margin: 5px; color: white; border: none; border-radius: 4px; cursor: pointer;"><a href="?page=event&action=delete&id=<?= $post['EventID'] ?>">Delete</a></button>
-                </td>
-            </tr>
+
+       <tbody>
+            <?php if (isset($events) && !empty($events)): ?>
+                <?php foreach ($events as $event): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($event['Name']) ?></td>
+                        <td><?= htmlspecialchars($event['Address']) ?></td>
+                        <td><?= htmlspecialchars($event['Date']) ?></td>
+                        <td><?= htmlspecialchars($event['StartTime']) ?></td>
+                        <td><?= htmlspecialchars($event['EndTime']) ?></td>
+                        <td><?= htmlspecialchars(substr($event['Description'], 0, 50)) . (strlen($event['Description']) > 50 ? '...' : '') ?></td>
+                        <td><?= htmlspecialchars($event['Capacity']) ?></td>
+                        <td><?= htmlspecialchars($event['TicketPrice']) ?></td>
+                        <td><?= htmlspecialchars($event['Status']) ?></td>
+                        <td>
+                            <div class="action-links">
+                                <a href="?page=event&action=edit&id=<?= $event['EventID'] ?>" class="edit">Edit</a>
+                                <a href="?page=event&action=delete&id=<?= $event['EventID'] ?>" class="delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="10" class="no-data">No events found</td>
+                </tr>
+            <?php endif; ?>
+       </tbody>
+
             
-        </tbody>
+
     </table>
 </div>

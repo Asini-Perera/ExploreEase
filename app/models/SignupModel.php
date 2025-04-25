@@ -102,7 +102,7 @@ class SignupModel
 
         // Insert the heritage market data
         $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sssssddsssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
