@@ -140,7 +140,13 @@ $places = $_SESSION['places'] ?? [];
                         // });
 
                         placesFromPHP.forEach(place => {
-                            const markerColor = place.type === 'hotel' ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+                            const markerColor = place.type === 'hotel' ?
+                                'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' :
+                                place.type === 'restaurant' ?
+                                'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
+                                place.type === 'heritagemarket' ?
+                                'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png' :
+                                'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
                             const marker = new google.maps.Marker({
                                 position: {
