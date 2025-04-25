@@ -111,10 +111,10 @@ $longitude = $_SESSION['longitude'] ?? null;
                     function initMap() {
                         const map = new google.maps.Map(document.getElementById('map'), {
                             center: {
-                                lat: 6.9271,
-                                lng: 79.9612
+                                lat: <?= $latitude ?>,
+                                lng: <?= $longitude ?>
                             }, // Default center (Colombo)
-                            zoom: 12,
+                            zoom: 10,
                         });
 
                         if (!placesFromPHP.length) {
@@ -159,6 +159,12 @@ $longitude = $_SESSION['longitude'] ?? null;
                                 title: place.Name,
                                 icon: {
                                     url: markerColor
+                                },
+                                label: {
+                                    text: place.Name,
+                                    color: "white",
+                                    fontSize: "12px",
+                                    fontWeight: "bold"
                                 }
                             });
 
