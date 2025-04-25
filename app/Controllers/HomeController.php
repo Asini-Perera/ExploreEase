@@ -62,4 +62,8 @@ class HomeController
     {
         require_once __DIR__ . '/../Views/siteReview.php';
     }
+    public function contactus()
+    {
+        require_once __DIR__ . '/../Views/Contactus.php';
+    }
 }

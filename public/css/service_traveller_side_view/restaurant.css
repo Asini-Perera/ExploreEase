@@ -560,6 +560,26 @@
     transform: scale(1.05);
 }
 
+.textarea-field {
+    width: 100%;
+    /* Full width, matching two input fields + gap */
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background-color: #fafafa;
+    resize: vertical;
+    margin-top: 10px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.textarea-field:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
 .popup {
     display: none;
     position: fixed;

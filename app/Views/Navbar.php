@@ -10,7 +10,7 @@
         </li>
         <li class="menu-item home"><a href="../loged_home">Home</a></li>
         <li class="menu-item about-us"><a href="../loged_home#about-us">About Us</a></li>
-        <li class="menu-item contact-us"><a href="#contact">Contact Us</a></li>
+        <li class="menu-item contact-us"><a href="http://localhost/ExploreEase/contactus">Contact Us</a></li>
         <li class="menu-item services"><a href="../loged_home#services-features">Services</a></li>
         <li class="menu-item services"><a href="../logout">Logout</a></li>
     <!--    <li class="menu-item user">

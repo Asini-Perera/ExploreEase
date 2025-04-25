@@ -70,5 +70,7 @@ $router->add('service/menu','HomeController@travelerside_menu');  // traveller s
 
 $router->add('restaurant/post','HomeController@post');  // Add post for restaurant
 
-$router->add('reviews','HomeController@siteReview');  // Add post for restaurant
+$router->add('reviews','HomeController@siteReview');  
+
+$router->add('contactus','HomeController@contactus');  
 
