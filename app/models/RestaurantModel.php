@@ -359,9 +359,10 @@ class RestaurantModel
 
     public function getReview($restaurantID)
     {
-        $sql = " SELECT rf.* , t.FirstName, t.LastName FROM restaurantfeedback rf
+        $sql = " SELECT rf.* , t.FirstName, t.LastName, t.ImgPath FROM restaurantfeedback rf
                 INNER JOIN traveler t ON rf.TravelerID = t.TravelerID
-                WHERE rf.RestaurantID = ?";
+                WHERE rf.RestaurantID = ?
+                ORDER BY rf.Response IS NULL DESC, rf.Date DESC";
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {

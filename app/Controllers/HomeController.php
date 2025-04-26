@@ -150,7 +150,7 @@ class HomeController
                 $restaurant = $homeModel->getRestaurantById($id);
                 if ($restaurant) {
                     $restaurantModel = new RestaurantModel($this->conn);
-                    // $restaurantReviews = $restaurantModel->getReviews($id);
+                    $restaurantReviews = $restaurantModel->getReview($id);
                     require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
                 } else {
                     echo "Restaurant not found.";
