@@ -354,9 +354,13 @@ class CulturalEventOrganizerModel
         $stmt->execute();
     }
 
+
     public function getTotalBookings($organizerID)
     {
-        $sql = "SELECT COUNT(*) as TotalBookings FROM booking WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $sql = "SELECT COUNT(*) as TotalBookings 
+                FROM culturaleventbooking ceb
+                JOIN culturalevent ce ON ceb.EventID = ce.EventID
+                WHERE ce.OrganizerID = ?";
         $stmt = $this->conn->prepare($sql);
         
         // Check if prepare was successful
@@ -432,7 +436,10 @@ class CulturalEventOrganizerModel
 
     public function getTotalRevenue($organizerID)
     {
-        $sql = "SELECT SUM(TotalPrice) as TotalRevenue FROM booking WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $sql = "SELECT SUM(Amount) as TotalRevenue 
+                FROM culturaleventbooking ceb
+                JOIN culturalevent ce ON ceb.EventID = ce.EventID
+                WHERE ce.OrganizerID = ?";
         $stmt = $this->conn->prepare($sql);
         
         // Check if prepare was successful
@@ -530,5 +537,51 @@ class CulturalEventOrganizerModel
                 $stmt->execute();
                 $stmt->close();
             }
+    }
+    
+    public function getBookings($organizerID)
+    {
+        error_log("Fetching bookings for organizer ID: $organizerID");
+        
+        // Let's check if we have any bookings in the table at all
+        $checkSql = "SELECT COUNT(*) as count FROM culturaleventbooking";
+        $checkStmt = $this->conn->prepare($checkSql);
+        
+        if (!$checkStmt) {
+            error_log("MySQL prepare error for count check: " . $this->conn->error);
+            return [];
+        }
+        
+        $checkStmt->execute();
+        $checkResult = $checkStmt->get_result();
+        $totalCount = $checkResult->fetch_assoc()['count'];
+        error_log("Total bookings in culturaleventbooking table: $totalCount");
+        
+        // Now proceed with the actual query
+        $sql = "SELECT ceb.*, ce.Name as EventName, t.FirstName, t.LastName 
+                FROM culturaleventbooking ceb
+                JOIN culturalevent ce ON ceb.EventID = ce.EventID
+                LEFT JOIN traveler t ON ceb.TravelerID = t.TravelerID
+                WHERE ce.OrganizerID = ?
+                ORDER BY ceb.Date DESC";
+        
+        error_log("Executing SQL: " . str_replace('?', $organizerID, $sql));
+        
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $bookings = $result->fetch_all(MYSQLI_ASSOC);
+        $count = count($bookings);
+        error_log("Found $count bookings for organizer ID: $organizerID");
+        
+        return $bookings;
     }
 }

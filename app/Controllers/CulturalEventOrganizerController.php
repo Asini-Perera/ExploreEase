@@ -66,15 +66,21 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
-                    // This is the key addition - don't call updatePost method here
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
                 } else {
                     $verifiedAction = null;
                 }
+            } elseif ($mainContent == 'bookings') {
+                $bookings = $this->viewBookings();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                } else {
+                    $verifiedAction = null;
+                }
             }
-
 
             require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/main.php';
         } else {
@@ -461,5 +467,32 @@ class CulturalEventOrganizerController
 
             header('Location: ../culturaleventorganizer/dashboard?page=post');
         }
+    }
+
+    public function bookings()
+    {
+        if (isset($_SESSION['OrganizerID'])) {
+            $bookings = $this->viewBookings();
+            
+            // Debug the bookings data structure
+            if (!empty($bookings)) {
+                error_log("Booking sample: " . print_r($bookings[0], true));
+            } else {
+                error_log("No bookings found for organizer ID: " . $_SESSION['OrganizerID']);
+            }
+            
+            require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/bookings.php';
+        } else {
+            header('Location: ../login');
+            exit();
+        }
+    }
+
+    public function viewBookings()
+    {
+        $eventModel = new CulturalEventOrganizerModel($this->conn);
+        $bookings = $eventModel->getBookings($_SESSION['OrganizerID']);
+        
+        return $bookings;
     }
 }

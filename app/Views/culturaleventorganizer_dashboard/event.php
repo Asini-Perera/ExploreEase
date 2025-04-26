@@ -13,6 +13,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Event ID</th>
                     <th>Event Name</th>
                     <th>Address</th>
                     <th>Date</th>
@@ -29,6 +30,7 @@
                 <?php if (isset($events) && !empty($events)): ?>
                     <?php foreach ($events as $event): ?>
                         <tr>
+                            <td data-label="Event ID"><?= htmlspecialchars($event['EventID']) ?></td>
                             <td data-label="Event Name"><?= htmlspecialchars($event['Name']) ?></td>
                             <td data-label="Address"><?= htmlspecialchars(substr($event['Address'], 0, 30)) . (strlen($event['Address']) > 30 ? '...' : '') ?></td>
                             <td data-label="Date"><?= htmlspecialchars($event['Date']) ?></td>
