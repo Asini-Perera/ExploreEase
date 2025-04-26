@@ -584,4 +584,104 @@ class CulturalEventOrganizerModel
         
         return $bookings;
     }
+    
+    public function getBookingById($bookingID)
+    {
+        $sql = "SELECT * FROM culturaleventbooking WHERE BookingID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("MySQL prepare error in getBookingById: " . $this->conn->error);
+            return null;
+        }
+        
+        $stmt->bind_param('i', $bookingID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+    
+    public function getTravelerById($travelerID)
+    {
+        $sql = "SELECT * FROM traveler WHERE TravelerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("MySQL prepare error in getTravelerById: " . $this->conn->error);
+            return null;
+        }
+        
+        $stmt->bind_param('i', $travelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+    
+    public function validateBookingOwnership($bookingID, $organizerID)
+    {
+        $sql = "SELECT COUNT(*) as count 
+                FROM culturaleventbooking ceb
+                JOIN culturalevent ce ON ceb.EventID = ce.EventID
+                WHERE ceb.BookingID = ? AND ce.OrganizerID = ?";
+                
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("MySQL prepare error in validateBookingOwnership: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param('ii', $bookingID, $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        return $row['count'] > 0;
+    }
+    
+    public function updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount = null)
+    {
+        try {
+            // Check if amount field should be updated
+            if ($amount !== null) {
+                $sql = "UPDATE culturaleventbooking 
+                        SET Date = ?, Quantity = ?, Status = ?, EventID = ?, Amount = ? 
+                        WHERE BookingID = ?";
+                $stmt = $this->conn->prepare($sql);
+                
+                if (!$stmt) {
+                    error_log("MySQL prepare error in updateBooking with amount: " . $this->conn->error);
+                    return false;
+                }
+                
+                $stmt->bind_param('sisidi', $date, $quantity, $status, $eventID, $amount, $bookingID);
+            } else {
+                $sql = "UPDATE culturaleventbooking 
+                        SET Date = ?, Quantity = ?, Status = ?, EventID = ? 
+                        WHERE BookingID = ?";
+                $stmt = $this->conn->prepare($sql);
+                
+                if (!$stmt) {
+                    error_log("MySQL prepare error in updateBooking without amount: " . $this->conn->error);
+                    return false;
+                }
+                
+                $stmt->bind_param('sisi', $date, $quantity, $status, $eventID, $bookingID);
+            }
+            
+            $result = $stmt->execute();
+            
+            if (!$result) {
+                error_log("MySQL execute error in updateBooking: " . $stmt->error);
+                return false;
+            }
+            
+            return true;
+        } catch (\Exception $e) {
+            error_log("Exception in updateBooking: " . $e->getMessage());
+            return false;
+        }
+    }
 }

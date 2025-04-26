@@ -77,6 +77,35 @@ class CulturalEventOrganizerController
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
+                    
+                    // Fetch booking details when editing
+                    if (isset($_GET['id'])) {
+                        $bookingID = $_GET['id'];
+                        $eventModel = new CulturalEventOrganizerModel($this->conn);
+                        $booking = $eventModel->getBookingById($bookingID);
+                        
+                        if ($booking) {
+                            // Store booking details in session for the edit form
+                            $_SESSION['BookingID'] = $booking['BookingID'];
+                            $_SESSION['Date'] = $booking['Date'];
+                            $_SESSION['Quantity'] = $booking['Quantity'] ?? $booking['TicketCount'] ?? 1;
+                            $_SESSION['Status'] = $booking['Status'] ?? 'Pending';
+                            $_SESSION['EventID'] = $booking['EventID'];
+                            $_SESSION['TravelerID'] = $booking['TravelerID'];
+                            $_SESSION['Amount'] = $booking['Amount'] ?? 0;
+                            
+                            // Get traveler details
+                            $traveler = $eventModel->getTravelerById($booking['TravelerID']);
+                            if ($traveler) {
+                                $_SESSION['TravelerName'] = $traveler['FirstName'] . ' ' . $traveler['LastName'];
+                            } else {
+                                $_SESSION['TravelerName'] = 'Unknown';
+                            }
+                            
+                            // Fetch all events for this organizer to populate the dropdown
+                            $_SESSION['AvailableEvents'] = $eventModel->getAllEvents($_SESSION['OrganizerID']);
+                        }
+                    }
                 } else {
                     $verifiedAction = null;
                 }
@@ -494,5 +523,56 @@ class CulturalEventOrganizerController
         $bookings = $eventModel->getBookings($_SESSION['OrganizerID']);
         
         return $bookings;
+    }
+
+    public function updateBooking()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $bookingID = $_POST['bookingID'];
+            $date = $_POST['date'];
+            $quantity = $_POST['quantity'];
+            $status = $_POST['status'];
+            $eventID = $_POST['eventID'];
+            $travelerID = $_POST['travelerID'];
+            $amount = $_POST['amount'] ?? null;
+            
+            $eventModel = new CulturalEventOrganizerModel($this->conn);
+            
+            // Validate that the booking belongs to an event owned by this organizer
+            $isValid = $eventModel->validateBookingOwnership($bookingID, $_SESSION['OrganizerID']);
+            
+            if (!$isValid) {
+                $_SESSION['error'] = "You don't have permission to edit this booking.";
+                header('Location: ../culturaleventorganizer/dashboard?page=bookings');
+                exit();
+            }
+            
+            // Update booking in the database
+            $success = $eventModel->updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount);
+            
+            if ($success) {
+                $_SESSION['success'] = "Booking updated successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to update booking.";
+            }
+            
+            // Clear session variables
+            unset($_SESSION['BookingID']);
+            unset($_SESSION['Date']);
+            unset($_SESSION['Quantity']);
+            unset($_SESSION['Status']);
+            unset($_SESSION['EventID']);
+            unset($_SESSION['TravelerID']);
+            unset($_SESSION['TravelerName']);
+            unset($_SESSION['Amount']);
+            unset($_SESSION['AvailableEvents']);
+            
+            header('Location: ../culturaleventorganizer/dashboard?page=bookings');
+            exit();
+        } else {
+            header('Location: ../culturaleventorganizer/dashboard?page=bookings');
+            exit();
+        }
     }
 }

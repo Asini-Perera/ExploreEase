@@ -41,6 +41,8 @@
                 require_once __DIR__ . '/delete_event.php';
             } elseif ($mainContent == 'post' && $verifiedAction == 'delete') {
                 require_once __DIR__ . '/delete_post.php';
+            } elseif ($mainContent == 'bookings' && $verifiedAction == 'edit') {
+                require_once __DIR__ . '/edit_booking.php';
             } elseif ($mainContent == 'bookings') {
                 require_once __DIR__ . '/bookings.php';
             } else {
@@ -52,4 +54,3 @@
 </body>
 
 </html>
-</ul>

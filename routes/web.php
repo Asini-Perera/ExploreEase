@@ -100,5 +100,7 @@ $router->add('culturaleventorganizer/addPost', 'CulturalEventOrganizerController
 $router->add('culturaleventorganizer/updatePost', 'CulturalEventOrganizerController@updatePost');  // Update post for cultural event organizer
 $router->add('culturaleventorganizer/deletePost', 'CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
 $router->add('culturaleventorganizer/bookings', 'CulturalEventOrganizerController@bookings');  // View bookings for cultural event organizer
+$router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerController@updateBooking');  // Update booking for cultural event organizer
+
 $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
