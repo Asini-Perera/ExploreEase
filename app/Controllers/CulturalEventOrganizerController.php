@@ -408,9 +408,9 @@ class CulturalEventOrganizerController
             $postModel = new CulturalEventOrganizerModel($this->conn);
             $postData = $postModel->getPost($organizerID, $postID);
 
-            if (empty($postData) || $postData[0]['OrganizerID'] != $organizerID) {
+            if (empty($postData)) {
                 $_SESSION['error'] = "You don't have permission to edit this post.";
-                header('Location: ../culturaleventorganizer/dashboard?page=post');
+                header('Location: dashboard?page=post');
                 exit();
             }
 
@@ -430,7 +430,7 @@ class CulturalEventOrganizerController
                 $_SESSION['error'] = "Failed to update post.";
             }
 
-            header('Location: ../culturaleventorganizer/dashboard?page=post');
+            header('Location: dashboard?page=post');
             exit();
         } else {
             // Handle GET request to load the edit form
@@ -442,7 +442,7 @@ class CulturalEventOrganizerController
 
             if (empty($post)) {
                 $_SESSION['error'] = "Post not found or you don't have permission to edit this post.";
-                header('Location: ../culturaleventorganizer/dashboard?page=post');
+                header('Location: dashboard?page=post');
                 exit();
             }
 

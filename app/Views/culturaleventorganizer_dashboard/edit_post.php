@@ -44,11 +44,13 @@ $post = $postData;
         <div class="form-group">
             <label for="image">Current Image:</label>
             <?php if (!empty($post['ImgPath'])): ?>
-                <div class="image-preview">
-                    <img src="<?= htmlspecialchars($post['ImgPath']) ?>" alt="Post Image">
+                <div class="image-preview" style="width: 200px; height: 100px; margin-bottom: 10px; border: 1px solid #ddd; overflow: hidden;">
+                    <img src="<?= htmlspecialchars($post['ImgPath']) ?>" alt="Post Image" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             <?php else: ?>
-                <p>No image available</p>
+                <div class="image-preview" style="width: 200px; height: 150px; margin-bottom: 10px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+                    <span>No image available</span>
+                </div>
             <?php endif; ?>
             <input type="file" name="postImage" id="image" class="form-control">
         </div>

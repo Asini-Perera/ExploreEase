@@ -27,9 +27,9 @@
                     <td><?= htmlspecialchars($post['Date']) ?></td>
                     <td data-label="Image">
                         <?php if (!empty($post['ImgPath'])): ?>
-                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="post-img" alt="Post Image">
+                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="post-img" alt="Post Image" style="width: 100px; height: 100px; object-fit: cover;">
                         <?php else: ?>
-                            <img src="../public/images/default-post.png" class="post-img" alt="Default Post Image">
+                            <img src="../public/images/default-post.png" class="post-img" alt="Default Post Image" style="width: 100px; height: 100px; object-fit: cover;">
                         <?php endif; ?>
                     </td>
                     <td data-label="Actions">
