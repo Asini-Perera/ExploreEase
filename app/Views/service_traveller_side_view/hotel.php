@@ -349,7 +349,9 @@
                 const totalReviews = <?php echo count($hotelReviews); ?>;
 
                 function moveCarousel(direction) {
-                    const maxIndex = Math.ceil(totalReviews / reviewsToShow) - 1;
+                    const slideWidth = reviewWrapper.querySelector('.review-slide').offsetWidth;
+                    const totalSlides = totalReviews;
+                    const maxIndex = totalSlides - reviewsToShow; // important
                     currentIndex += direction;
 
                     if (currentIndex < 0) {
@@ -358,9 +360,16 @@
                         currentIndex = 0;
                     }
 
-                    const offset = -currentIndex * 100;
-                    reviewWrapper.style.transform = `translateX(${offset}%)`;
+                    const offset = -currentIndex * slideWidth;
+                    reviewWrapper.style.transform = `translateX(${offset}px)`;
                 }
+
+
+                function autoSlide() {
+                    moveCarousel(1);
+                }
+
+                setInterval(autoSlide, 5000); // Auto slide every 5 seconds
             </script>
         </section>
 
