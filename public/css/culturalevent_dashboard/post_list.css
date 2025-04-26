@@ -44,7 +44,6 @@ th {
     align-items: center;
     float: left;
 } */
-
 .action-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -62,6 +61,9 @@ th {
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
 }
 
 .edit-btn {
@@ -74,6 +76,7 @@ th {
 
 .add-btn {
     background-color: #F1C232;
+    color: #333;
 }
 
 .add-btn:hover {

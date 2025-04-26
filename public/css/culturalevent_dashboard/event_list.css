@@ -91,7 +91,6 @@ th {
     background-color: #c9302c;
 }
 
-/* Fixed size styling for event images */
 .event-img {
     width: 50px;
     height: 50px;
@@ -102,7 +101,6 @@ th {
     margin: 0 auto;
 }
 
-/* Ensure the image column has a consistent width */
 table td[data-label="Image"] {
     width: 70px;
     min-width: 70px;
@@ -110,7 +108,6 @@ table td[data-label="Image"] {
     vertical-align: middle;
 }
 
-/* Add hover effect for better user experience */
 .event-img:hover {
     cursor: pointer;
     transform: scale(2);

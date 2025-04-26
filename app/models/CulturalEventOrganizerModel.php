@@ -227,15 +227,27 @@ class CulturalEventOrganizerModel
         }
     }
 
-    public function getPost($organizerID)
+    public function getPost($organizerID, $postID = null)
     {
-        $sql = "SELECT * FROM culturaleventorganizerpost WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        if ($postID) {
+            // Fetch a specific post by ID
+            $sql = "SELECT * FROM culturaleventorganizerpost WHERE PostID = ? AND OrganizerID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ii', $postID, $organizerID);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+            return $result->fetch_assoc(); // Return a single post as associative array
+        } else {
+            // Fetch all posts for the organizer
+            $sql = "SELECT * FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('i', $organizerID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
     }
 
     public function updatePost($postID, $title, $description)

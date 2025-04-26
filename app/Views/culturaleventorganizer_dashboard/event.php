@@ -47,7 +47,7 @@
                             <td data-label="Actions">
                                 <div class="action-buttons">
                                     <a href="?page=event&action=edit&id=<?= $event['EventID'] ?>" class="edit-btn">Edit</a>
-                                    <a href="?page=event&action=delete&id=<?= $event['EventID'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
+                                    <a href="?page=event&action=delete&id=<?= $event['EventID'] ?>" class="delete-btn">Delete</a>
                                 </div>
                             </td>
                         </tr>

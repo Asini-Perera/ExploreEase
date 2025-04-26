@@ -32,9 +32,11 @@
                             <img src="../public/images/default-post.png" class="post-img" alt="Default Post Image">
                         <?php endif; ?>
                     </td>
-                    <td class="action-buttons">
-                        <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
-                        <button class="delete-btn"><a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a></button>
+                    <td data-label="Actions">
+                        <div class="action-buttons">
+                            <a href="?page=post&action=edit&id=<?= $post['PostID'] ?>" class="edit-btn">Edit</a>
+                            <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>" class="delete-btn">Delete</a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>

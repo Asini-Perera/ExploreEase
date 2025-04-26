@@ -66,6 +66,7 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+                    // This is the key addition - don't call updatePost method here
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
@@ -194,18 +195,7 @@ class CulturalEventOrganizerController
             }
 
             // Update event in database with all required parameters
-            $success = $eventModel->updateEvent(
-                $eventID, 
-                $title, 
-                $address, 
-                $date, 
-                $start_time, 
-                $end_time, 
-                $description, 
-                $capacity, 
-                $price, 
-                $status
-            );
+            $success = $eventModel->updateEvent($eventID, $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status);
 
             if ($success && $image && $image['name']) {
                 $imageUploadSuccess = $eventModel->setEventImage($eventID, $image);
@@ -395,52 +385,69 @@ class CulturalEventOrganizerController
     
     public function updatePost()
     {
+        // Check if user is logged in
+        if (!isset($_SESSION['OrganizerID'])) {
+            header('Location: ../login');
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $postID = $_POST['postID'] ?? 0;
-                $title = $_POST['title'] ?? '';
-                $description = $_POST['description'] ?? '';
-                $image = isset($_FILES['postImage']) && $_FILES['postImage']['error'] === UPLOAD_ERR_OK ? $_FILES['postImage'] : null;
-                $organizerID = $_SESSION['OrganizerID'];
-                
-                // Basic validation
-                if (empty($postID) || empty($title) || empty($description)) {
-                    error_log("Post update failed: Missing required fields");
-                    header('Location: dashboard?page=post&action=edit&id=' . $postID . '&error=missing_fields');
-                    exit();
-                }
-                
-                $organizerModel = new CulturalEventOrganizerModel($this->conn);
-                $success = $organizerModel->updatePost($postID, $title, $description);
-                
-                if (!$success) {
-                    error_log("Failed to update post in database");
-                    header('Location: dashboard?page=post&action=edit&id=' . $postID . '&error=db_error');
-                    exit();
-                }
-                
-                // If image is uploaded, set the image path
-                if ($image) {
-                    $result = $organizerModel->setPostImagePath($postID, $image);
-                    if (!$result) {
-                        error_log("Failed to update image for post ID: $postID");
-                    }
-                }
-                
-                // Clear any session variables
-                unset($_SESSION['PostID']);
-                unset($_SESSION['Title']);
-                unset($_SESSION['Description']);
-                unset($_SESSION['ImgPath']);
-                
-                // Redirect with success parameter
-                header('Location: dashboard?page=post&success=updated');
-                exit();
-            } catch (\Exception $e) {
-                error_log("Exception in updatePost: " . $e->getMessage());
-                header('Location: dashboard?page=post&error=exception');
+            // Log the form data for debugging
+            error_log("Update Post POST data: " . print_r($_POST, true));
+
+            // Get form data
+            $postID = $_POST['post_id'];
+            $title = $_POST['title'];
+            $description = isset($_POST['description']) ? $_POST['description'] : '';
+            $organizerID = $_SESSION['OrganizerID'];
+
+            // Handle image upload if provided
+            $image = isset($_FILES['postImage']) && $_FILES['postImage']['name'] ? $_FILES['postImage'] : null;
+
+            // Validate post belongs to this organizer
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $postData = $postModel->getPost($organizerID, $postID);
+
+            if (empty($postData) || $postData[0]['OrganizerID'] != $organizerID) {
+                $_SESSION['error'] = "You don't have permission to edit this post.";
+                header('Location: ../culturaleventorganizer/dashboard?page=post');
                 exit();
             }
+
+            // Update post in database
+            $success = $postModel->updatePost($postID, $title, $description);
+
+            if ($success && $image) {
+                $imageUploadSuccess = $postModel->setPostImagePath($postID, $image);
+                if (!$imageUploadSuccess) {
+                    $_SESSION['error'] = "Post updated, but failed to upload image.";
+                }
+            }
+
+            if ($success) {
+                $_SESSION['success'] = "Post updated successfully.";
+            } else {
+                $_SESSION['error'] = "Failed to update post.";
+            }
+
+            header('Location: ../culturaleventorganizer/dashboard?page=post');
+            exit();
+        } else {
+            // Handle GET request to load the edit form
+            $postID = $_GET['id'] ?? 0;
+            $organizerID = $_SESSION['OrganizerID'];
+
+            $postModel = new CulturalEventOrganizerModel($this->conn);
+            $post = $postModel->getPost($organizerID, $postID);
+
+            if (empty($post)) {
+                $_SESSION['error'] = "Post not found or you don't have permission to edit this post.";
+                header('Location: ../culturaleventorganizer/dashboard?page=post');
+                exit();
+            }
+
+            // Pass the post data to the edit_post view
+            require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/edit_post.php';
         }
     }
 

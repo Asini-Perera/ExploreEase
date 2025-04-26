@@ -35,7 +35,7 @@
                 require_once __DIR__ . '/edit_post.php';
             } elseif ($mainContent == 'post' && $verifiedAction == 'add') {
                 require_once __DIR__ . '/add_post.php';
-            } elseif ($mainContent == 'post' && $verifiedAction != 'edit') {
+            } elseif ($mainContent == 'post' && $verifiedAction != 'edit' && $verifiedAction != 'add') {
                 require_once __DIR__ . '/post.php';
             } elseif ($mainContent == 'event' && $verifiedAction == 'delete') {
                 require_once __DIR__ . '/delete_event.php';
