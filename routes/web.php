@@ -90,6 +90,7 @@ $router->add('heritagemarket/reviewResponse', 'HeritageMarketController@reviewRe
 $router->add('heritagemarket/shops', 'HeritageMarketController@shops');
 $router->add('heritagemarket/products', 'HeritageMarketController@products');
 $router->add('heritagemarket/review', 'HeritageMarketController@review');
+$router->add('heritagemarket/submitReview', 'HeritageMarketController@submitReview');  // Process review submissions
 
 $router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
 $router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
@@ -101,6 +102,6 @@ $router->add('culturaleventorganizer/updatePost', 'CulturalEventOrganizerControl
 $router->add('culturaleventorganizer/deletePost', 'CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
 $router->add('culturaleventorganizer/bookings', 'CulturalEventOrganizerController@bookings');  // View bookings for cultural event organizer
 $router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerController@updateBooking');  // Update booking for cultural event organizer
-
+$router->add('culturaleventorganizer/reviewResponse', 'CulturalEventOrganizerController@reviewResponse');  // Process review responses
 $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer

@@ -12,7 +12,7 @@
     <main>
         <h2 class="page-title">Submit Your Review</h2>
         <div class="review-form-container">
-            <form action="submit_review.php" method="POST" class="review-form">
+            <form action="../heritagemarket/submitReview" method="POST" class="review-form">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>

@@ -112,9 +112,15 @@ class CulturalEventOrganizerController
             }elseif ($mainContent == 'reviews') {
                 $eventModel = new CulturalEventOrganizerModel($this->conn);
                 $reviews = $eventModel->getReviews($_SESSION['OrganizerID']);
+                if (isset($_GET['action']) && $_GET['action'] == 'reply') {
+                    $verifiedAction = 'reply';
+                } else {
+                    $verifiedAction = null;
+                }
             } else {
                 $verifiedAction = null;
             }
+
 
             require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/main.php';
         } else {
@@ -602,6 +608,26 @@ class CulturalEventOrganizerController
             exit();
         } else {
             header('Location: ../culturaleventorganizer/dashboard?page=bookings');
+            exit();
+        }
+    }
+    
+    public function reviewResponse()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $reviewID = $_POST['review_id'];
+            $response = $_POST['response'];
+
+            $eventModel = new CulturalEventOrganizerModel($this->conn);
+            $success = $eventModel->addReviewResponse($reviewID, $response);
+            
+            if ($success) {
+                $_SESSION['success'] = "Response submitted successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to submit response. Please try again.";
+            }
+            
+            header('Location: ../culturaleventorganizer/dashboard?page=reviews');
             exit();
         }
     }

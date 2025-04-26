@@ -46,7 +46,7 @@
             } elseif ($mainContent == 'bookings') {
                 require_once __DIR__ . '/bookings.php';
 
-            } elseif ($mainContent == 'review') {
+            } elseif ($mainContent == 'reviews') {
                 require_once __DIR__ . '/reviews.php';
             
             } else {

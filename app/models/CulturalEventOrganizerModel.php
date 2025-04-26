@@ -745,4 +745,12 @@ class CulturalEventOrganizerModel
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function addReviewResponse($reviewID, $response)
+    {
+        $sql = "UPDATE culturaleventorganizerfeedback SET Response = ? WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $response, $reviewID);
+        return $stmt->execute();
+    }
 }
