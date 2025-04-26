@@ -50,6 +50,7 @@
             <input type="file" name="image" id="image" class="form-control">
         </div>
 
-        <button type="submit" id="add-event">Add Event</button>
+        <button type="submit" id="add-event">Add</button>
+        <button type="button" id="discard-event" onclick="window.history.back();">Discard</button>
     </form>
 </div>

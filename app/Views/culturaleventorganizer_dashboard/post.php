@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/culturalevent_dashboard/post_list.css">
 
-<div class="menu-container">
+<div class="-container">
     <div class="top">
             <h1>Post List</h1><span></span>
 
@@ -25,11 +25,11 @@
                 <td><?= htmlspecialchars($post['Title']) ?></td>
                     <td><?= htmlspecialchars($post['Description']) ?></td>
                     <td><?= htmlspecialchars($post['Date']) ?></td>
-                    <td>
-                        <?php if (!empty($post['ImgPath']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $post['ImgPath'])): ?>
-                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="room-img" alt="Post Image">
+                    <td data-label="Image">
+                        <?php if (!empty($post['ImgPath'])): ?>
+                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="post-img" alt="Post Image">
                         <?php else: ?>
-                            <img src="../public/images/default-post.png" class="room-img" alt="Default Post Image">
+                            <img src="../public/images/default-post.png" class="post-img" alt="Default Post Image">
                         <?php endif; ?>
                     </td>
                     <td class="action-buttons">

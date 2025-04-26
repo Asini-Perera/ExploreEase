@@ -335,19 +335,53 @@ class CulturalEventOrganizerController
     public function addPost()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $organizerID = $_SESSION['OrganizerID'];
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-            $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-
-            $postModel = new CulturalEventOrganizerModel($this->conn);
-            $postID = $postModel->addPost($title, $description, $organizerID);
-
-            if ($postID && $image['name']) {
-                $postModel->setImgPath($organizerID, $image);
+            // Debug information - log what we're receiving
+            error_log("POST data: " . print_r($_POST, true));
+            error_log("FILES data: " . print_r($_FILES, true));
+            
+            // Check if all required fields are provided
+            if (empty($_POST['title']) || empty($_POST['description'])) {
+                $_SESSION['error'] = "Title and description are required!";
+                header('Location: ../culturaleventorganizer/dashboard?page=post&action=add');
+                exit();
             }
 
+            // Check if image is uploaded
+            if (!isset($_FILES['postImage']) || empty($_FILES['postImage']['name'])) {
+                $_SESSION['error'] = "Post image is required!";
+                header('Location: ../culturaleventorganizer/dashboard?page=post&action=add');
+                exit();
+            }
+
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $image = $_FILES['postImage'];
+            $organizerID = $_SESSION['OrganizerID'];
+
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $postID = $organizerModel->addPost($title, $description, $organizerID);
+
+            // Set the image path
+            if ($postID) {
+                // Log what we're trying to do
+                error_log("Attempting to set post image for post ID: $postID");
+                $result = $organizerModel->setPostImagePath($postID, $image);
+                
+                if (!$result) {
+                    error_log("Failed to set image path for post ID: $postID");
+                    $_SESSION['error'] = "Post was added but image upload failed. Please try editing the post to add an image.";
+                    header('Location: ../culturaleventorganizer/dashboard?page=post');
+                    exit();
+                }
+            } else {
+                $_SESSION['error'] = "Failed to add post. Please try again.";
+                header('Location: ../culturaleventorganizer/dashboard?page=post&action=add');
+                exit();
+            }
+
+            $_SESSION['success'] = "Post added successfully!";
             header('Location: ../culturaleventorganizer/dashboard?page=post');
+            exit();
         }
     }
 
@@ -357,6 +391,57 @@ class CulturalEventOrganizerController
         $posts = $postModel->getPost($_SESSION['OrganizerID']);
 
         return $posts;
+    }
+    
+    public function updatePost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $postID = $_POST['postID'] ?? 0;
+                $title = $_POST['title'] ?? '';
+                $description = $_POST['description'] ?? '';
+                $image = isset($_FILES['postImage']) && $_FILES['postImage']['error'] === UPLOAD_ERR_OK ? $_FILES['postImage'] : null;
+                $organizerID = $_SESSION['OrganizerID'];
+                
+                // Basic validation
+                if (empty($postID) || empty($title) || empty($description)) {
+                    error_log("Post update failed: Missing required fields");
+                    header('Location: dashboard?page=post&action=edit&id=' . $postID . '&error=missing_fields');
+                    exit();
+                }
+                
+                $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                $success = $organizerModel->updatePost($postID, $title, $description);
+                
+                if (!$success) {
+                    error_log("Failed to update post in database");
+                    header('Location: dashboard?page=post&action=edit&id=' . $postID . '&error=db_error');
+                    exit();
+                }
+                
+                // If image is uploaded, set the image path
+                if ($image) {
+                    $result = $organizerModel->setPostImagePath($postID, $image);
+                    if (!$result) {
+                        error_log("Failed to update image for post ID: $postID");
+                    }
+                }
+                
+                // Clear any session variables
+                unset($_SESSION['PostID']);
+                unset($_SESSION['Title']);
+                unset($_SESSION['Description']);
+                unset($_SESSION['ImgPath']);
+                
+                // Redirect with success parameter
+                header('Location: dashboard?page=post&success=updated');
+                exit();
+            } catch (\Exception $e) {
+                error_log("Exception in updatePost: " . $e->getMessage());
+                header('Location: dashboard?page=post&error=exception');
+                exit();
+            }
+        }
     }
 
     public function deletePost()

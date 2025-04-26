@@ -115,41 +115,48 @@ class CulturalEventOrganizerModel
     
     public function setImgPath($OrganizerID, $fileName)
     {
-        // Get temp image path
-        $tempImgPath = $fileName['tmp_name'];
-        
-        // Get the file name (original file name from the upload)
-        $originalFileName = $fileName['name'];
+        try {
+            // Get temp image path
+            $tempImgPath = $fileName['tmp_name'];
+            
+            // Get the file name (original file name from the upload)
+            $originalFileName = $fileName['name'];
 
-        // Get the file extention
-        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+            // Get the file extension
+            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
-        // Create a new file name
-        $newFileName = $OrganizerID . '.' . $extention;
+            // Create a new file name
+            $newFileName = 'organizer_' . $OrganizerID . '.' . $extension;
 
-        // Define the target directory
-        $targetDir = __DIR__ . '/../../public/images/database/culturaleventorganizer/';
+            // Define the target directory
+            $targetDir = __DIR__ . '/../../public/images/database/culturaleventorganizer/';
 
-        // Check the directory exists and create it
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 077, false);
-        }
+            // Check the directory exists and create it
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
 
-        // Create the image path
-        $imgDir = $targetDir . $newFileName;
+            // Create the image path
+            $imgDir = $targetDir . $newFileName;
 
-        // Move the image to the target directory
-        $moving = move_uploaded_file($tempImgPath, $imgDir);
+            // Move the image to the target directory
+            $moving = move_uploaded_file($tempImgPath, $imgDir);
 
-        // Define the image path
-        $imgPath = '/ExploreEase/public/images/database/culturaleventorganizer/' . $newFileName;
+            // Define the image path for the database
+            $imgPath = '/ExploreEase/public/images/database/culturaleventorganizer/' . $newFileName;
 
-        // Enter the image path to the database
-        if ($moving) {
-            $sql = "UPDATE traveler SET ImgPath = ? WHERE TravelerID = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param('si', $imgPath, $OrganizerID);
-            $stmt->execute();
+            // Enter the image path to the database
+            if ($moving) {
+                $sql = "UPDATE culturaleventorganizer SET ImgPath = ? WHERE OrganizerID = ?";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bind_param('si', $imgPath, $OrganizerID);
+                return $stmt->execute();
+            }
+            
+            return false;
+        } catch (\Exception $e) {
+            error_log("Exception in setImgPath: " . $e->getMessage());
+            return false;
         }
     }
 
@@ -196,12 +203,28 @@ class CulturalEventOrganizerModel
 
     public function addPost($title, $description, $organizerID)
     {
-        $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssi', $title, $description, $organizerID);
-        $stmt->execute();
-
-        return $stmt->insert_id;
+        try {
+            $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`, `Date`) VALUES (?, ?, ?, CURRENT_DATE())";
+            $stmt = $this->conn->prepare($sql);
+            
+            if (!$stmt) {
+                error_log("SQL prepare error in addPost: " . $this->conn->error);
+                return false;
+            }
+            
+            $stmt->bind_param('ssi', $title, $description, $organizerID);
+            $result = $stmt->execute();
+            
+            if (!$result) {
+                error_log("SQL execute error in addPost: " . $stmt->error);
+                return false;
+            }
+            
+            return $stmt->insert_id;
+        } catch (\Exception $e) {
+            error_log("Exception in addPost: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function getPost($organizerID)
@@ -213,6 +236,102 @@ class CulturalEventOrganizerModel
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updatePost($postID, $title, $description)
+    {
+        try {
+            $sql = "UPDATE culturaleventorganizerpost SET Title = ?, Description = ? WHERE PostID = ?";
+            $stmt = $this->conn->prepare($sql);
+            
+            if (!$stmt) {
+                error_log("SQL prepare error in updatePost: " . $this->conn->error);
+                return false;
+            }
+            
+            $stmt->bind_param('ssi', $title, $description, $postID);
+            $result = $stmt->execute();
+            
+            if (!$result) {
+                error_log("SQL execute error in updatePost: " . $stmt->error);
+                return false;
+            }
+            
+            return true;
+        } catch (\Exception $e) {
+            error_log("Exception in updatePost: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function setPostImagePath($postID, $fileName)
+    {
+        try {
+            // Log the start of image upload process
+            error_log("Starting to set image for post ID: $postID");
+            
+            // Get temp image path
+            $tempImgPath = $fileName['tmp_name'];
+            
+            // Get the file name (original file name from the upload)
+            $originalFileName = $fileName['name'];
+
+            // Get the file extension
+            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+            // Create a new file name
+            $newFileName = 'post_' . $postID . '.' . $extension;
+
+            // Define the target directory
+            $targetDir = __DIR__ . '/../../public/images/database/culturaleventorganizerpost/';
+
+            // Check if the directory exists and create it if not
+            if (!is_dir($targetDir)) {
+                if (!mkdir($targetDir, 0777, true)) {
+                    error_log("Failed to create directory: $targetDir");
+                    return false;
+                }
+                error_log("Created directory: $targetDir");
+            }
+
+            // Create the image path
+            $imgDir = $targetDir . $newFileName;
+
+            // Move the image to the target directory
+            $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+            // Define the image path for the database
+            $imgPath = '/ExploreEase/public/images/database/culturaleventorganizerpost/' . $newFileName;
+
+            // Update the database with the image path
+            if ($moving) {
+                error_log("Image moved successfully to: $imgDir");
+                $sql = "UPDATE culturaleventorganizerpost SET ImgPath = ? WHERE PostID = ?";
+                $stmt = $this->conn->prepare($sql);
+                
+                if (!$stmt) {
+                    error_log("Failed to prepare SQL statement: " . $this->conn->error);
+                    return false;
+                }
+                
+                $stmt->bind_param('si', $imgPath, $postID);
+                $result = $stmt->execute();
+
+                if (!$result) {
+                    error_log("Failed to update image path in database: " . $stmt->error);
+                    return false;
+                }
+
+                return true;
+            } else {
+                $uploadError = error_get_last();
+                error_log("Failed to move uploaded file. Error: " . ($uploadError ? $uploadError['message'] : 'Unknown error'));
+                return false;
+            }
+        } catch (\Exception $e) {
+            error_log("Exception in setPostImagePath: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function deletePost($postID)
@@ -358,7 +477,6 @@ class CulturalEventOrganizerModel
 
     public function setEventImage($eventID, $fileName)
     {
-        try {
             // Log the start of image upload process
             error_log("Starting to set image for event ID: $eventID");
             
@@ -379,11 +497,7 @@ class CulturalEventOrganizerModel
 
             // Check if the directory exists and create it if not
             if (!is_dir($targetDir)) {
-                if (!mkdir($targetDir, 0777, true)) {
-                    error_log("Failed to create directory: $targetDir");
-                    return false;
-                }
-                error_log("Created directory: $targetDir");
+                mkdir($targetDir, 0777, true);
             }
 
             // Create the image path
@@ -397,32 +511,12 @@ class CulturalEventOrganizerModel
 
             // Update the database with the image path
             if ($moving) {
-                error_log("Image moved successfully to: $imgDir");
                 $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
-                $stmt = $this->conn->prepare($sql);
-                
-                if (!$stmt) {
-                    error_log("Failed to prepare SQL statement: " . $this->conn->error);
-                    return false;
-                }
+                $stmt = $this->conn->prepare($sql); 
                 
                 $stmt->bind_param('si', $imgPath, $eventID);
-                $result = $stmt->execute();
-
-                if (!$result) {
-                    error_log("Failed to update image path in database: " . $stmt->error);
-                    return false;
-                }
-
-                return true;
-            } else {
-                $uploadError = error_get_last();
-                error_log("Failed to move uploaded file. Error: " . ($uploadError ? $uploadError['message'] : 'Unknown error'));
-                return false;
+                $stmt->execute();
+                $stmt->close();
             }
-        } catch (\Exception $e) {
-            error_log("Exception in setEventImage: " . $e->getMessage());
-            return false;
-        }
     }
 }
