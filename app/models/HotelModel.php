@@ -528,9 +528,9 @@ class HotelModel
 
     public function getReviews($hotelID)
     {
-        $sql = "SELECT hf.*, t.FirstName, t.LastName 
+        $sql = "SELECT hf.*, t.FirstName, t.LastName, t.ImgPath 
                 FROM hotelfeedback hf
-                LEFT JOIN traveler t ON hf.TravelerID = t.TravelerID
+                INNER JOIN traveler t ON hf.TravelerID = t.TravelerID
                 WHERE hf.HotelID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
