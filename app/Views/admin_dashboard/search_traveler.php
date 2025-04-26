@@ -46,7 +46,8 @@
                                 <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
                                 <input type="hidden" name="userType" value="<?= htmlspecialchars($searchUser) ?>">
                                 <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
-                                <button type="submit" name="action" value="reject" class="reject-btn">Delete</button>
+                                <input type="hidden" name="action" value="">
+                                <button type="button" class="reject-btn">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -55,3 +56,13 @@
         </tbody>
     </table>
 </div>
+
+<dialog id="openDialog">
+    <p>Are you sure do you want to delete this user?</p>
+    <div class="dialog-buttons">
+        <button id="confirm" class="confirm-btn">Yes</button>
+        <button id="cancel" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<script src="../public/js/admin_dashboard/search_user.js"></script>

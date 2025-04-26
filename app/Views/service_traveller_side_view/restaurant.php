@@ -357,7 +357,7 @@
         </section>
     </div>
     <div class="review-button-container1">
-        <a href="http://localhost/ExploreEase/restaurant/reviewForm" class="review-button1">Add a Review</a>
+        <a href="http://localhost/ExploreEase/review?type=<?= urlencode($type) ?>&id=<?= urlencode($id) ?>" class="review-button1">Add a Review</a>
 
     </div>
     <?php require_once __DIR__ . "/../logedFooter.php"; ?>
