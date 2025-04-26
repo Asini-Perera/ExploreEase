@@ -109,6 +109,11 @@ class CulturalEventOrganizerController
                 } else {
                     $verifiedAction = null;
                 }
+            }elseif ($mainContent == 'reviews') {
+                $eventModel = new CulturalEventOrganizerModel($this->conn);
+                $reviews = $eventModel->getReviews($_SESSION['OrganizerID']);
+            } else {
+                $verifiedAction = null;
             }
 
             require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/main.php';

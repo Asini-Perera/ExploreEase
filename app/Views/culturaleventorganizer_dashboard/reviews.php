@@ -2,7 +2,7 @@
 
 <h1>Reviews</h1>
 
-<div class="event-container">
+<div class="reviews-container">
     <table>
         <thead>
             <tr>
@@ -15,56 +15,31 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>2024.10.18</td>
-                <td>4.5</td>
-                <td>Excellent</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>3.5</td>
-                <td>Good</td>
-                <td>Thank you for your feedback!</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>5.0</td>
-                <td>Excellent service</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Smith</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>4.0</td>
-                <td>Good</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>3.0</td>
-                <td>Not bad</td>
-                <td>Thank you for your feedback!</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
+            <?php foreach ($reviews as $review) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($review['Date']) ?></td>
+                    <td><?= htmlspecialchars($review['Rating']) ?></td>
+                    <td><?= htmlspecialchars($review['Comment']) ?></td>
+                    <td>
+                        <?php if (!empty($review['Response'])) : ?>
+                            <?= htmlspecialchars($review['Response']) ?>
+                        <?php else : ?>
+                            <form id="response-form-<?= $review['FeedbackID'] ?>" action="../culturaleventorganizer/reviewResponse" method="POST" class="response-form" style="display:none;">
+                                <input type="hidden" name="review_id" value="<?= $review['FeedbackID'] ?>">
+                                <textarea name="response" placeholder="Type your response..." required></textarea>
+                                <button type="submit" class="save-response-btn">Save</button>
+                                <button type="button" class="cancel-response-btn" onclick="cancelResponse(<?= $review['FeedbackID'] ?>)">Cancel</button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($review['FirstName'] . ' ' . $review['LastName']) ?></td>
+                    <td class="action-buttons">
+                        <?php if (empty($review['Response'])) : ?>
+                            <button class="reply-btn" onclick="showResponseForm(<?= $review['FeedbackID'] ?>)">Reply</button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
-    </table>
+
 </div>

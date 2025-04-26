@@ -45,6 +45,10 @@
                 require_once __DIR__ . '/edit_booking.php';
             } elseif ($mainContent == 'bookings') {
                 require_once __DIR__ . '/bookings.php';
+
+            } elseif ($mainContent == 'review') {
+                require_once __DIR__ . '/reviews.php';
+            
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }

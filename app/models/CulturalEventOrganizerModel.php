@@ -731,4 +731,18 @@ class CulturalEventOrganizerModel
             return false;
         }
     }
+
+    public function getReviews($organizerID)
+    {
+        $sql = "SELECT f.*, t.FirstName, t.LastName 
+                FROM culturaleventorganizerfeedback f
+                JOIN traveler t ON f.TravelerID = t.TravelerID
+                WHERE f.OrganizerID = ?";        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $organizerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
