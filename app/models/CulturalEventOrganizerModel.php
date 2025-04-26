@@ -644,7 +644,47 @@ class CulturalEventOrganizerModel
     public function updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount = null)
     {
         try {
-            // Check if amount field should be updated
+            // Validate parameters
+            if (!$bookingID || !$date || !$eventID) {
+                error_log("Missing required booking parameters");
+                return false;
+            }
+
+            // Validate numeric parameters
+            if (!is_numeric($bookingID) || !is_numeric($eventID) || !is_numeric($quantity)) {
+                error_log("Invalid numeric parameters in updateBooking");
+                return false;
+            }
+
+            if ($amount !== null && !is_numeric($amount)) {
+                error_log("Invalid amount parameter in updateBooking: $amount");
+                return false;
+            }
+
+            // Type cast to ensure correct data types
+            $bookingID = (int)$bookingID;
+            $eventID = (int)$eventID;
+            $quantity = (int)$quantity;
+            if ($amount !== null) {
+                $amount = (float)$amount;
+            }
+
+            // Log what we're about to do
+            error_log("Attempting to update booking ID: $bookingID with data: " . json_encode([
+                'date' => $date,
+                'quantity' => $quantity,
+                'status' => $status,
+                'eventID' => $eventID,
+                'amount' => $amount
+            ]));
+
+            // Check if the connection is still valid
+            if (!$this->conn || $this->conn->connect_error) {
+                error_log("Database connection error in updateBooking");
+                return false;
+            }
+
+            // Prepare SQL based on whether amount is provided
             if ($amount !== null) {
                 $sql = "UPDATE culturaleventbooking 
                         SET Date = ?, Quantity = ?, Status = ?, EventID = ?, Amount = ? 
@@ -652,7 +692,7 @@ class CulturalEventOrganizerModel
                 $stmt = $this->conn->prepare($sql);
                 
                 if (!$stmt) {
-                    error_log("MySQL prepare error in updateBooking with amount: " . $this->conn->error);
+                    error_log("SQL prepare error: " . $this->conn->error);
                     return false;
                 }
                 
@@ -664,23 +704,30 @@ class CulturalEventOrganizerModel
                 $stmt = $this->conn->prepare($sql);
                 
                 if (!$stmt) {
-                    error_log("MySQL prepare error in updateBooking without amount: " . $this->conn->error);
+                    error_log("SQL prepare error: " . $this->conn->error);
                     return false;
                 }
                 
-                $stmt->bind_param('sisi', $date, $quantity, $status, $eventID, $bookingID);
+                $stmt->bind_param('sisii', $date, $quantity, $status, $eventID, $bookingID);
             }
             
-            $result = $stmt->execute();
-            
-            if (!$result) {
-                error_log("MySQL execute error in updateBooking: " . $stmt->error);
+            // Execute the update
+            if (!$stmt->execute()) {
+                error_log("SQL execute error: " . $stmt->error);
                 return false;
             }
             
-            return true;
+            // Check if any rows were affected
+            $affected = $stmt->affected_rows;
+            $stmt->close();
+            
+            // Log the result
+            error_log("Update completed. Affected rows: $affected");
+            
+            // Return true if rows were affected or if no changes were needed
+            return ($affected >= 0);
         } catch (\Exception $e) {
-            error_log("Exception in updateBooking: " . $e->getMessage());
+            error_log("Exception in updateBooking: " . $e->getMessage() . "\nStack Trace: " . $e->getTraceAsString());
             return false;
         }
     }

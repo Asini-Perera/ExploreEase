@@ -42,7 +42,6 @@
                         echo "<option value='{$event['EventID']}' {$selected}>{$event['Name']}</option>";
                     }
                 } else {
-                    // Fallback if no events are available
                     echo "<option value='{$_SESSION['EventID']}' selected>Event {$_SESSION['EventID']}</option>";
                 }
                 ?>
@@ -54,13 +53,6 @@
             <input type="hidden" id="travelerID" name="travelerID" value="<?php echo isset($_SESSION['TravelerID']) ? $_SESSION['TravelerID'] : ''; ?>">
             <input type="text" value="<?php echo isset($_SESSION['TravelerName']) ? $_SESSION['TravelerName'] : ''; ?>" readonly>
         </div>
-        
-        <?php if (isset($_SESSION['Amount'])): ?>
-        <div class="form-group">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" value="<?php echo isset($_SESSION['Amount']) ? $_SESSION['Amount'] : '0'; ?>" step="0.01" required>
-        </div>
-        <?php endif; ?>
         
         <div class="form-actions">
             <button type="submit" class="btn save-btn">Save Changes</button>

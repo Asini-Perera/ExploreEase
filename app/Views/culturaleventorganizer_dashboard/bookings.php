@@ -2,8 +2,22 @@
 
 <h1>Bookings</h1>
 
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="success-message">
+        <?= $_SESSION['success']; ?>
+        <?php unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="error-message">
+        <?= $_SESSION['error']; ?>
+        <?php unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
+
 <?php if (!isset($bookings)): ?>
-<div class="alert alert-warning">Error: No booking data available.</div>
+<div class="alert alert-warning">No booking data available.</div>
 <?php else: ?>
 
 <div class="event-container">
@@ -43,7 +57,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="<?= isset($bookings[0]['Amount']) ? '8' : '7' ?>" style="text-align: center;">No bookings found. This could be because there are no bookings yet or there might be an issue with the database connection.</td>
+                    <td colspan="<?= isset($bookings[0]['Amount']) ? '8' : '7' ?>" style="text-align: center;">No bookings found.</td>
                 </tr>
             <?php endif; ?>
         </tbody>

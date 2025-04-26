@@ -320,7 +320,7 @@ class CulturalEventOrganizerController
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
             $_SESSION['FacebookLink'] = $facebookLink;
-            $_SESSION['InstagramLink'] = $instagramLink;
+            $_SESSION['InstagramLink'] = $gramLink;
             $_SESSION['TikTokLink'] = $tiktokLink;
             $_SESSION['YouTubeLink'] = $youtubeLink;
             $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
@@ -528,36 +528,61 @@ class CulturalEventOrganizerController
     public function updateBooking()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Get form data
-            $bookingID = $_POST['bookingID'];
-            $date = $_POST['date'];
-            $quantity = $_POST['quantity'];
-            $status = $_POST['status'];
-            $eventID = $_POST['eventID'];
-            $travelerID = $_POST['travelerID'];
-            $amount = $_POST['amount'] ?? null;
+            // Get form data with validation
+            $bookingID = isset($_POST['bookingID']) ? (int)$_POST['bookingID'] : 0;
+            $date = isset($_POST['date']) ? $_POST['date'] : '';
+            $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 0;
+            $status = isset($_POST['status']) ? $_POST['status'] : 'Pending';
+            $eventID = isset($_POST['eventID']) ? (int)$_POST['eventID'] : 0;
+            $travelerID = isset($_POST['travelerID']) ? (int)$_POST['travelerID'] : 0;
+            
+            // Better amount handling - treat empty strings as null
+            $amount = null;
+            if (isset($_POST['amount']) && $_POST['amount'] !== '') {
+                $amount = (float)$_POST['amount'];
+                // If amount is zero, treat as null to avoid database constraints
+                if ($amount == 0) {
+                    $amount = null;
+                }
+            }
+            
+            // Log the booking data for debugging
+            error_log("Updating booking ID: $bookingID with data: " . json_encode([
+                'date' => $date,
+                'quantity' => $quantity,
+                'status' => $status,
+                'eventID' => $eventID,
+                'travelerID' => $travelerID,
+                'amount' => $amount
+            ]));
+            
+            // Basic validation
+            if (!$bookingID || !$date || !$eventID) {
+                $_SESSION['error'] = "Missing required booking information";
+                header('Location: ../culturaleventorganizer/dashboard?page=bookings');
+                exit();
+            }
             
             $eventModel = new CulturalEventOrganizerModel($this->conn);
             
-            // Validate that the booking belongs to an event owned by this organizer
+            // Validate ownership - essential security check
             $isValid = $eventModel->validateBookingOwnership($bookingID, $_SESSION['OrganizerID']);
-            
             if (!$isValid) {
                 $_SESSION['error'] = "You don't have permission to edit this booking.";
                 header('Location: ../culturaleventorganizer/dashboard?page=bookings');
                 exit();
             }
             
-            // Update booking in the database
+            // Perform the update
             $success = $eventModel->updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount);
             
             if ($success) {
                 $_SESSION['success'] = "Booking updated successfully!";
             } else {
-                $_SESSION['error'] = "Failed to update booking.";
+                $_SESSION['error'] = "Failed to update booking. Please try again.";
             }
             
-            // Clear session variables
+            // Clear all session variables related to booking editing
             unset($_SESSION['BookingID']);
             unset($_SESSION['Date']);
             unset($_SESSION['Quantity']);
