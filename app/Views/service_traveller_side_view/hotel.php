@@ -309,28 +309,28 @@
 
             <div class="review-container" style="display: flex; overflow: hidden; width: 100%;">
                 <div class="review-wrapper" style="display: flex; transition: transform 0.5s ease-in-out; width: 100%;">
-                    <?php foreach ($hotelReviews as $hotelReview) : ?>
+                    <?php foreach ($Reviews as $Review) : ?>
                         <div class="review-slide" style="flex: 0 0 25%; box-sizing: border-box;">
                             <div class="review">
                                 <div class="customer-info">
                                     <div class="customer-pic">
-                                        <a href="#"><img src="<?php echo htmlspecialchars($hotelReview['ImgPath'] ?? 'default_image.png'); ?>"></a>
+                                        <a href="#"><img src="<?php echo htmlspecialchars($Review['ImgPath'] ?? 'default_image.png'); ?>"></a>
                                     </div>
                                     <div class="customer-details">
-                                        <h5><?php echo htmlspecialchars($hotelReview['FirstName'] . ' ' . $hotelReview['LastName']); ?></h5>
+                                        <h5><?php echo htmlspecialchars($Review['FirstName'] . ' ' . $Review['LastName']); ?></h5>
                                         <?php
-                                        $rating = (int)$hotelReview['Rating']; // Assuming 'Rating' is a number between 0 and 5
+                                        $rating = (int)$Review['Rating']; // Assuming 'Rating' is a number between 0 and 5
                                         $stars = str_repeat('&#9733;', $rating) . str_repeat('&#9734;', 5 - $rating); // Filled and empty stars
                                         ?>
                                         <span class="rating"><?php echo $stars; ?></span> <!-- Star Rating -->
                                     </div>
                                 </div>
 
-                                <p class="review-msg"><?php echo htmlspecialchars($hotelReview['Comment'] ?? 'No comment available'); ?></p>
+                                <p class="review-msg"><?php echo htmlspecialchars($Review['Comment'] ?? 'No comment available'); ?></p>
                             </div>
 
                             <div class="response">
-                                <p><?php echo htmlspecialchars($hotelReview['Response'] ?? 'No response available'); ?></p>
+                                <p><?php echo htmlspecialchars($Review['Response'] ?? 'No response available'); ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -346,7 +346,7 @@
                 let currentIndex = 0;
                 const reviewsToShow = 4;
                 const reviewWrapper = document.querySelector('.review-wrapper');
-                const totalReviews = <?php echo count($hotelReviews); ?>;
+                const totalReviews = <?php echo count($Reviews); ?>;
 
                 function moveCarousel(direction) {
                     const slideWidth = reviewWrapper.querySelector('.review-slide').offsetWidth;

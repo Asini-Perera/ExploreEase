@@ -241,76 +241,70 @@
                 <p>See what our guests have to say about their experience</p>
             </div>
 
-            <div class="review-container">
-                <div class="review-slide">
-                    <div class="review">
-                        <div class="customer-info">
-                            <div class="customer-pic">
-                                <a href="#"> <img src="../public/images/men.jpg" alt="Customer Image"></a>
-                            </div>
-                            <div class="customer-details">
-                                <h5>Jane Koch</h5>
-                                <span class="rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <!-- Star Rating -->
-                            </div>
-                        </div>
+            <div class="review-container" style="display: flex; overflow: hidden; width: 100%;">
+                <div class="review-wrapper" style="display: flex; transition: transform 0.5s ease-in-out; width: 100%;">
+                    <?php foreach ($Reviews as $Review) : ?>
+                        <div class="review-slide" style="flex: 0 0 25%; box-sizing: border-box;">
+                            <div class="review">
+                                <div class="customer-info">
+                                    <div class="customer-pic">
+                                        <a href="#"><img src="<?php echo htmlspecialchars($Review['ImgPath'] ?? 'default_image.png'); ?>"></a>
+                                    </div>
+                                    <div class="customer-details">
+                                        <h5><?php echo htmlspecialchars($Review['FirstName'] . ' ' . $Review['LastName']); ?></h5>
+                                        <?php
+                                        $rating = (int)$Review['Rating']; // Assuming 'Rating' is a number between 0 and 5
+                                        $stars = str_repeat('&#9733;', $rating) . str_repeat('&#9734;', 5 - $rating); // Filled and empty stars
+                                        ?>
+                                        <span class="rating"><?php echo $stars; ?></span> <!-- Star Rating -->
+                                    </div>
+                                </div>
 
-                        <p class="review-msg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-                    </div>
-
-                    <div class="response">
-                        <p>Thank you for your review! We’re glad you enjoyed your stay. Hope to welcome you again soon!</p>
-                    </div>
-                </div>
-
-                <!-- Repeat for other reviews -->
-                <div class="review-slide">
-                    <div class="review">
-                        <div class="customer-info">
-                            <div class="customer-pic">
-                                <a href="#"> <img src="../public/images/women-1.jpg" alt="Customer Image"></a>
+                                <p class="review-msg"><?php echo htmlspecialchars($Review['Comment'] ?? 'No comment available'); ?></p>
                             </div>
-                            <div class="customer-details">
-                                <h5>John Wilson</h5>
-                                <span class="rating">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+
+                            <div class="response">
+                                <p><?php echo htmlspecialchars($Review['Response'] ?? 'No response available'); ?></p>
                             </div>
                         </div>
-
-                        <p class="review-msg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-                    </div>
-
-                    <div class="response">
-                        <p>Thank you for your review! We’re glad you enjoyed your stay. We hope to see you again soon!</p>
-                    </div>
-
+                    <?php endforeach; ?>
                 </div>
-                <div class="review-slide">
-                    <div class="review">
-                        <div class="customer-info">
-                            <div class="customer-pic">
-                                <a href="#"> <img src="../public/images/men.jpg" alt="Customer Image"></a>
-                            </div>
-                            <div class="customer-details">
-                                <h5>Jane Koch</h5>
-                                <span class="rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <!-- Star Rating -->
-                            </div>
-                        </div>
-
-                        <p class="review-msg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
-                    </div>
-
-                    <div class="response">
-                        <p>Thank you for your review! We’re glad you enjoyed your stay. Hope to welcome you again soon!</p>
-                    </div>
-                </div>
-
-
-                <!-- Add more review slides similarly -->
             </div>
 
             <div class="carousel-controls">
-                <button class="prev">&#10094;</button>
-                <button class="next">&#10095;</button>
+                <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="next" onclick="moveCarousel(1)">&#10095;</button>
             </div>
+
+            <script>
+                let currentIndex = 0;
+                const reviewsToShow = 4;
+                const reviewWrapper = document.querySelector('.review-wrapper');
+                const totalReviews = <?php echo count($Reviews); ?>;
+
+                function moveCarousel(direction) {
+                    const slideWidth = reviewWrapper.querySelector('.review-slide').offsetWidth;
+                    const totalSlides = totalReviews;
+                    const maxIndex = totalSlides - reviewsToShow; // important
+                    currentIndex += direction;
+
+                    if (currentIndex < 0) {
+                        currentIndex = maxIndex;
+                    } else if (currentIndex > maxIndex) {
+                        currentIndex = 0;
+                    }
+
+                    const offset = -currentIndex * slideWidth;
+                    reviewWrapper.style.transform = `translateX(${offset}px)`;
+                }
+
+
+                function autoSlide() {
+                    moveCarousel(1);
+                }
+
+                setInterval(autoSlide, 5000); // Auto slide every 5 seconds
+            </script>
         </section>
 
 
