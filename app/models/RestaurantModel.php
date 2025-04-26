@@ -330,7 +330,7 @@ class RestaurantModel
 
     public function getBookings($restaurantID)
     {
-        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND TableNumber IS NOT NULL AND TableNumber != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $restaurantID);
         $stmt->execute();
@@ -341,9 +341,9 @@ class RestaurantModel
 
     public function updateTableNo($bookingID, $tableNo)
     {
-        $sql = "UPDATE tablebooking SET TableNo = ? WHERE BookingID = ?";
+        $sql = "UPDATE tablebooking SET TableNumber = ? WHERE BookingID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('si', $tableNo, $bookingID);
+        $stmt->bind_param('ii', $tableNo, $bookingID);
         $stmt->execute();
     }
 
@@ -546,5 +546,16 @@ class RestaurantModel
             error_log("SQL Prepare Error: " . $this->conn->error);
             return 0;
         }
+    }
+
+    public function bookingWithoutTableNo($restaurantId)
+    {
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND (TableNumber IS NULL OR TableNumber = 0)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }

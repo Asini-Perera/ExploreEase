@@ -70,6 +70,7 @@ $router->add('restaurant/review', 'RestaurantController@review');  // Restaurant
 $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   // Restaurant review reply
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
+$router->add('restaurant/sendTableNo', 'RestaurantController@sendTableNo');  // Send table number for restaurant booking
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel

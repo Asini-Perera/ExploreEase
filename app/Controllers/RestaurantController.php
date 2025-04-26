@@ -5,6 +5,15 @@ namespace app\Controllers;
 use app\Models\RestaurantModel;
 use app\Models\SignupModel;
 
+// Include PHPMailer classes
+require_once __DIR__ . '/../../libs/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../../libs/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/../../libs/PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
 class RestaurantController
 {
     private $conn;
@@ -81,7 +90,9 @@ class RestaurantController
                     $verifiedAction = null;
                 }
             } elseif ($mainContent == 'bookings') {
-                $bookings = $this->viewBooking();
+                $restaurantModel = new RestaurantModel($this->conn);
+                $bookings = $restaurantModel->bookingWithoutTableNo($_SESSION['RestaurantID']);
+
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
@@ -417,5 +428,63 @@ class RestaurantController
 
             header('Location: ../restaurant/dashboard?page=reviews');
         }
+    }
+
+    public function sendTableNo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $bookingID = $_POST['booking_id'];
+            $bookingEmail = $_POST['booking_email'];
+            $customerName = $_POST['customer_name'];
+            $bookingDate = $_POST['booking_date'];
+            $bookingTime = $_POST['booking_time'];
+            $restaurantName = $_POST['restaurant_name'];
+            $tableNo = $_POST['table_no'];
+
+            // Send email to the customer with the table number
+            if (isset($bookingEmail)) {
+                $mail = new PHPMailer(true);
+
+                //Server settings
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';                     // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'exploreease10@gmail.com'; // SMTP username
+                $mail->Password = 'tzes gckv czrx kgso';             // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587;                                  // TCP port to connect to
+
+                // Recipients
+                $mail->setFrom('exploreease10@gmail.com', 'ExploreEase');
+                $mail->addAddress($bookingEmail);
+
+                // Content
+                $mail->isHTML(true); // Set email format to HTML
+                $mail->Subject = 'Table Number for Your Booking of ' . $restaurantName;
+                $mail->Body = '<p>Dear ' . htmlspecialchars($customerName) . ',</p>' .
+                    '<p>Thank you for choosing <strong>' . htmlspecialchars($restaurantName) . '</strong> for your dining experience! We are delighted to confirm your booking with the following details:</p>' .
+                    '<ul>' .
+                    '<li><strong>Restaurant Name:</strong> ' . htmlspecialchars($restaurantName) . '</li>' .
+                    '<li><strong>Booking Date:</strong> ' . htmlspecialchars($bookingDate) . '</li>' .
+                    '<li><strong>Booking Time:</strong> ' . htmlspecialchars($bookingTime) . '</li>' .
+                    '<li><strong>Table Number:</strong> ' . htmlspecialchars($tableNo) . '</li>' .
+                    '</ul>' .
+                    '<p>We look forward to welcoming you and ensuring you have a wonderful dining experience. If you have any special requests or need further assistance, please don’t hesitate to contact us.</p>' .
+                    '<p>Best regards,<br>' .
+                    '<strong>The ExploreEase Team</strong></p>';
+
+                $success = $mail->send();
+                if ($success) {
+                    $restaurantModel = new RestaurantModel($this->conn);
+                    $restaurantModel->updateTableNo($bookingID, $tableNo);
+                }
+            }
+        }
+
+
+
+
+
+        header('Location: ../restaurant/dashboard?page=bookings');
     }
 }
