@@ -36,6 +36,7 @@ class HomeController
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
+    
     public function keywordsearch()
     {
         require_once __DIR__ . '/../Views/keyword_search.php';
@@ -83,5 +84,20 @@ class HomeController
     public function siteReview()
     {
         require_once __DIR__ . '/../Views/siteReview.php';
+    }
+
+    public function TravellerDashboard()
+    {
+        require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
+    }
+
+    public function loggedNavbar()
+    {
+        require_once __DIR__ . '/../Views/loggedNavbar.php';
+    }
+
+    public function travllerBooking()
+    {
+        require_once __DIR__ . '/../Views/travllerBooking.php';
     }
 }

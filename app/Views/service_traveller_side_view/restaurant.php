@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../Navbar.php"; ?>
+    <?php require_once __DIR__ . "/../loggedNavbar.php"; ?>
     <div class="main-container">
 
         <header>

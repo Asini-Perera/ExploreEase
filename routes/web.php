@@ -107,4 +107,8 @@ $router->add('service/menu','HomeController@travelerside_menu');  // traveller s
 $router->add('restaurant/post','HomeController@post');  // Add post for restaurant
 
 $router->add('reviews','HomeController@siteReview');  // Add post for restaurant
+$router->add('TravellerDashboard','HomeController@TravellerDashboard');  // Add post for restaurant
+
+$router->add('loggedNavbar','HomeController@loggednavbar');  
+$router->add('travllerBooking','HomeController@travllerBooking'); 
 
