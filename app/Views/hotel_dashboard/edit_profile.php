@@ -58,6 +58,7 @@
     </form>
 </div>
 
+
 <dialog id="openDialog">
     <p>Are you sure do you want to edit details?</p>
     <div class="dialog-buttons">
@@ -89,13 +90,4 @@
     });
 </script>
 
-<!-- <script>
-function toggleEditForm() {
-    var form = document.getElementById('edit-profile-form');
-    if (form.style.display === 'none') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
-    }
-}
-</script> -->
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>

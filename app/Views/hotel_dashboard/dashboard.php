@@ -30,7 +30,6 @@
             <div class="tile-content">
                 <div class="tile-text">
                     <h2>Total Revenue</h2>
-                    <h1>$<?php echo $TotalRevenue; ?></h1>
                 </div>
                 <div class="tile-image">
                     <img src="../public/images/revenue.jpeg" alt="Traveler">
@@ -44,7 +43,6 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Revenue in last Week</h2>
-                <h1>$<?php echo $TotalRevenueInLastWeek; ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/revenue2.jpeg" alt="Restaurant">
@@ -85,18 +83,17 @@
 
         </div>
     </div>
-</div>
-<div class="tile">
-    <div class="tile-content">
-        <div class="tile-text">
-            <h2>Total Feedbacks</h2>
-            <h1><?php echo $TotalFeedbacks; ?></h1>
-        </div>
-        <div class="tile-image">
-            <img src="../public/images/feedback.png" alt="Cultural Event Organizer">
+    <div class="tile">
+        <div class="tile-content">
+            <div class="tile-text">
+                <h2>Total Feedbacks</h2>
+                <h1><?php echo $TotalFeedbacks; ?></h1>
+            </div>
+            <div class="tile-image">
+                <img src="../public/images/feedback.png" alt="Cultural Event Organizer">
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 

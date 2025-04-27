@@ -6,44 +6,16 @@
         <title>Home page</title>
         <link rel="stylesheet" type="text/css" href="public/css/home.css">
         <link rel="stylesheet" type="text/css" href="public/css/footer.css">
-        <link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
+       
+     
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </head>
 
     <header>
-        <div class="navigation">
-            <div class="wrapper">
-                <nav class="navbar">
-                    <img class="logo" src="public/images/logo.png">
-                    <ul>
-                        <li class="nav-item">
-
-                            <a href="" class="nav-link">Home</a>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#services-features" class="nav-link">Services</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#about-us" class="nav-link">About Us</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link">Contact Us</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="logout" class="nav-link">Logout</a>
-                        </li>
-                    </ul>
-
-                </nav>
-            </div>
-
+        
+             <?php require_once __DIR__ . "/loggedNavbar.php"; ?>
             <!-- home-main -->
             <div class="main">
                 <div class="welcome-container">

@@ -2,7 +2,7 @@
 
 <div class="edit-profile-card">
     <h2>Edit Profile</h2>
-    <form action="../admin/update" method="POST" enctype="multipart/form-data">
+    <form id="updateForm" action="../admin/update" method="POST" enctype="multipart/form-data">
         <div class="profile-image">
             <label for="profileImage">
                 <img src="<?php echo $_SESSION['ProfileImage']; ?>" alt="Current Profile Picture" id="currentProfileImage">
@@ -27,13 +27,20 @@
             <input type="tel" id="contactNo" name="contactNo" value="<?php echo $_SESSION['ContactNo']; ?>" required>
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn">Save Changes</button>
+            <button type="button" class="btn">Save Changes</button>
             <button type="button" class="btn btn-cancel" onclick="window.history.back()">Cancel</button>
         </div>
     </form>
 </div>
 
+<dialog id="openDialog">
+    <p>Are you sure do you want to edit profile details?</p>
+    <div class="dialog-buttons">
+        <button id="confirm" class="confirm-btn">Yes</button>
+        <button id="cancel" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<script src="../public/js/admin_dashboard/profile.js"></script>
 <script src="../public/js/image_preview.js"></script>
-
-
-    
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>

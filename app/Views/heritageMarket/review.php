@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Your Review</title>
-    <link rel="stylesheet" href="../public/css/review/review.css">
-    
+    <link rel="stylesheet" href="public/css/review/review.css">
+    <link rel="stylesheet" href="public/css/navbar.css?v=1">
+    <link rel="stylesheet" href="public/css/footer.css?v=1">
+
+
 </head>
+
 <body>
     <?php require_once __DIR__ . '/../Navbar.php'; ?>
     <main>
         <h2 class="page-title">Submit Your Review</h2>
+        <?php
+        $type = $_GET['type'] ?? null;
+        $id = $_GET['id'] ?? null;
+        ?>
         <div class="review-form-container">
-            <form action="submit_review.php" method="POST" class="review-form">
-                <div class="form-group">
+
+            <form action="http://localhost/ExploreEase/review/save?type=<?= urlencode($type) ?>&id=<?= urlencode($id) ?>" method="POST" class="review-form">
+                <!-- <div class="form-group">
+
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="rating">Rate Our Service (1-5):</label>
                     <select id="rating" name="rating" required>
@@ -40,6 +51,7 @@
             </form>
         </div>
     </main>
-     
+    <?php require_once __DIR__ . '/../logedFooter.php'; ?>
 </body>
+
 </html>

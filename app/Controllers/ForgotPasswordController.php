@@ -9,6 +9,7 @@ require_once __DIR__ . '/../../libs/PHPMailer/src/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 use app\Models\ForgotPasswordModel;
 
@@ -22,7 +23,7 @@ class ForgotPasswordController
         global $conn;
         $this->conn = $conn;
 
-        // Include the AdminModel
+        // Include the ForgotPasswordModel
         require_once __DIR__ . '/../models/ForgotPasswordModel.php';
     }
     public function index()

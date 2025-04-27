@@ -62,6 +62,7 @@ class LoginController
                         $_SESSION['FirstName'] = $user['FirstName'];
                         $_SESSION['LastName'] = $user['LastName'];
                         $_SESSION['Gender'] = $user['Gender'];
+                        $_SESSION['ImgPath'] = $user['ImgPath'];
                         header('Location: ../loged_home');
                         break;
                     case 'hotel':
@@ -105,8 +106,13 @@ class LoginController
                         $_SESSION['ContactNo'] = $user['ContactNo'];
                         $_SESSION['Description'] = $user['Description'];
                         $_SESSION['Website'] = $user['Website'];
-                        $_SESSION['SMLink'] = $user['SMLink'];
-                        $_SESSION['OpenHours'] = $user['OpenHours'];
+                        $_SESSION['WeekdayOpenHours'] = $user['WeekdayOpenHours'];
+                        $_SESSION['WeekendOpenHours'] = $user['WeekendOpenHours'];
+                        $_SESSION['Tagline'] = $user['Tagline'];
+                        $_SESSION['FacebookLink'] = $user['FacebookLink'];
+                        $_SESSION['InstagramLink'] = $user['InstagramLink'];
+                        $_SESSION['TikTokLink'] = $user['TikTokLink'];
+                        $_SESSION['YoutubeLink'] = $user['YoutubeLink'];
                         header('Location: ../heritagemarket/dashboard');
                         break;
                     case 'culturaleventorganizer':

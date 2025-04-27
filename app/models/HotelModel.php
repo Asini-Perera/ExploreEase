@@ -528,10 +528,11 @@ class HotelModel
 
     public function getReviews($hotelID)
     {
-        $sql = "SELECT hf.*, t.FirstName, t.LastName 
+        $sql = "SELECT hf.*, t.FirstName, t.LastName, t.ImgPath 
                 FROM hotelfeedback hf
-                LEFT JOIN traveler t ON hf.TravelerID = t.TravelerID
-                WHERE hf.HotelID = ?";
+                INNER JOIN traveler t ON hf.TravelerID = t.TravelerID
+                WHERE hf.HotelID = ?
+                ORDER BY hf.Response IS NULL DESC, hf.Date DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
         $stmt->execute();
@@ -560,5 +561,40 @@ class HotelModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc();
+    }
+
+    public function addReview($hotelID, $travelerID, $rating, $review, $date)
+    {
+        $sql = "INSERT INTO hotelfeedback (HotelID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iiiss', $hotelID, $travelerID, $rating, $review, $date);
+        return $stmt->execute();
+    }
+
+    public function getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests)
+    {
+        $sql = "SELECT r.*, rb.*, r.RoomID AS RoomID, 
+                       DATEDIFF(?, ?) * r.Price AS TotalPrice, 
+                       ? AS CheckInDate, 
+                       ? AS CheckOutDate
+                FROM room r
+                LEFT JOIN roombooking rb ON r.RoomID = rb.RoomID 
+                    AND ((rb.CheckInDate <= ? AND rb.CheckOutDate >= ?) OR (rb.CheckInDate <= ? AND rb.CheckOutDate >= ?))
+                WHERE r.HotelID = ? AND r.MaxOccupancy >= ? AND rb.BookingID IS NULL";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssssii', $checkOutDate, $checkInDate, $checkInDate, $checkOutDate, $checkInDate, $checkInDate, $checkOutDate, $checkOutDate, $hotelID, $guests);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function bookRoom($roomID, $travelerID, $checkInDate, $checkOutDate, $date)
+    {
+        $sql = "INSERT INTO roombooking (RoomID, TravelerID, CheckInDate, CheckOutDate, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iisss', $roomID, $travelerID, $checkInDate, $checkOutDate, $date);
+        return $stmt->execute();
     }
 }

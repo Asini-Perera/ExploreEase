@@ -23,8 +23,9 @@
                                     <?php elseif ($verifyKeyword === 'culturaleventorganizer') : ?>
                                         <input type="hidden" name="serviceProvider" value="<?= htmlspecialchars($serviceProvider['OrganizerID']) ?>">
                                     <?php endif; ?>
-                                    <button type="submit" name="action" value="verify" class="verify-btn">Verify</button>
-                                    <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                                    <button type="button" name="action" value="verify" class="verify-btn">Verify</button>
+                                    <button type="button" name="action" value="reject" class="reject-btn">Reject</button>
+                                    <input type="hidden" name="action" value="">
                                 </form>
                             </div>
                         <?php endforeach; ?>
@@ -34,3 +35,21 @@
         </div>
     <?php endforeach; ?>
 </div>
+
+<dialog id="openDialog-verify">
+    <p>Are you sure do you want to verify this keyword?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-verify" class="confirm-btn">Yes</button>
+        <button id="cancel-verify" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<dialog id="openDialog-reject">
+    <p>Are you sure do you want to reject this keyword?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-reject" class="confirm-btn">Yes</button>
+        <button id="cancel-reject" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<script src="../public/js/admin_dashboard/verify_user.js"></script>
