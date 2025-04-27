@@ -31,8 +31,16 @@
                         <td><?= $food['IsPopular'] == 1 ? 'Yes' : 'No' ?></td>
                         <td class="action-buttons">
                             <button class="edit-btn"><a href="?page=menu&action=edit&id=<?= $food['MenuID'] ?>">Edit</a></button>
-                            <button class="delete-btn"><a href="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
+                            <button class="delete-btn" data-delete-url="?page=menu&action=delete&id=<?= $food['MenuID'] ?>">Delete</a></button>
                         </td>
+
+                        <dialog id="deleteDialog">
+                            <p>Are you sure you want to delete this menu?</p>
+                            <div class="dialog-buttons">
+                                <button id="deleteConfirm" class="confirm-btn">Yes</button>
+                                <button id="deleteCancel" class="cancel-btn">No</button>
+                            </div>
+                        </dialog>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -43,3 +51,29 @@
         </tbody>
     </table>
 </div>
+
+
+<script>
+    const deleteDialog = document.getElementById('deleteDialog');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const confirmDelete = document.getElementById('deleteConfirm');
+    const cancelDelete = document.getElementById('deleteCancel');
+
+    let deleteUrl = '';
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            deleteUrl = button.getAttribute('data-delete-url');
+            deleteDialog.showModal();
+        });
+    });
+
+    confirmDelete.addEventListener('click', () => {
+        deleteDialog.close();
+        window.location.href = deleteUrl;
+    });
+
+    cancelDelete.addEventListener('click', () => {
+        deleteDialog.close();
+    });
+</script>

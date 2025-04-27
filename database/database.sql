@@ -629,3 +629,9 @@ ALTER TABLE
     Restaurant
 ADD
     Tagline VARCHAR(255);
+
+-- Add Tagline column to HeritageMarket table
+ALTER TABLE
+    HeritageMarket
+ADD
+    Tagline VARCHAR(255);

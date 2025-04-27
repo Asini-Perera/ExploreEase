@@ -9,7 +9,7 @@
 
 <div class="edit-booking-card">
     <h2>Edit Booking</h2>
-    <form action="../hotel/dashboard?action=updateBooking" method="POST">
+    <form action="../hotel/dashboard?action=updateBooking" method="POST" id="updateForm">
         <!-- Add hidden input for booking ID -->
         <input type="hidden" name="bookingID" value="<?php echo isset($_SESSION['BookingID']) ? $_SESSION['BookingID'] : ''; ?>">
         
@@ -61,8 +61,40 @@
         </div>
         
         <div class="form-actions">
-            <button type="submit" class="btn save-btn">Save Changes</button>
+            <button type="button" class="btn save-btn">Save Changes</button>
             <button type="button" class="btn discard-btn" onclick="window.history.back()">Discard</button>
         </div>
     </form>
 </div>
+
+
+<dialog id="openDialog">
+    <p>Are you sure do you want to edit details?</p>
+    <div class="dialog-buttons">
+        <button id="confirm" class="confirm-btn">Yes</button>
+        <button id="cancel" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+
+<script>
+    const dialog = document.getElementById('openDialog');
+    const confirmButton = document.getElementById('confirm');
+    const cancelButton = document.getElementById('cancel');
+    const saveButton = document.querySelector('.btn save-btn');
+    const form = document.getElementById('updateForm');
+
+    saveButton.addEventListener('click', () => {
+        dialog.showModal(); // Show the confirmation dialog
+    });
+
+    confirmButton.addEventListener('click', () => {
+        dialog.close();
+        form.submit(); // Submit the form when "Yes" is clicked
+    });
+
+    cancelButton.addEventListener('click', () => {
+        dialog.close(); // Close the dialog on "No"
+        window.location.href = 'http://localhost/ExploreEase/hotel/dashboard?page=bookings'; // Redirect without saving
+    });
+</script>

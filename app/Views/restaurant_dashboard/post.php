@@ -30,8 +30,17 @@
                         <td><img src="<?= $post['ImgPath'] ?>" class="post-img"></td>
                         <td class="action-buttons">
                             <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
-                            <button class="delete-btn"> <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</button>
+                            <button class="delete-btn" data-delete-url="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</button>
                         </td>
+
+                        <dialog id="deleteDialog">
+                            <p>Are you sure you want to delete this post?</p>
+                            <div class="dialog-buttons">
+                                <button id="deleteConfirm" class="confirm-btn">Yes</button>
+                                <button id="deleteCancel" class="cancel-btn">No</button>
+                            </div>
+                        </dialog>
+
                     </tr>
 
                 <?php endforeach; ?>
@@ -44,3 +53,29 @@
         </tbody>
     </table>
 </div>
+
+
+<script>
+    const deleteDialog = document.getElementById('deleteDialog');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const confirmDelete = document.getElementById('deleteConfirm');
+    const cancelDelete = document.getElementById('deleteCancel');
+
+    let deleteUrl = '';
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            deleteUrl = button.getAttribute('data-delete-url');
+            deleteDialog.showModal();
+        });
+    });
+
+    confirmDelete.addEventListener('click', () => {
+        deleteDialog.close();
+        window.location.href = deleteUrl;
+    });
+
+    cancelDelete.addEventListener('click', () => {
+        deleteDialog.close();
+    });
+</script>

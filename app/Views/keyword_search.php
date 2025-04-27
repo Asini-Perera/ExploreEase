@@ -1,6 +1,8 @@
 <?php
 $places = $_SESSION['places'] ?? [];
-unset($_SESSION['places']);
+$latitude = $_SESSION['latitude'] ?? null;
+$longitude = $_SESSION['longitude'] ?? null;
+// unset($_SESSION['places']);
 // 
 ?>
 <!DOCTYPE html>
@@ -40,9 +42,12 @@ unset($_SESSION['places']);
                         <?php foreach ($places as $place) : ?>
                             <li>
                                 <article>
-                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
+                                    <a href="../link/service?type=<?= urlencode($place['type']) ?>&id=<?= urlencode($place['ID']) ?>">
+                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
+                                    </a>
                                     <h3><?= htmlspecialchars($place['Name']) ?></h3>
-                                    <p><?= htmlspecialchars($place['Tagline']) ?></p>
+                                    <p><?= htmlspecialchars($place['type']) ?></p>
+
                                 </article>
                             </li>
                         <?php endforeach; ?>
@@ -106,10 +111,10 @@ unset($_SESSION['places']);
                     function initMap() {
                         const map = new google.maps.Map(document.getElementById('map'), {
                             center: {
-                                lat: 6.9271,
-                                lng: 79.9612
+                                lat: <?= $latitude ?>,
+                                lng: <?= $longitude ?>
                             }, // Default center (Colombo)
-                            zoom: 12,
+                            zoom: 10,
                         });
 
                         if (!placesFromPHP.length) {
@@ -117,7 +122,34 @@ unset($_SESSION['places']);
                             return;
                         }
 
+                        // placesFromPHP.forEach(place => {
+                        //     const marker = new google.maps.Marker({
+                        //         position: {
+                        //             lat: parseFloat(place.Latitude),
+                        //             lng: parseFloat(place.Longitude)
+                        //         },
+                        //         map: map,
+                        //         title: place.Name,
+                        //     });
+
+                        //     const infoWindow = new google.maps.InfoWindow({
+                        //         content: `<h3>${place.Name}</h3><p>${place.Description}</p>`,
+                        //     });
+
+                        //     marker.addListener('click', () => {
+                        //         infoWindow.open(map, marker);
+                        //     });
+                        // });
+
                         placesFromPHP.forEach(place => {
+                            const markerColor = place.type === 'hotel' ?
+                                'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' :
+                                place.type === 'restaurant' ?
+                                'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
+                                place.type === 'heritagemarket' ?
+                                'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png' :
+                                'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+
                             const marker = new google.maps.Marker({
                                 position: {
                                     lat: parseFloat(place.Latitude),
@@ -125,16 +157,50 @@ unset($_SESSION['places']);
                                 },
                                 map: map,
                                 title: place.Name,
+                                icon: {
+                                    url: markerColor
+                                },
+                                label: {
+                                    text: place.Name,
+                                    color: "white",
+                                    fontSize: "12px",
+                                    fontWeight: "bold"
+                                }
                             });
 
                             const infoWindow = new google.maps.InfoWindow({
-                                content: `<h3>${place.Name}</h3><p>${place.Description}</p>`,
+                                content: `<a href="../link/service?type=${encodeURIComponent(place.type)}&id=${encodeURIComponent(place.ID)}"><h3>${place.Name}</h3></a><p>${place.Tagline}</p><p><strong>Type:</strong> ${place.type}</p>`,
                             });
 
                             marker.addListener('click', () => {
                                 infoWindow.open(map, marker);
                             });
                         });
+
+                        if (<?= $latitude && $longitude ? 'true' : 'false' ?>) {
+                            const currentLocationMarker = new google.maps.Marker({
+                                position: {
+                                    lat: <?= $latitude ?>,
+                                    lng: <?= $longitude ?>
+                                },
+                                map: map,
+                                title: "Your Current Location",
+                                icon: {
+                                    url: "https://maps.google.com/mapfiles/kml/shapes/man.png", // 👈 a human marker icon
+                                    scaledSize: new google.maps.Size(40, 40) // optional: scale the icon
+                                }
+                            });
+
+                            const currentLocationInfo = new google.maps.InfoWindow({
+                                content: `<h3>Your Current Location</h3>`
+                            });
+
+                            currentLocationMarker.addListener('click', () => {
+                                currentLocationInfo.open(map, currentLocationMarker);
+                            });
+                        }
+
+
                     }
 
                     window.onload = initMap;

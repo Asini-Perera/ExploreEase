@@ -3,6 +3,10 @@
 namespace app\Controllers;
 
 use app\Models\HomeModel;
+use app\Models\HotelModel;
+use app\Models\RestaurantModel;
+use app\Models\HeritageMarketModel;
+use app\Models\CulturalEventOrganizerModel;
 
 use app\Controllers\KeywordController;
 
@@ -15,8 +19,12 @@ class HomeController
         global $conn;
         $this->conn = $conn;
 
-        // Include the HomeModel
+        // Include the HomeModel and service provider Models
         require_once __DIR__ . '/../models/HomeModel.php';
+        require_once __DIR__ . '/../models/HotelModel.php';
+        require_once __DIR__ . '/../models/RestaurantModel.php';
+        require_once __DIR__ . '/../models/HeritageMarketModel.php';
+        require_once __DIR__ . '/../models/CulturalEventOrganizerModel.php';
 
         // Include the KeywordController
         require_once __DIR__ . '/../controllers/KeywordController.php';

@@ -23,6 +23,9 @@ $router->add('service/menu', 'HomeController@travelerside_menu');  // traveller 
 $router->add('reviews', 'HomeController@siteReview');  // Site reviews page
 $router->add('review/save', 'HomeController@saveReview');  // Save review process
 $router->add('filter/keyword', 'HomeController@filterKeyword');  // Filter by keyword process
+$router->add('link/service', 'HomeController@linkService');  // Link service page for displaying
+$router->add('review', 'HomeController@addReview');  // Add review page for users
+$router->add('review/save', 'HomeController@saveServiceReview');  // Save review process
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -67,6 +70,7 @@ $router->add('restaurant/review', 'RestaurantController@review');  // Restaurant
 $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   // Restaurant review reply
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
+$router->add('restaurant/sendTableNo', 'RestaurantController@sendTableNo');  // Send table number for restaurant booking
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
