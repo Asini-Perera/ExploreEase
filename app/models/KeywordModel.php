@@ -229,6 +229,8 @@ class KeywordModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ii', $keywordID, $serviceProviderID);
         $stmt->execute();
+
+        return true;
     }
 
     public function rejectKeyword($keywordID, $userType, $serviceProviderID)
@@ -246,5 +248,7 @@ class KeywordModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ii', $keywordID, $serviceProviderID);
         $stmt->execute();
+
+        return true;
     }
 }
