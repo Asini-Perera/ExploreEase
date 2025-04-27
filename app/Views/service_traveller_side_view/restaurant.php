@@ -119,8 +119,24 @@
 
             <div class="food-slider">
                 <div class="food-list">
+                    <?php if (!empty($PopularDishes)) : ?>
+                        <?php foreach ($PopularDishes as $dish) : ?>
+                            <div class="slide">
+                                <img src="<?php echo htmlspecialchars($dish['ImgPath'] ?? 'default_image.png'); ?>" alt="<?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?>" class="food-img">
+                                <div class="food-info">
+                                    <h3><?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?></h3>
+                                    <div class="price">RS.<?php echo htmlspecialchars($dish['Price'], ENT_QUOTES); ?></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <div class="slide">
+                            <p>No popular dishes available.</p>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Food Item -->
-                    <div class="slide">
+                    <!-- <div class="slide">
                         <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                         <div class="food-info">
                             <h3>Burger</h3>
@@ -182,7 +198,7 @@
                             <h3>Raspberry White Chocolate Mousse</h3>
                             <div class="price">RS.450.00</div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

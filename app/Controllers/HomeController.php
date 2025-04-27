@@ -151,6 +151,7 @@ class HomeController
                 if ($restaurant) {
                     $restaurantModel = new RestaurantModel($this->conn);
                     $Reviews = $restaurantModel->getReview($id);
+                    $PopularDishes = $restaurantModel->getPopularDishes($id);
                     require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
                 } else {
                     echo "Restaurant not found.";
@@ -208,7 +209,7 @@ class HomeController
                     $heritageMarketModel->addReview($id, $travelerID, $rating, $review, $date);
                 } elseif ($type === 'cultural_event') {
                     $culturalEventModel = new CulturalEventOrganizerModel($this->conn);
-                    $culturalEventModel->addReview($id, $travelerID, $rating, $review, $date);
+                    // $culturalEventModel->addReview($id, $travelerID, $rating, $review, $date);
                 }
 
                 header('Location: ../link/service?type=' . $type . '&id=' . $id);
