@@ -211,32 +211,45 @@
                 <img src="../public/images/book_table.jpg" alt="booking">
             </div>
 
-            <div class="booking-form">
-                <form action="service/restaurant" method="post">
-                    <h3 class="booking-heading">Book a Table</h3>
-                    <input type="text" name="customer_name" placeholder="Your Name" class="input-field" required>
-                    <input type="email" name="email" placeholder="Your Email" class="input-field" required>
-                    <!-- <input type="text" placeholder="Phone Number" class="input-field" required> -->
-                    <input type="date" name="date_booking" placeholder="Select Date" class="input-field" required>
-                    <input type="time" name="time_booking" placeholder="Select Time" class="input-field booking-time" required>
-                    <input type="number" name="no_people" min="1" max="25" placeholder="Number of Guests" class="input-field guests" required>
-                    <textarea name="special_Request" placeholder="Special Requests" rows="5" class="input-field special-request"></textarea>
 
-                    <input type="hidden" name="restaurant_id" value="<?= $restaurantID ?>">
-                    <input type="hidden" name="traveler_id" value="<?= $travelerID ?>">
+    <div class="booking-form">
+        <form action="">
+    <h3 class="booking-heading">Book a Table</h3>
+
+    <div class="input-group">
+        <input type="text" placeholder="Your Name" class="input-field" required>
+        <input type="email" placeholder="Your Email" class="input-field" required>
+    </div>
+
+    <div class="input-group">
+        <input type="text" placeholder="Phone Number" class="input-field" required>
+        <input type="date" placeholder="Select Date" class="input-field" required>
+    </div>
+
+    <div class="input-group">
+        <input type="time" value="--:--" class="input-field booking-time" required>
+        <input type="number" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
+    </div>
+
+    
+<textarea 
+    placeholder="Special Requests (optional)" 
+    class="input-field textarea-field"
+    rows="4"
+></textarea>
 
 
-                    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
-                </form>
+    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
+</form>
 
-                <!-- Popup Confirmation -->
-                <div class="popup" id="popup">
-                    <div class="popup-content">
-                        <h3>Thank you for booking a table with us!</h3>
-                        <p>Your booking has been confirmed. We will send you your table number shortly. We look forward to welcoming you to our restaurant.</p>
-                        <button id="ok" class="popup-btn" onclick="closePopup()">OK</button>
-                    </div>
-                </div>
+
+        <!-- Popup Confirmation -->
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <h3>Thank you for booking a table with us!</h3>
+                <p>Your booking has been confirmed. We will send you your table number shortly. We look forward to welcoming you to our restaurant.</p>
+                <button id="ok" class="popup-btn" onclick="closePopup()">OK</button>
+
             </div>
         </section>
 
