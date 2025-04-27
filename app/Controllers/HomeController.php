@@ -44,6 +44,7 @@ class HomeController
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
+    
     public function keywordsearch()
     {
         require_once __DIR__ . '/../Views/keyword_search.php';
@@ -93,7 +94,28 @@ class HomeController
         require_once __DIR__ . '/../Views/siteReview.php';
     }
 
-    public function saveReview()
+    public function TravellerDashboard()
+    {
+        require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
+    }
+
+    public function loggedNavbar()
+    {
+        require_once __DIR__ . '/../Views/loggedNavbar.php';
+    }
+
+
+    public function travllerBooking()
+    {
+        require_once __DIR__ . '/../Views/travllerBooking.php';
+    }
+
+    public function Contactus()
+    {
+        require_once __DIR__ . '/../Views/Contactus.php';
+    }
+
+     public function saveReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
@@ -108,7 +130,6 @@ class HomeController
             exit();
         }
     }
-
     public function filterKeyword()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -221,5 +242,6 @@ class HomeController
                 echo "Invalid request.";
             }
         }
+
     }
 }

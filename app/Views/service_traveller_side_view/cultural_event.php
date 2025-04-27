@@ -11,7 +11,7 @@
 
 <body>
     <!-- header -->
-    <?php require_once __DIR__ . "/../Navbar.php"; ?>
+    <?php require_once __DIR__ . "/../loggedNavbar.php"; ?>
     <header>
         <div class="container">
             <h1 class="c-name">ABC Cultural Center</h1>
