@@ -94,14 +94,22 @@ $router->add('heritagemarket/reviewResponse', 'HeritageMarketController@reviewRe
 $router->add('heritagemarket/shops', 'HeritageMarketController@shops');
 $router->add('heritagemarket/products', 'HeritageMarketController@products');
 $router->add('heritagemarket/review', 'HeritageMarketController@review');
+$router->add('heritagemarket/submitReview', 'HeritageMarketController@submitReview');  // Process review submissions
 
-$router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
-$router->add('culturaleventorganizer/addEvent','CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
-$router->add('culturaleventorganizer/deleteEvent','CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
-$router->add('culturaleventorganizer/addPost','CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
-$router->add('culturaleventorganizer/deletePost','CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
-$router->add('culturaleventorganizer/update','CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
-$router->add('culturaleventorganizer/changepassword','CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
+
+$router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
+$router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
+$router->add('culturaleventorganizer/editEvent', 'CulturalEventOrganizerController@editEvent');  // Edit event for cultural event organizer
+$router->add('culturaleventorganizer/updateEvent', 'CulturalEventOrganizerController@updateEvent');  // Process event update for cultural event organizer
+$router->add('culturaleventorganizer/deleteEvent', 'CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
+$router->add('culturaleventorganizer/addPost', 'CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
+$router->add('culturaleventorganizer/updatePost', 'CulturalEventOrganizerController@updatePost');  // Update post for cultural event organizer
+$router->add('culturaleventorganizer/deletePost', 'CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
+$router->add('culturaleventorganizer/bookings', 'CulturalEventOrganizerController@bookings');  // View bookings for cultural event organizer
+$router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerController@updateBooking');  // Update booking for cultural event organizer
+$router->add('culturaleventorganizer/reviewResponse', 'CulturalEventOrganizerController@reviewResponse');  // Process review responses
+$router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
+$router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
 $router->add('service/hotel','HomeController@travelerside_hotel');  // traveller side hotel view
 $router->add('service/restaurant','HomeController@travelerside_restaurant');  // traveller side restaurant view
@@ -116,4 +124,5 @@ $router->add('TravellerDashboard','HomeController@TravellerDashboard');  // Add 
 $router->add('loggedNavbar','HomeController@loggednavbar');  
 $router->add('travllerBooking','HomeController@travllerBooking'); 
 $router->add('Contactus','HomeController@Contactus'); 
+
 

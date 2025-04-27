@@ -635,3 +635,20 @@ ALTER TABLE
     HeritageMarket
 ADD
     Tagline VARCHAR(255);
+
+-- Remove TravelerContents table
+DROP TABLE IF EXISTS TravelerContents;
+
+-- Remove TravelerImages table
+DROP TABLE IF EXISTS TravelerImages;
+
+-- Remove Longitude, Latitude, Expertise, IsContentCreator, FacebookLink, InstagramLink, TikTokLink and YoutubeLink columns from Traveler table
+ALTER TABLE
+    Traveler DROP COLUMN Longitude,
+    DROP COLUMN Latitude,
+    DROP COLUMN Expertise,
+    DROP COLUMN IsContentCreator,
+    DROP COLUMN FacebookLink,
+    DROP COLUMN InstagramLink,
+    DROP COLUMN TikTokLink,
+    DROP COLUMN YoutubeLink;

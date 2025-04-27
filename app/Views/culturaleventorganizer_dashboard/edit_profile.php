@@ -2,16 +2,16 @@
 
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
-    
-    <?php if(isset($_GET['error']) && $_GET['error'] == 'email-exists'): ?>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'email-exists'): ?>
         <div class="error-message">Email already exists. Please use a different email.</div>
     <?php endif; ?>
-    
+
     <form id="edit-profile-form" action="../culturaleventorganizer/update" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="profile_image">Profile Image</label>
             <input type="file" id="profile_image" name="profile_image">
-            <?php if(!empty($_SESSION['ProfileImage'])): ?>
+            <?php if (!empty($_SESSION['ProfileImage'])): ?>
                 <div class="current-image">
                     <img src="<?php echo $_SESSION['ProfileImage']; ?>" alt="Profile Image" class="profile-img" style="width:100px; height:100px;">
                 </div>
@@ -52,7 +52,9 @@
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
-            <button type="submit" class="save-btn">Save</button>     
+            <button type="submit" class="save-btn">Save</button>
         </div>
     </form>
 </div>
+
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>
