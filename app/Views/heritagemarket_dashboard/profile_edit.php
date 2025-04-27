@@ -45,3 +45,5 @@
 
     </form>
 </div>
+
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>

@@ -139,8 +139,9 @@ class HomeController
 
             if ($type === 'hotel') {
                 $hotel = $homeModel->getHotelById($id);
-
                 if ($hotel) {
+                    $hotelModel = new HotelModel($this->conn);
+                    $Reviews = $hotelModel->getReviews($id);
                     require_once __DIR__ . '/../Views/service_traveller_side_view/hotel.php';
                 } else {
                     echo "Hotel not found.";
@@ -148,6 +149,8 @@ class HomeController
             } elseif ($type === 'restaurant') {
                 $restaurant = $homeModel->getRestaurantById($id);
                 if ($restaurant) {
+                    $restaurantModel = new RestaurantModel($this->conn);
+                    $Reviews = $restaurantModel->getReview($id);
                     require_once __DIR__ . '/../Views/service_traveller_side_view/restaurant.php';
                 } else {
                     echo "Restaurant not found.";

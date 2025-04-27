@@ -2,7 +2,7 @@
 
 <div class="profile-container">
     <h1>Edit Profile Details</h1>
-    
+
     <form id="edit-profile-form" action="../restaurant/update" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="restaurantID" value="<?php echo $_SESSION['RestaurantID']; ?>">
@@ -65,14 +65,14 @@
         </div>
         <div class="form-group">
             <label for="menupdf">Menu PDF</label>
-            <input type="file" id="menupdf" name="menupdf" >
+            <input type="file" id="menupdf" name="menupdf">
         </div>
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>
-            <button type="button" class="save-btn" >Save</button>     
+            <button type="button" class="save-btn">Save</button>
         </div>
-        
+
     </form>
 </div>
 
@@ -107,3 +107,5 @@
         window.location.href = 'http://localhost/ExploreEase/restaurant/dashboard?page=profile'; // Redirect without saving
     });
 </script>
+
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>

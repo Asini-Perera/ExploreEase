@@ -62,6 +62,7 @@ class LoginController
                         $_SESSION['FirstName'] = $user['FirstName'];
                         $_SESSION['LastName'] = $user['LastName'];
                         $_SESSION['Gender'] = $user['Gender'];
+                        $_SESSION['ImgPath'] = $user['ImgPath'];
                         header('Location: ../loged_home');
                         break;
                     case 'hotel':

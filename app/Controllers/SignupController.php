@@ -73,13 +73,16 @@ class SignupController
                 $travelerModel->setImgPath($TravelerID, $profileImage);
             }
 
-            // Redirect to Keyword entry page
+            // Redirect to Home page
             if ($TravelerID) {
                 session_start();
-                $_SESSION['TravelerID'] = $TravelerID;
-                $_SESSION['Name'] = $firstName;
-                $_SESSION['Email'] = $email;
-                header('Location: ../keyword/');
+                $_SESSION['TravelerID'] = $user['TravelerID'];
+                $_SESSION['Email'] = $user['Email'];
+                $_SESSION['FirstName'] = $user['FirstName'];
+                $_SESSION['LastName'] = $user['LastName'];
+                $_SESSION['Gender'] = $user['Gender'];
+                $_SESSION['ImgPath'] = $user['ImgPath'];
+                header('Location: ../loged_home');
                 exit();
             } else {
                 // If signup fails, redirect back to signup page and show an error message

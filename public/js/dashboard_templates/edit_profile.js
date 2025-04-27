@@ -1,7 +1,21 @@
+document.querySelectorAll('input[required], textarea[required]').forEach(element => {
+    element.addEventListener('blur', () => {
+        if (!element.value.trim()) {
+            element.style.border = '2px solid #d8000c';
+            element.style.backgroundColor = '#ffcccc';
+            element.placeholder = 'This field is required';
+        } else {
+            element.style.border = '2px solid #006600';
+            element.style.backgroundColor = '#ccffcc';
+        }
+        element.style.transition = 'border 0.3s, background-color 0.3s';
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirm_password");
+    const password = document.getElementById("newPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
     const errorMessages = [];
 
     form.addEventListener("submit", function (event) {
