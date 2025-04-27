@@ -61,7 +61,7 @@
           </div>
           <div class="form-group">
             <label>Contact Number</label>
-            <input type="text" name="contact_number" value="<?php echo htmlspecialchars($_SESSION['ContactNo'] ?? 'N/A'); ?>">
+            <input type="text" name="contact_number" value="<?php echo htmlspecialchars($_SESSION['ContactNo'] ?? ''); ?>">
           </div>
           <div class="form-group">
             <label>Profile Image</label>
