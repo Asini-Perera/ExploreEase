@@ -108,4 +108,9 @@ class HomeController
     {
         require_once __DIR__ . '/../Views/travllerBooking.php';
     }
+
+    public function Contactus()
+    {
+        require_once __DIR__ . '/../Views/Contactus.php';
+    }
 }
