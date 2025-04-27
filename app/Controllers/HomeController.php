@@ -156,13 +156,16 @@ class HomeController
                 } else {
                     echo "Restaurant not found.";
                 }
-                // } elseif ($type === 'heritagemarket') {
-                //     $heritageMarket = $homeModel->getHeritageMarketById($id);
-                //     if ($heritageMarket) {
-                //         require_once __DIR__ . '/../Views/service_traveller_side_view/heritagemarket.php';
-                //     } else {
-                //         echo "Heritage Market not found.";
-                //     }
+            } elseif ($type === 'heritagemarket') {
+                $heritageMarket = $homeModel->getHeritageMarketById($id);
+                if ($heritageMarket) {
+                    $heritageMarketModel = new HeritageMarketModel($this->conn);
+                    $Reviews = $heritageMarketModel->getReviews($id);
+                    $Products = $heritageMarketModel->getProducts($id);
+                    require_once __DIR__ . '/../Views/service_traveller_side_view/heritagemarket.php';
+                } else {
+                    echo "Heritage Market not found.";
+                }
                 // } elseif ($type === 'cultural_event') {
                 //     $culturalEvent = $homeModel->getCulturalEventById($id);
                 //     if ($culturalEvent) {
