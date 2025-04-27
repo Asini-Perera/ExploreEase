@@ -50,4 +50,13 @@ class TravelerModel
             $stmt->execute();
         }
     }
+
+    public function updateProfile($TravelerID, $firstName, $lastName, $email, $gender, $dob, $contactNumber)
+    {
+        // Prepare the SQL statement
+        $sql = "UPDATE traveler SET FirstName = ?, LastName = ?, Email = ?, Gender = ?, DOB = ?, ContactNo = ? WHERE TravelerID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssi', $firstName, $lastName, $email, $gender, $dob, $contactNumber, $TravelerID);
+        $stmt->execute();
+    }
 }
