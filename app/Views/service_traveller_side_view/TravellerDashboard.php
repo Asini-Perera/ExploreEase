@@ -131,6 +131,9 @@
               ★★★★☆
             </div>
             <p>"Amazing experience!"</p>
+            <div class="response">
+              <p>"Thank you for your feedback!"</p>
+            </div>
           </div>
           <div class="card">
             <h3>ABC Restaurant</h3>
@@ -138,6 +141,9 @@
               ★★★☆☆
             </div>
             <p>"Good food but service could improve."</p>
+            <div class="response">
+              <p>"Thank you for your feedback!"</p>
+            </div>
           </div>
         </div>
 
