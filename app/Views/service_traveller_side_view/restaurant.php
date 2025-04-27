@@ -219,8 +219,8 @@
                     <input type="number" name="no_people" min="1" max="25" placeholder="Number of Guests" class="input-field guests" required>
                     <textarea name="special_Request" placeholder="Special Requests" rows="5" class="input-field special-request"></textarea>
 
-                    <input type="hidden" name="restaurant_id" value="<?= $restaurantID ?>">
-                    <input type="hidden" name="traveler_id" value="<?= $travelerID ?>">
+                    <input type="hidden" name="restaurant_id" value="<?= $restaurant['RestaurantID'] ?>">
+                    <input type="hidden" name="traveler_id" value="<?= $_SESSION['TravelerID'] ?>">
 
 
                     <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
