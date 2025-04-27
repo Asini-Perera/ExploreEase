@@ -36,7 +36,7 @@
             <input type="radio" name="popular-dish" class="not_popular" value="0" default> No
         </div>
 
-        <button type="submit" name="add_manu" class="menu_btn">Add Menu</button>
+        <button type="submit" name="add_menu" class="menu_btn">Add Menu</button>
 
 
     </form>

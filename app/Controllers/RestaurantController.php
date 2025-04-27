@@ -24,7 +24,7 @@ class RestaurantController
     {
         if (isset($_SESSION['RestaurantID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings','booking_list', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings','booking_list', 'reviews','images'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             // Check if the user is allowed to perform the action
@@ -96,23 +96,40 @@ class RestaurantController
                 }
             }elseif($mainContent == 'booking_list'){
                 $bookings = $this -> viewBooking();
-              $action = isset($_GET['action']) ? $_GET['action'] : null;
-              if($action == 'add'){
-                  $verifiedAction = 'add';
-              }else {
-                  $verifiedAction = null;
-              }
-          }elseif($mainContent == 'reviews'){
-                $reviews = $this -> viewReview();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if($action == 'add'){
                     $verifiedAction = 'add';
-                } elseif ($action == 'reply') {
-                    $verifiedAction = 'reply';
                 }else {
                     $verifiedAction = null;
                 }
-            }
+            }elseif($mainContent == 'reviews'){ 
+                $reviews = $this -> viewReview();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'reply'  && $_SERVER['REQUEST_METHOD'] === 'POST'){
+                    // $verifiedAction = 'reply';
+                    $this->replyReview();
+
+                    $reviewID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $restaurantModel = new RestaurantModel($this->conn);
+                    $reviewItem = $restaurantModel->getReviewItem($reviewID); 
+
+                }
+                
+                else {
+                    $verifiedAction = null;
+                }
+            }elseif($mainContent == 'images'){ 
+                $imagess = $this -> viewImage();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add'){
+                    $verifiedAction = 'add';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteImage();
+                }else {
+                    $verifiedAction = null;
+                }
+        }
 
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';
         } else {
@@ -283,6 +300,7 @@ class RestaurantController
         }
     }
 
+   
 
     //Posts
    
@@ -412,12 +430,12 @@ class RestaurantController
     
         return $reviews; // Return the reviews data
     }
-    
+     
     
     public function replyReview()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $reviewID = $_POST['review_id'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'  ) {
+            $reviewID = $_POST['reviewID'];
             $reply = $_POST['reply'];
 
             $restaurantModel = new RestaurantModel($this->conn);
@@ -427,7 +445,92 @@ class RestaurantController
         }
     }
 
-   
+    //images
+    public function addImage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $image = $_FILES['rest-image'];
+            $restaurantID = $_SESSION['RestaurantID'];
+
+            $restaurantModel = new RestaurantModel($this->conn);
+            $imageID = $restaurantModel->addImage($title, $restaurantID);
+
+            
+            // If image is uploaded, set the image path
+            if($imageID && $image['name']) {
+                $restaurantModel->setRestImgPath($imageID, $image);
+            }
+
+            header('Location: ../restaurant/dashboard?page=images');
+            exit();
+        }
+    }
+
+    public function viewImage()
+    {
+        $restaurantModel = new RestaurantModel($this->conn);
+        $images= $restaurantModel->getImage($_SESSION['RestaurantID']);
+
+        return $images;
+    }
+
+    public function deleteImage()
+    {
+        if (isset($_GET['id'])) {
+            $imageID = $_GET['id'];
+
+            $restaurantModel = new RestaurantModel($this->conn);
+            $restaurantModel->deleteImage($imageID);
+
+            header('Location: ../restaurant/dashboard?page=images');
+            exit();
+        }
+    }
+
+
+    // public function addImage()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+ 
+    //         $title = $_POST['title']; 
+    //         $image = $_FILES['rest-image']; 
+    //         $restaurantID = $_SESSION['RestaurantID'];
+
+
+    //         $restaurantModel = new RestaurantModel($this->conn);
+    //         $restaurantID = $restaurantModel->addImage($title,  $restaurantID);
+
+            
+    //         // If image is uploaded, set the image path
+    //         if($restaurantID && $image['name']) {
+    //             $restaurantModel->setRestImgPath($restaurantID, $image);
+    //         }
+
+    //         header('Location: ../restaurant/dashboard?page=images');
+    //     }
+    // }
+
+    // public function viewImages()
+    // {
+    //     $restaurantModel = new RestaurantModel($this->conn);
+    //     $images = $restaurantModel->getImage($_SESSION['RestaurantID']);
+
+    //     return $images;
+    // }
+
+    // public function deleteImage()
+    // {
+    //     if (isset($_GET['id'])) {
+    //         $restaurantID = $_GET['id'];
+
+    //         $restaurantModel = new RestaurantModel($this->conn);
+    //         $restaurantModel->deleteImage($restaurantID);
+
+    //         header('Location: ../restaurant/dashboard?page=images');
+    //     }
+    // }
+
 
      
 

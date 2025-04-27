@@ -1,5 +1,7 @@
 <?php
 
+use app\Controllers\RestaurantController;
+
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('login/process', 'LoginController@login');  // Login process
 $router->add('waiting', 'LoginController@waiting');  // Waiting page for users
@@ -68,6 +70,9 @@ $router->add('restaurant/review', 'RestaurantController@review');  // Restaurant
 $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   // Restaurant review reply
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
+$router->add('restaurant/images', 'RestaurantController@images');  // Restaurant images
+$router->add('restaurant/addImage','RestaurantController@addImage');//add image
+$router->add('restaurant/deleteImage','RestaurantController@deleteImage'); // delete image
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
