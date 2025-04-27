@@ -210,4 +210,12 @@ class HeritageMarketModel
             return 0;
         }
     }
+
+    public function addReview($shopID, $travelerID, $rating, $review, $date)
+    {
+        $sql = "INSERT INTO heritagemarketfeedback (ShopID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iiiss', $shopID, $travelerID, $rating, $review, $date);
+        $stmt->execute();
+    }
 }

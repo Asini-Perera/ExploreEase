@@ -9,9 +9,11 @@
         </div>
     </div>
 
+
     <div class="table-responsive">
         <table>
             <thead>
+
                 <tr>
                     <th>Event ID</th>
                     <th>Event Name</th>
@@ -25,6 +27,7 @@
                     <th>Image</th>
                     <th>Actions</th>
                 </tr>
+
             </thead>
            <tbody>
                 <?php if (isset($events) && !empty($events)): ?>
@@ -62,4 +65,5 @@
            </tbody>
         </table>
     </div>
+
 </div>

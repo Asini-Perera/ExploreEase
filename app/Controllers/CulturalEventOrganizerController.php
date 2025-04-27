@@ -52,7 +52,7 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
-                    
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteEvent();
@@ -66,6 +66,11 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
+
+                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
+                    $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                    $postItem = $organizerModel->getPostItem($postID);
+
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
@@ -129,13 +134,8 @@ class CulturalEventOrganizerController
         }
     }
 
-    public function viewEvent()
-    {
-        $eventModel = new CulturalEventOrganizerModel($this->conn);
-        $events = $eventModel->getAllEvents($_SESSION['OrganizerID']);
 
-        return $events;
-    }
+   
 
     public function addEvent()
     {
@@ -219,6 +219,7 @@ class CulturalEventOrganizerController
             $title = $_POST['title'];
             $address = $_POST['address'];
             $date = $_POST['date'];
+
             $description = isset($_POST['description']) ? $_POST['description'] : '';
             $price = isset($_POST['price']) ? (float)$_POST['price'] : 0; // Changed from ticketPrice to price
             $start_time = isset($_POST['start_time']) ? $_POST['start_time'] : null;
@@ -229,6 +230,7 @@ class CulturalEventOrganizerController
             
             // Handle image upload if provided
             $image = isset($_FILES['image']) && $_FILES['image']['name'] ? $_FILES['image'] : null;
+
 
             // Validate event belongs to this organizer
             $eventModel = new CulturalEventOrganizerModel($this->conn);
@@ -250,6 +252,7 @@ class CulturalEventOrganizerController
                 }
             }
 
+
             // Set success message and redirect
             if ($success) {
                 $_SESSION['success'] = "Event updated successfully";
@@ -266,13 +269,24 @@ class CulturalEventOrganizerController
         }
     }
     
+
+
+    public function viewEvent()
+    {
+        $organizerModel = new CulturalEventOrganizerModel($this->conn);
+        $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
+
+        return $events;
+    }
+
+
     public function deleteEvent()
     {
         if (isset($_GET['id'])) {
-            $roomID = $_GET['id'];
+            $eventID = $_GET['id'];
 
-            $eventModel = new CulturalEventOrganizerModel($this->conn);
-            $eventModel->deleteEvent($roomID);
+            $organizerModel = new CulturalEventOrganizerModel($this->conn);
+            $organizerModel->deleteEvent($eventID);
 
             header('Location: ../culturaleventorganizer/dashboard?page=event');
         }
@@ -286,6 +300,7 @@ class CulturalEventOrganizerController
             $email = $_POST['email'];
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
+
             
             // Get individual social media links
             $facebookLink = $_POST['facebook_link'] ?? '';
@@ -293,6 +308,7 @@ class CulturalEventOrganizerController
             $tiktokLink = $_POST['tiktok_link'] ?? '';
             $youtubeLink = $_POST['youtube_link'] ?? '';
             
+
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
             // Only check for email existence if the user is changing their email
@@ -309,6 +325,7 @@ class CulturalEventOrganizerController
             }
 
             $organizerModel = new CulturalEventOrganizerModel($this->conn);
+
             $organizerModel->updateOrganizer(
                 $organizerID, 
                 $name, 
@@ -322,6 +339,7 @@ class CulturalEventOrganizerController
             );
 
             if ($profileImage && !empty($profileImage['name'])) {
+
                 $organizerModel->setImgPath($organizerID, $profileImage);
             }
 

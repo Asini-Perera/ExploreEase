@@ -10,9 +10,11 @@ class RestaurantModel
         $this->conn = $conn;
     }
 
+
     public function updateRestaurant($restaurantID, $name, $address, $contactNo, $email, $website, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $tagline, $menuPDFPath)
     {
         $sql = "UPDATE restaurant SET Name = ?, Address = ?, ContactNo = ?, Email = ?, Website = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, CuisineType = ?, Description = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ?, Tagline = ?, MenuPDF = ? WHERE RestaurantID = ?";
+
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
@@ -30,38 +32,38 @@ class RestaurantModel
     {
         // Get temp file path
         $tempFilePath = $fileData['tmp_name'];
-        
+
         // Get original filename
         $originalFileName = $fileData['name'];
-        
+
         // Get file extension
         $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
-        
+
         // Only allow PDF files
         if (strtolower($extension) != 'pdf') {
             return false;
         }
-        
+
         // Create new filename with restaurant ID
         $newFileName = 'menu_' . $restaurantID . '_' . time() . '.' . $extension;
-        
+
         // Define target directory
         $targetDir = __DIR__ . '/../../public/files/menu/';
-        
+
         // Create directory if it doesn't exist
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
-        
+
         // Define target path
         $targetPath = $targetDir . $newFileName;
-        
+
         // Move the uploaded file
         if (move_uploaded_file($tempFilePath, $targetPath)) {
             // Return the relative path to be stored in the database
             return '/ExploreEase/public/files/menu/' . $newFileName;
         }
-        
+
         return false;
     }
 
@@ -95,7 +97,7 @@ class RestaurantModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sdsii', $name, $price, $category, $popularDish, $restaurantID);
         $stmt->execute();
-        
+
         // Get the MenuID
         $sql = "SELECT MenuID FROM menu WHERE FoodName = ? AND RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
@@ -103,7 +105,7 @@ class RestaurantModel
         $stmt->execute();
         $result = $stmt->get_result();
         $MenuID = $result->fetch_assoc()['MenuID'];
-        
+
         return $MenuID;
     }
 
@@ -177,16 +179,16 @@ class RestaurantModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc();
-
     }
 
-    public function updateMenu($name, $price, $category,  $popularDish, $menuID){
+    public function updateMenu($name, $price, $category,  $popularDish, $menuID)
+    {
         $sql = "UPDATE menu SET FoodName = ?, Price = ?, FoodCategory = ?,   IsPopular = ? WHERE MenuID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("sdsii", $name, $price, $category, $popularDish, $menuID);
         $stmt->execute();
     }
-    
+
     public function deleteMenu($menuID)
     {
         $sql = "DELETE FROM menu WHERE MenuID = ?";
@@ -195,16 +197,16 @@ class RestaurantModel
         $stmt->execute();
     }
 
-    
+
 
     //posts
     public function addPost($title, $description, $restaurantID)
     {
         $sql = "INSERT INTO restaurantpost (Title, Description, RestaurantID) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssi',$title, $description, $restaurantID);
+        $stmt->bind_param('ssi', $title, $description, $restaurantID);
         $stmt->execute();
-        
+
         // Get the PostID
         $sql = "SELECT PostID FROM restaurantpost WHERE Title = ? AND RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
@@ -212,11 +214,11 @@ class RestaurantModel
         $stmt->execute();
         $result = $stmt->get_result();
         $PostID = $result->fetch_assoc()['PostID'];
-        
+
         return $PostID;
     }
 
-    
+
     public function getPost($restaurantID)
     {
         $sql = "SELECT * FROM restaurantpost WHERE RestaurantID = ?";
@@ -228,7 +230,7 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    
+
     public function getPostItem($postID)
     {
         $sql = "SELECT * FROM restaurantpost WHERE PostID = ?";
@@ -238,7 +240,6 @@ class RestaurantModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc();
-
     }
 
     public function deletePost($postID)
@@ -249,7 +250,7 @@ class RestaurantModel
         $stmt->execute();
     }
 
-    public function updatePost($title, $description,$postID)
+    public function updatePost($title, $description, $postID)
     {
         $query = "UPDATE restaurantpost SET title = ?, description = ? WHERE PostID = ?";
         $stmt = $this->conn->prepare($query);
@@ -310,27 +311,26 @@ class RestaurantModel
 
 
     //bookings
-    public function saveBooking($name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID)
+    public function saveBooking($name, $email, $date_booking, $time_booking, $no_people, $special_request, $restaurantID, $travelerID)
     {
         $sql = "INSERT INTO tablebooking (Name, Email, BookingDate, BookingTime, NoOfGuests, SpecialRequest, RestaurantID, TravelerID) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssisii', $name,$email,$date_booking, $time_booking, $no_people,$special_request, $restaurantID, $travelerID);
+        $stmt->bind_param('ssssisii', $name, $email, $date_booking, $time_booking, $no_people, $special_request, $restaurantID, $travelerID);
         $stmt->execute();
 
         $sql = "SELECT BookingID FROM tablebooking WHERE TravelerID = ? AND RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ii', $travelerID ,$restaurantID);
+        $stmt->bind_param('ii', $travelerID, $restaurantID);
         $stmt->execute();
         $result = $stmt->get_result();
         $feedbackID = $result->fetch_assoc()['FeedbackID'];
-        
-        return $feedbackID;
 
+        return $feedbackID;
     }
 
     public function getBookings($restaurantID)
     {
-        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ?";
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND TableNumber IS NOT NULL AND TableNumber != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $restaurantID);
         $stmt->execute();
@@ -341,30 +341,20 @@ class RestaurantModel
 
     public function updateTableNo($bookingID, $tableNo)
     {
-        $sql = "UPDATE tablebooking SET TableNo = ? WHERE BookingID = ?";
+        $sql = "UPDATE tablebooking SET TableNumber = ? WHERE BookingID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('si', $tableNo, $bookingID);
+        $stmt->bind_param('ii', $tableNo, $bookingID);
         $stmt->execute();
     }
-    
+
 
     //reviews
-    public function addReview($name, $email, $rating, $comment, $restaurantID, $travelerID)
+    public function addReview($restaurantID, $travelerID, $rating, $review, $date)
     {
-        $sql = "INSERT INTO restaurantfeedback (Name, Email, Rating, Comment, RestaurantID, TravelerID) VALUES (?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO restaurantfeedback (RestaurantID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssdsii',$name, $email, $rating, $comment, $restaurantID,$travelerID);
+        $stmt->bind_param('iiiss', $restaurantID, $travelerID, $rating, $review, $date);
         $stmt->execute();
-        
-        // Get the FeedbackID
-        $sql = "SELECT FeedbackID FROM restaurantfeedback WHERE TravelerID = ? AND RestaurantID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ii', $travelerID ,$restaurantID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $feedbackID = $result->fetch_assoc()['FeedbackID'];
-        
-        return $feedbackID;
     }
 
     public function getReview($restaurantID)
@@ -373,26 +363,26 @@ class RestaurantModel
                 INNER JOIN traveler t ON rf.TravelerID = t.TravelerID
                 WHERE rf.RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
-    
+
         if (!$stmt) {
             die("Prepare failed: " . $this->conn->error);
         }
-    
-        $stmt->bind_param('i', $restaurantID );
-    
+
+        $stmt->bind_param('i', $restaurantID);
+
         if (!$stmt->execute()) {
             die("Execute failed: " . $stmt->error);
         }
-    
+
         $result = $stmt->get_result();
-    
+
         if (!$result) {
             die("Get result failed: " . $stmt->error);
         }
-    
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+
     public function replyReview($reviewID, $reply)
     {
         $sql = "UPDATE restaurantfeedback SET Response = ? WHERE FeedbackID = ?";
@@ -400,14 +390,15 @@ class RestaurantModel
         $stmt->bind_param('si', $reply, $reviewID);
         $stmt->execute();
     }
-   
 
-  
 
-    public function getTotalBookings($restaurantId) {
+
+
+    public function getTotalBookings($restaurantId)
+    {
         $sql = "SELECT COUNT(*) AS totalBookings 
                 FROM tablebooking WHERE RestaurantID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $restaurantId);
@@ -425,11 +416,12 @@ class RestaurantModel
         }
     }
 
-    public function getTotalMenus($restaurantId) {
+    public function getTotalMenus($restaurantId)
+    {
         $sql = "SELECT COUNT(*) AS totalMenus 
                 FROM menu 
                 WHERE RestaurantID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $restaurantId);
@@ -447,11 +439,12 @@ class RestaurantModel
         }
     }
 
-    public function getTotalReviews($restaurantId) {
+    public function getTotalReviews($restaurantId)
+    {
         $sql = "SELECT COUNT(*) AS totalReviews
                 FROM restaurantfeedback 
                 WHERE RestaurantID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $restaurantId);
@@ -488,7 +481,7 @@ class RestaurantModel
     //     $sql = "SELECT COUNT(*) AS totalReviews
     //             FROM restaurantfeedback 
     //             WHERE RestaurantID = ?";
-        
+
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
     //         $stmt->bind_param("i", $restaurantId);
@@ -505,16 +498,16 @@ class RestaurantModel
     //         return 0;
     //     }
     // }
-    
 
-  
+
+
 
     // public function getTotalRatings($restaurantId) {
     //     $sql = "SELECT COUNT(*) AS totalRatings 
     //             FROM restaurantfeedback rf
     //             JOIN Room r ON hf.RestaurantID = r.RoomID
     //             WHERE r.RestaurantID = ?";
-        
+
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
     //         $stmt->bind_param("i", $hotelId);
@@ -532,11 +525,12 @@ class RestaurantModel
     //     }
     // }
 
-    public function getTotalPosts($restaurantId) {
+    public function getTotalPosts($restaurantId)
+    {
         $sql = "SELECT COUNT(*) AS totalPosts 
                 FROM restaurantpost  
                 WHERE RestaurantID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("i", $restaurantId);
@@ -554,5 +548,14 @@ class RestaurantModel
         }
     }
 
-   
+    public function bookingWithoutTableNo($restaurantId)
+    {
+        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND (TableNumber IS NULL OR TableNumber = 0)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
