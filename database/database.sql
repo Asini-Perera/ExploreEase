@@ -652,3 +652,23 @@ ALTER TABLE
     DROP COLUMN InstagramLink,
     DROP COLUMN TikTokLink,
     DROP COLUMN YoutubeLink;
+
+-- Remove TravelerKeyword table
+DROP TABLE IF EXISTS TravelerKeyword;
+
+-- Add ImageID and Title column to RestaurantImages table
+ALTER TABLE
+    RestaurantImages
+ADD
+    ImageID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ADD
+    Title VARCHAR(255) NOT NULL;
+
+-- Remove CulturalEventOrganizerPost table
+DROP TABLE IF EXISTS CulturalEventOrganizerPost;
+
+-- Remove RestaurantPost table
+DROP TABLE IF EXISTS RestaurantPost;
+
+-- Remove HotelPost table
+DROP TABLE IF EXISTS HotelPost;

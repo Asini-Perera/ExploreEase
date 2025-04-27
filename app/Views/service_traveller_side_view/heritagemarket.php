@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resturant</title>
-    <link rel="stylesheet" href="../public/css/service_traveller_side_view/restaurant.css">
+    <title>Heritage Market</title>
+    <link rel="stylesheet" href="../public/css/service_traveller_side_view/heritagemarket.css">
+    <link rel="stylesheet" href="../public/css/heritagemarket/products.css?v=1">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
 
@@ -16,14 +17,14 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../loggedNavbar.php"; ?>
+    <?php require_once __DIR__ . "/../Navbar.php"; ?>
     <div class="main-container">
 
         <header>
 
             <div class="container">
-                <h1 class="r-name"><?php echo $restaurant['Name']; ?></h1>
-                <h3 class="describe"><?php echo $restaurant['Tagline']; ?></h3>
+                <h1 class="r-name"><?php echo $heritageMarket['Name']; ?></h1>
+                <h3 class="describe"><?php echo $heritageMarket['Tagline']; ?></h3>
 
             </div>
         </header>
@@ -33,8 +34,7 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#about">Overview</a></li>
-                    <li><a href="#full_menu">Menu</a></li>
-                    <li><a href="#table-booking">Bookings</a></li>
+                    <li><a href="#products">Products</a></li>
                     <li><a href="#reviews">Reviews</a></li>
                 </ul>
             </nav>
@@ -99,9 +99,9 @@
 
             <div class="about" id="about">
                 <div class="about-content">
-                    <h3 class="abt-title">Welcome to Our Restaurant</h3>
+                    <h3 class="abt-title">Welcome to Our Heritage Market</h3>
                     <p class="description">
-                        <?php echo $restaurant['Description']; ?>
+                        <?php echo $heritageMarket['Description']; ?>
                     </p>
                 </div>
             </div>
@@ -110,168 +110,93 @@
         </section>
 
 
-        <!-- Food Section -->
-        <section class="food" id="food">
-            <div class="food-heading">
-                <span>Popular Dishes</span>
-                <h3>Our Delicious Food</h3>
-            </div>
+        <!-- product -->
 
-            <div class="food-slider">
-                <div class="food-list">
-                    <?php if (!empty($PopularDishes)) : ?>
-                        <?php foreach ($PopularDishes as $dish) : ?>
-                            <div class="slide">
-                                <img src="<?php echo htmlspecialchars($dish['ImgPath'] ?? 'default_image.png'); ?>" alt="<?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?>" class="food-img">
-                                <div class="food-info">
-                                    <h3><?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?></h3>
-                                    <div class="price">RS.<?php echo htmlspecialchars($dish['Price'], ENT_QUOTES); ?></div>
-                                </div>
+        <section class="products" id="products">
+            <h2 class="page-title">Our Products</h2>
+            <div id="product-list" class="product-container">
+
+                <?php if (!empty($Products)) : ?>
+                    <?php foreach ($Products as $Product) : ?>
+                        <div class="product-card">
+                            <img src="<?php echo htmlspecialchars($Product['ImgPath'] ?? 'default_image.png'); ?>" alt="Product Image" class="product-image">
+                            <div class="product-details">
+                                <h3 class="product-name"><?php echo htmlspecialchars($Product['Name'] ?? 'No name available'); ?></h3>
+                                <p class="product-price">$<?php echo htmlspecialchars($Product['Price'] ?? '0.00'); ?></p>
                             </div>
-                        <?php endforeach; ?>
-                    <?php else : ?>
-                        <div class="slide">
-                            <p>No popular dishes available.</p>
                         </div>
-                    <?php endif; ?>
-
-                    <!-- Food Item -->
-                    <!-- <div class="slide">
-                        <img src="../public/images/burger.jpg" alt="burger" class="food-img">
-                        <div class="food-info">
-                            <h3>Burger</h3>
-                            <div class="price">RS.450.00</div>
-                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p>No products available at the moment.</p>
+                <?php endif; ?>
+                <!-- <div class="product-card">
+                    <img src="../public/images/product1.jpg" alt="Product 1" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">LACQUERED JEWELRY BOX 06″ (FLOWER CARVING)</h3>
+                        <p class="product-price">$25.00</p>
                     </div>
-
-                    <div class="slide">
-                        <img src="../public/images/creamy-pasta.jpg" alt="creamy-pasta" class="food-img">
-                        <div class="food-info">
-                            <h3>Creamy Pasta</h3>
-                            <div class="price">RS.650.00</div>
-                        </div>
+                </div> -->
+                <!-- <div class="product-card">
+                    <img src="../public/images/product2.jpg" alt="Product 2" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">ELEPHANT LEG SHAPED LACQUERED PEN HOLDER (MAT)</h3>
+                        <p class="product-price">$45.00</p>
                     </div>
-
-                    <div class="slide">
-                        <img src="../public/images/chorizo-pasta.jpg" alt="chorizo-pasta" class="food-img">
-                        <div class="food-info">
-                            <h3>Chorizo Pasta</h3>
-                            <div class="price">RS.750.00</div>
-                        </div>
+                </div> -->
+                <!-- <div class="product-card">
+                    <img src="../public/images/product3.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">LAQUARED BOWL WITH LID</h3>
+                        <p class="product-price">$30.00</p>
                     </div>
+                </div> -->
 
-                    <div class="slide">
-                        <img src="../public/images/sandwitch.jpg" alt="sandwich" class="food-img">
-                        <div class="food-info">
-                            <h3>Sandwich</h3>
-                            <div class="price">RS.350.00</div>
-                        </div>
+                <!-- <div class="product-card">
+                    <img src="../public/images/ceramicc1.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">HAND MADE ELEPHANT DESIGN MUG</h3>
+                        <p class="product-price">$30.00</p>
                     </div>
-
-                    <div class="slide">
-                        <img src="../public/images/root-vegetable-soap.jpg" alt="root-vegetable-soup" class="food-img">
-                        <div class="food-info">
-                            <h3>Root Vegetable Soup</h3>
-                            <div class="price">RS.800.00</div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <img src="../public/images/thai-curry-soap.jpg" alt="thai-curry-soup" class="food-img">
-                        <div class="food-info">
-                            <h3>Thai Curry Soup</h3>
-                            <div class="price">RS.750.00</div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <img src="../public/images/spring-rolls.jpg" alt="spring-rolls" class="food-img">
-                        <div class="food-info">
-                            <h3>Spring Rolls</h3>
-                            <div class="price">RS.450.00</div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <img src="../public/images/rasberry-white-chocolate-mousse.jpg" alt="rasberry-white-chocolate-mousse" class="food-img">
-                        <div class="food-info">
-                            <h3>Raspberry White Chocolate Mousse</h3>
-                            <div class="price">RS.450.00</div>
-                        </div>
-                    </div> -->
-
                 </div>
+                <div class="product-card">
+                    <img src="../public/images/ceramicc2.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">HAND PAINTED CLAY PLATE</h3>
+                        <p class="product-price">$30.00</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="../public/images/ceramicc6.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">HAND MADE CERAMIC ORNAMENT</h3>
+                        <p class="product-price">$30.00</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="../public/images/rushc2.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">CANE LAMP SHADE WITH WOODEN STAND</h3>
+                        <p class="product-price">$30.00</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="../public/images/rushc8.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">BANANA FIBER CLUTCH BAG</h3>
+                        <p class="product-price">$30.00</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="../public/images/rushc9.jpg" alt="Product 3" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-name">INDIKOLA SEWING ROUND BOX WITH LID</h3>
+                        <p class="product-price">$30.00</p>
+                    </div>
+                </div> -->
             </div>
         </section>
 
 
-        <!-- menu -->
-        <section class="full_menu" id="full_menu">
-            <div>
-                <h1 class="menu_headin">Menu</h1>
-                <p class="menu_description">Our menu is a celebration of both classic and innovative flavors, offering a variety of dishes that will captivate your taste buds and elevate your dining experience. From delicate appetizers to indulgent entrees and decadent desserts, every bite is designed to delight.</p>
-                <button class="menu_btn"><a href="<?php echo $restaurant['MenuPDF']; ?>" class="full_menu-link">Discover Menu PDF</a></button>
-            </div>
-
-            <img class="menu_img" src="../public/images/menu.jpg" alt="menu">
-        </section>
-
-
-
-
-
-        <!-- Table Booking Section -->
-        <section class="table-booking" id="table-booking">
-            <div class="booking-image">
-                <img src="../public/images/book_table.jpg" alt="booking">
-            </div>
-
-
-
-            <div class="booking-form">
-                <form action="">
-                    <h3 class="booking-heading">Book a Table</h3>
-
-                    <div class="input-group">
-                        <input type="text" name="customer_name" placeholder="Your Name" class="input-field" required>
-                        <input type="email" name="email" placeholder="Your Email" class="input-field" required>
-                    </div>
-
-                    <div class="input-group">
-                        <input type="text" placeholder="Phone Number" class="input-field" required>
-                        <input type="date" name="date_booking" placeholder="Select Date" class="input-field" required>
-                    </div>
-
-                    <div class="input-group">
-                        <input type="time" name="time_booking" value="--:--" class="input-field booking-time" required>
-                        <input type="number" name="no_people" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
-                    </div>
-
-
-                    <textarea
-                        name="special_Request"
-                        placeholder="Special Requests (optional)"
-                        class="input-field textarea-field"
-                        rows="4"></textarea>
-
-                    <input type="hidden" name="restaurant_id" value="<?= $restaurant['RestaurantID'] ?>">
-                    <input type="hidden" name="traveler_id" value="<?= $_SESSION['TravelerID'] ?>">
-
-
-                    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
-                </form>
-
-
-                <!-- Popup Confirmation -->
-                <div class="popup" id="popup">
-                    <div class="popup-content">
-                        <h3>Thank you for booking a table with us!</h3>
-                        <p>Your booking has been confirmed. We will send you your table number shortly. We look forward to welcoming you to our restaurant.</p>
-                        <button id="ok" class="popup-btn" onclick="closePopup()">OK</button>
-
-
-                    </div>
-        </section>
 
 
         <!-- reviews -->
@@ -359,41 +284,41 @@
                 <div class="contact-info">
                     <img class="contact_img" alt="Location" src="../public/images/location.png">
                     <h3>Address</h3>
-                    <p><?php echo $restaurant['Address']; ?></p>
+                    <p><?php echo $heritageMarket['Address']; ?></p>
                 </div>
 
                 <div class="contact-info">
                     <img class="contact_img" alt="Opening Hours" src="../public/images/open.png">
                     <h3>Opening Hours</h3>
-                    <p>Weekdays: <?php echo $restaurant['WeekdayOpenHours']; ?></p>
-                    <p>Weekends: <?php echo $restaurant['WeekendOpenHours']; ?></p>
+                    <p>Weekdays: <?php echo $heritageMarket['WeekdayOpenHours']; ?></p>
+                    <p>Weekends: <?php echo $heritageMarket['WeekendOpenHours']; ?></p>
                 </div>
 
                 <div class="contact-info">
                     <img class="contact_img" alt="Email" src="../public/images/email.png">
                     <h3>Email</h3>
-                    <p><?php echo $restaurant['Email']; ?></p>
+                    <p><?php echo $heritageMarket['Email']; ?></p>
                 </div>
 
                 <div class="contact-info">
                     <img class="contact_img" alt="Phone" src="../public/images/phone-call.png">
                     <h3>Phone</h3>
-                    <p><?php echo $restaurant['ContactNo']; ?></p>
+                    <p><?php echo $heritageMarket['ContactNo']; ?></p>
                 </div>
             </div>
 
             <div class="share">
-                <?php if (!empty($restaurant['TikTokLink'])) : ?>
-                    <a href="<?php echo $restaurant['TikTokLink']; ?>" class="social-link"><img alt="Tiktok" src="../public/images/tiktok.webp"></a>
+                <?php if (!empty($heritageMarket['TikTokLink'])) : ?>
+                    <a href="<?php echo $heritageMarket['TikTokLink']; ?>" class="social-link"><img alt="Tiktok" src="../public/images/tiktok.webp"></a>
                 <?php endif; ?>
-                <?php if (!empty($restaurant['FacebookLink'])) : ?>
-                    <a href="<?php echo $restaurant['FacebookLink']; ?>" class="social-link"><img alt="Facebook" src="../public/images/facebook.png"></a>
+                <?php if (!empty($heritageMarket['FacebookLink'])) : ?>
+                    <a href="<?php echo $heritageMarket['FacebookLink']; ?>" class="social-link"><img alt="Facebook" src="../public/images/facebook.png"></a>
                 <?php endif; ?>
-                <?php if (!empty($restaurant['InstagramLink'])) : ?>
-                    <a href="<?php echo $restaurant['InstagramLink']; ?>" class="social-link"><img alt="Instagram" src="../public/images/instagram.png"></a>
+                <?php if (!empty($heritageMarket['InstagramLink'])) : ?>
+                    <a href="<?php echo $heritageMarket['InstagramLink']; ?>" class="social-link"><img alt="Instagram" src="../public/images/instagram.png"></a>
                 <?php endif; ?>
-                <?php if (!empty($restaurant['YoutubeLink'])) : ?>
-                    <a href="<?php echo $restaurant['YoutubeLink']; ?>" class="social-link"><img alt="YouTube" src="../public/images/youtube.png"></a>
+                <?php if (!empty($heritageMarket['YoutubeLink'])) : ?>
+                    <a href="<?php echo $heritageMarket['YoutubeLink']; ?>" class="social-link"><img alt="YouTube" src="../public/images/youtube.png"></a>
                 <?php endif; ?>
             </div>
         </section>
@@ -408,8 +333,8 @@
     <script>
         function initMap() {
             // Pull the PHP vars into JS
-            const lat = parseFloat("<?= $restaurant['Latitude']; ?>");
-            const lng = parseFloat("<?= $restaurant['Longitude']; ?>");
+            const lat = parseFloat("<?= $heritageMarket['Latitude']; ?>");
+            const lng = parseFloat("<?= $heritageMarket['Longitude']; ?>");
 
             // Create the map
             const map = new google.maps.Map(document.getElementById('map'), {
@@ -427,9 +352,9 @@
                     lng
                 },
                 map: map,
-                title: "<?= htmlspecialchars($restaurant['Name'], ENT_QUOTES); ?>",
+                title: "<?= htmlspecialchars($heritageMarket['Name'], ENT_QUOTES); ?>",
                 label: {
-                    text: "<?= htmlspecialchars($restaurant['Name'], ENT_QUOTES); ?>",
+                    text: "<?= htmlspecialchars($heritageMarket['Name'], ENT_QUOTES); ?>",
                     color: "white",
                     fontSize: "12px",
                     fontWeight: "bold"

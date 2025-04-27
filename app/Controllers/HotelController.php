@@ -540,4 +540,41 @@ class HotelController
             exit();
         }
     }
+
+    public function checkAvailableRooms()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $hotelID = $_POST['HotelID'];
+            $checkInDate = $_POST['check-in'];
+            $checkOutDate = $_POST['check-out'];
+            $guests = $_POST['guests'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $availableRooms = $hotelModel->getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests);
+
+            // Store available rooms in session for later use
+            $_SESSION['AvailableRooms'] = $availableRooms;
+
+            header('Location: ../link/service?type=hotel&id=' . $hotelID . '#available-rooms');
+            exit();
+        }
+    }
+
+    public function bookRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomID = $_POST['RoomID'];
+            $travelerID = $_POST['TravelerID'];
+            $hotelID = $_POST['HotelID'];
+            $checkInDate = $_POST['checkIn'];
+            $checkOutDate = $_POST['checkOut'];
+            $date = date('Y-m-d');
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->bookRoom($roomID, $travelerID, $checkInDate, $checkOutDate, $date);
+
+            header('Location: ../link/service?type=hotel&id=' . $hotelID);
+            exit();
+        }
+    }
 }

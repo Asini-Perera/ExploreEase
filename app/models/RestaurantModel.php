@@ -559,4 +559,15 @@ class RestaurantModel
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getPopularDishes($restaurantId)
+    {
+        $sql = "SELECT * FROM menu WHERE RestaurantID = ? AND IsPopular = 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
