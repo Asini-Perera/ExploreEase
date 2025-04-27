@@ -83,6 +83,8 @@ $router->add('hotel/deletePost', 'HotelController@deletePost');  // Delete post 
 $router->add('hotel/updatePost', 'HotelController@updatePost');  // Update post for hotel
 $router->add('hotel/reviews', 'HotelController@reviews');  // View reviews for hotel
 $router->add('hotel/replyReview', 'HotelController@replyReview');  // Process review replies
+$router->add('hotel/checkAvailableRooms', 'HotelController@checkAvailableRooms');  // Check available rooms for hotel
+$router->add('hotel/bookRoom', 'HotelController@bookRoom');  // Book room for hotel
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
@@ -109,4 +111,3 @@ $router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerCont
 $router->add('culturaleventorganizer/reviewResponse', 'CulturalEventOrganizerController@reviewResponse');  // Process review responses
 $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
-

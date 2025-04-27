@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hotel</title>
+    <title>Hotel</title>
     <link rel="stylesheet" href="../public/css/service_traveller_side_view/hotel.css">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
+    <link rel="stylesheet" href="../public/css/heritagemarket/products.css?v=1">
+
     <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8&callback=initMap"
@@ -256,6 +258,36 @@
             </div>
         </section>
 
+        <section class="rooms" id="rooms">
+            <h2 class="page-title">Rooms</h2>
+            <div id="product-list" class="product-container">
+                <?php if (!empty($Rooms)) : ?>
+                    <?php foreach ($Rooms as $Room) : ?>
+                        <div class="product-card">
+                            <img src="<?php echo htmlspecialchars($Room['ImgPath'] ?? 'default_image.png'); ?>" alt="Product 1" class="product-image">
+                            <div class="product-details">
+                                <h3 class="product-name">Room Type: <?php echo htmlspecialchars($Room['Type']); ?></h3>
+                                <p class="product-price">Price per night: <?php echo htmlspecialchars($Room['Price']); ?></p>
+                                <p class="product-price">Max Occupancy: <?php echo htmlspecialchars($Room['MaxOccupancy']); ?></p>
+                                <p class="product-description"><?php echo htmlspecialchars($Room['Description']); ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p>No rooms available to display.</p>
+                <?php endif; ?>
+                <!-- <div class="product-card">
+                <img src="../public/images/product1.jpg" alt="Product 1" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-name">LACQUERED JEWELRY BOX 06″ (FLOWER CARVING)</h3>
+                    <p class="product-price">$25.00</p>
+                </div>
+            </div> -->
+
+            </div>
+        </section>
+
+
 
 
         <!-- Bookings Section -->
@@ -267,43 +299,85 @@
             <div class="booking-form">
                 <h2>Book Your Stay</h2>
 
-                <form action="/submit-booking" method="post">
+                <form id="booking-form" method="POST" action="../hotel/checkAvailableRooms" onsubmit="return validateBookingForm()">
                     <!-- Check-in Date -->
-                    <label for="checkin">Check-in Date:</label>
+                    <label for="check-in">Check-in Date:</label>
                     <input type="date" id="check-in" name="check-in" required>
 
                     <!-- Check-out Date -->
-                    <label for="checkout">Check-out Date:</label>
+                    <label for="check-out">Check-out Date:</label>
                     <input type="date" id="check-out" name="check-out" required>
 
                     <!-- Number of Guests -->
                     <label for="guests">Number of Guests:</label>
                     <input type="number" id="guests" name="guests" min="1" required>
 
-                    <!-- Room Type -->
-                    <label for="room-type">Room Type:</label>
-                    <select id="room-type" name="room-type" required>
-                        <option value="single">Single Room</option>
-                        <option value="double">Double Room</option>
-                        <option value="suite">Suite</option>
-                    </select>
-
-                    <!-- Meal Plan Options -->
-                    <label for="meals">Meal Plan:</label>
-                    <div id="extras">
-                        <label><input type="checkbox" name="breakfast" value="breakfast">Breakfast</label>
-                        <label><input type="checkbox" name="lunch" value="lunch">Lunch</label>
-                        <label><input type="checkbox" name="dinner" value="dinner">Dinner</label>
-                        <label><input type="checkbox" name="all" value="all-meals">All Meals</label>
-                    </div>
+                    <input type="hidden" name="HotelID" value="<?php echo htmlspecialchars($hotel['HotelID']); ?>">
 
                     <!-- Book Now Button -->
-                    <button class="book-btn" type="submit">Book Now</button>
+                    <button class="book-btn" type="submit">Check available Rooms</button>
                 </form>
             </div>
         </section>
 
-        <!-- review section -->
+        <script>
+            function validateBookingForm() {
+                const checkIn = document.getElementById('check-in').value;
+                const checkOut = document.getElementById('check-out').value;
+                const today = new Date().toISOString().split('T')[0];
+
+                if (checkIn < today) {
+                    alert('Check-in date cannot be before today.');
+                    return false;
+                }
+
+                if (checkOut <= checkIn) {
+                    alert('Check-out date must be after the check-in date.');
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+
+
+        <?php if (isset($_SESSION['AvailableRooms'])) : ?>
+            <?php if (!empty($_SESSION['AvailableRooms'])) : ?>
+                <section class="available-rooms" id="available-rooms">
+                    <h2 class="page-title">Available Rooms</h2>
+                    <div class="product-container">
+                        <?php foreach ($_SESSION['AvailableRooms'] as $Room) : ?>
+                            <div class="product-card">
+                                <img src="<?php echo htmlspecialchars($Room['ImgPath'] ?? 'default_image.png'); ?>" alt="Room Image" class="product-image">
+                                <div class="product-details">
+                                    <h3 class="product-name">Room Type: <?php echo htmlspecialchars($Room['Type']); ?></h3>
+                                    <p class="product-price">Total Price: <?php echo htmlspecialchars($Room['TotalPrice']); ?></p>
+                                    <p class="product-price">Max Occupancy: <?php echo htmlspecialchars($Room['MaxOccupancy']); ?></p>
+                                    <form method="POST" action="../hotel/bookRoom">
+                                        <input type="hidden" name="RoomID" value="<?php echo htmlspecialchars($Room['RoomID']); ?>">
+                                        <input type="hidden" name="HotelID" value="<?php echo htmlspecialchars($hotel['HotelID']); ?>">
+                                        <input type="hidden" name="TravelerID" value="<?php echo htmlspecialchars($_SESSION['TravelerID']); ?>">
+                                        <input type="hidden" name="checkIn" value="<?php echo htmlspecialchars($Room['CheckInDate']); ?>">
+                                        <input type="hidden" name="checkOut" value="<?php echo htmlspecialchars($Room['CheckOutDate']); ?>">
+                                        <button type="submit" class="select-room-btn">Select Room</button>
+                                    </form>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php unset($_SESSION['AvailableRooms']); ?>
+                    </div>
+                </section>
+            <?php else : ?>
+                <section class="available-rooms" id="available-rooms">
+                    <h2 class="page-title">Available Rooms</h2>
+                    <p>No available rooms to display.</p>
+                </section>
+            <?php endif; ?>
+        <?php endif; ?>
+
+
+
+
         <!-- reviews -->
         <section class="reviews" id="reviews">
             <div class="review-heading">

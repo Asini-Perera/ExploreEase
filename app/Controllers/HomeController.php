@@ -142,6 +142,7 @@ class HomeController
                 if ($hotel) {
                     $hotelModel = new HotelModel($this->conn);
                     $Reviews = $hotelModel->getReviews($id);
+                    $Rooms = $hotelModel->getRoom($id);
                     require_once __DIR__ . '/../Views/service_traveller_side_view/hotel.php';
                 } else {
                     echo "Hotel not found.";
