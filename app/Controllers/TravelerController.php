@@ -36,11 +36,11 @@ class TravelerController
             $signupModel = new SignupModel($this->conn);
             $user = $signupModel->getUserByEmail($email);
 
-            // if ($user && $user['TravelerID'] != $travelerID) {
-            //     $_SESSION['error'] = "Email already exists. Please use a different email.";
-            //     header("Location: /TravellerDashboard");
-            //     exit();
-            // }
+            if ($user && $user['TravelerID'] != $travelerID) {
+                $_SESSION['error'] = "Email already exists. Please use a different email.";
+                header("Location: ../TravellerDashboard");
+                exit();
+            }
 
             // Update the profile
             $travelerModel = new TravelerModel($this->conn);

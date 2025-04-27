@@ -102,8 +102,6 @@
         <a href="/add-package" class="btn-add">Click here to Add Packages</a>
       </section>
 
-
-
       <!-- Bookings Section -->
       <section class="section" id="bookings">
         <h2>Bookings</h2>
