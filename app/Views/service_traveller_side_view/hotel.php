@@ -411,10 +411,18 @@
             </div>
 
             <div class="share">
-                <a href="https://www.twitter.com/" class="social-link"><img alt="Twitter" src="../public/images/twitter.png"></a>
-                <a href="https://www.facebook.com/" class="social-link"><img alt="Facebook" src="../public/images/facebook.png"></a>
-                <a href="https://www.instagram.com/" class="social-link"><img alt="Instagram" src="../public/images/instagram.png"></a>
-                <a href="https://www.youtube.com/" class="social-link"><img alt="YouTube" src="../public/images/youtube.png"></a>
+                <?php if (!empty($hotel['TikTokLink'])) : ?>
+                    <a href="<?php echo $hotel['TikTokLink']; ?>" class="social-link"><img alt="Tiktok" src="../public/images/tiktok.webp"></a>
+                <?php endif; ?>
+                <?php if (!empty($hotel['FacebookLink'])) : ?>
+                    <a href="<?php echo $hotel['FacebookLink']; ?>" class="social-link"><img alt="Facebook" src="../public/images/facebook.png"></a>
+                <?php endif; ?>
+                <?php if (!empty($hotel['InstagramLink'])) : ?>
+                    <a href="<?php echo $hotel['InstagramLink']; ?>" class="social-link"><img alt="Instagram" src="../public/images/instagram.png"></a>
+                <?php endif; ?>
+                <?php if (!empty($hotel['YoutubeLink'])) : ?>
+                    <a href="<?php echo $hotel['YoutubeLink']; ?>" class="social-link"><img alt="YouTube" src="../public/images/youtube.png"></a>
+                <?php endif; ?>
             </div>
         </section>
 
