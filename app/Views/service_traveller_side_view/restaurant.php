@@ -7,6 +7,10 @@
     <title>Resturant</title>
     <link rel="stylesheet" href="../public/css/service_traveller_side_view/restaurant.css">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8&callback=initMap"
+        async defer>
+    </script>
 </head>
 
 <body>
@@ -39,9 +43,7 @@
         <section class="about-section" id="about">
 
             <div class="map-gallery">
-                <div class="map">
-                    <img src="../public/images/google-map.jpg" alt="map" class="map-img">
-                </div>
+                <div id="map" class="map"></div>
 
                 <div class="gallery">
                     <div class="gallery-one">
@@ -356,6 +358,39 @@
     </div>
     <?php require_once __DIR__ . "/../logedFooter.php"; ?>
     <script src="../public/js/restaurant.js"></script>
+
+    <script>
+        function initMap() {
+            // Pull the PHP vars into JS
+            const lat = parseFloat("<?= $restaurant['Latitude']; ?>");
+            const lng = parseFloat("<?= $restaurant['Longitude']; ?>");
+
+            // Create the map
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat,
+                    lng
+                },
+                zoom: 12
+            });
+
+            // Place a marker on the hotel
+            new google.maps.Marker({
+                position: {
+                    lat,
+                    lng
+                },
+                map: map,
+                title: "<?= htmlspecialchars($restaurant['Name'], ENT_QUOTES); ?>",
+                label: {
+                    text: "<?= htmlspecialchars($restaurant['Name'], ENT_QUOTES); ?>",
+                    color: "white",
+                    fontSize: "12px",
+                    fontWeight: "bold"
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

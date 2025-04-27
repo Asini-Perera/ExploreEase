@@ -1,29 +1,29 @@
-*{
-    padding:0;
-    margin:0;
-    box-sizing:border-box;
-    font-family: "Poppins",sans-serif;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-.main-container{
-    margin-top: 60px; 
+.main-container {
+    margin-top: 60px;
 }
 
-.container{
-    background: url("../../images/restaurant-home.jpg" ) 0vh, 70vw no-repeat;
+.container {
+    background: url("../../images/restaurant-home.jpg") 0vh, 70vw no-repeat;
     background-size: cover;
-    height: 60vh;  
+    height: 60vh;
     text-align: center;
 }
 
-.r-name{
+.r-name {
     font-size: 3rem;
     padding-top: 10vh;
     color: rgb(246, 206, 206);
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.describe{
+.describe {
     font-size: 1.5rem;
     padding-top: 2vh;
     color: rgb(252, 249, 249);
@@ -32,104 +32,107 @@
 }
 
 /* nav-bar */
-.nav-bar{
+.nav-bar {
     margin: 20px 0;
     margin-left: 19vw;
     padding: 20px;
     width: 70vw;
     background-color: #D9D9D9;
-    border-radius: 40px;   
+    border-radius: 40px;
 }
 
-.nav-links{
+.nav-links {
     display: flex;
     justify-content: center;
     gap: 7rem;
-    list-style:none;   
+    list-style: none;
 }
 
-.nav-links a{
+.nav-links a {
     text-decoration: none;
     color: #111111;
     font-size: 18px;
 }
 
 /* about */
-.about-section{
-    margin-top: 7vh; 
+.about-section {
+    margin-top: 7vh;
 }
 
-.map-gallery{
-    display: flex; 
-    margin-top: 3vh; 
-    height: 65vh; 
+.map-gallery {
+    display: flex;
+    margin-top: 3vh;
+    height: 65vh;
     gap: 2rem;
-    margin-bottom: 2vh; 
+    margin-bottom: 2vh;
 }
 
-.map img{
-    cursor:pointer; 
-    width:20vw; 
-    height:30vh; 
+.map {
+    cursor: pointer;
+    width: 20vw;
+    height: 60vh;
     padding-left: 2vw;
-}
-.gallery{
-    width: 70vw;  
+    border: 2px solid #ccc;
 }
 
-.gallery-one{
-    display: flex;  
+.gallery {
+    width: 70vw;
 }
-.gallery1-image1{
+
+.gallery-one {
+    display: flex;
+}
+
+.gallery1-image1 {
     width: 19vw;
-    height: 20vh; 
+    height: 20vh;
 }
 
-.gallery1-image2{
+.gallery1-image2 {
     /* margin-top: 5vh; */
     width: 19vw;
-    height: 20vh; 
+    height: 20vh;
 }
 
-.gallery-main{
-    width: 38.5vw; 
+.gallery-main {
+    width: 38.5vw;
     height: 41vh;
     margin-left: 5px;
 }
 
-.gallery1-image3{
+.gallery1-image3 {
     width: 19vw;
     height: 20vh;
     margin-left: 5px;
 }
 
-.gallery1-image4{
+.gallery1-image4 {
     width: 19vw;
     height: 20vh;
     margin-left: 5px;
 }
 
-.gallery .gallery-two{
+.gallery .gallery-two {
     display: flex;
-    gap:5px;
+    gap: 5px;
 }
 
-.gallery2-image1{ 
+.gallery2-image1 {
     width: 19vw;
     height: 20vh;
 }
 
-.gallery2-image2{ 
+.gallery2-image2 {
     width: 19vw;
     height: 20vh;
 }
 
-.gallery2-image3{ 
+.gallery2-image3 {
     width: 19vw;
     height: 20vh;
 }
 
-.gallery2-image4{ 
+.gallery2-image4 {
     width: 19vw;
     height: 20vh;
 }
@@ -168,9 +171,9 @@
 .abt-title {
     font-family: 'Edwardian Script ITC', serif;
     font-size: 2.8rem;
-    
+
     color: #333;
-    
+
     margin-bottom: 20px;
     letter-spacing: 2px;
     transition: color 0.3s ease;
@@ -338,7 +341,7 @@
 
 /* menu */
 
-.full_menu{ 
+.full_menu {
     margin-top: 2vh;
     margin-bottom: 2vh;
     width: 100%;
@@ -346,43 +349,44 @@
     display: flex;
 }
 
-.full_menu img{
+.full_menu img {
     width: 60vw;
     height: 60vh;
     object-fit: cover;
 }
 
-.full_menu div{
+.full_menu div {
     padding-top: 10vh;
     padding-left: 3vw;
     padding-right: 2vw;
     text-align: center;
 }
 
-.full_menu h1{
+.full_menu h1 {
     color: #225522;
     font-size: 48px;
     font-weight: bold;
-    padding-bottom: 2vh; 
+    padding-bottom: 2vh;
     font-family: Edwardian Script ITC;
 }
 
-.full_menu p{
+.full_menu p {
     color: #111111;
     font-size: 16px;
-    padding:20px;
+    padding: 20px;
 }
 
-.full_menu button{
-    cursor:pointer;
+.full_menu button {
+    cursor: pointer;
     border: none;
     background: #F1C232;
     padding: 10px 30px 10px;
     margin-top: 2vh;
     font-size: 16px;
     border-radius: 30px;
-    
+
 }
+
 .full_menu-link {
     text-decoration: none;
     color: inherit;
@@ -535,11 +539,11 @@
     border-radius: 8px;
     border: 2px solid #ddd;
     background-color: #fafafa;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
     margin: 2px;
 }
 
- 
+
 
 .input-field:focus {
     outline: none;
@@ -779,6 +783,7 @@
 .carousel-controls button:hover {
     background-color: #45a049;
 }
+
 /* contact section */
 /* Contact Us Section */
 .contact_us {
@@ -880,6 +885,7 @@
         margin-bottom: 1.5rem;
     }
 }
+
 .review-button-container1 {
     position: fixed;
     bottom: 20px;
