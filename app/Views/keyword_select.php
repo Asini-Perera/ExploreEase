@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Sri Lanka</title>
     <link rel="stylesheet" href="../public/css/selectKeywords.css?v=1">
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
 </head>

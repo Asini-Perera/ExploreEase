@@ -21,7 +21,7 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
- 
+
 
 
 
@@ -30,29 +30,29 @@ class CulturalEventOrganizerModel
         try {
             // Log the SQL operation starting
             error_log("Adding new event for organizer ID: $organizerID");
-            
+
             $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            
+
             $stmt = $this->conn->prepare($sql);
-            
+
             if (!$stmt) {
                 error_log("SQL prepare error: " . $this->conn->error);
                 return false;
             }
-            
+
             $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
-            
+
             $result = $stmt->execute();
-            
+
             if (!$result) {
                 error_log("SQL execute error: " . $stmt->error);
                 return false;
             }
-            
+
             $insertId = $stmt->insert_id;
             error_log("Event added successfully with ID: $insertId");
-            
+
             return $insertId;
         } catch (\Exception $e) {
             error_log("Exception in addEvent model: " . $e->getMessage());
@@ -84,7 +84,7 @@ class CulturalEventOrganizerModel
             return false;
         }
     }
-    
+
     public function updateOrganizer($OrganizerID, $name, $email, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
         $sql = "UPDATE culturaleventorganizer SET 
@@ -97,21 +97,31 @@ class CulturalEventOrganizerModel
                 `TikTokLink` = ?,
                 `YouTubeLink` = ?
                 WHERE OrganizerID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssisssssi', $name, $email, $contactNo, $description, 
-                          $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $OrganizerID);
+        $stmt->bind_param(
+            'ssisssssi',
+            $name,
+            $email,
+            $contactNo,
+            $description,
+            $facebookLink,
+            $instagramLink,
+            $tiktokLink,
+            $youtubeLink,
+            $OrganizerID
+        );
         $stmt->execute();
-        
+
         return $stmt->affected_rows > 0;
     }
-    
+
     public function setImgPath($OrganizerID, $fileName)
     {
         try {
             // Get temp image path
             $tempImgPath = $fileName['tmp_name'];
-            
+
             // Get the file name (original file name from the upload)
             $originalFileName = $fileName['name'];
 
@@ -145,12 +155,11 @@ class CulturalEventOrganizerModel
                 $stmt->bind_param('si', $imgPath, $OrganizerID);
                 return $stmt->execute();
             }
-            
+
             return false;
         } catch (\Exception $e) {
             error_log("Exception in setImgPath: " . $e->getMessage());
             return false;
-
         }
     }
 
@@ -189,15 +198,15 @@ class CulturalEventOrganizerModel
     }
 
 
-    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
-    {
-        $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
-        $stmt->execute();
+    // public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
+    // {
+    //     $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`) VALUES (?, ?, ?)";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->bind_param('ssi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+    //     $stmt->execute();
 
-        return $stmt->insert_id;
-    }
+    //     return $stmt->insert_id;
+    // }
 
 
     public function getEventItem($postID)
@@ -223,20 +232,20 @@ class CulturalEventOrganizerModel
         try {
             $sql = "INSERT INTO culturaleventorganizerpost (`Title`, `Description`, `OrganizerID`, `Date`) VALUES (?, ?, ?, CURRENT_DATE())";
             $stmt = $this->conn->prepare($sql);
-            
+
             if (!$stmt) {
                 error_log("SQL prepare error in addPost: " . $this->conn->error);
                 return false;
             }
-            
+
             $stmt->bind_param('ssi', $title, $description, $organizerID);
             $result = $stmt->execute();
-            
+
             if (!$result) {
                 error_log("SQL execute error in addPost: " . $stmt->error);
                 return false;
             }
-            
+
             return $stmt->insert_id;
         } catch (\Exception $e) {
             error_log("Exception in addPost: " . $e->getMessage());
@@ -272,20 +281,20 @@ class CulturalEventOrganizerModel
         try {
             $sql = "UPDATE culturaleventorganizerpost SET Title = ?, Description = ? WHERE PostID = ?";
             $stmt = $this->conn->prepare($sql);
-            
+
             if (!$stmt) {
                 error_log("SQL prepare error in updatePost: " . $this->conn->error);
                 return false;
             }
-            
+
             $stmt->bind_param('ssi', $title, $description, $postID);
             $result = $stmt->execute();
-            
+
             if (!$result) {
                 error_log("SQL execute error in updatePost: " . $stmt->error);
                 return false;
             }
-            
+
             return true;
         } catch (\Exception $e) {
             error_log("Exception in updatePost: " . $e->getMessage());
@@ -298,10 +307,10 @@ class CulturalEventOrganizerModel
         try {
             // Log the start of image upload process
             error_log("Starting to set image for post ID: $postID");
-            
+
             // Get temp image path
             $tempImgPath = $fileName['tmp_name'];
-            
+
             // Get the file name (original file name from the upload)
             $originalFileName = $fileName['name'];
 
@@ -337,12 +346,12 @@ class CulturalEventOrganizerModel
                 error_log("Image moved successfully to: $imgDir");
                 $sql = "UPDATE culturaleventorganizerpost SET ImgPath = ? WHERE PostID = ?";
                 $stmt = $this->conn->prepare($sql);
-                
+
                 if (!$stmt) {
                     error_log("Failed to prepare SQL statement: " . $this->conn->error);
                     return false;
                 }
-                
+
                 $stmt->bind_param('si', $imgPath, $postID);
                 $result = $stmt->execute();
 
@@ -524,67 +533,67 @@ class CulturalEventOrganizerModel
 
     public function setEventImage($eventID, $fileName)
     {
-            // Log the start of image upload process
-            error_log("Starting to set image for event ID: $eventID");
-            
-            // Get temp image path
-            $tempImgPath = $fileName['tmp_name'];
-            
-            // Get the file name (original file name from the upload)
-            $originalFileName = $fileName['name'];
+        // Log the start of image upload process
+        error_log("Starting to set image for event ID: $eventID");
 
-            // Get the file extension
-            $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
 
-            // Create a new file name
-            $newFileName = 'event_' . $eventID . '.' . $extension;
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
 
-            // Define the target directory
-            $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
+        // Get the file extension
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
-            // Check if the directory exists and create it if not
-            if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
+        // Create a new file name
+        $newFileName = 'event_' . $eventID . '.' . $extension;
 
-            // Create the image path
-            $imgDir = $targetDir . $newFileName;
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
 
-            // Move the image to the target directory
-            $moving = move_uploaded_file($tempImgPath, $imgDir);
+        // Check if the directory exists and create it if not
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
 
-            // Define the image path for the database
-            $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
 
-            // Update the database with the image path
-            if ($moving) {
-                $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
-                $stmt = $this->conn->prepare($sql); 
-                
-                $stmt->bind_param('si', $imgPath, $eventID);
-                $stmt->execute();
-                $stmt->close();
-            }
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path for the database
+        $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
+
+        // Update the database with the image path
+        if ($moving) {
+            $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bind_param('si', $imgPath, $eventID);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
-    
+
     public function getBookings($organizerID)
     {
         error_log("Fetching bookings for organizer ID: $organizerID");
-        
+
         // Let's check if we have any bookings in the table at all
         $checkSql = "SELECT COUNT(*) as count FROM culturaleventbooking";
         $checkStmt = $this->conn->prepare($checkSql);
-        
+
         if (!$checkStmt) {
             error_log("MySQL prepare error for count check: " . $this->conn->error);
             return [];
         }
-        
+
         $checkStmt->execute();
         $checkResult = $checkStmt->get_result();
         $totalCount = $checkResult->fetch_assoc()['count'];
         error_log("Total bookings in culturaleventbooking table: $totalCount");
-        
+
         // Now proceed with the actual query
         $sql = "SELECT ceb.*, ce.Name as EventName, t.FirstName, t.LastName 
                 FROM culturaleventbooking ceb
@@ -592,83 +601,83 @@ class CulturalEventOrganizerModel
                 LEFT JOIN traveler t ON ceb.TravelerID = t.TravelerID
                 WHERE ce.OrganizerID = ?
                 ORDER BY ceb.Date DESC";
-        
+
         error_log("Executing SQL: " . str_replace('?', $organizerID, $sql));
-        
+
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("MySQL prepare error: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param('i', $organizerID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         $bookings = $result->fetch_all(MYSQLI_ASSOC);
         $count = count($bookings);
         error_log("Found $count bookings for organizer ID: $organizerID");
-        
+
         return $bookings;
     }
-    
+
     public function getBookingById($bookingID)
     {
         $sql = "SELECT * FROM culturaleventbooking WHERE BookingID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("MySQL prepare error in getBookingById: " . $this->conn->error);
             return null;
         }
-        
+
         $stmt->bind_param('i', $bookingID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
-    
+
     public function getTravelerById($travelerID)
     {
         $sql = "SELECT * FROM traveler WHERE TravelerID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("MySQL prepare error in getTravelerById: " . $this->conn->error);
             return null;
         }
-        
+
         $stmt->bind_param('i', $travelerID);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
-    
+
     public function validateBookingOwnership($bookingID, $organizerID)
     {
         $sql = "SELECT COUNT(*) as count 
                 FROM culturaleventbooking ceb
                 JOIN culturalevent ce ON ceb.EventID = ce.EventID
                 WHERE ceb.BookingID = ? AND ce.OrganizerID = ?";
-                
+
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("MySQL prepare error in validateBookingOwnership: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param('ii', $bookingID, $organizerID);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-        
+
         return $row['count'] > 0;
     }
-    
+
     public function updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount = null)
     {
         try {
@@ -718,40 +727,40 @@ class CulturalEventOrganizerModel
                         SET Date = ?, Quantity = ?, Status = ?, EventID = ?, Amount = ? 
                         WHERE BookingID = ?";
                 $stmt = $this->conn->prepare($sql);
-                
+
                 if (!$stmt) {
                     error_log("SQL prepare error: " . $this->conn->error);
                     return false;
                 }
-                
+
                 $stmt->bind_param('sisidi', $date, $quantity, $status, $eventID, $amount, $bookingID);
             } else {
                 $sql = "UPDATE culturaleventbooking 
                         SET Date = ?, Quantity = ?, Status = ?, EventID = ? 
                         WHERE BookingID = ?";
                 $stmt = $this->conn->prepare($sql);
-                
+
                 if (!$stmt) {
                     error_log("SQL prepare error: " . $this->conn->error);
                     return false;
                 }
-                
+
                 $stmt->bind_param('sisii', $date, $quantity, $status, $eventID, $bookingID);
             }
-            
+
             // Execute the update
             if (!$stmt->execute()) {
                 error_log("SQL execute error: " . $stmt->error);
                 return false;
             }
-            
+
             // Check if any rows were affected
             $affected = $stmt->affected_rows;
             $stmt->close();
-            
+
             // Log the result
             error_log("Update completed. Affected rows: $affected");
-            
+
             // Return true if rows were affected or if no changes were needed
             return ($affected >= 0);
         } catch (\Exception $e) {
@@ -765,7 +774,7 @@ class CulturalEventOrganizerModel
         $sql = "SELECT f.*, t.FirstName, t.LastName 
                 FROM culturaleventorganizerfeedback f
                 JOIN traveler t ON f.TravelerID = t.TravelerID
-                WHERE f.OrganizerID = ?";        
+                WHERE f.OrganizerID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $organizerID);
         $stmt->execute();
@@ -782,4 +791,3 @@ class CulturalEventOrganizerModel
         return $stmt->execute();
     }
 }
-

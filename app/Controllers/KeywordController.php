@@ -41,10 +41,7 @@ class KeywordController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
 
             $keywords = $_POST['keywords'];
-            if (isset($_SESSION['TravelerID'])) {
-                $userID = $_SESSION['TravelerID'];
-                $table = 'travelerkeyword';
-            } elseif (isset($_SESSION['RestaurantID'])) {
+            if (isset($_SESSION['RestaurantID'])) {
                 $userID = $_SESSION['RestaurantID'];
                 $table = 'restaurantkeyword';
             } elseif (isset($_SESSION['HotelID'])) {
@@ -62,11 +59,7 @@ class KeywordController
             $keywordModel->saveKeywords($table, $userID, $keywords);
         }
 
-        if (isset($_SESSION['TravelerID'])) {
-            header('Location: ../');
-        } else {
-            header('Location: ../admin/waiting');
-        }
+        header('Location: ../admin/waiting');
     }
 
     public function addKeyword()

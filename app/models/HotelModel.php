@@ -528,10 +528,11 @@ class HotelModel
 
     public function getReviews($hotelID)
     {
-        $sql = "SELECT hf.*, t.FirstName, t.LastName 
+        $sql = "SELECT hf.*, t.FirstName, t.LastName, t.ImgPath 
                 FROM hotelfeedback hf
-                LEFT JOIN traveler t ON hf.TravelerID = t.TravelerID
-                WHERE hf.HotelID = ?";
+                INNER JOIN traveler t ON hf.TravelerID = t.TravelerID
+                WHERE hf.HotelID = ?
+                ORDER BY hf.Response IS NULL DESC, hf.Date DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
         $stmt->execute();
