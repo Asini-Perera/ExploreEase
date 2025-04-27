@@ -7,6 +7,10 @@
     <title>hotel</title>
     <link rel="stylesheet" href="../public/css/service_traveller_side_view/hotel.css">
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8&callback=initMap"
+        async defer>
+    </script>
 
 </head>
 
@@ -37,9 +41,8 @@
         <section class="about-section" id="about">
 
             <div class="map-gallery">
-                <div class="map">
-                    <img src="../public/images/google-map.jpg" alt="map">
-                </div>
+                <div id="map" class="map"></div>
+
 
                 <div class="gallery">
                     <div class="gallery-one">
@@ -420,6 +423,39 @@
         <a href="http://localhost/ExploreEase/review?type=<?= urlencode($type) ?>&id=<?= urlencode($id) ?>" class="review-button1">Add a Review</a>
     </div>
     <?php require_once __DIR__ . "/../logedFooter.php"; ?>
+
+    <script>
+        function initMap() {
+            // Pull the PHP vars into JS
+            const lat = parseFloat("<?= $hotel['Latitude']; ?>");
+            const lng = parseFloat("<?= $hotel['Longitude']; ?>");
+
+            // Create the map
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat,
+                    lng
+                },
+                zoom: 12
+            });
+
+            // Place a marker on the hotel
+            new google.maps.Marker({
+                position: {
+                    lat,
+                    lng
+                },
+                map: map,
+                title: "<?= htmlspecialchars($hotel['Name'], ENT_QUOTES); ?>",
+                label: {
+                    text: "<?= htmlspecialchars($hotel['Name'], ENT_QUOTES); ?>",
+                    color: "white",
+                    fontSize: "12px",
+                    fontWeight: "bold"
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
