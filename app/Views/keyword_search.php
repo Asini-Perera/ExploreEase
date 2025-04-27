@@ -15,6 +15,7 @@ $longitude = $_SESSION['longitude'] ?? null;
 
     <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
     <link rel="stylesheet" href="../public/css/searchbykeyword.css?v=1">
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8"></script>
 </head>
 
