@@ -17,6 +17,10 @@
         </li>
 
         <li>
+            <a href="?page=images" class="<?= $mainContent == 'images' ? 'active' : '' ?>"><i class="fa-solid fa-images"></i>Images</a>
+        </li>
+        
+        <li>
             <a href="../logout"><i class="fa-solid fa-sign-out-alt"></i>Logout</a>
         </li>
     </ul>
