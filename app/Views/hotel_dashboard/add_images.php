@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="../public/css/restaurant_dashboard/add_images.css">
+<link rel="stylesheet" href="../public/css/hotel_dashboard/add_images.css">
 
 <div class="form-content">
     <h1>Upload Images to add Customer side view</h1>
 
-    <form action="../restaurant/addImage" method="post" enctype="multipart/form-data" id="uploadImage">
+    <form action="../hotel/addImage" method="post" enctype="multipart/form-data" id="uploadImage">
 
         <input type="hidden" name="imageID" value="<?= htmlspecialchars($imageItem['$ImageID']) ?>">
 
@@ -36,4 +36,4 @@
         </div>
     </dialog>
 
-<script src="../public/js/restaurant_dashboard/add_images.js"> </script>
+<script src="../public/js/hotel_dashboard/add_images.js"> </script>
