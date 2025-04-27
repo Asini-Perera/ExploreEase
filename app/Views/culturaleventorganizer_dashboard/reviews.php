@@ -2,7 +2,17 @@
 
 <h1>Reviews</h1>
 
-<div class="event-container">
+<div class="product-container">
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="success-message"><?= $_SESSION['success']; ?></div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
+    
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-message"><?= $_SESSION['error']; ?></div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+    
     <table>
         <thead>
             <tr>
@@ -15,56 +25,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>2024.10.18</td>
-                <td>4.5</td>
-                <td>Excellent</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>3.5</td>
-                <td>Good</td>
-                <td>Thank you for your feedback!</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>5.0</td>
-                <td>Excellent service</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Smith</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>4.0</td>
-                <td>Good</td>
-                <td>Thank you for your feedback!</td>
-                <td>John Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2024.10.18</td>
-                <td>3.0</td>
-                <td>Not bad</td>
-                <td>Thank you for your feedback!</td>
-                <td>Jane Doe</td>
-                <td class="action-buttons">
-                    <button class="reply-btn">Reply</button>
-                </td>
-            </tr>
+            <?php foreach ($reviews as $review) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($review['Date']) ?></td>
+                    <td><?= htmlspecialchars($review['Rating']) ?></td>
+                    <td><?= htmlspecialchars($review['Comment']) ?></td>
+                    <td>
+                        <?php if (!empty($review['Response'])) : ?>
+                            <?= htmlspecialchars($review['Response']) ?>
+                        <?php else : ?>
+                            <form id="response-form-<?= $review['FeedbackID'] ?>" action="../culturaleventorganizer/reviewResponse" method="POST" class="response-form" style="display:none;">
+                                <input type="hidden" name="review_id" value="<?= $review['FeedbackID'] ?>">
+                                <textarea name="response" placeholder="Type your response..." required></textarea>
+                                <div style="margin-top: 10px;">
+                                    <button type="submit" class="save-response-btn" style="background-color: #6fa857; color: white; border: none; border-radius: 4px; padding: 8px 12px; cursor: pointer; font-weight: bold; width: 100px;" >Save</button>
+                                    <button type="button" class="cancel-response-btn" onclick="cancelResponse(<?= $review['FeedbackID'] ?>)" 
+                                        style="background-color: #d9534f; color: white; border: none; border-radius: 4px; padding: 8px 12px; cursor: pointer; font-weight: bold; width: 100px;">Cancel</button>
+                                </div>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($review['FirstName'] . ' ' . $review['LastName']) ?></td>
+                    <td class="action-buttons">
+                        <?php if (empty($review['Response'])) : ?>
+                            <button class="reply-btn" onclick="showResponseForm(<?= $review['FeedbackID'] ?>)">Reply</button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
+
+<script src="../public/js/dashboard_templates/response_form.js"></script>
