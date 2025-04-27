@@ -58,7 +58,7 @@ class SignupModel
 
         // Insert the restaurant data
         $sql = "INSERT INTO restaurant (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, CuisineType, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sssssddssssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $cuisineType, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
@@ -102,7 +102,7 @@ class SignupModel
 
         // Insert the heritage market data
         $sql = "INSERT INTO heritagemarket (Name, Address, ContactNo, Email, Password, Latitude, Longitude, Website, Description, WeekdayOpenHours, WeekendOpenHours, Tagline, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('sssssddsssssssss', $name, $address, $contactNo, $email, $password, $latitude, $longitude, $website, $description, $weekdaysOpenHours, $weekendsOpenHours, $tagline, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
@@ -124,9 +124,9 @@ class SignupModel
 
         // Insert the cultural event organizer data
         $sql = "INSERT INTO culturaleventorganizer (Name, Email, Password, ContactNo, Description, FacebookLink, InstagramLink, TikTokLink, YouTubeLink) 
-                VALUES (?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssss', $name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
+        $stmt->bind_param('sssssssss', $name, $email, $password, $contactNo, $description, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
         $stmt->execute();
 
         // Get the OrganizerID

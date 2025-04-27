@@ -34,19 +34,19 @@
             </tr>
             <tr>
                 <th>Facebook Link</th>
-                <td><?php echo $_SESSION['FacebookLink']; ?></td>
+                <td><?php echo $_SESSION['FacebookLink'] ?? ''; ?></td>
             </tr>
             <tr>
                 <th>Instagram Link</th>
-                <td><?php echo $_SESSION['InstagramLink']; ?></td>
+                <td><?php echo $_SESSION['InstagramLink'] ?? ''; ?></td>
             </tr>
             <tr>
                 <th>TikTok Link</th>
-                <td><?php echo $_SESSION['TikTokLink']; ?></td>
+                <td><?php echo $_SESSION['TikTokLink'] ?? ''; ?></td>
             </tr>
             <tr>
                 <th>YouTube Link</th>
-                <td><?php echo $_SESSION['YouTubeLink']; ?></td>
+                <td><?php echo $_SESSION['YouTubeLink'] ?? ''; ?></td>
             </tr>
         </tbody>
     </table>

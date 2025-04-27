@@ -64,20 +64,21 @@ th {
     background-color: red;
     color: white;
 }
-  
-  /* Modal Styles */
+
+/* Modal Styles */
 .popup {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     z-index: 1;
-    left:50%;
-    top:20%;
+    left: 50%;
+    top: 20%;
     overflow: auto;
     width: 40%;
     height: 52%;
     /* background-color: #d9d9d9; */
 }
-  
+
 .modal-content {
     background-color: #d9d9d9;
     padding: 20px;
@@ -87,26 +88,27 @@ th {
     text-align: center;
 
 }
-  
-.open-popup{
-    visibility:visible;
-    top:0;
+
+.open-popup {
+    visibility: visible;
+    top: 0;
 }
+
 .close-btn {
     float: right;
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    color: #225522;  
+    color: #225522;
 }
-  
-.modal-content h3{
+
+.modal-content h3 {
     font-size: 18px;
     color: #000;
     margin: 1.5vh 0;
 }
 
-.modal-content input{
+.modal-content input {
     width: 200px;
     height: 3vh;
     padding: 12px;
@@ -114,12 +116,12 @@ th {
     margin: 20px;
 }
 
-#submitTableNo{
+#submitTableNo {
     margin-top: 3vh;
     width: 120px;
     height: 30px;
     font-size: 16px;
-    background-color:#F1C232 ;
+    background-color: #F1C232;
     border-radius: 10px;
     color: #000;
 }
@@ -143,7 +145,7 @@ th {
 }
 
 .edit-btn:hover {
-    background-color: #225522; 
+    background-color: #225522;
 }
 
 .add-btn {

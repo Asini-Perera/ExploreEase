@@ -38,8 +38,9 @@
                                 <input type="hidden" name="email" value="<?= htmlspecialchars($user['Email']) ?>">
                                 <input type="hidden" name="userType" value="<?= htmlspecialchars($verifyUser) ?>">
                                 <input type="hidden" name="page" value="<?= htmlspecialchars($mainContent) ?>">
-                                <button type="submit" name="action" value="verify" class="verify-btn">Verify</button>
-                                <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                                <button type="button" name="action" value="verify" class="verify-btn">Verify</button>
+                                <button type="button" name="action" value="reject" class="reject-btn">Reject</button>
+                                <input type="hidden" name="action" value="">
                             </form>
                         </td>
                     </tr>
@@ -48,3 +49,21 @@
         </tbody>
     </table>
 </div>
+
+<dialog id="openDialog-verify">
+    <p>Are you sure do you want to verify this user?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-verify" class="confirm-btn">Yes</button>
+        <button id="cancel-verify" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<dialog id="openDialog-reject">
+    <p>Are you sure do you want to reject this user?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-reject" class="confirm-btn">Yes</button>
+        <button id="cancel-reject" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<script src="../public/js/admin_dashboard/verify_user.js"></script>

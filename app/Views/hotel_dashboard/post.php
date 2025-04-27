@@ -20,6 +20,7 @@
             </tr>
         </thead>
         <tbody>
+        <?php if (!empty($posts)): ?>
             <?php foreach ($posts as $post) : ?>
                 <tr>
                     <td><?= htmlspecialchars($post['Title']) ?></td>
@@ -34,10 +35,41 @@
                     </td>
                     <td class="action-buttons">
                         <a class="edit-btn" href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a>
-                        <a class="delete-btn" href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a>
+                        <a class="delete-btn" data-delete-url="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px;">No posts found</td>
+                    </tr>
+                <?php endif; ?>
         </tbody>
     </table>
 </div>
+
+
+<script>
+    const deleteDialog = document.getElementById('deleteDialog');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const confirmDelete = document.getElementById('deleteConfirm');
+    const cancelDelete = document.getElementById('deleteCancel');
+
+    let deleteUrl = '';
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            deleteUrl = button.getAttribute('data-delete-url');
+            deleteDialog.showModal();
+        });
+    });
+
+    confirmDelete.addEventListener('click', () => {
+        deleteDialog.close();
+        window.location.href = deleteUrl;
+    });
+
+    cancelDelete.addEventListener('click', () => {
+        deleteDialog.close();
+    });
+</script>
