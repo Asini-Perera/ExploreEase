@@ -113,4 +113,12 @@ class HomeController
     {
         require_once __DIR__ . '/../Views/Contactus.php';
     }
+
+     public function TravellerPackageList()
+    {
+        require_once __DIR__ . '/../Views/TravellerPackageList.php';
+    }
+
+
+    
 }
