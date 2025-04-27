@@ -8,6 +8,7 @@
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b864e43f0e40c7710ad7e60a0cb8ca31709d797ffc7d234befdf0016bb5d211e?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Logo" class="logo-background">
             </a>
         </li>
+
         <li class="menu-item home"><a href="http://localhost/ExploreEase/loged_home">Home</a></li>
         <li class="menu-item about-us"><a href="http://localhost/ExploreEase/loged_home#about-us">About Us</a></li>
         <li class="menu-item contact-us"><a href="#contact">Contact Us</a></li>

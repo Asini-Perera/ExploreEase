@@ -32,12 +32,17 @@
                             <a href="#about-us" class="nav-link">About Us</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="login" class="nav-link">Login</a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="http://localhost/ExploreEase/contactus" class="nav-link">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login" class="nav-link">Login</a>
+                    </li>
+                    
+                </ul>
+                
+            </nav>
+        </div>
 
                     </ul>
 

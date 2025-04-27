@@ -37,7 +37,7 @@
                           (isset($booking['TravelerID']) ? $booking['TravelerID'] : 'N/A') ?></td>
                     <td class="action-buttons">
                         <button class="edit-btn"><a href="?page=bookings&action=edit&id=<?= $booking['BookingID'] ?>">Edit</a></button>
-                        <button class="delete-btn"><a href="?page=bookings&action=delete&id=<?= $booking['BookingID'] ?>">Delete</a></button>
+                        <button class="delete-btn" data-delete-url="?page=bookings&action=delete&id=<?= $booking['BookingID'] ?>">Delete</a></button>
                     </td>
                 </tr>
             <?php 
@@ -51,3 +51,29 @@
         </tbody>
     </table>
 </div>
+
+
+<script>
+    const deleteDialog = document.getElementById('deleteDialog');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const confirmDelete = document.getElementById('deleteConfirm');
+    const cancelDelete = document.getElementById('deleteCancel');
+
+    let deleteUrl = '';
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            deleteUrl = button.getAttribute('data-delete-url');
+            deleteDialog.showModal();
+        });
+    });
+
+    confirmDelete.addEventListener('click', () => {
+        deleteDialog.close();
+        window.location.href = deleteUrl;
+    });
+
+    cancelDelete.addEventListener('click', () => {
+        deleteDialog.close();
+    });
+</script>
