@@ -110,6 +110,13 @@
                 <span>Popular Dishes</span>
                 <h3>Our Delicious Food</h3>
             </div>
+        
+<!-- Food Section -->
+<section class="food" id="food">
+    <div class="food-heading">
+        <span>Popular Dishes</span>
+        <h3>Our Delicious Food</h3>
+    </div>
 
             <div class="food-slider">
                 <div class="food-list">

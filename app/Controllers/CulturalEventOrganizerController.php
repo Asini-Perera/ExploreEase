@@ -96,14 +96,7 @@ class CulturalEventOrganizerController
     }
 
 
-    public function viewEvent()
-    {
-        $eventModel = new CulturalEventOrganizerModel($this->conn);
-        $events = $eventModel->getAllEvents($_SESSION['OrganizerID']);
-
-        return $events;
-    }
-
+   
 
     public function addEvent()
     {
