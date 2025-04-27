@@ -32,7 +32,7 @@ class HotelController
                 return; // Stop execution after processing
             }
 
-            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews','images'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
@@ -182,7 +182,19 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-            } else {
+            }elseif($mainContent == 'images'){ 
+                $imagess = $this -> viewImage();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add'){
+                    $verifiedAction = 'add';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteImage();
+                } else {
+                    $verifiedAction = null;
+                }
+
+        } else {
                 $verifiedAction = null;
             }
 
@@ -574,6 +586,50 @@ class HotelController
             $hotelModel->bookRoom($roomID, $travelerID, $checkInDate, $checkOutDate, $date);
 
             header('Location: ../link/service?type=hotel&id=' . $hotelID);
+            exit();
+        }
+    }
+
+    
+    //images
+    public function addImage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $image = $_FILES['rest-image'];
+            $hotelID = $_SESSION['HotelID'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $imageID = $hotelModel->addImage($title, $hotelID);
+
+            
+            // If image is uploaded, set the image path
+            if($imageID && $image['name']) {
+                $hotelModel->setHotelImgPath($imageID, $image);
+            }
+
+            header('Location: ../hotel/dashboard?page=images');
+            exit();
+        }
+    }
+
+    public function viewImage()
+    {
+        $heritagemarketModel = new HotelModel($this->conn);
+        $images= $heritagemarketModel->getImage($_SESSION['HotelID']);
+
+        return $images;
+    }
+
+    public function deleteImage()
+    {
+        if (isset($_GET['id'])) {
+            $imageID = $_GET['id'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->deleteImage($imageID);
+
+            header('Location: ../hotel/dashboard?page=images');
             exit();
         }
     }

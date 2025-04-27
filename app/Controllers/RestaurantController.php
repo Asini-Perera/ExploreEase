@@ -135,19 +135,12 @@ class RestaurantController
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteImage();
-                }else {
-
-            } elseif ($mainContent == 'reviews') {
-                $reviews = $this->viewReview();
-                $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'add') {
-                    $verifiedAction = 'add';
-                } elseif ($action == 'reply') {
-                    $verifiedAction = 'reply';
                 } else {
-
                     $verifiedAction = null;
                 }
+
+        }else{
+            $verifiedAction = null;
         }
 
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';
@@ -505,49 +498,7 @@ class RestaurantController
     }
 
 
-    // public function addImage()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
- 
-    //         $title = $_POST['title']; 
-    //         $image = $_FILES['rest-image']; 
-    //         $restaurantID = $_SESSION['RestaurantID'];
-
-
-    //         $restaurantModel = new RestaurantModel($this->conn);
-    //         $restaurantID = $restaurantModel->addImage($title,  $restaurantID);
-
-            
-    //         // If image is uploaded, set the image path
-    //         if($restaurantID && $image['name']) {
-    //             $restaurantModel->setRestImgPath($restaurantID, $image);
-    //         }
-
-    //         header('Location: ../restaurant/dashboard?page=images');
-    //     }
-    // }
-
-    // public function viewImages()
-    // {
-    //     $restaurantModel = new RestaurantModel($this->conn);
-    //     $images = $restaurantModel->getImage($_SESSION['RestaurantID']);
-
-    //     return $images;
-    // }
-
-    // public function deleteImage()
-    // {
-    //     if (isset($_GET['id'])) {
-    //         $restaurantID = $_GET['id'];
-
-    //         $restaurantModel = new RestaurantModel($this->conn);
-    //         $restaurantModel->deleteImage($restaurantID);
-
-    //         header('Location: ../restaurant/dashboard?page=images');
-    //     }
-    // }
-
-    public function sendTableNo()
+       public function sendTableNo()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $bookingID = $_POST['booking_id'];
