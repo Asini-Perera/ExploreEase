@@ -43,3 +43,4 @@
 
 <script src="../public/js/admin_dashboard/profile.js"></script>
 <script src="../public/js/image_preview.js"></script>
+<script src="../public/js/dashboard_templates/edit_profile.js"></script>
