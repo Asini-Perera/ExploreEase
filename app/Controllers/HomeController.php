@@ -7,6 +7,7 @@ use app\Models\HotelModel;
 use app\Models\RestaurantModel;
 use app\Models\HeritageMarketModel;
 use app\Models\CulturalEventOrganizerModel;
+use app\Models\TravelerModel;
 
 use app\Controllers\KeywordController;
 
@@ -19,12 +20,13 @@ class HomeController
         global $conn;
         $this->conn = $conn;
 
-        // Include the HomeModel and service provider Models
+        // Include the HomeModel, TravelerModel and service provider Models
         require_once __DIR__ . '/../models/HomeModel.php';
         require_once __DIR__ . '/../models/HotelModel.php';
         require_once __DIR__ . '/../models/RestaurantModel.php';
         require_once __DIR__ . '/../models/HeritageMarketModel.php';
         require_once __DIR__ . '/../models/CulturalEventOrganizerModel.php';
+        require_once __DIR__ . '/../models/TravelerModel.php';
 
         // Include the KeywordController
         require_once __DIR__ . '/../controllers/KeywordController.php';
@@ -44,7 +46,7 @@ class HomeController
         require_once __DIR__ . '/../Views/loged_home.php';
     }
 
-    
+
     public function keywordsearch()
     {
         require_once __DIR__ . '/../Views/keyword_search.php';
@@ -96,6 +98,9 @@ class HomeController
 
     public function TravellerDashboard()
     {
+        $travellerModel = new TravelerModel($this->conn);
+        $travellerID = $_SESSION['TravelerID'] ?? null;
+        $reviews = $travellerModel->getTravelerReviews($travellerID);
         require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
     }
 
@@ -110,10 +115,19 @@ class HomeController
         require_once __DIR__ . '/../Views/travllerBooking.php';
     }
 
+    public function travellerReview()
+    {
+        $travellerModel = new TravelerModel($this->conn);
+        $travellerID = $_SESSION['TravelerID'] ?? null;
+        $reviews = $travellerModel->getTravelerReviews($travellerID);
+        require_once __DIR__ . '/../Views/travellerReview.php';
+    }
+
     public function Contactus()
     {
         require_once __DIR__ . '/../Views/Contactus.php';
     }
+
 
 
      public function TravellerPackageList()
@@ -251,7 +265,6 @@ class HomeController
                 echo "Invalid request.";
             }
         }
-
     }
 
 }
