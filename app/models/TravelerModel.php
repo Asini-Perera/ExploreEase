@@ -59,4 +59,22 @@ class TravelerModel
         $stmt->bind_param('ssssssi', $firstName, $lastName, $email, $gender, $dob, $contactNumber, $TravelerID);
         $stmt->execute();
     }
+
+    public function getTravelerReviews($TravelerID)
+    {
+        $sql = "SELECT hf.*, h.Name FROM hotelfeedback hf INNER JOIN hotel h ON hf.HotelID = h.HotelID WHERE hf.TravelerID = ?
+        UNION ALL
+        SELECT rf.*, r.Name FROM restaurantfeedback rf INNER JOIN restaurant r ON rf.RestaurantID = r.RestaurantID WHERE rf.TravelerID = ?
+        UNION ALL
+        SELECT cf.*, c.Name FROM culturaleventorganizerfeedback cf INNER JOIN culturaleventorganizer c ON cf.OrganizerID = c.OrganizerID WHERE cf.TravelerID = ?
+        UNION ALL
+        SELECT hf.*, hm.Name FROM heritagemarketfeedback hf INNER JOIN heritagemarket hm ON hf.ShopID = hm.ShopID WHERE hf.TravelerID = ?
+        ORDER BY RAND()";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iiii', $TravelerID, $TravelerID, $TravelerID, $TravelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
