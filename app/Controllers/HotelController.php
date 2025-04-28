@@ -34,7 +34,7 @@ class HotelController
 
 
 
-            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews','images', 'packages'];
+            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews', 'images', 'packages'];
 
 
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
@@ -48,7 +48,7 @@ class HotelController
                 // $TotalRevenue = $hotelModel->getTotalRevenue($_SESSION['HotelID']);
                 // $TotalRevenueInLastWeek = $hotelModel->getTotalRevenueInLastWeek($_SESSION['HotelID']);
                 $TotalCustomers = $hotelModel->getTotalCustomers($_SESSION['HotelID']);
-                $TotalPosts = $hotelModel->getTotalPosts($_SESSION['HotelID']);
+                // $TotalPosts = $hotelModel->getTotalPosts($_SESSION['HotelID']);
                 $TotalRatings = $hotelModel->getTotalRatings($_SESSION['HotelID']);
                 $TotalFeedbacks = $hotelModel->getTotalFeedbacks($_SESSION['HotelID']);
             } elseif ($mainContent == 'profile') {
@@ -187,23 +187,21 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-
-
             } elseif ($mainContent == 'packages') {
                 $hotelModel = new HotelModel($this->conn);
-                
+
                 // Add this block to handle package creation form submission
                 if ($action == 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->createPackage();
                     return; // Stop execution after processing
                 }
-                
+
                 // Always load the list of packages created by this hotel
                 $packages = $hotelModel->getPackages($_SESSION['HotelID']);
-                
+
                 // Fetch all package users
                 $packageUsers = $hotelModel->getAllPackageUsers($_SESSION['HotelID']);
-                
+
                 // Organize users by package
                 $packageUsersByPackage = [];
                 foreach ($packageUsers as $user) {
@@ -212,13 +210,13 @@ class HotelController
                     }
                     $packageUsersByPackage[$user['PackageID']][] = $user;
                 }
-                
+
                 // Always load service providers for the request buttons
                 $hotels = $hotelModel->getAllServiceProviders('Hotel');
                 $restaurants = $hotelModel->getAllServiceProviders('Restaurant');
                 $culturalEvents = $hotelModel->getAllServiceProviders('CulturalEvent');
                 $heritageMarkets = $hotelModel->getAllServiceProviders('HeritageMarket');
-                
+
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
@@ -227,7 +225,7 @@ class HotelController
                     if (isset($_GET['id'])) {
                         $packageID = $_GET['id'];
                         $package = $hotelModel->getPackage($packageID);
-                        
+
                         if ($package) {
                             // Store package details in session for the edit form
                             $_SESSION['PackageID'] = $package['PackageID'];
@@ -238,9 +236,9 @@ class HotelController
                             $_SESSION['EndDate'] = $package['EndDate'];
                             $_SESSION['Owner'] = $package['Owner'];
                             $_SESSION['ImgPath'] = $package['ImgPath'];
-                            
+
                             // Store the appropriate ID based on owner type
-                            switch($package['Owner']) {
+                            switch ($package['Owner']) {
                                 case 'hotel':
                                     $_SESSION['HotelID'] = $package['HotelID'];
                                     break;
@@ -261,13 +259,13 @@ class HotelController
                     if (isset($_GET['id'])) {
                         $packageID = $_GET['id'];
                         $success = $hotelModel->deletePackage($packageID, $_SESSION['HotelID']);
-                        
+
                         if ($success) {
                             $_SESSION['success'] = "Package deleted successfully";
                         } else {
                             $_SESSION['error'] = "Failed to delete package";
                         }
-                        
+
                         // Redirect to avoid resubmission
                         header('Location: ../hotel/dashboard?page=packages');
                         exit();
@@ -275,10 +273,8 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-            } else {
-
-            }elseif($mainContent == 'images'){ 
-                $images = $this -> viewImage();
+            } elseif ($mainContent == 'images') {
+                $images = $this->viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
@@ -288,14 +284,7 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-
-
-        } else {
-
-
-                $verifiedAction = null;
             }
-
 
             require_once __DIR__ . '/../Views/hotel_dashboard/main.php';
         } else {
@@ -651,19 +640,21 @@ class HotelController
         }
     }
 
-    
+
     public function createPackage()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
-            if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) || 
-                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['owner']) || 
-                empty($_POST['partner_id'])) {
+            if (
+                empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) ||
+                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['owner']) ||
+                empty($_POST['partner_id'])
+            ) {
                 $_SESSION['error'] = "All required fields must be filled";
                 header('Location: ../hotel/dashboard?page=packages&action=add');
                 exit();
             }
-            
+
             // Get form data
             $name = $_POST['name'];
             $description = $_POST['description'];
@@ -671,34 +662,43 @@ class HotelController
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $owner = $_POST['owner'];
-            
+
             // Get the appropriate ID based on owner type
             $hotelID = !empty($_POST['hotelID']) ? $_POST['hotelID'] : null;
             $restaurantID = !empty($_POST['restaurantID']) ? $_POST['restaurantID'] : null;
             $shopID = !empty($_POST['shopID']) ? $_POST['shopID'] : null;
             $eventID = !empty($_POST['eventID']) ? $_POST['eventID'] : null;
-            
+
             // Handle image upload if provided
             $imgPath = null;
             if (isset($_FILES['packageImage']) && $_FILES['packageImage']['name']) {
                 $hotelModel = new HotelModel($this->conn);
                 $imgPath = $hotelModel->uploadPackageImage($_FILES['packageImage']);
-                
+
                 if (!$imgPath) {
                     $_SESSION['error'] = "Failed to upload image. Please try again.";
                     header('Location: ../hotel/dashboard?page=packages&action=add');
                     exit();
                 }
             }
-            
+
             // Save package to database
             $hotelModel = new HotelModel($this->conn);
-            
+
             $success = $hotelModel->createPackage(
-                $name, $description, $discount, $startDate, $endDate, 
-                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $eventID
+                $name,
+                $description,
+                $discount,
+                $startDate,
+                $endDate,
+                $imgPath,
+                $owner,
+                $hotelID,
+                $restaurantID,
+                $shopID,
+                $eventID
             );
-            
+
             if ($success) {
                 $_SESSION['success'] = "Package created successfully";
                 header('Location: ../hotel/dashboard?page=packages');
@@ -706,6 +706,8 @@ class HotelController
                 $_SESSION['error'] = "Failed to create package. Please try again.";
                 header('Location: ../hotel/dashboard?page=packages&action=add');
             }
+        }
+    }
 
 
     public function checkAvailableRooms()
