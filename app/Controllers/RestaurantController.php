@@ -34,7 +34,7 @@ class RestaurantController
         if (isset($_SESSION['RestaurantID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
 
-            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings','booking_list', 'reviews','images'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings', 'booking_list', 'reviews', 'images'];
 
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
@@ -43,7 +43,7 @@ class RestaurantController
                 $restaurantModel = new RestaurantModel($this->conn);
                 $TotalBookings = $restaurantModel->getTotalBookings($_SESSION['RestaurantID']);
                 $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
-                $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
+                // $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
                 $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
                 $AverageRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
                 // $TotalPackages = $restaurantModel->getTotalPackages($_SESSION['RestaurantID']);
@@ -111,26 +111,23 @@ class RestaurantController
                 } else {
                     $verifiedAction = null;
                 }
-            }elseif($mainContent == 'reviews'){ 
-                $reviews = $this -> viewReview();
+            } elseif ($mainContent == 'reviews') {
+                $reviews = $this->viewReview();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if($action == 'reply'  && $_SERVER['REQUEST_METHOD'] === 'POST'){
+                if ($action == 'reply'  && $_SERVER['REQUEST_METHOD'] === 'POST') {
                     // $verifiedAction = 'reply';
                     $this->replyReview();
 
                     $reviewID = isset($_GET['id']) ? $_GET['id'] : null;
                     $restaurantModel = new RestaurantModel($this->conn);
-                    $reviewItem = $restaurantModel->getReviewItem($reviewID); 
-
-                }
-                
-                else {
+                    $reviewItem = $restaurantModel->getReviewItem($reviewID);
+                } else {
                     $verifiedAction = null;
                 }
-            }elseif($mainContent == 'images'){ 
-                $imagess = $this -> viewImage();
+            } elseif ($mainContent == 'images') {
+                $images = $this->viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if($action == 'add'){
+                if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
@@ -138,10 +135,9 @@ class RestaurantController
                 } else {
                     $verifiedAction = null;
                 }
-
-        }else{
-            $verifiedAction = null;
-        }
+            } else {
+                $verifiedAction = null;
+            }
 
             require_once __DIR__ . '/../Views/restaurant_dashboard/main.php';
         } else {
@@ -328,7 +324,7 @@ class RestaurantController
         }
     }
 
-   
+
 
     //Posts
 
@@ -439,10 +435,10 @@ class RestaurantController
         return $reviews; // Return the reviews data
     }
 
-     
+
     public function replyReview()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'  ) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reviewID = $_POST['reviewID'];
             $reply = $_POST['reply'];
 
@@ -465,9 +461,9 @@ class RestaurantController
             $restaurantModel = new RestaurantModel($this->conn);
             $imageID = $restaurantModel->addImage($title, $restaurantID);
 
-            
+
             // If image is uploaded, set the image path
-            if($imageID && $image['name']) {
+            if ($imageID && $image['name']) {
                 $restaurantModel->setRestImgPath($imageID, $image);
             }
 
@@ -479,7 +475,7 @@ class RestaurantController
     public function viewImage()
     {
         $restaurantModel = new RestaurantModel($this->conn);
-        $images= $restaurantModel->getImage($_SESSION['RestaurantID']);
+        $images = $restaurantModel->getImage($_SESSION['RestaurantID']);
 
         return $images;
     }
@@ -498,7 +494,7 @@ class RestaurantController
     }
 
 
-       public function sendTableNo()
+    public function sendTableNo()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $bookingID = $_POST['booking_id'];
