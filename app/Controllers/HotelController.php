@@ -32,7 +32,7 @@ class HotelController
                 return; // Stop execution after processing
             }
 
-            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews','images'];
+            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews', 'images'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
@@ -182,10 +182,10 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-            }elseif($mainContent == 'images'){ 
-                $imagess = $this -> viewImage();
+            } elseif ($mainContent == 'images') {
+                $imagess = $this->viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if($action == 'add'){
+                if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
@@ -193,8 +193,7 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-
-        } else {
+            } else {
                 $verifiedAction = null;
             }
 
@@ -590,7 +589,81 @@ class HotelController
         }
     }
 
-    
+    public function redirectToPayment()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomID = $_POST['RoomID'];
+            $hotelID = $_POST['HotelID'];
+            $travelerID = $_POST['TravelerID'];
+            $checkIn = $_POST['checkIn'];
+            $checkOut = $_POST['checkOut'];
+            $totalPrice = $_POST['TotalPrice'];
+
+            $merchant_id = '1230180'; // replace with your Merchant ID
+            $merchant_secret = 'NTEyMjA3ODMwMjQ0NTk4MzUyMTMzNzMyMDU5MzcxNjgwOTgyNDI5'; // if needed later
+
+            $paymentAmount = $totalPrice; // You can convert to LKR if needed
+            $orderId = uniqid('Order_');
+
+            // Save temporarily booking details to session
+            $_SESSION['PendingBooking'] = [
+                'RoomID' => $roomID,
+                'HotelID' => $hotelID,
+                'TravelerID' => $travelerID,
+                'CheckIn' => $checkIn,
+                'CheckOut' => $checkOut,
+                'TotalPrice' => $totalPrice,
+                'OrderID' => $orderId
+            ];
+
+            // Redirect to a payment page (create a view for this)
+            header('Location: ../hotel/paymentGatewayPage');
+        }
+    }
+
+    public function paymentGatewayPage()
+    {
+        if (isset($_SESSION['PendingBooking'])) {
+            $pendingBooking = $_SESSION['PendingBooking'];
+            require_once __DIR__ . '/../Views/paymentGatewayPage.php';
+        } else {
+            echo "<h1>No pending booking found!</h1>";
+        }
+    }
+
+    public function paymentSuccess()
+    {
+        if (isset($_SESSION['PendingBooking'])) {
+            $pending = $_SESSION['PendingBooking'];
+
+            // Now book the room in DB
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->bookRoom(
+                $pending['RoomID'],
+                $pending['TravelerID'],
+                $pending['CheckIn'],
+                $pending['CheckOut'],
+                date('Y-m-d')
+            );
+
+            // Clear session
+            unset($_SESSION['PendingBooking']);
+
+            echo "<h1>Payment Successful and Room Booked Successfully!</h1>";
+            echo "<a href='http://localhost/ExploreEase'>Go to Home</a>";
+        } else {
+            echo "<h1>No pending booking found!</h1>";
+        }
+    }
+
+    public function paymentCancel()
+    {
+        echo "<h1>Payment Cancelled</h1>";
+        echo "<a href='http://localhost/ExploreEase'>Try Again</a>";
+    }
+
+
+
     //images
     public function addImage()
     {
@@ -602,9 +675,9 @@ class HotelController
             $hotelModel = new HotelModel($this->conn);
             $imageID = $hotelModel->addImage($title, $hotelID);
 
-            
+
             // If image is uploaded, set the image path
-            if($imageID && $image['name']) {
+            if ($imageID && $image['name']) {
                 $hotelModel->setHotelImgPath($imageID, $image);
             }
 
@@ -616,7 +689,7 @@ class HotelController
     public function viewImage()
     {
         $heritagemarketModel = new HotelModel($this->conn);
-        $images= $heritagemarketModel->getImage($_SESSION['HotelID']);
+        $images = $heritagemarketModel->getImage($_SESSION['HotelID']);
 
         return $images;
     }

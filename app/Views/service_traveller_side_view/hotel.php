@@ -353,14 +353,16 @@
                                     <h3 class="product-name">Room Type: <?php echo htmlspecialchars($Room['Type']); ?></h3>
                                     <p class="product-price">Total Price: <?php echo htmlspecialchars($Room['TotalPrice']); ?></p>
                                     <p class="product-price">Max Occupancy: <?php echo htmlspecialchars($Room['MaxOccupancy']); ?></p>
-                                    <form method="POST" action="../hotel/bookRoom">
+                                    <form method="POST" action="../hotel/redirectToPayment">
                                         <input type="hidden" name="RoomID" value="<?php echo htmlspecialchars($Room['RoomID']); ?>">
                                         <input type="hidden" name="HotelID" value="<?php echo htmlspecialchars($hotel['HotelID']); ?>">
                                         <input type="hidden" name="TravelerID" value="<?php echo htmlspecialchars($_SESSION['TravelerID']); ?>">
                                         <input type="hidden" name="checkIn" value="<?php echo htmlspecialchars($Room['CheckInDate']); ?>">
                                         <input type="hidden" name="checkOut" value="<?php echo htmlspecialchars($Room['CheckOutDate']); ?>">
+                                        <input type="hidden" name="TotalPrice" value="<?php echo htmlspecialchars($Room['TotalPrice']); ?>">
                                         <button type="submit" class="select-room-btn">Select Room</button>
                                     </form>
+
                                 </div>
                             </div>
                         <?php endforeach; ?>
