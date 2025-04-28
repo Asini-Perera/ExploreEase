@@ -58,6 +58,8 @@ $longitude = $_SESSION['longitude'] ?? null;
                                             echo 'Hotel';
                                         } elseif ($place['type'] === 'restaurant') {
                                             echo 'Restaurant';
+                                        } elseif ($place['type'] === 'culturalevent') {
+                                            echo 'Cultural Event';
                                         } else {
                                             echo htmlspecialchars($place['type']);
                                         }
