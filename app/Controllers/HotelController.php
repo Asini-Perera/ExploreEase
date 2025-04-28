@@ -195,6 +195,18 @@ class HotelController
                 // Always load the list of packages created by this hotel
                 $packages = $hotelModel->getPackages($_SESSION['HotelID']);
                 
+                // Fetch all package users
+                $packageUsers = $hotelModel->getAllPackageUsers($_SESSION['HotelID']);
+                
+                // Organize users by package
+                $packageUsersByPackage = [];
+                foreach ($packageUsers as $user) {
+                    if (!isset($packageUsersByPackage[$user['PackageID']])) {
+                        $packageUsersByPackage[$user['PackageID']] = [];
+                    }
+                    $packageUsersByPackage[$user['PackageID']][] = $user;
+                }
+                
                 // Always load service providers for the request buttons
                 $hotels = $hotelModel->getAllServiceProviders('Hotel');
                 $restaurants = $hotelModel->getAllServiceProviders('Restaurant');

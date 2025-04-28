@@ -777,4 +777,57 @@ class HotelModel
         
         return $stmt->execute();
     }
+
+    /**
+     * Get all travelers who have used a specific package
+     */
+    public function getPackageUsers($packageId)
+    {
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath 
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                WHERE pc.PackageID = ?
+                ORDER BY t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackageUsers: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Get all users across all packages for this hotel
+     */
+    public function getAllPackageUsers($hotelId)
+    {
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath, p.Name as PackageName
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                JOIN Package p ON pc.PackageID = p.PackageID
+                WHERE p.HotelID = ? OR (p.Owner != 'hotel' AND (
+                    p.RestaurantID IS NOT NULL OR 
+                    p.ShopID IS NOT NULL OR 
+                    p.EventID IS NOT NULL
+                ))
+                ORDER BY p.Name, t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $hotelId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

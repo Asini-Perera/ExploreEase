@@ -31,62 +31,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- My Packages Section -->
-    <div class="section-header">
-        <h2>My Partnership Packages</h2>
-    </div>
-
-    <?php if(empty($packages)): ?>
-        <div class="empty-state">
-            <p>You haven't created any partnership packages yet.</p>
-            <p>Create packages to offer special deals with other service providers.</p>
-        </div>
-    <?php else: ?>
-        <div class="package-grid">
-            <?php foreach($packages as $package): 
-                // Determine package status
-                $today = date('Y-m-d');
-                $status = '';
-                $statusClass = '';
-                if ($package['EndDate'] < $today) {
-                    $status = 'Expired';
-                    $statusClass = 'expired';
-                } elseif ($package['StartDate'] > $today) {
-                    $status = 'Upcoming';
-                    $statusClass = 'upcoming';
-                } else {
-                    $status = 'Active';
-                    $statusClass = 'active';
-                }
-                
-                // Default image if none provided
-                $packageImage = !empty($package['ImgPath']) ? $package['ImgPath'] : '../public/images/default-package.jpg';
-            ?>
-                <div class="package-card">
-                    <div class="package-image">
-                        <img src="<?= $packageImage ?>" alt="<?= htmlspecialchars($package['Name']) ?>">
-                        <span class="package-badge <?= $statusClass ?>"><?= $status ?></span>
-                    </div>
-                    <div class="package-content">
-                        <h3><?= htmlspecialchars($package['Name']) ?></h3>
-                        <p class="package-partner">
-                            <strong>Partner:</strong> <?= htmlspecialchars($package['PartnerName']) ?>
-                            <span class="partner-type">(<?= ucfirst($package['Owner']) ?>)</span>
-                        </p>
-                        <p class="package-discount"><strong>Discount:</strong> <?= htmlspecialchars($package['Discount']) ?>%</p>
-                        <p class="package-validity"><strong>Valid:</strong> <?= date('M d, Y', strtotime($package['StartDate'])) ?> - <?= date('M d, Y', strtotime($package['EndDate'])) ?></p>
-                        <p class="package-description"><?= nl2br(htmlspecialchars(substr($package['Description'], 0, 100))) ?><?= strlen($package['Description']) > 100 ? '...' : '' ?></p>
-                        
-                        <div class="package-actions">
-                            <a href="?page=packages&action=edit&id=<?= $package['PackageID'] ?>" class="edit-btn">Edit</a>
-                            <button class="delete-btn" data-id="<?= $package['PackageID'] ?>">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
     <!-- Service Providers Section -->
     <div class="section-header">
         <h2>Available Service Providers</h2>
@@ -181,6 +125,101 @@
         </tbody>
     </table>
 </div>
+
+    <!-- My Packages Section -->
+    <div class="section-header">
+        <h2>My Packages</h2>
+    </div>
+
+    <?php if(empty($packages)): ?>
+        <div class="empty-state">
+            <p>You haven't created any packages yet.</p>
+            <p>Create packages to offer special deals with other service providers.</p>
+        </div>
+    <?php else: ?>
+        <div class="package-grid">
+            <?php foreach($packages as $package): 
+                // Determine package status
+                $today = date('Y-m-d');
+                $status = '';
+                $statusClass = '';
+                if ($package['EndDate'] < $today) {
+                    $status = 'Expired';
+                    $statusClass = 'expired';
+                } elseif ($package['StartDate'] > $today) {
+                    $status = 'Upcoming';
+                    $statusClass = 'upcoming';
+                } else {
+                    $status = 'Active';
+                    $statusClass = 'active';
+                }
+                
+                // Default image if none provided
+                $packageImage = !empty($package['ImgPath']) ? $package['ImgPath'] : '../public/images/default-package.jpg';
+            ?>
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="<?= $packageImage ?>" alt="<?= htmlspecialchars($package['Name']) ?>">
+                        <span class="package-badge <?= $statusClass ?>"><?= $status ?></span>
+                    </div>
+                    <div class="package-content">
+                        <h3><?= htmlspecialchars($package['Name']) ?></h3>
+                        <p class="package-partner">
+                            <strong>Partner:</strong> <?= htmlspecialchars($package['PartnerName']) ?>
+                            <span class="partner-type">(<?= ucfirst($package['Owner']) ?>)</span>
+                        </p>
+                        <p class="package-discount"><strong>Discount:</strong> <?= htmlspecialchars($package['Discount']) ?>%</p>
+                        <p class="package-validity"><strong>Valid:</strong> <?= date('M d, Y', strtotime($package['StartDate'])) ?> - <?= date('M d, Y', strtotime($package['EndDate'])) ?></p>
+                        <p class="package-description"><?= nl2br(htmlspecialchars(substr($package['Description'], 0, 100))) ?><?= strlen($package['Description']) > 100 ? '...' : '' ?></p>
+                        
+                        <div class="package-actions">
+                            <button class="delete-btn" data-id="<?= $package['PackageID'] ?>">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Package Users Section -->
+    <div class="section-header">
+        <h2>Package Users</h2>
+    </div>
+
+    <?php if(empty($packageUsers)): ?>
+        <div class="empty-state">
+            <p>No travelers have used your packages yet.</p>
+            <p>When travelers use your packages, they will appear here.</p>
+        </div>
+    <?php else: ?>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Traveler</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Package Used</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($packageUsers as $user): ?>
+                    <tr>
+                        <td class="user-info">
+                            <?php if(!empty($user['ImgPath'])): ?>
+                                <img src="<?= $user['ImgPath'] ?>" alt="User" class="user-avatar">
+                            <?php else: ?>
+                                <div class="user-avatar-placeholder"><?= strtoupper(substr($user['FirstName'], 0, 1)) ?></div>
+                            <?php endif; ?>
+                            <?= htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']) ?>
+                        </td>
+                        <td><?= htmlspecialchars($user['Email']) ?></td>
+                        <td><?= htmlspecialchars($user['ContactNo'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($user['PackageName']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 
 <!-- Dialog for package deletion -->
 <dialog id="deleteDialog">
