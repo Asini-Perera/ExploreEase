@@ -1,5 +1,7 @@
 <?php
 
+use app\Controllers\RestaurantController;
+
 $router->add('login', 'LoginController@index');  // Login page
 $router->add('login/process', 'LoginController@login');  // Login process
 $router->add('waiting', 'LoginController@waiting');  // Waiting page for users
@@ -26,6 +28,13 @@ $router->add('filter/keyword', 'HomeController@filterKeyword');  // Filter by ke
 $router->add('link/service', 'HomeController@linkService');  // Link service page for displaying
 $router->add('review', 'HomeController@addReview');  // Add review page for users
 $router->add('review/save', 'HomeController@saveServiceReview');  // Save review process
+$router->add('reviews', 'HomeController@siteReview');
+$router->add('TravellerDashboard', 'HomeController@TravellerDashboard');
+$router->add('loggedNavbar', 'HomeController@loggednavbar');
+$router->add('travllerBooking', 'HomeController@travllerBooking');
+$router->add('travellerReview', 'HomeController@travellerReview');
+$router->add('Contactus', 'HomeController@Contactus');
+$router->add('TravellerPackageList', 'HomeController@TravellerPackageList'); // Traveller package list
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -70,7 +79,11 @@ $router->add('restaurant/review', 'RestaurantController@review');  // Restaurant
 $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   // Restaurant review reply
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
+$router->add('restaurant/images', 'RestaurantController@images');  // Restaurant images
+$router->add('restaurant/addImage', 'RestaurantController@addImage'); //add image
+$router->add('restaurant/deleteImage', 'RestaurantController@deleteImage'); // delete image
 $router->add('restaurant/sendTableNo', 'RestaurantController@sendTableNo');  // Send table number for restaurant booking
+
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
@@ -83,6 +96,8 @@ $router->add('hotel/deletePost', 'HotelController@deletePost');  // Delete post 
 $router->add('hotel/updatePost', 'HotelController@updatePost');  // Update post for hotel
 $router->add('hotel/reviews', 'HotelController@reviews');  // View reviews for hotel
 $router->add('hotel/replyReview', 'HotelController@replyReview');  // Process review replies
+$router->add('hotel/checkAvailableRooms', 'HotelController@checkAvailableRooms');  // Check available rooms for hotel
+$router->add('hotel/bookRoom', 'HotelController@bookRoom');  // Book room for hotel
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
@@ -94,27 +109,21 @@ $router->add('heritagemarket/reviewResponse', 'HeritageMarketController@reviewRe
 $router->add('heritagemarket/shops', 'HeritageMarketController@shops');
 $router->add('heritagemarket/products', 'HeritageMarketController@products');
 $router->add('heritagemarket/review', 'HeritageMarketController@review');
+$router->add('heritagemarket/submitReview', 'HeritageMarketController@submitReview');  // Process review submissions
 
-$router->add('culturaleventorganizer/dashboard','CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
-$router->add('culturaleventorganizer/addEvent','CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
-$router->add('culturaleventorganizer/deleteEvent','CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
-$router->add('culturaleventorganizer/addPost','CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
-$router->add('culturaleventorganizer/deletePost','CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
-$router->add('culturaleventorganizer/update','CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
-$router->add('culturaleventorganizer/changepassword','CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
-$router->add('service/hotel','HomeController@travelerside_hotel');  // traveller side hotel view
-$router->add('service/restaurant','HomeController@travelerside_restaurant');  // traveller side restaurant view
-$router->add('service/cultural_event','HomeController@travelerside_cultural_event');  // traveller side cultural event view
-$router->add('service/menu','HomeController@travelerside_menu');  // traveller side menu view
+$router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
+$router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
+$router->add('culturaleventorganizer/editEvent', 'CulturalEventOrganizerController@editEvent');  // Edit event for cultural event organizer
+$router->add('culturaleventorganizer/updateEvent', 'CulturalEventOrganizerController@updateEvent');  // Process event update for cultural event organizer
+$router->add('culturaleventorganizer/deleteEvent', 'CulturalEventOrganizerController@deleteEvent');  // Delete event for cultural event organizer
+$router->add('culturaleventorganizer/addPost', 'CulturalEventOrganizerController@addPost');  // Add post for cultural event organizer
+$router->add('culturaleventorganizer/updatePost', 'CulturalEventOrganizerController@updatePost');  // Update post for cultural event organizer
+$router->add('culturaleventorganizer/deletePost', 'CulturalEventOrganizerController@deletePost');  // Delete post for cultural event organizer
+$router->add('culturaleventorganizer/bookings', 'CulturalEventOrganizerController@bookings');  // View bookings for cultural event organizer
+$router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerController@updateBooking');  // Update booking for cultural event organizer
+$router->add('culturaleventorganizer/reviewResponse', 'CulturalEventOrganizerController@reviewResponse');  // Process review responses
+$router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
+$router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
-$router->add('restaurant/post','HomeController@post');  // Add post for restaurant
-
-$router->add('reviews','HomeController@siteReview');  // Add post for restaurant
-$router->add('TravellerDashboard','HomeController@TravellerDashboard');  // Add post for restaurant
-
-$router->add('loggedNavbar','HomeController@loggednavbar');  
-$router->add('travllerBooking','HomeController@travllerBooking'); 
-$router->add('Contactus','HomeController@Contactus'); 
-$router->add('TravellerPackageList','HomeController@TravellerPackageList');
-
+$router->add('traveler/editProfile', 'TravelerController@editProfile');  // Edit profile for traveler

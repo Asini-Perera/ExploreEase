@@ -41,10 +41,7 @@ class KeywordController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keywords'])) {
 
             $keywords = $_POST['keywords'];
-            if (isset($_SESSION['TravelerID'])) {
-                $userID = $_SESSION['TravelerID'];
-                $table = 'travelerkeyword';
-            } elseif (isset($_SESSION['RestaurantID'])) {
+            if (isset($_SESSION['RestaurantID'])) {
                 $userID = $_SESSION['RestaurantID'];
                 $table = 'restaurantkeyword';
             } elseif (isset($_SESSION['HotelID'])) {
@@ -62,11 +59,7 @@ class KeywordController
             $keywordModel->saveKeywords($table, $userID, $keywords);
         }
 
-        if (isset($_SESSION['TravelerID'])) {
-            header('Location: ../');
-        } else {
-            header('Location: ../admin/waiting');
-        }
+        header('Location: ../admin/waiting');
     }
 
     public function addKeyword()
@@ -133,11 +126,19 @@ class KeywordController
 
             $keywordModel = new KeywordModel($this->conn);
             if ($action === 'verify') {
-                $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
-                // $_SESSION['success'] = 'Keyword verified successfully';
+                $success = $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
+                if ($success) {
+                    $_SESSION['success'] = 'Keyword verified successfully';
+                } else {
+                    $_SESSION['error'] = 'Failed to verify keyword';
+                }
             } elseif ($action === 'reject') {
-                $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
-                // $_SESSION['error'] = 'Keyword rejected successfully';
+                $success = $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
+                if ($success) {
+                    $_SESSION['success'] = 'Keyword rejected successfully';
+                } else {
+                    $_SESSION['error'] = 'Failed to reject keyword';
+                }
             }
 
             header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);

@@ -1,0 +1,125 @@
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-booking-card{
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-booking-card h2{
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+.form-group label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-group input[type="file"]{
+    padding: 0;
+}
+
+.form-group textarea{
+    resize: none;
+    min-height: 100px;
+}
+
+.form-actions{
+    text-align: center;
+}
+
+.form-actions button{
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-actions button:hover{
+    background-color: #0056b3;
+}
+
+.form-actions .btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-actions .btn:hover{
+    opacity: 0.9;
+}
+
+.form-actions .btn,
+.form-actions .save-btn{
+    background-color: #6fa857;
+    color: #fff;
+}
+
+.form-actions .btn:hover,
+.form-actions .save-btn:hover{
+    background-color: #5a9b4c;
+}
+
+.form-actions .cancel-btn{
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.form-actions .cancel-btn:hover{
+    background-color: #c82333;
+}
+
+.form-group small{
+    display: block;
+    margin-top: 5px;
+    color: #666;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #c3e6cb;
+}

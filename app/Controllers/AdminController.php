@@ -252,7 +252,13 @@ class AdminController
             }
 
             $adminModel = new AdminModel($this->conn);
-            $adminModel->updateAdmin($adminID, $firstName, $lastName, $email, $contactNo);
+            $success = $adminModel->updateAdmin($adminID, $firstName, $lastName, $email, $contactNo);
+
+            if ($success) {
+                $_SESSION['success'] = "Profile updated successfully";
+            } else {
+                $_SESSION['error'] = "Failed to update profile";
+            }
 
             if ($profileImage['name']) {
                 $adminModel->setImgPath($adminID, $profileImage);
@@ -279,9 +285,19 @@ class AdminController
 
             $adminModel = new AdminModel($this->conn);
             if ($action === 'verify') {
-                $adminModel->verifyUser($email, $userType);
+                $success = $adminModel->verifyUser($email, $userType);
+                if ($success) {
+                    $_SESSION['success'] = "User verified successfully.";
+                } else {
+                    $_SESSION['error'] = "Verification failed.";
+                }
             } elseif ($action === 'reject') {
-                $adminModel->rejectUser($email, $userType);
+                $success = $adminModel->rejectUser($email, $userType);
+                if ($success) {
+                    $_SESSION['success'] = "User removed successfully.";
+                } else {
+                    $_SESSION['error'] = "Removal failed.";
+                }
             }
 
             header('Location: ../admin/dashboard?page=' . $page . '&user=' . $userType);
@@ -302,14 +318,21 @@ class AdminController
 
             if ($valid) {
                 if ($newPassword === $confirmPassword) {
-                    $adminModel->changePassword($adminID, $newPassword);
+                    $success = $adminModel->changePassword($adminID, $newPassword);
+                    if ($success) {
+                        $_SESSION['success'] = 'Password changed successfully';
+                    } else {
+                        $_SESSION['error'] = 'Failed to change password';
+                    }
                     header('Location: ../admin/dashboard?page=profile');
                     exit();
                 } else {
+                    $_SESSION['error'] = 'New password and confirm password do not match';
                     header('Location: ../admin/dashboard?page=profile&action=changepassword');
                     exit();
                 }
             } else {
+                $_SESSION['error'] = 'Current password is incorrect';
                 header('Location: ../admin/dashboard?page=profile&action=changepassword');
                 exit();
             }

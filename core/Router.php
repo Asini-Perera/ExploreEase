@@ -2,7 +2,11 @@
 
 class Router
 {
-    protected $routes = [];
+    protected $routes = [
+        // ...existing routes...
+        'culturaleventorganizer/addPost' => ['controller' => 'CulturalEventOrganizerController', 'method' => 'addPost'],
+        // ...existing routes...
+    ];
 
     public function add($route, $action)
     {

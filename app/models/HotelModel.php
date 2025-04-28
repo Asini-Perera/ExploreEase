@@ -263,6 +263,116 @@ class HotelModel
         }
     }
 
+     //images 
+
+     public function addImage($title ,$hotelID)
+     {
+         $sql = "INSERT INTO hotelimages (Title,  HotelID) VALUES ( ?, ?)";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('si',$title , $hotelID);
+         $stmt->execute();
+         
+         // Get the ImageID
+         $sql = "SELECT ImageID FROM hotelimages WHERE Title = ? AND HotelID = ?";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('si', $title, $hotelID);
+         $stmt->execute();
+         $result = $stmt->get_result();
+         $ImageID = $result->fetch_assoc()['ImageID'];
+         
+         return $ImageID;
+     }
+  
+ 
+     
+     public function getImage($hotelID)
+     {
+         $sql = "SELECT * FROM hotelimages WHERE HotelID = ?";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('i', $hotelID);
+         $stmt->execute();
+         $result = $stmt->get_result();
+ 
+         return $result->fetch_all(MYSQLI_ASSOC);
+     }
+ 
+     
+     public function getImageItem($imageID)
+     {
+         $sql = "SELECT * FROM hotelimages WHERE ImageID = ?";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('i', $imageID);
+         $stmt->execute();
+         $result = $stmt->get_result();
+ 
+         return $result->fetch_assoc();
+ 
+     }
+ 
+     public function deleteImage($imageID)
+     {
+         $sql = "DELETE FROM hotelimages WHERE ImageID = ?";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('i', $imageID);
+         $stmt->execute();
+     }
+ 
+ 
+     public function setHotelImgPath($imageID, $fileName)
+     {
+         // Get temp image path
+         $tempImgPath = $fileName['tmp_name'];
+ 
+         // Get the file name (original file name from the upload)
+         $originalFileName = $fileName['name'];
+ 
+         // Get the file extention
+         $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+ 
+         // Create a new file name
+         $newFileName = $imageID . '.' . $extention;
+ 
+         // Define the target directory
+         $targetDir = __DIR__ . '/../../public/images/database/hotel_images/';
+ 
+         // Check the directory exists and create it
+         if (!is_dir($targetDir)) {
+             mkdir($targetDir, 0777, false);
+         }
+ 
+         // Create the image path
+         $imgDir = $targetDir . $newFileName;
+ 
+         // Move the image to the target directory
+         $moving = move_uploaded_file($tempImgPath, $imgDir);
+ 
+         // Define the image path
+         $imgPath = '/ExploreEase/public/images/database/hotel_images/' . $newFileName;
+ 
+         // Enter the image path to the database
+         if ($moving) {
+             $sql = "UPDATE hotelimages SET ImgPath = ? WHERE ImageID = ?";
+             $stmt = $this->conn->prepare($sql);
+             $stmt->bind_param('si', $imgPath, $imageID);
+             $stmt->execute();
+         }
+     }
+ 
+     public function getHotelImgPath($imageID)
+     {
+         $sql = "SELECT ImgPath FROM hotelimages WHERE ImageID = ?";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bind_param('i', $imageID);
+         $stmt->execute();
+         $result = $stmt->get_result();
+         return $result->fetch_assoc()['ImgPath'];
+     }
+   
+ 
+ 
+ 
+ 
+
     // public function getTotalRevenue($hotelId) {
     //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
     //             FROM RoomBooking rb
@@ -309,6 +419,7 @@ class HotelModel
     //     }
     // }
 
+    
     public function getTotalCustomers($hotelID)
     {
         $sql = "SELECT COUNT(DISTINCT rb.TravelerID) AS totalCustomers 
@@ -528,10 +639,11 @@ class HotelModel
 
     public function getReviews($hotelID)
     {
-        $sql = "SELECT hf.*, t.FirstName, t.LastName 
+        $sql = "SELECT hf.*, t.FirstName, t.LastName, t.ImgPath 
                 FROM hotelfeedback hf
-                LEFT JOIN traveler t ON hf.TravelerID = t.TravelerID
-                WHERE hf.HotelID = ?";
+                INNER JOIN traveler t ON hf.TravelerID = t.TravelerID
+                WHERE hf.HotelID = ?
+                ORDER BY hf.Response IS NULL DESC, hf.Date DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $hotelID);
         $stmt->execute();
@@ -567,6 +679,33 @@ class HotelModel
         $sql = "INSERT INTO hotelfeedback (HotelID, TravelerID, Rating, Comment, Date) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('iiiss', $hotelID, $travelerID, $rating, $review, $date);
+        return $stmt->execute();
+    }
+
+    public function getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests)
+    {
+        $sql = "SELECT r.*, rb.*, r.RoomID AS RoomID, 
+                       DATEDIFF(?, ?) * r.Price AS TotalPrice, 
+                       ? AS CheckInDate, 
+                       ? AS CheckOutDate
+                FROM room r
+                LEFT JOIN roombooking rb ON r.RoomID = rb.RoomID 
+                    AND ((rb.CheckInDate <= ? AND rb.CheckOutDate >= ?) OR (rb.CheckInDate <= ? AND rb.CheckOutDate >= ?))
+                WHERE r.HotelID = ? AND r.MaxOccupancy >= ? AND rb.BookingID IS NULL";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ssssssssii', $checkOutDate, $checkInDate, $checkInDate, $checkOutDate, $checkInDate, $checkInDate, $checkOutDate, $checkOutDate, $hotelID, $guests);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function bookRoom($roomID, $travelerID, $checkInDate, $checkOutDate, $date)
+    {
+        $sql = "INSERT INTO roombooking (RoomID, TravelerID, CheckInDate, CheckOutDate, Date) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iisss', $roomID, $travelerID, $checkInDate, $checkOutDate, $date);
         return $stmt->execute();
     }
 }

@@ -62,6 +62,7 @@ class LoginController
                         $_SESSION['FirstName'] = $user['FirstName'];
                         $_SESSION['LastName'] = $user['LastName'];
                         $_SESSION['Gender'] = $user['Gender'];
+                        $_SESSION['ImgPath'] = $user['ImgPath'];
                         header('Location: ../loged_home');
                         break;
                     case 'hotel':
@@ -120,8 +121,6 @@ class LoginController
                         $_SESSION['Name'] = $user['Name'];
                         $_SESSION['ContactNo'] = $user['ContactNo'];
                         $_SESSION['Description'] = $user['Description'];
-                        $_SESSION['WeekdayOpenHours'] = $user['WeekdayOpenHours'];
-                        $_SESSION['WeekendOpenHours'] = $user['WeekendOpenHours'];
                         $_SESSION['FacebookLink'] = $user['FacebookLink'];
                         $_SESSION['InstagramLink'] = $user['InstagramLink'];
                         $_SESSION['TikTokLink'] = $user['TikTokLink'];
