@@ -138,6 +138,8 @@ class HomeController
 
     public function TravellerPackageList()
     {
+        $homeModel = new HomeModel($this->conn);
+        $packages = $homeModel->getAllPackages();
         require_once __DIR__ . '/../Views/TravellerPackageList.php';
     }
 

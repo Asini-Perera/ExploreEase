@@ -16,8 +16,37 @@
     <h1>Available Travel Packages</h1>
     <div class="packages-list">
 
+      <?php if (empty($packages)) : ?>
+        <div class="no-packages-message">
+          <h2>No packages available at the moment.</h2>
+        </div>
+      <?php else : ?>
+        <?php foreach ($packages as $package) : ?>
+          <div class="package-card">
+            <img src="<?= $package['ImgPath'] ?>" alt="Sigiriya Adventure" class="package-image">
+            <div class="package-details">
+              <h2><?= $package['Name'] ?></h2>
+              <p class="package-desc"><?= $package['Description'] ?></p>
+              <ul class="services-included">
+                <li>🏨 <?= $package['HotelName'] ?? '' ?></li>
+                <li>🍽️ <?= $package['RestaurantName'] ?? '' ?></li>
+                <li>🎭 <?= $package['EventName'] ?? '' ?></li>
+                <li>🛍️ <?= $package['HeritageMarketName'] ?? '' ?></li>
+              </ul>
+              <div class="price-location">
+                <span class="price"><?= $package['Status'] ?? 'N/A' ?></span>
+              </div>
+              <div class="discount-status">
+                <div class="discount">💸 <?= number_format($package['Discount'], 2) ?>% off on your bills</div>
+              </div>
+              <div class="date-range"><strong>Valid:</strong> <?= $package['StartDate'] ?> - <?= $package['EndDate'] ?></div>
+              <a href="#" class="btn-register">Register for Package</a>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
 
-      <div class="package-card">
+      <!-- <div class="package-card">
         <img src="/ExploreEase/public/images/sigiriya.jpg" alt="Sigiriya Adventure" class="package-image">
         <div class="package-details">
           <h2>Sigiriya & Cultural Triangle Tour</h2>
@@ -30,17 +59,14 @@
           </ul>
           <div class="price-location">
             <span class="price">Active</span>
-            <span class="location">Sigiriya, Dambulla</span>
           </div>
           <div class="discount-status">
             <div class="discount">💸 15% Off on your bills</div>
           </div>
           <div class="date-range"><strong>Valid:</strong> May 1 - Sep 30, 2025</div>
-          <div class="terms"><small>* 7-day free cancellation</small></div>
           <a href="#" class="btn-register">Register for Package</a>
-          <div class="reviews">★★★★☆ (45 Reviews)</div>
         </div>
-      </div>
+      </div> -->
 
       <!-- <div class="package-card">
     <img src="/ExploreEase/public/images/ella.jpg" alt="Ella Adventure" class="package-image">

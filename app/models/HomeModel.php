@@ -130,4 +130,38 @@ class HomeModel
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function getAllPackages()
+    {
+        $sql = "
+        SELECT 
+            p.*,
+            h.Name AS HotelName,
+            r.Name AS RestaurantName,
+            hm.Name AS HeritageMarketName,
+            ce.Name AS EventName,
+            CASE 
+                WHEN p.StartDate > CURDATE() THEN 'Upcoming'
+                ELSE 'Active'
+            END AS Status
+        FROM 
+            Package p
+        LEFT JOIN 
+            hotel h ON p.HotelID = h.HotelID
+        LEFT JOIN 
+            restaurant r ON p.RestaurantID = r.RestaurantID
+        LEFT JOIN 
+            heritagemarket hm ON p.ShopID = hm.ShopID
+        LEFT JOIN 
+            culturalevent ce ON p.EventID = ce.EventID
+        WHERE 
+            p.IsVerified = 1 AND p.EndDate >= CURDATE()
+        ORDER BY
+            p.StartDate ASC
+    ";
+
+        $result = $this->conn->query($sql);
+        $packages = $result->fetch_all(MYSQLI_ASSOC);
+        return $packages;
+    }
 }
