@@ -1,53 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../public/css/search_by_location.css">
-    <link rel="stylesheet" href="../public/css/logedFooter.css?v=1">
-    <title>search by location</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../public/css/search_by_location.css">
+  <title>Search by Location</title>
 </head>
 <body>
-    <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
-    <section class="search-header" >
+  <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
 
-        <div class="search" style=" justify-items: center; ">
-            <input type="search"  id="search-bar" placeholder="Search city for Services " autocomplete="off" style=" text-align: center; margin-top: 30vh; width: 35vw; height: 5vh; font-size: 18px; border-radius: 30px;">
+  <section class="search-section">
+  
+    <div class="selectors">
+      <h1>Discover Services Near You</h1>
+      <select id="city-select">
+        <option value="">Select City</option>
+        <option value="Colombo">Colombo</option>
+        <option value="Kandy">Kandy</option>
+        <option value="Galle">Galle</option>
+      </select>
 
-            <div class="result-box">
-                
-            </div>
+      <div class="service-buttons">
+        <button onclick="filterServices('hotel')">Hotels</button>
+        <button onclick="filterServices('restaurant')">Restaurants</button>
+        <button onclick="filterServices('heritage_market')">Heritage Markets</button>
+        <button onclick="filterServices('cultural_event')">Cultural Events</button>
+      </div>
+    </div>
 
-            <div class="services">
-            <button class="hotel" onclick="searchServices('hotel')">Hotel</button>
-            <button class="restaurant"  onclick="searchServices('restaurant')">Restaurant</button>
-            <button class="heritage" onclick="searchServices('heritage_market')">Heritage Market</button>
-            <button class="event" onclick="searchServices('cultural_event')">Cultural Event</button>
-            </div>
+    <div id="results" class="results"></div>
+    <div id="results" class="results"></div>
+    
+  </section>
 
-           
-        </div>
-     
-        <div class="content">
-            <div class="map">
-                <img src="../public/images/google-map.jpg" alt="map">
+  <?php require_once __DIR__ . '/logedFooter.php'; ?>
 
-                <div class="filter">
-
-                </div>
-            </div>
-
-            <div id="results" ></div>
-        </div>
-    </section>
-    <?php require_once __DIR__ . '/logedFooter.php'; ?>
-   
-
-    <script src="../public/js/search_by_location/autocomplete.js"></script>
-    <script src="../public/js/search_by_location/result.js">
-       
-    </script>
-
+  <script src="../public/js/search_by_location/simple_search.js"></script>
 </body>
 </html>
