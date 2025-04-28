@@ -15,18 +15,18 @@
     <header>
         <?php require_once __DIR__ . "/Navbar.php"; ?>
 
-            <!-- home-main -->
-            <div class="main">
-                <div class="welcome-container">
+        <!-- home-main -->
+        <div class="main">
+            <div class="welcome-container">
 
-                    <h2 class="welcome">Welcome to ExploreEase</h2>
-                    <p class="description">Make your journy easier on our platform....</p>
+                <h2 class="welcome">Welcome to ExploreEase</h2>
+                <p class="description">Make your journy easier on our platform....</p>
 
-                    <button class="explore-btn">Explore</button>
-                </div>
-
-
+                <button class="explore-btn">Explore</button>
             </div>
+
+
+        </div>
         </div>
     </header>
 
@@ -42,27 +42,35 @@
 
                     <div class="service-one">
                         <div class="service">
-                            <img src="public/images/hotel1-image.png" alt="hotels">
+                            <a href="login">
+                                <img src="public/images/hotel1-image.png" alt="hotels">
+                            </a>
                             <h3>Hotels</h3>
-                            <p>Find the best hotels in Sri Lanka</p>
+                            <p>Find the best Hotels in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/restuarant-image.png" alt="resturants">
+                            <a href="login">
+                                <img src="public/images/restuarant-image.png" alt="restuarants">
+                            </a>
                             <h3>Resturants</h3>
-                            <p>Find the best resturants in Sri Lanka</p>
+                            <p>Find the best Restuarants in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/cultural-event.png" alt="cultural events">
+                            <a href="login">
+                                <img src="public/images/cultural-event.png" alt="cultural events">
+                            </a>
                             <h3>Cultural Events</h3>
-                            <p>Find the best cultural events in Sri Lanka</p>
+                            <p>Find the best Cultural Events in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/shop-image.png" alt="heritage">
+                            <a href="login">
+                                <img src="public/images/shop-image.png" alt="heritage">
+                            </a>
                             <h3>Heritage</h3>
-                            <p>Find the best heritage sites in Sri Lanka</p>
+                            <p>Find the best Heritage Markets in Sri Lanka</p>
                         </div>
                     </div>
                 </div>

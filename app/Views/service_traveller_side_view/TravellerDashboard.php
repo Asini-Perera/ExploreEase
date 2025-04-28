@@ -25,6 +25,7 @@
 
         <a href="#bookings">Bookings</a>
         <a href="#reviews">Reviews</a>
+        <a href="/ExploreEase">Logout</a>
       </nav>
     </aside>
 
