@@ -28,7 +28,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Posts</h2>
-                <h1></h1>
+                <h1>4</h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/revenue.jpeg" alt="Traveler">
@@ -39,7 +39,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Packages</h2>
-                <h1>$32</h1>
+                <h1>2</h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/revenue2.jpeg" alt="Restaurant">
