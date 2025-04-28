@@ -11,7 +11,7 @@
     
     <?php if (!empty($images) && is_array($images)): ?>
         <?php foreach ($images as $image) : ?>
-            
+          
         <div class="image-card" name="image-card"  >
             <img src="<?= $image['ImgPath'] ?>" alt="<?= htmlspecialchars($image['Title']) ?>" name="rest-image">
                     

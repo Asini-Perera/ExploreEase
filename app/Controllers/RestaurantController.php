@@ -72,25 +72,6 @@ class RestaurantController
                 } else {
                     $verifiedAction = null;
                 }
-            } elseif ($mainContent == 'post') {
-                //$action = isset($_GET['action']) ? $_GET['action'] : null;
-                //$verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
-                $posts = $this->viewPosts();
-                $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'add') {
-                    $verifiedAction = 'add';
-                } elseif ($action == 'edit') {
-                    $verifiedAction = 'edit';
-
-                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
-                    $restaurantModel = new RestaurantModel($this->conn);
-                    $postItem = $restaurantModel->getPostItem($postID);
-                } elseif ($action == 'delete') {
-                    $verifiedAction = null;
-                    $this->deletePost();
-                } else {
-                    $verifiedAction = null;
-                }
             } elseif ($mainContent == 'bookings') {
                 $restaurantModel = new RestaurantModel($this->conn);
                 $bookings = $restaurantModel->bookingWithoutTableNo($_SESSION['RestaurantID']);
@@ -276,6 +257,13 @@ class RestaurantController
                 $restaurantModel->setImgPath($menuID, $image);
             }
 
+            if ($menuID) {
+                $_SESSION['success'] = "Menu added successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to add menu item!";
+            }
+            // Redirect to the menu page
+
             header('Location: ../restaurant/dashboard?page=menu');
         }
     }
@@ -301,7 +289,13 @@ class RestaurantController
             $restaurantID = $_SESSION['RestaurantID'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->updateMenu($name, $price, $category, $popularDish, $menuID);
+            $update = $restaurantModel->updateMenu($name, $price, $category, $popularDish, $menuID);
+
+            if ($update) {
+                $_SESSION['success'] = "Menu updated successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to update menu item!";
+            }
 
             //If a new image is uploaded, update the image path
             if ($image['name']) {
@@ -318,7 +312,13 @@ class RestaurantController
             $menuID = $_GET['id'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->deleteMenu($menuID);
+            $deletion = $restaurantModel->deleteMenu($menuID);
+
+            if($deletion){
+                $_SESSION['success'] = "Menu deleted successfully!";
+            }else{
+                $_SESSION['error'] = "Failed to delete menu item!";
+            }
 
             header('Location: ../restaurant/dashboard?page=menu');
         }
@@ -326,70 +326,7 @@ class RestaurantController
 
 
 
-    //Posts
-
-    public function addPost()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-            $image = $_FILES['post-image'];
-            $restaurantID = $_SESSION['RestaurantID'];
-
-            $restaurantModel = new RestaurantModel($this->conn);
-            $postID = $restaurantModel->addPost($title, $description,  $restaurantID);
-
-
-            // If image is uploaded, set the image path
-            if ($postID && $image['name']) {
-                $restaurantModel->setPostImgPath($postID, $image);
-            }
-
-            header('Location: ../restaurant/dashboard?page=post');
-        }
-    }
-
-
-    public function viewPosts()
-    {
-        $restaurantModel = new RestaurantModel($this->conn);
-        $posts = $restaurantModel->getPost($_SESSION['RestaurantID']);
-
-        return $posts;
-    }
-
-    public function editPost()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $postID = $_POST['postID'];
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-            $image = $_FILES['post-image'];
-            $restaurantID = $_SESSION['RestaurantID'];
-
-            $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->updatePost($title, $description, $postID);
-
-            //If a new image is uploaded, update the image path
-            if ($image['name']) {
-                $restaurantModel->setPostImgPath($postID, $image);
-            }
-
-            header("Location: dashboard?page=post");
-            exit();
-        }
-    }
-    public function deletePost()
-    {
-        if (isset($_GET['id'])) {
-            $postID = $_GET['id'];
-
-            $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->deletePost($postID);
-            header('Location: ../restaurant/dashboard?page=post');
-        }
-    }
+   
 
 
 
@@ -443,7 +380,14 @@ class RestaurantController
             $reply = $_POST['reply'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->replyReview($reviewID, $reply);
+            $replyed=$restaurantModel->replyReview($reviewID, $reply);
+
+            if ($replyed) {
+                $_SESSION['success'] = "Reply sent successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to send reply!";
+            }
+            // Redirect to the reviews page
 
             header('Location: ../restaurant/dashboard?page=reviews');
         }
@@ -467,6 +411,12 @@ class RestaurantController
                 $restaurantModel->setRestImgPath($imageID, $image);
             }
 
+            if ($imageID) {
+                $_SESSION['success'] = "Image added successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to add image!";
+            }
+
             header('Location: ../restaurant/dashboard?page=images');
             exit();
         }
@@ -486,7 +436,13 @@ class RestaurantController
             $imageID = $_GET['id'];
 
             $restaurantModel = new RestaurantModel($this->conn);
-            $restaurantModel->deleteImage($imageID);
+            $deletion = $restaurantModel->deleteImage($imageID);
+
+            if($deletion){
+                $_SESSION['success'] = "Photo deleted successfully!";
+            }else{
+                $_SESSION['error'] = "Failed to delete photo!";
+            }
 
             header('Location: ../restaurant/dashboard?page=images');
             exit();
@@ -538,6 +494,7 @@ class RestaurantController
                     '<strong>The ExploreEase Team</strong></p>';
 
                 $success = $mail->send();
+
                 if ($success) {
                     $restaurantModel = new RestaurantModel($this->conn);
                     $restaurantModel->updateTableNo($bookingID, $tableNo);
@@ -545,9 +502,85 @@ class RestaurantController
             }
         }
 
-
-
-
         header('Location: ../restaurant/dashboard?page=bookings');
     }
+
+
+
+
+
+
+
+
+     //Posts
+
+    //  public function addPost()
+    //  {
+    //      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+ 
+    //          $title = $_POST['title'];
+    //          $description = $_POST['description'];
+    //          $image = $_FILES['post-image'];
+    //          $restaurantID = $_SESSION['RestaurantID'];
+ 
+    //          $restaurantModel = new RestaurantModel($this->conn);
+    //          $postID = $restaurantModel->addPost($title, $description,  $restaurantID);
+ 
+ 
+    //          // If image is uploaded, set the image path
+    //          if ($postID && $image['name']) {
+    //              $restaurantModel->setPostImgPath($postID, $image);
+    //          }
+ 
+    //          header('Location: ../restaurant/dashboard?page=post');
+    //      }
+    //  }
+ 
+ 
+    //  public function viewPosts()
+    //  {
+    //      $restaurantModel = new RestaurantModel($this->conn);
+    //      $posts = $restaurantModel->getPost($_SESSION['RestaurantID']);
+ 
+    //      return $posts;
+    //  }
+ 
+    //  public function editPost()
+    //  {
+    //      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //          $postID = $_POST['postID'];
+    //          $title = $_POST['title'];
+    //          $description = $_POST['description'];
+    //          $image = $_FILES['post-image'];
+    //          $restaurantID = $_SESSION['RestaurantID'];
+ 
+    //          $restaurantModel = new RestaurantModel($this->conn);
+    //          $restaurantModel->updatePost($title, $description, $postID);
+ 
+    //          //If a new image is uploaded, update the image path
+    //          if ($image['name']) {
+    //              $restaurantModel->setPostImgPath($postID, $image);
+    //          }
+ 
+    //          header("Location: dashboard?page=post");
+    //          exit();
+    //      }
+    //  }
+    //  public function deletePost()
+    //  {
+    //      if (isset($_GET['id'])) {
+    //          $postID = $_GET['id'];
+ 
+    //          $restaurantModel = new RestaurantModel($this->conn);
+    //          $deletion = $restaurantModel-> deletePost($postID);
+ 
+    //          if($deletion){
+    //              $_SESSION['success'] = "Post deleted successfully!";
+    //          }else{
+    //              $_SESSION['error'] = "Failed to delete post!";
+    //          }
+             
+    //          header('Location: ../restaurant/dashboard?page=post');
+    //      }
+    //  }
 }
