@@ -190,101 +190,158 @@ button {
 
 }
 
+/* Filters Section */
 .filters-section {
     margin-top: 200px;
     font-size: 0.9rem;
     text-align: left;
     margin-right: 10px;
     position: relative;
-    /* so that the button can be positioned relative to it */
     padding-bottom: 60px;
 }
 
+/* Section Title */
 .filters-section .section-title {
     font-size: 1.2rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 30px;
+    font-weight: bold;
+}
+
+/* Filter List */
+.filters-section .filter-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+}
+
+.filters-section .filter-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+}
+
+.filters-section .filter-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.filters-section .option-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-light);
+}
+
+.filters-section .option-group:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filters-section .option-group input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.filters-section .option-group span {
+    flex-grow: 1;
+    font-size: 1rem;
+}
+
+.filters-section .option-group input[type="checkbox"]:checked + span {
+    color: #f1c232; /* Highlighted color when checked */
+}
+
+.filters-section .filter-column li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: var(--white);
+}
+
+.filters-section .filter-column li:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .filters-section .filter-list {
     display: flex;
     flex-direction: column;
-    /* Stack items vertically */
-    gap: 10px;
-    /* Add spacing between options */
-    padding: 0;
-    margin: 10px 0;
-    /* Adjust margin for spacing */
-    list-style: none;
-    /* Remove default list styling */
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.filters-section .filter-list li {
-    font-size: 1rem;
-    margin: 0;
-    /* No additional margins */
-    padding: 8px 12px;
-    /* Adjust padding */
 
-    /* Optional: Add borders to each option */
-    border-radius: 4px;
-    /* Slightly rounded corners */
-    background-color: var(--white);
-    /* Background for clarity */
-    cursor: pointer;
-    /* Add pointer cursor */
-    transition: background-color 0.2s;
-    /* Smooth hover effect */
-}
-
+/* Option Button (Checkbox and Label) */
 .filters-section .option-group {
     display: flex;
-    /* Align items horizontally */
     align-items: center;
-    /* Align items vertically */
-    gap: 8px;
-    /* Add spacing between image and text */
+    gap: 10px;
     font-size: 1rem;
-    /* Adjust text size */
-    padding: 5px 10px;
-    /* Add padding */
-
-    /* Optional: Add borders */
-    border-radius: 4px;
-    /* Rounded corners */
-    background-color: var(--white);
-    /* Background for clarity */
-    cursor: pointer;
-    /* Pointer cursor for interactivity */
-    transition: background-color 0.3s;
-    /* Smooth hover effect */
 }
 
-.filters-section .option-group:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    /* Light background on hover */
-}
-
+/* Checkbox Icon (if applicable) */
 .filters-section .option-icon {
     width: 24px;
-    /* Adjust icon size */
     height: 24px;
-    /* Maintain aspect ratio */
     object-fit: contain;
-    /* Ensure image scales properly */
     flex-shrink: 0;
-    /* Prevent the image from shrinking */
 }
 
+/* Option Label Text */
 .filters-section .option-group span {
-    flex-grow: 1;
-    /* Allow the text to grow */
     font-size: 1rem;
-    /* Adjust font size */
     color: var(--primary-color);
-    /* Use primary color */
-    text-align: left;
-    /* Align text to the left */
+    font-weight: 500;
+}
+
+/* Option Checkbox */
+.filters-section input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 12px;
+    accent-color: #f1c232;
+    /* Color for the checkbox */
+    transition: background-color 0.3s ease;
+}
+
+/* Selected Checkbox Effect */
+.filters-section input[type="checkbox"]:checked {
+    background-color: #f1c232;
+    border-color: #f1c232;
+}
+
+/* On Hover Checkbox */
+.filters-section input[type="checkbox"]:hover {
+    background-color: rgba(255, 193, 0, 0.2);
+    /* Light hover effect */
+}
+
+/* Responsive Design for Filters */
+@media (max-width: 768px) {
+    .filters-section .filter-list {
+        grid-template-columns: 1fr;
+        /* Stacks options vertically on smaller screens */
+        gap: 15px;
+    }
 }
 
 /* Travel Styles */
