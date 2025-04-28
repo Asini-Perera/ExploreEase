@@ -114,6 +114,10 @@ class HomeController
 
     public function travllerBooking()
     {
+        $travellerModel = new TravelerModel($this->conn);
+        $travellerID = $_SESSION['TravelerID'] ?? null;
+        $futureBookings = $travellerModel->getTravelerFutureBookings($travellerID);
+        $pastBookings = $travellerModel->getTravelerPastBookings($travellerID);
         require_once __DIR__ . '/../Views/travllerBooking.php';
     }
 
