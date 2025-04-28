@@ -133,5 +133,6 @@ $router->add('TravellerDashboard','HomeController@TravellerDashboard');  // Add 
 $router->add('loggedNavbar','HomeController@loggednavbar');  
 $router->add('travllerBooking','HomeController@travllerBooking'); 
 $router->add('Contactus','HomeController@Contactus'); 
+$router->add('TravellerPackageList','HomeController@TravellerPackageList');
 
 

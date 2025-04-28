@@ -115,6 +115,15 @@ class HomeController
         require_once __DIR__ . '/../Views/Contactus.php';
     }
 
+
+     public function TravellerPackageList()
+    {
+        require_once __DIR__ . '/../Views/TravellerPackageList.php';
+    }
+
+
+    
+
      public function saveReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -244,4 +253,5 @@ class HomeController
         }
 
     }
+
 }
