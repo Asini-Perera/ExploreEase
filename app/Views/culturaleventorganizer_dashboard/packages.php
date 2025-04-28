@@ -49,7 +49,7 @@
     <div class="navbar">
         <a href="?page=packages&provider=hotel" class="<?= ($_GET['provider'] ?? 'hotel') == 'hotel' ? 'active' : '' ?>">Hotels</a>
         <a href="?page=packages&provider=restaurant" class="<?= ($_GET['provider'] ?? '') == 'restaurant' ? 'active' : '' ?>">Restaurants</a>
-        <a href="?page=packages&provider=cultural" class="<?= ($_GET['provider'] ?? '') == 'cultural' ? 'active' : '' ?>">Cultural Events</a>
+        <a href="?page=packages&provider=cultural" class="<?= ($_GET['provider'] ?? '') == 'cultural' ? 'active' : '' ?>">Cultural Events Organizers</a>
         <a href="?page=packages&provider=heritage" class="<?= ($_GET['provider'] ?? '') == 'heritage' ? 'active' : '' ?>">Heritage Markets</a>
     </div>
 

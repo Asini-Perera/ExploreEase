@@ -654,12 +654,7 @@ class CulturalEventOrganizerModel
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
                 WHERE 
-                    (p.Owner = 'culturaleventorganizer' AND p.EventID = ?) OR
-                    (p.Owner != 'culturaleventorganizer' AND (
-                        p.HotelID IS NOT NULL OR 
-                        p.RestaurantID IS NOT NULL OR 
-                        p.ShopID IS NOT NULL
-                    ))
+                    (p.Owner = 'culturaleventorganizer' AND p.EventID = ?)
                 ORDER BY p.StartDate DESC";
         
         $stmt = $this->conn->prepare($sql);

@@ -12,9 +12,9 @@
             <a href="?page=event" class="<?= $mainContent == 'event' ? 'active' : '' ?>"><i class="fa-solid fa-calendar"></i>Event List</a>
         </li>
 
-        <li>
+        <!-- <li>
             <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>"><i class="fa-solid fa-newspaper"></i>Posts</a>
-        </li>
+        </li> -->
 
         <li>
             <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>"><i class="fa-solid fa-book"></i>Bookings</a>

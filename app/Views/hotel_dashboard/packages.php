@@ -49,7 +49,7 @@
     <div class="navbar">
         <a href="?page=packages&provider=hotel" class="<?= ($_GET['provider'] ?? 'hotel') == 'hotel' ? 'active' : '' ?>">Hotels</a>
         <a href="?page=packages&provider=restaurant" class="<?= ($_GET['provider'] ?? '') == 'restaurant' ? 'active' : '' ?>">Restaurants</a>
-        <a href="?page=packages&provider=cultural" class="<?= ($_GET['provider'] ?? '') == 'cultural' ? 'active' : '' ?>">Cultural Events</a>
+        <a href="?page=packages&provider=cultural" class="<?= ($_GET['provider'] ?? '') == 'cultural' ? 'active' : '' ?>">Cultural Events Organizers</a>
         <a href="?page=packages&provider=heritage" class="<?= ($_GET['provider'] ?? '') == 'heritage' ? 'active' : '' ?>">Heritage Markets</a>
     </div>
 
@@ -61,7 +61,6 @@
                 <th>Location</th>
                 <th>Contact</th>
                 <th>Email</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -110,11 +109,6 @@
                         <td><?= htmlspecialchars($provider['Address'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($provider['Phone'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($provider['Email'] ?? 'N/A') ?></td>
-                        <td class="action-buttons">
-                            <button class="request-btn" data-provider="<?= htmlspecialchars($providerName) ?>" data-email="<?= htmlspecialchars($provider['Email'] ?? '') ?>">
-                                Request
-                            </button>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
