@@ -24,19 +24,16 @@ class HeritageMarketController
     {
         if (isset($_SESSION['ShopID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-<<<<<<< HEAD
+
             $action = isset($_GET['action']) ? $_GET['action'] : null;
-            
+
             // Check if this is a package creation action (form submission)
             if ($action === 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->createPackage();
                 return; // Stop execution after processing
             }
-            
-            $allowed_pages = ['dashboard', 'profile', 'product', 'reviews', 'packages'];
-=======
-            $allowed_pages = ['dashboard', 'profile', 'product', 'reviews','images'];
->>>>>>> cc271b72a003c69515347da7af55f09154ca5813
+
+            $allowed_pages = ['dashboard', 'profile', 'product', 'reviews', 'packages', 'images'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
@@ -62,16 +59,15 @@ class HeritageMarketController
             } elseif ($mainContent == 'reviews') {
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
                 $reviews = $heritageMarketModel->getReviews($_SESSION['ShopID']);
-<<<<<<< HEAD
             } elseif ($mainContent == 'packages') {
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
-                
+
                 // Always load the list of packages created by this shop
                 $packages = $heritageMarketModel->getPackages($_SESSION['ShopID']);
-                
+
                 // Fetch all package users
                 $packageUsers = $heritageMarketModel->getAllPackageUsers($_SESSION['ShopID']);
-                
+
                 // Organize users by package
                 $packageUsersByPackage = [];
                 foreach ($packageUsers as $user) {
@@ -80,13 +76,13 @@ class HeritageMarketController
                     }
                     $packageUsersByPackage[$user['PackageID']][] = $user;
                 }
-                
+
                 // Always load service providers for the request buttons
                 $hotels = $heritageMarketModel->getAllServiceProviders('Hotel');
                 $restaurants = $heritageMarketModel->getAllServiceProviders('Restaurant');
                 $culturalEvents = $heritageMarketModel->getAllServiceProviders('CulturalEvent');
                 $heritageMarkets = $heritageMarketModel->getAllServiceProviders('HeritageMarket');
-                
+
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
@@ -95,7 +91,7 @@ class HeritageMarketController
                     if (isset($_GET['id'])) {
                         $packageID = $_GET['id'];
                         $package = $heritageMarketModel->getPackage($packageID);
-                        
+
                         if ($package) {
                             // Store package details in session for the edit form
                             $_SESSION['PackageID'] = $package['PackageID'];
@@ -106,9 +102,9 @@ class HeritageMarketController
                             $_SESSION['EndDate'] = $package['EndDate'];
                             $_SESSION['Owner'] = $package['Owner'];
                             $_SESSION['ImgPath'] = $package['ImgPath'];
-                            
+
                             // Store the appropriate ID based on owner type
-                            switch($package['Owner']) {
+                            switch ($package['Owner']) {
                                 case 'hotel':
                                     $_SESSION['HotelID'] = $package['HotelID'];
                                     break;
@@ -129,13 +125,13 @@ class HeritageMarketController
                     if (isset($_GET['id'])) {
                         $packageID = $_GET['id'];
                         $success = $heritageMarketModel->deletePackage($packageID, $_SESSION['ShopID']);
-                        
+
                         if ($success) {
                             $_SESSION['success'] = "Package deleted successfully";
                         } else {
                             $_SESSION['error'] = "Failed to delete package";
                         }
-                        
+
                         // Redirect to avoid resubmission
                         header('Location: ../heritagemarket/dashboard?page=packages');
                         exit();
@@ -143,18 +139,15 @@ class HeritageMarketController
                 } else {
                     $verifiedAction = null;
                 }
-=======
-            }elseif($mainContent == 'images'){ 
-                $images = $this -> viewImage();
+            } elseif ($mainContent == 'images') {
+                $images = $this->viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if($action == 'add'){
+                if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteImage();
-                } 
-
->>>>>>> cc271b72a003c69515347da7af55f09154ca5813
+                }
             }
 
             require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
@@ -322,83 +315,94 @@ class HeritageMarketController
         require_once __DIR__ . '/../Views/heritageMarket/products.php';
     }
 
-<<<<<<< HEAD
+
     public function createPackage()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
-            if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) || 
-                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['partner_ids'])) {
+            if (
+                empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) ||
+                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['partner_ids'])
+            ) {
                 $_SESSION['error'] = "All required fields must be filled";
                 header('Location: ../heritagemarket/dashboard?page=packages&action=add');
                 exit();
             }
-            
+
             // Get form data
             $name = $_POST['name'];
             $description = $_POST['description'];
             $discount = $_POST['discount'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-            
+
             // Get the selected partners data
             $selectedTypes = !empty($_POST['selectedTypes']) ? json_decode($_POST['selectedTypes'], true) : [];
-            
+
             // Handle image upload if provided
             $imgPath = null;
             if (isset($_FILES['packageImage']) && $_FILES['packageImage']['name']) {
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
                 $imgPath = $heritageMarketModel->uploadPackageImage($_FILES['packageImage']);
-                
+
                 if (!$imgPath) {
                     $_SESSION['error'] = "Failed to upload image. Please try again.";
                     header('Location: ../heritagemarket/dashboard?page=packages&action=add');
                     exit();
                 }
             }
-            
+
             // Initialize all partner IDs
             $restaurantID = null;
             $shopID = null;
             $eventID = null;
             $hotelID = null;
-            
+
             // Set the appropriate partner IDs from selections
             if (!empty($selectedTypes)) {
                 // Set restaurant partner if selected
                 if (!empty($selectedTypes['restaurant'])) {
                     $restaurantID = $selectedTypes['restaurant'][0]; // Use the first selected restaurant
                 }
-                
+
                 // Set heritage market partner if selected
                 if (!empty($selectedTypes['heritagemarket'])) {
                     $partnerShopID = $selectedTypes['heritagemarket'][0]; // Use the first selected market
                 }
-                
+
                 // Set cultural event partner if selected
                 if (!empty($selectedTypes['culturaleventorganizer'])) {
                     $eventID = $selectedTypes['culturaleventorganizer'][0]; // Use the first selected event
                 }
-                
+
                 // Set hotel partner if selected
                 if (!empty($selectedTypes['hotel'])) {
                     $hotelID = $selectedTypes['hotel'][0]; // Use the first selected hotel
                 }
             }
-            
+
             // Current heritage market is always the owner
             $shopID = $_SESSION['ShopID'];
             $owner = 'heritagemarket';
-            
+
             // Create package model
             $heritageMarketModel = new HeritageMarketModel($this->conn);
-            
+
             // Create a single package with all selected partners
             $success = $heritageMarketModel->createPackage(
-                $name, $description, $discount, $startDate, $endDate, 
-                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $eventID
+                $name,
+                $description,
+                $discount,
+                $startDate,
+                $endDate,
+                $imgPath,
+                $owner,
+                $hotelID,
+                $restaurantID,
+                $shopID,
+                $eventID
             );
-            
+
             if ($success) {
                 $_SESSION['success'] = "Package created successfully!";
                 header('Location: ../heritagemarket/dashboard?page=packages');
@@ -406,7 +410,11 @@ class HeritageMarketController
                 $_SESSION['error'] = "Failed to create package. Please try again.";
                 header('Location: ../heritagemarket/dashboard?page=packages&action=add');
             }
-=======
+            exit();
+        }
+    }
+
+
     //images
     public function addImage()
     {
@@ -418,9 +426,9 @@ class HeritageMarketController
             $heritagemarketModel = new HeritageMarketModel($this->conn);
             $imageID = $heritagemarketModel->addImage($title, $heritagemarketID);
 
-            
+
             // If image is uploaded, set the image path
-            if($imageID && $image['name']) {
+            if ($imageID && $image['name']) {
                 $heritagemarketModel->setShopImgPath($imageID, $image);
             }
 
@@ -432,7 +440,7 @@ class HeritageMarketController
     public function viewImage()
     {
         $heritagemarketModel = new HeritageMarketModel($this->conn);
-        $images= $heritagemarketModel->getImage($_SESSION['ShopID']);
+        $images = $heritagemarketModel->getImage($_SESSION['ShopID']);
 
         return $images;
     }
@@ -446,7 +454,7 @@ class HeritageMarketController
             $heritagemarketModel->deleteImage($imageID);
 
             header('Location: ../heritagemarket/dashboard?page=images');
->>>>>>> cc271b72a003c69515347da7af55f09154ca5813
+
             exit();
         }
     }
