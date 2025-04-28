@@ -275,9 +275,7 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
-            } else {
-
-            }elseif($mainContent == 'images'){ 
+            } elseif($mainContent == 'images'){ 
                 $images = $this -> viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
@@ -706,8 +704,10 @@ class HotelController
                 $_SESSION['error'] = "Failed to create package. Please try again.";
                 header('Location: ../hotel/dashboard?page=packages&action=add');
             }
-
-
+        }
+        
+    }
+    
     public function checkAvailableRooms()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

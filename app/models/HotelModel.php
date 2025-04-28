@@ -936,6 +936,7 @@ class HotelModel
         
         return $result->fetch_all(MYSQLI_ASSOC);
 
+    }
     public function getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests)
     {
         $sql = "SELECT r.*, rb.*, r.RoomID AS RoomID, 
