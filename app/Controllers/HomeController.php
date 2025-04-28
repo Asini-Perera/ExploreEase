@@ -130,15 +130,15 @@ class HomeController
 
 
 
-     public function TravellerPackageList()
+    public function TravellerPackageList()
     {
         require_once __DIR__ . '/../Views/TravellerPackageList.php';
     }
 
 
-    
 
-     public function saveReview()
+
+    public function saveReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
@@ -267,4 +267,10 @@ class HomeController
         }
     }
 
+    public function viewallHeritageMarket()
+    {
+        // $homeModel = new HomeModel($this->conn);
+        // $heritageMarkets = $homeModel->getAllHeritageMarkets();
+        require_once __DIR__ . '/../Views/heritageMarket/heritageMarketView.php';
+    }
 }

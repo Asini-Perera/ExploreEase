@@ -35,6 +35,7 @@ $router->add('travllerBooking', 'HomeController@travllerBooking');
 $router->add('travellerReview', 'HomeController@travellerReview');
 $router->add('Contactus', 'HomeController@Contactus');
 $router->add('TravellerPackageList', 'HomeController@TravellerPackageList'); // Traveller package list
+$router->add('viewall/heritagemarket', 'HomeController@viewallHeritageMarket');  // View all heritage markets
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
