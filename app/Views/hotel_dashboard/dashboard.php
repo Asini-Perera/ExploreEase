@@ -63,7 +63,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Posts</h2>
-                <h1><?php echo $TotalPosts; ?></h1>
+                <h1>4</h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/post.svg" alt="Menu">
