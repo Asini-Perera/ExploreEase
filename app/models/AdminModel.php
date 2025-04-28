@@ -217,11 +217,32 @@ class AdminModel
 
     public function getUnverifiedPackages()
     {
-        $sql = "SELECT * FROM Package WHERE IsVerified = 0";
+        $sql = "
+        SELECT 
+            p.*,
+            h.Name AS HotelName,
+            r.Name AS RestaurantName,
+            hm.Name AS HeritageMarketName,
+            ce.Name AS EventName
+        FROM 
+            Package p
+        LEFT JOIN 
+            hotel h ON p.HotelID = h.HotelID
+        LEFT JOIN 
+            restaurant r ON p.RestaurantID = r.RestaurantID
+        LEFT JOIN 
+            heritagemarket hm ON p.ShopID = hm.ShopID
+        LEFT JOIN 
+            culturalevent ce ON p.EventID = ce.EventID
+        WHERE 
+            p.IsVerified = 0
+    ";
+
         $result = $this->conn->query($sql);
         $packages = $result->fetch_all(MYSQLI_ASSOC);
         return $packages;
     }
+
 
     public function verifyPackage($packageID)
     {

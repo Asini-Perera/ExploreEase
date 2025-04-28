@@ -16,10 +16,10 @@
                         <p class="package-desc"><?= $package['Description'] ?></p>
                         <ul class="services-included">
 
-                            <li>🏨 Cinnamon Lodge</li>
-                            <li>🍽️ Tropical Village Dining</li>
-                            <li>🎭 Kandy Cultural Show</li>
-                            <li>🛍️ Dambulla Heritage Market</li>
+                            <li>🏨 <?= $package['HotelName'] ?? '' ?></li>
+                            <li>🍽️ <?= $package['RestaurantName'] ?? '' ?></li>
+                            <li>🎭 <?= $package['EventName'] ?? '' ?></li>
+                            <li>🛍️ <?= $package['HeritageMarketName'] ?? '' ?></li>
 
                         </ul>
                         <div class="price-location">
