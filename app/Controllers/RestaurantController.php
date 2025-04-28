@@ -72,25 +72,6 @@ class RestaurantController
                 } else {
                     $verifiedAction = null;
                 }
-            // } elseif ($mainContent == 'post') {
-            //     //$action = isset($_GET['action']) ? $_GET['action'] : null;
-            //     //$verifiedAction = in_array($action, ['add', 'edit']) ? $action : null;
-            //     $posts = $this->viewPosts();
-            //     $action = isset($_GET['action']) ? $_GET['action'] : null;
-            //     if ($action == 'add') {
-            //         $verifiedAction = 'add';
-            //     } elseif ($action == 'edit') {
-            //         $verifiedAction = 'edit';
-
-            //         $postID = isset($_GET['id']) ? $_GET['id'] : null;
-            //         $restaurantModel = new RestaurantModel($this->conn);
-            //         $postItem = $restaurantModel->getPostItem($postID);
-            //     } elseif ($action == 'delete') {
-            //         $verifiedAction = null;
-            //         $this->deletePost();
-            //     } else {
-            //         $verifiedAction = null;
-            //     }
             } elseif ($mainContent == 'bookings') {
                 $restaurantModel = new RestaurantModel($this->conn);
                 $bookings = $restaurantModel->bookingWithoutTableNo($_SESSION['RestaurantID']);
