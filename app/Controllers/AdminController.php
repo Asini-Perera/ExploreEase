@@ -230,6 +230,9 @@ class AdminController
                 if ($profileAction === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'verifypackage') {
+                $adminModel = new AdminModel($this->conn);
+                $packages = $adminModel->getUnverifiedPackages();
             }
 
             // Load the main dashboard layout

@@ -730,3 +730,9 @@ ALTER TABLE
     CulturalEvent
 ADD
     ImgPath VARCHAR(255);
+
+-- Add IsVerified column to Package table
+ALTER TABLE
+    Package
+ADD
+    IsVerified TINYINT(1) DEFAULT 0;

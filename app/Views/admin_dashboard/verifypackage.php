@@ -3,8 +3,41 @@
 <div class="packages-section">
     <div class="packages-list">
 
-        <!-- Package 1 -->
-        <div class="package-card">
+        <?php if (empty($packages)) : ?>
+            <div class="no-packages-message">
+                <h2>No packages available for verification.</h2>
+            </div>
+        <?php else : ?>
+            <?php foreach ($packages as $package) : ?>
+                <div class="package-card">
+                    <img src="<?= $package['ImgPath'] ?>" alt="<?= $package['Name'] ?>" class="package-image">
+                    <div class="package-details">
+                        <h2><?= $package['Name'] ?></h2>
+                        <p class="package-desc"><?= $package['Description'] ?></p>
+                        <ul class="services-included">
+
+                            <li>🏨 Cinnamon Lodge</li>
+                            <li>🍽️ Tropical Village Dining</li>
+                            <li>🎭 Kandy Cultural Show</li>
+                            <li>🛍️ Dambulla Heritage Market</li>
+
+                        </ul>
+                        <div class="price-location">
+                            <span class="price"><?= number_format($package['Discount'], 2) ?>% OFF</span>
+                        </div>
+                        <div class="date-range"><strong>Valid:</strong> <?= $package['StartDate'] ?> - <?= $package['EndDate'] ?></div>
+                        <div class="button-group">
+                            <button type="button" name="action" value="verify" class="btn-action confirm-btn">Verify</button>
+                            <button type="button" name="action" value="reject" class="btn-action cancel-btn">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+
+        <!-- <div class="package-card">
             <img src="/ExploreEase/public/images/sigiriya.jpg" alt="Sigiriya Adventure" class="package-image">
             <div class="package-details">
                 <h2>Sigiriya & Cultural Triangle Tour</h2>
@@ -24,76 +57,7 @@
                     <a href="#" class="btn-action cancel-btn">Reject</a>
                 </div>
             </div>
-        </div>
-
-        <!-- Package 2 -->
-        <div class="package-card">
-            <img src="/ExploreEase/public/images/ella.jpg" alt="Ella Adventure" class="package-image">
-            <div class="package-details">
-                <h2>Ella Nature & Adventure Escape</h2>
-                <p class="package-desc">2 nights in Ella's green hills with waterfall visits and hikes.</p>
-                <ul class="services-included">
-                    <li>🏨 Ella Flower Garden Resort</li>
-                    <li>🍽️ Cafe Chill Ella</li>
-                    <li>🎭 Ella Music Festival</li>
-                    <li>🛍️ Local Handicraft Market</li>
-                </ul>
-                <div class="price-location">
-                    <span class="price">LKR 28,000</span>
-                </div>
-                <div class="date-range"><strong>Valid:</strong> Jun 1 - Oct 31, 2025</div>
-                <div class="button-group">
-                    <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Reject</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Package 3 -->
-        <div class="package-card">
-            <img src="/ExploreEase/public/images/galle.jpg" alt="Galle Tour" class="package-image">
-            <div class="package-details">
-                <h2>Galle Dutch Heritage & Beach</h2>
-                <p class="package-desc">Historic walks and sunny beaches packed into a relaxing weekend.</p>
-                <ul class="services-included">
-                    <li>🏨 Jetwing Lighthouse Hotel</li>
-                    <li>🍽️ Tuna & The Crab Restaurant</li>
-                    <li>🎭 Galle Fort Art Fair</li>
-                    <li>🛍️ Galle Fort Bazaar</li>
-                </ul>
-                <div class="price-location">
-                    <span class="price">LKR 40,500</span>
-                </div>
-                <div class="date-range"><strong>Valid:</strong> May 15 - Dec 15, 2025</div>
-                <div class="button-group">
-                    <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Reject</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Package 4 -->
-        <div class="package-card">
-            <img src="/ExploreEase/public/images/nuwaraeliya.jpg" alt="Nuwara Eliya" class="package-image">
-            <div class="package-details">
-                <h2>Nuwara Eliya Tea Trails Tour</h2>
-                <p class="package-desc">Escape to the "Little England" with tea gardens and cool breezes.</p>
-                <ul class="services-included">
-                    <li>🏨 Grand Hotel Nuwara Eliya</li>
-                    <li>🍽️ Hill Club Dining</li>
-                    <li>🎭 Tea Factory Tour</li>
-                    <li>🛍️ Local Fresh Market Visit</li>
-                </ul>
-                <div class="price-location">
-                    <span class="price">LKR 38,000</span>
-                </div>
-                <div class="date-range"><strong>Valid:</strong> May 1 - Aug 31, 2025</div>
-                <div class="button-group">
-                    <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Reject</a>
-                </div>
-            </div>
-        </div>
+        </div> -->
 
     </div>
 </div>
@@ -209,6 +173,7 @@
         color: white;
         font-weight: bold;
         transition: 0.3s ease;
+        border: none;
     }
 
     .confirm-btn {

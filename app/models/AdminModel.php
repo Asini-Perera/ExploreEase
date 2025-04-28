@@ -214,4 +214,12 @@ class AdminModel
 
         return true;
     }
+
+    public function getUnverifiedPackages()
+    {
+        $sql = "SELECT * FROM Package WHERE IsVerified = 0";
+        $result = $this->conn->query($sql);
+        $packages = $result->fetch_all(MYSQLI_ASSOC);
+        return $packages;
+    }
 }
