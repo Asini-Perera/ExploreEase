@@ -49,6 +49,12 @@
                 require_once __DIR__ . '/bookings.php';
             } elseif ($mainContent == 'reviews') {
                 require_once __DIR__ . '/reviews.php';
+<<<<<<< HEAD
+            } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_package.php';
+            
+=======
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }

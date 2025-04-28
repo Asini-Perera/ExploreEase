@@ -810,12 +810,7 @@ class HotelModel
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
                 WHERE 
-                    (p.Owner = 'hotel' AND p.HotelID = ?) OR
-                    (p.Owner != 'hotel' AND (
-                        p.RestaurantID IS NOT NULL OR 
-                        p.ShopID IS NOT NULL OR 
-                        p.EventID IS NOT NULL
-                    ))
+                    (p.Owner = 'hotel' AND p.HotelID = ?)
                 ORDER BY p.StartDate DESC";
 
         $stmt = $this->conn->prepare($sql);
@@ -863,9 +858,10 @@ class HotelModel
      */
     public function deletePackage($packageId, $hotelId)
     {
-        // First check if this hotel created the package
-        $sql = "SELECT CreatedBy FROM Package WHERE PackageID = ?";
+        // Before deleting the package, delete related records from PackageCustomer
+        $sql = "DELETE FROM PackageCustomer WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -879,6 +875,7 @@ class HotelModel
         $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $packageId);
+
 
         return $stmt->execute();
     }

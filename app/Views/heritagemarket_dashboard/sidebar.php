@@ -1,14 +1,41 @@
 <div class="sidebar">
     <ul>
         <li>
-            <a href="?page=dashboard" class="<?= $mainContent == 'dashboard' ? 'active' : '' ?>"><i class="fa-solid fa-border-all"></i>Dashboard</a>
+            <a href="?page=dashboard" class="<?= $mainContent == 'dashboard' ? 'active' : '' ?>">
+                <i class="fa-solid fa-chart-line"></i>Dashboard
+            </a>
+        </li>
+        
+        <li>
+            <a href="?page=profile" class="<?= $mainContent == 'profile' ? 'active' : '' ?>">
+                <i class="fa-solid fa-user"></i>Profile
+            </a>
+        </li>
+        
+        <li>
+            <a href="?page=product" class="<?= $mainContent == 'product' ? 'active' : '' ?>">
+                <i class="fa-solid fa-box"></i>Products
+            </a>
+        </li>
+        
+        <li>
+            <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>">
+                <i class="fa-solid fa-star"></i>Reviews
+            </a>
         </li>
 
         <li>
-            <a href="?page=profile" class="<?= $mainContent == 'profile' ? 'active' : '' ?>"><i class="fa-solid fa-user"></i>Profile</a>
+            <a href="?page=packages" class="<?= $mainContent == 'packages' ? 'active' : '' ?>">
+                <i class="fa-solid fa-cubes"></i>Packages
+            </a>
         </li>
-
+        
         <li>
+<<<<<<< HEAD
+            <a href="../logout">
+                <i class="fa-solid fa-sign-out-alt"></i>Logout
+            </a>
+=======
             <a href="?page=product" class="<?= $mainContent == 'product' ? 'active' : '' ?>"><i class="fa-solid fa-shopping-basket"></i>Products</a>
         </li>
 
@@ -22,6 +49,7 @@
         
         <li>
             <a href="../logout"><i class="fa-solid fa-sign-out-alt"></i>Logout</a>
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
         </li>
     </ul>
 </div>
