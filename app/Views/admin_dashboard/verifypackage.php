@@ -62,6 +62,23 @@
     </div>
 </div>
 
+<dialog id="openDialog-verify">
+    <p>Are you sure do you want to verify this user?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-verify" class="confirm-btn">Yes</button>
+        <button id="cancel-verify" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<dialog id="openDialog-reject">
+    <p>Are you sure do you want to reject this user?</p>
+    <div class="dialog-buttons">
+        <button id="confirm-reject" class="confirm-btn">Yes</button>
+        <button id="cancel-reject" class="cancel-btn">No</button>
+    </div>
+</dialog>
+
+<script src="../public/js/admin_dashboard/verify_user.js"></script>
 
 <style>
     body {
@@ -174,6 +191,61 @@
         font-weight: bold;
         transition: 0.3s ease;
         border: none;
+    }
+
+    .confirm-btn {
+        background-color: #6fa857;
+    }
+
+    .cancel-btn {
+        background-color: #d9534f;
+    }
+
+    .confirm-btn:hover {
+        background-color: #225522;
+    }
+
+    .cancel-btn:hover {
+        background-color: #c9302c;
+    }
+
+    /* Add Popup to confirm action */
+    dialog {
+        padding: 20px;
+        border: none;
+        border-radius: 12px;
+        width: 400px;
+        max-width: 90%;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: fade-in 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 1;
+    }
+
+    .dialog-buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .confirm-btn,
+    .cancel-btn {
+        padding: 10px 20px;
+        border: none;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: white;
     }
 
     .confirm-btn {
