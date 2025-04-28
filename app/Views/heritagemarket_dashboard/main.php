@@ -33,6 +33,12 @@
                 } else {
                     require_once __DIR__ . "/$mainContent.php";
                 }
+            } elseif ($mainContent == 'packages') {
+                if ($verifiedAction) {
+                    require_once __DIR__ . "/$mainContent" . "_" . "$verifiedAction.php";
+                } else {
+                    require_once __DIR__ . "/$mainContent.php";
+                }
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }
