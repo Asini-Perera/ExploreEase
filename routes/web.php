@@ -71,6 +71,9 @@ $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
 $router->add('restaurant/sendTableNo', 'RestaurantController@sendTableNo');  // Send table number for restaurant booking
+$router->add('restaurant/packages', 'RestaurantController@packages');  // View packages for hotel
+$router->add('restaurant/addPackage', 'RestaurantController@addPackage');  // Add package for hotel
+
 
 $router->add('hotel/dashboard', 'HotelController@dashboard');  // Hotel dashboard
 $router->add('hotel/addRoom', 'HotelController@addRoom');  // Add room for hotel
@@ -97,6 +100,8 @@ $router->add('heritagemarket/shops', 'HeritageMarketController@shops');
 $router->add('heritagemarket/products', 'HeritageMarketController@products');
 $router->add('heritagemarket/review', 'HeritageMarketController@review');
 $router->add('heritagemarket/submitReview', 'HeritageMarketController@submitReview');  // Process review submissions
+$router->add('heritagemarket/packages', 'HeritageMarketController@packages');  // View packages for hotel
+$router->add('heritagemarket/addPackage', 'HeritageMarketController@addPackage');  // Add package for hotel
 
 $router->add('culturaleventorganizer/dashboard', 'CulturalEventOrganizerController@dashboard');  // Cultural Event Organizer dashboard
 $router->add('culturaleventorganizer/addEvent', 'CulturalEventOrganizerController@addEvent');  // Add event for cultural event organizer
@@ -111,4 +116,6 @@ $router->add('culturaleventorganizer/updateBooking', 'CulturalEventOrganizerCont
 $router->add('culturaleventorganizer/reviewResponse', 'CulturalEventOrganizerController@reviewResponse');  // Process review responses
 $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@updateProfile');  // Update profile for cultural event organizer
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
+$router->add('culturaleventorganizer/packages', 'CulturalEventOrganizerController@packages');  // View packages for hotel
+$router->add('culturaleventorganizer/addPackage', 'CulturalEventOrganizerController@addPackage');  // Add package for hotel
 

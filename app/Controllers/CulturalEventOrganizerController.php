@@ -26,7 +26,7 @@ class CulturalEventOrganizerController
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
             $action = isset($_GET['action']) ? $_GET['action'] : null;
 
-            $allowedPages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
+            $allowedPages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews', 'packages'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404'; // Default to 404 if page is not allowed
 
             if ($mainContent == 'dashboard') {
@@ -122,6 +122,92 @@ class CulturalEventOrganizerController
                 } else {
                     $verifiedAction = null;
                 }
+            } elseif ($mainContent == 'packages') {
+                $eventModel = new CulturalEventOrganizerModel($this->conn);
+                
+                // Handle package creation form submission
+                if ($action == 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->createPackage();
+                    return; // Stop execution after processing
+                }
+                
+                // Load the list of packages created by this organizer
+                $packages = $eventModel->getPackages($_SESSION['OrganizerID']);
+                
+                // Fetch all package users
+                $packageUsers = $eventModel->getAllPackageUsers($_SESSION['OrganizerID']);
+                
+                // Organize users by package
+                $packageUsersByPackage = [];
+                foreach ($packageUsers as $user) {
+                    if (!isset($packageUsersByPackage[$user['PackageID']])) {
+                        $packageUsersByPackage[$user['PackageID']] = [];
+                    }
+                    $packageUsersByPackage[$user['PackageID']][] = $user;
+                }
+                
+                // Load service providers for the request buttons
+                $hotels = $eventModel->getAllServiceProviders('Hotel');
+                $restaurants = $eventModel->getAllServiceProviders('Restaurant');
+                $culturalEvents = $eventModel->getAllServiceProviders('CulturalEvent');
+                $heritageMarkets = $eventModel->getAllServiceProviders('HeritageMarket');
+                
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                    // Fetch package details when editing
+                    if (isset($_GET['id'])) {
+                        $packageID = $_GET['id'];
+                        $package = $eventModel->getPackage($packageID);
+                        
+                        if ($package) {
+                            // Store package details in session for the edit form
+                            $_SESSION['PackageID'] = $package['PackageID'];
+                            $_SESSION['Name'] = $package['Name'];
+                            $_SESSION['Description'] = $package['Description'];
+                            $_SESSION['Discount'] = $package['Discount'];
+                            $_SESSION['StartDate'] = $package['StartDate'];
+                            $_SESSION['EndDate'] = $package['EndDate'];
+                            $_SESSION['Owner'] = $package['Owner'];
+                            $_SESSION['ImgPath'] = $package['ImgPath'];
+                            
+                            // Store the appropriate ID based on owner type
+                            switch($package['Owner']) {
+                                case 'hotel':
+                                    $_SESSION['HotelID'] = $package['HotelID'];
+                                    break;
+                                case 'restaurant':
+                                    $_SESSION['RestaurantID'] = $package['RestaurantID'];
+                                    break;
+                                case 'heritagemarket':
+                                    $_SESSION['ShopID'] = $package['ShopID'];
+                                    break;
+                                case 'culturaleventorganizer':
+                                    $_SESSION['EventID'] = $package['EventID'];
+                                    break;
+                            }
+                        }
+                    }
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    if (isset($_GET['id'])) {
+                        $packageID = $_GET['id'];
+                        $success = $eventModel->deletePackage($packageID, $_SESSION['OrganizerID']);
+                        
+                        if ($success) {
+                            $_SESSION['success'] = "Package deleted successfully";
+                        } else {
+                            $_SESSION['error'] = "Failed to delete package";
+                        }
+                        
+                        // Redirect to avoid resubmission
+                        header('Location: ../culturaleventorganizer/dashboard?page=packages');
+                        exit();
+                    }
+                } else {
+                    $verifiedAction = null;
+                }
             } else {
                 $verifiedAction = null;
             }
@@ -133,9 +219,6 @@ class CulturalEventOrganizerController
             exit();
         }
     }
-
-
-   
 
     public function addEvent()
     {
@@ -308,6 +391,7 @@ class CulturalEventOrganizerController
             $tiktokLink = $_POST['tiktok_link'] ?? '';
             $youtubeLink = $_POST['youtube_link'] ?? '';
             
+
 
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
@@ -646,6 +730,93 @@ class CulturalEventOrganizerController
             }
             
             header('Location: ../culturaleventorganizer/dashboard?page=reviews');
+            exit();
+        }
+    }
+
+    public function createPackage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate required fields
+            if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) || 
+                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['partner_ids'])) {
+                $_SESSION['error'] = "All required fields must be filled";
+                header('Location: ../culturaleventorganizer/dashboard?page=packages&action=add');
+                exit();
+            }
+            
+            // Get form data
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $discount = $_POST['discount'];
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+            
+            // Get the selected partners data
+            $selectedTypes = !empty($_POST['selectedTypes']) ? json_decode($_POST['selectedTypes'], true) : [];
+            
+            // Handle image upload if provided
+            $imgPath = null;
+            if (isset($_FILES['packageImage']) && $_FILES['packageImage']['name']) {
+                $eventModel = new CulturalEventOrganizerModel($this->conn);
+                $imgPath = $eventModel->uploadPackageImage($_FILES['packageImage']);
+                
+                if (!$imgPath) {
+                    $_SESSION['error'] = "Failed to upload image. Please try again.";
+                    header('Location: ../culturaleventorganizer/dashboard?page=packages&action=add');
+                    exit();
+                }
+            }
+            
+            // Create a single package with the current organizer as owner
+            $eventModel = new CulturalEventOrganizerModel($this->conn);
+            
+            // Initialize all partner IDs
+            $restaurantID = null;
+            $shopID = null;
+            $eventID = null;
+            $hotelID = null;
+            
+            // Set the appropriate partner IDs from selections
+            if (!empty($selectedTypes)) {
+                // Set restaurant partner if selected
+                if (!empty($selectedTypes['restaurant'])) {
+                    $restaurantID = $selectedTypes['restaurant'][0]; // Use the first selected restaurant
+                }
+                
+                // Set heritage market partner if selected
+                if (!empty($selectedTypes['heritagemarket'])) {
+                    $shopID = $selectedTypes['heritagemarket'][0]; // Use the first selected market
+                }
+                
+                // Set cultural event partner if selected
+                if (!empty($selectedTypes['culturaleventorganizer'])) {
+                    $eventID = $selectedTypes['culturaleventorganizer'][0]; // Use the first selected event
+                }
+                
+                // Set partner hotel if selected
+                if (!empty($selectedTypes['hotel'])) {
+                    $hotelID = $selectedTypes['hotel'][0]; // Use the first selected hotel
+                }
+            }
+            
+            // Current cultural event is always the owner
+            $organizerID = $_SESSION['OrganizerID'];
+            $owner = 'culturaleventorganizer';
+            
+            // Create a single package with all selected partners
+            $success = $eventModel->createPackage(
+                $name, $description, $discount, $startDate, $endDate, 
+                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $organizerID
+            );
+            
+            if ($success) {
+                $_SESSION['success'] = "Package created successfully!";
+                header('Location: ../culturaleventorganizer/dashboard?page=packages');
+            } else {
+                $_SESSION['error'] = "Failed to create package. Please try again.";
+                header('Location: ../culturaleventorganizer/dashboard?page=packages&action=add');
+            }
             exit();
         }
     }

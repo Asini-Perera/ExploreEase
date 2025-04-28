@@ -48,6 +48,8 @@
 
             } elseif ($mainContent == 'reviews') {
                 require_once __DIR__ . '/reviews.php';
+            } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_package.php';
             
             } else {
                 require_once __DIR__ . "/$mainContent.php";
