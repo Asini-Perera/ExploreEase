@@ -82,9 +82,9 @@ h2 {
 .attractions-list img {
     width: 100%;
     border-radius: 15px;
-    /* Reduced from 21px */
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    object-fit: contain;
+    /* Changed from cover to contain to ensure all parts of the image are visible */
 }
 
 .attractions-list h3 {
@@ -127,7 +127,7 @@ h2 {
     /* Use full width of the parent */
     height: 600px;
     /* Maintain consistent height */
-   
+
     border-radius: 15px;
     margin-top: 16px;
     overflow: hidden;

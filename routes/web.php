@@ -1,5 +1,6 @@
 <?php
 
+use app\Controllers\HotelController;
 use app\Controllers\RestaurantController;
 
 $router->add('login', 'LoginController@index');  // Login page
@@ -35,6 +36,7 @@ $router->add('travllerBooking', 'HomeController@travllerBooking');
 $router->add('travellerReview', 'HomeController@travellerReview');
 $router->add('Contactus', 'HomeController@Contactus');
 $router->add('TravellerPackageList', 'HomeController@TravellerPackageList'); // Traveller package list
+$router->add('viewall/heritagemarket', 'HomeController@viewallHeritageMarket');  // View all heritage markets
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -51,6 +53,7 @@ $router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
 $router->add('admin/update', 'AdminController@updateProfile');  // Admin update profile process
 $router->add('admin/verifyUser', 'AdminController@verifyUser');  // Admin user verify & reject process
+$router->add('admin/verifyPackage', 'AdminController@verifyPackage');  // Admin package verify & reject process
 $router->add('admin/changepassword', 'AdminController@changePassword');  // Admin change password process
 $router->add('admin/logout', 'AdminController@logout');  // Admin logout
 
@@ -103,6 +106,10 @@ $router->add('hotel/packages', 'HotelController@packages');  // View packages fo
 $router->add('hotel/addPackage', 'HotelController@addPackage');  // Add package for hotel
 $router->add('hotel/checkAvailableRooms', 'HotelController@checkAvailableRooms');  // Check available rooms for hotel
 $router->add('hotel/bookRoom', 'HotelController@bookRoom');  // Book room for hotel
+$router->add('hotel/redirectToPayment', 'HotelController@redirectToPayment');  // Redirect to payment page for hotel
+$router->add('hotel/paymentSuccess', 'HotelController@paymentSuccess');
+$router->add('hotel/paymentCancel', 'HotelController@paymentCancel');
+$router->add('hotel/paymentGatewayPage', 'HotelController@paymentGatewayPage');  // Payment gateway page for hotel
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
@@ -136,3 +143,4 @@ $router->add('culturaleventorganizer/packages', 'CulturalEventOrganizerControlle
 $router->add('culturaleventorganizer/addPackage', 'CulturalEventOrganizerController@addPackage');  // Add package for hotel
 
 $router->add('traveler/editProfile', 'TravelerController@editProfile');  // Edit profile for traveler
+$router->add('traveler/registerPackage', 'TravelerController@registerPackage');  // Register package for traveler

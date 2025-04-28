@@ -5,6 +5,15 @@ namespace app\Controllers;
 use app\Models\AdminModel;
 use app\Models\SignupModel;
 
+// Include PHPMailer classes
+require_once __DIR__ . '/../../libs/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../../libs/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/../../libs/PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
 use app\Controllers\KeywordController;
 
 class AdminController
@@ -153,7 +162,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'verifypackage', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
@@ -221,6 +230,9 @@ class AdminController
                 if ($profileAction === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'verifypackage') {
+                $adminModel = new AdminModel($this->conn);
+                $packages = $adminModel->getUnverifiedPackages();
             }
 
             // Load the main dashboard layout
@@ -280,14 +292,24 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $userType = $_POST['userType'];
+            $name = $_POST['name'];
             $page = $_POST['page'];
             $action = $_POST['action'];
 
             $adminModel = new AdminModel($this->conn);
+            $success = false;
+
             if ($action === 'verify') {
                 $success = $adminModel->verifyUser($email, $userType);
                 if ($success) {
                     $_SESSION['success'] = "User verified successfully.";
+                    $subject = "Congratulations! Your Account is Verified";
+                    $body = "<div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+                                <h2 style='color: #4CAF50;'>Congratulations, $name!</h2>
+                                <p>Your account has been successfully verified. You can now access all the features of ExploreEase and enjoy our services to the fullest.</p>
+                                <p>We are excited to have you on board and look forward to providing you with the best experience.</p>
+                                <p style='margin-top: 20px;'>Thank you,<br><strong>The ExploreEase Team</strong></p>
+                             </div>";
                 } else {
                     $_SESSION['error'] = "Verification failed.";
                 }
@@ -295,8 +317,43 @@ class AdminController
                 $success = $adminModel->rejectUser($email, $userType);
                 if ($success) {
                     $_SESSION['success'] = "User removed successfully.";
+                    $subject = "Account Rejected";
+                    $body = "<div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
+                                <h2 style='color: #FF0000;'>Dear $name,</h2>
+                                <p>We regret to inform you that your account has been rejected. Unfortunately, we are unable to proceed with your registration at this time.</p>
+                                <p>If you have any questions or need further assistance, please feel free to contact us at <a href='mailto:exploreease10@gmail.com' style='color: #4CAF50;'>exploreease10@gmail.com</a>.</p>
+                                <p style='margin-top: 20px;'>Thank you for your understanding,<br><strong>The ExploreEase Team</strong></p>
+                             </div>";
                 } else {
                     $_SESSION['error'] = "Removal failed.";
+                }
+            }
+
+            if ($success) {
+                $mail = new PHPMailer(true);
+
+                try {
+                    // Server settings
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'exploreease10@gmail.com';
+                    $mail->Password = 'tzes gckv czrx kgso';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
+
+                    // Recipients
+                    $mail->setFrom('exploreease10@gmail.com', 'ExploreEase');
+                    $mail->addAddress($email);
+
+                    // Content
+                    $mail->isHTML(true);
+                    $mail->Subject = $subject;
+                    $mail->Body = $body;
+
+                    $mail->send();
+                } catch (Exception $e) {
+                    $_SESSION['error'] = "Email notification failed: {$mail->ErrorInfo}";
                 }
             }
 
@@ -336,6 +393,36 @@ class AdminController
                 header('Location: ../admin/dashboard?page=profile&action=changepassword');
                 exit();
             }
+        }
+    }
+
+    public function verifyPackage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $packageID = $_POST['package_id'];
+            $action = $_POST['action'];
+
+            $adminModel = new AdminModel($this->conn);
+            $success = false;
+
+            if ($action === 'verify') {
+                $success = $adminModel->verifyPackage($packageID);
+                if ($success) {
+                    $_SESSION['success'] = "Package verified successfully.";
+                } else {
+                    $_SESSION['error'] = "Verification failed.";
+                }
+            } elseif ($action === 'reject') {
+                $success = $adminModel->rejectPackage($packageID);
+                if ($success) {
+                    $_SESSION['success'] = "Package removed successfully.";
+                } else {
+                    $_SESSION['error'] = "Removal failed.";
+                }
+            }
+
+            header('Location: ../admin/dashboard?page=verifypackage');
+            exit();
         }
     }
 

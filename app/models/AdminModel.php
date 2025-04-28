@@ -214,4 +214,53 @@ class AdminModel
 
         return true;
     }
+
+    public function getUnverifiedPackages()
+    {
+        $sql = "
+        SELECT 
+            p.*,
+            h.Name AS HotelName,
+            r.Name AS RestaurantName,
+            hm.Name AS HeritageMarketName,
+            ce.Name AS EventName
+        FROM 
+            Package p
+        LEFT JOIN 
+            hotel h ON p.HotelID = h.HotelID
+        LEFT JOIN 
+            restaurant r ON p.RestaurantID = r.RestaurantID
+        LEFT JOIN 
+            heritagemarket hm ON p.ShopID = hm.ShopID
+        LEFT JOIN 
+            culturalevent ce ON p.EventID = ce.EventID
+        WHERE 
+            p.IsVerified = 0
+    ";
+
+        $result = $this->conn->query($sql);
+        $packages = $result->fetch_all(MYSQLI_ASSOC);
+        return $packages;
+    }
+
+
+    public function verifyPackage($packageID)
+    {
+        $sql = "UPDATE Package SET IsVerified = 1 WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $packageID);
+        $stmt->execute();
+
+        return true;
+    }
+
+    public function rejectPackage($packageID)
+    {
+        $sql = "DELETE FROM Package WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $packageID);
+        $stmt->execute();
+
+        return true;
+    }
 }

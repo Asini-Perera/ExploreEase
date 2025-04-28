@@ -263,115 +263,114 @@ class HotelModel
         }
     }
 
-     //images 
+    //images 
 
-     public function addImage($title ,$hotelID)
-     {
-         $sql = "INSERT INTO hotelimages (Title,  HotelID) VALUES ( ?, ?)";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('si',$title , $hotelID);
-         $stmt->execute();
-         
-         // Get the ImageID
-         $sql = "SELECT ImageID FROM hotelimages WHERE Title = ? AND HotelID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('si', $title, $hotelID);
-         $stmt->execute();
-         $result = $stmt->get_result();
-         $ImageID = $result->fetch_assoc()['ImageID'];
-         
-         return $ImageID;
-     }
-  
- 
-     
-     public function getImage($hotelID)
-     {
-         $sql = "SELECT * FROM hotelimages WHERE HotelID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $hotelID);
-         $stmt->execute();
-         $result = $stmt->get_result();
- 
-         return $result->fetch_all(MYSQLI_ASSOC);
-     }
- 
-     
-     public function getImageItem($imageID)
-     {
-         $sql = "SELECT * FROM hotelimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-         $result = $stmt->get_result();
- 
-         return $result->fetch_assoc();
- 
-     }
- 
-     public function deleteImage($imageID)
-     {
-         $sql = "DELETE FROM hotelimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-     }
- 
- 
-     public function setHotelImgPath($imageID, $fileName)
-     {
-         // Get temp image path
-         $tempImgPath = $fileName['tmp_name'];
- 
-         // Get the file name (original file name from the upload)
-         $originalFileName = $fileName['name'];
- 
-         // Get the file extention
-         $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
- 
-         // Create a new file name
-         $newFileName = $imageID . '.' . $extention;
- 
-         // Define the target directory
-         $targetDir = __DIR__ . '/../../public/images/database/hotel_images/';
- 
-         // Check the directory exists and create it
-         if (!is_dir($targetDir)) {
-             mkdir($targetDir, 0777, false);
-         }
- 
-         // Create the image path
-         $imgDir = $targetDir . $newFileName;
- 
-         // Move the image to the target directory
-         $moving = move_uploaded_file($tempImgPath, $imgDir);
- 
-         // Define the image path
-         $imgPath = '/ExploreEase/public/images/database/hotel_images/' . $newFileName;
- 
-         // Enter the image path to the database
-         if ($moving) {
-             $sql = "UPDATE hotelimages SET ImgPath = ? WHERE ImageID = ?";
-             $stmt = $this->conn->prepare($sql);
-             $stmt->bind_param('si', $imgPath, $imageID);
-             $stmt->execute();
-         }
-     }
- 
-     public function getHotelImgPath($imageID)
-     {
-         $sql = "SELECT ImgPath FROM hotelimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-         $result = $stmt->get_result();
-         return $result->fetch_assoc()['ImgPath'];
-     }
-   
- 
- 
- 
- 
+    public function addImage($title, $hotelID)
+    {
+        $sql = "INSERT INTO hotelimages (Title,  HotelID) VALUES ( ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $hotelID);
+        $stmt->execute();
+
+        // Get the ImageID
+        $sql = "SELECT ImageID FROM hotelimages WHERE Title = ? AND HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $hotelID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ImageID = $result->fetch_assoc()['ImageID'];
+
+        return $ImageID;
+    }
+
+
+
+    public function getImage($hotelID)
+    {
+        $sql = "SELECT * FROM hotelimages WHERE HotelID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $hotelID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function getImageItem($imageID)
+    {
+        $sql = "SELECT * FROM hotelimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function deleteImage($imageID)
+    {
+        $sql = "DELETE FROM hotelimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+    }
+
+
+    public function setHotelImgPath($imageID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $imageID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/hotel_images/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/hotel_images/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE hotelimages SET ImgPath = ? WHERE ImageID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $imageID);
+            $stmt->execute();
+        }
+    }
+
+    public function getHotelImgPath($imageID)
+    {
+        $sql = "SELECT ImgPath FROM hotelimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
+
+
+
+
 
     // public function getTotalRevenue($hotelId) {
     //     $sql = "SELECT SUM(rb.TotalPrice) AS totalRevenue 
@@ -419,7 +418,7 @@ class HotelModel
     //     }
     // }
 
-    
+
     public function getTotalCustomers($hotelID)
     {
         $sql = "SELECT COUNT(DISTINCT rb.TravelerID) AS totalCustomers 
@@ -444,28 +443,28 @@ class HotelModel
         }
     }
 
-    public function getTotalPosts($hotelId)
-    {
-        $sql = "SELECT COUNT(*) AS totalPosts 
-                FROM HotelPost 
-                WHERE HotelID = ?";
+    // public function getTotalPosts($hotelId)
+    // {
+    //     $sql = "SELECT COUNT(*) AS totalPosts 
+    //             FROM HotelPost 
+    //             WHERE HotelID = ?";
 
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("i", $hotelId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result) {
-                return $result->fetch_assoc()['totalPosts'];
-            } else {
-                error_log("SQL Error: " . $this->conn->error);
-                return 0;
-            }
-        } else {
-            error_log("SQL Prepare Error: " . $this->conn->error);
-            return 0;
-        }
-    }
+    //     $stmt = $this->conn->prepare($sql);
+    //     if ($stmt) {
+    //         $stmt->bind_param("i", $hotelId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+    //         if ($result) {
+    //             return $result->fetch_assoc()['totalPosts'];
+    //         } else {
+    //             error_log("SQL Error: " . $this->conn->error);
+    //             return 0;
+    //         }
+    //     } else {
+    //         error_log("SQL Prepare Error: " . $this->conn->error);
+    //         return 0;
+    //     }
+    // }
 
     public function getTotalRatings($hotelId)
     {
@@ -708,27 +707,27 @@ class HotelModel
 
         if (!empty($query)) {
             $stmt = $this->conn->prepare($query);
-            
+
             if (!$stmt) {
                 error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
                 return [];
             }
-            
+
             // Only bind session hotel ID for hotel query to exclude current hotel
             if ($type == 'Hotel') {
                 $stmt->bind_param("i", $_SESSION['HotelID']);
             }
-            
+
             $result = $stmt->execute();
             if (!$result) {
                 error_log("SQL Execute Error: " . $stmt->error);
                 return [];
             }
-            
+
             $result = $stmt->get_result();
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        
+
         return [];
     }
 
@@ -739,32 +738,32 @@ class HotelModel
     {
         $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in createPackage: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
-        
+
         // Add error logging to diagnose issues
         if (!$stmt->execute()) {
             error_log("SQL Execute Error in createPackage: " . $stmt->error);
             return false;
         }
-        
+
         return true;
     }
 
     /**
      * Upload package image and return the path
      */
-    public function uploadPackageImage($file) 
+    public function uploadPackageImage($file)
     {
         // Get temp image path
         $tempImgPath = $file['tmp_name'];
-        
+
         if (empty($tempImgPath)) {
             return null;
         }
@@ -813,17 +812,17 @@ class HotelModel
                 WHERE 
                     (p.Owner = 'hotel' AND p.HotelID = ?)
                 ORDER BY p.StartDate DESC";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackages: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $hotelId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -840,17 +839,17 @@ class HotelModel
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
                 WHERE p.PackageID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackage: " . $this->conn->error);
             return null;
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
 
@@ -862,21 +861,22 @@ class HotelModel
         // Before deleting the package, delete related records from PackageCustomer
         $sql = "DELETE FROM PackageCustomer WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("i", $packageId);
-            $stmt->execute();
+
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $package = $result->fetch_assoc();
+
+        if (!$package || $package['CreatedBy'] != $hotelId) {
+            return false; // Not authorized to delete
         }
-        
-        // Now delete the package directly without authorization checks
+
+        // Now delete the package
         $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        
-        if (!$stmt) {
-            error_log("SQL Error in deletePackage: " . $this->conn->error);
-            return false;
-        }
-        
         $stmt->bind_param("i", $packageId);
+
+
         return $stmt->execute();
     }
 
@@ -890,17 +890,17 @@ class HotelModel
                 JOIN Traveler t ON pc.TravelerID = t.TravelerID 
                 WHERE pc.PackageID = ?
                 ORDER BY t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -919,18 +919,19 @@ class HotelModel
                     p.EventID IS NOT NULL
                 ))
                 ORDER BY p.Name, t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $hotelId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests)
     {
@@ -957,6 +958,5 @@ class HotelModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('iisss', $roomID, $travelerID, $checkInDate, $checkOutDate, $date);
         return $stmt->execute();
-
     }
 }

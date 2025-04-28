@@ -145,7 +145,7 @@ class HeritageMarketController
                 }
 =======
             }elseif($mainContent == 'images'){ 
-                $imagess = $this -> viewImage();
+                $images = $this -> viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if($action == 'add'){
                     $verifiedAction = 'add';

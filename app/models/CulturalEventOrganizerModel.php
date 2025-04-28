@@ -21,14 +21,20 @@ class CulturalEventOrganizerModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
+
+
+
+
+
+    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude)
+
     {
         try {
             // Log the SQL operation starting
             error_log("Adding new event for organizer ID: $organizerID");
 
-            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`, `Latitude`, `Longitude`) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($sql);
 
@@ -37,7 +43,7 @@ class CulturalEventOrganizerModel
                 return false;
             }
 
-            $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+            $stmt->bind_param('ssssssidsidd', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude);
 
             $result = $stmt->execute();
 
@@ -205,11 +211,11 @@ class CulturalEventOrganizerModel
     // }
 
 
-    public function getEventItem($postID)
+    public function getEventItem($eventID)
     {
-        $sql = "SELECT * FROM culturaleventorganizerpost WHERE PostID = ?";
+        $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $postID);
+        $stmt->bind_param('i', $eventID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -428,24 +434,24 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalEvents'];
     }
 
-    public function getTotalPosts($organizerID)
-    {
-        $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
+    // public function getTotalPosts($organizerID)
+    // {
+    //     $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+    //     $stmt = $this->conn->prepare($sql);
 
-        // Check if prepare was successful
-        if (!$stmt) {
-            // Log the error for debugging
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return 0; // Return a default value
-        }
+    //     // Check if prepare was successful
+    //     if (!$stmt) {
+    //         // Log the error for debugging
+    //         error_log("MySQL prepare error: " . $this->conn->error);
+    //         return 0; // Return a default value
+    //     }
 
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    //     $stmt->bind_param('i', $organizerID);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
 
-        return $result->fetch_assoc()['TotalPosts'];
-    }
+    //     return $result->fetch_assoc()['TotalPosts'];
+    // }
 
     public function getTotalRatings($organizerID)
     {

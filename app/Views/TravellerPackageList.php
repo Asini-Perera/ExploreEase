@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Explore Packages</title>
@@ -9,37 +10,66 @@
 
 <body>
 
-  <?php require_once __DIR__ . '/loggedNavbar.php'; ?> 
+  <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
 
   <section class="packages-section">
     <h1>Available Travel Packages</h1>
     <div class="packages-list">
 
-  <!-- Package 1 -->
-  <div class="package-card">
-    <img src="/ExploreEase/public/images/sigiriya.jpg" alt="Sigiriya Adventure" class="package-image">
-    <div class="package-details">
-      <h2>Sigiriya & Cultural Triangle Tour</h2>
-      <p class="package-desc">3-day exploration of Sri Lanka’s ancient kingdoms and heritage sites.</p>
-      <ul class="services-included">
-        <li>🏨 Cinnamon Lodge</li>
-        <li>🍽️ Tropical Village Dining</li>
-        <li>🎭 Kandy Cultural Show</li>
-        <li>🛍️ Dambulla Heritage Market</li>
-      </ul>
-      <div class="price-location">
-        <span class="price">LKR 35,000</span>
-        <span class="location">Sigiriya, Dambulla</span>
-      </div>
-      <div class="date-range"><strong>Valid:</strong> May 1 - Sep 30, 2025</div>
-      <div class="terms"><small>* 7-day free cancellation</small></div>
-      <a href="#" class="btn-register">Register for Package</a>
-      <div class="reviews">★★★★☆ (45 Reviews)</div>
-    </div>
-  </div>
+      <?php if (empty($packages)) : ?>
+        <div class="no-packages-message">
+          <h2>No new packages available at the moment.</h2>
+        </div>
+      <?php else : ?>
+        <?php foreach ($packages as $package) : ?>
+          <div class="package-card">
+            <img src="<?= $package['ImgPath'] ?>" alt="Sigiriya Adventure" class="package-image">
+            <div class="package-details">
+              <h2><?= $package['Name'] ?></h2>
+              <p class="package-desc"><?= $package['Description'] ?></p>
+              <ul class="services-included">
+                <li>🏨 <?= $package['HotelName'] ?? '' ?></li>
+                <li>🍽️ <?= $package['RestaurantName'] ?? '' ?></li>
+                <li>🎭 <?= $package['EventName'] ?? '' ?></li>
+                <li>🛍️ <?= $package['HeritageMarketName'] ?? '' ?></li>
+              </ul>
+              <div class="price-location">
+                <span class="price"><?= $package['Status'] ?? 'N/A' ?></span>
+              </div>
+              <div class="discount-status">
+                <div class="discount">💸 <?= number_format($package['Discount'], 2) ?>% off on your bills</div>
+              </div>
+              <div class="date-range"><strong>Valid:</strong> <?= $package['StartDate'] ?> - <?= $package['EndDate'] ?></div>
 
-  <!-- Package 2 -->
-  <div class="package-card">
+              <a href="http://localhost/ExploreEase/traveler/registerPackage?id=<?= $package['PackageID'] ?>" class="btn-register">Register for Package</a>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      <!-- <div class="package-card">
+        <img src="/ExploreEase/public/images/sigiriya.jpg" alt="Sigiriya Adventure" class="package-image">
+        <div class="package-details">
+          <h2>Sigiriya & Cultural Triangle Tour</h2>
+          <p class="package-desc">3-day exploration of Sri Lanka’s ancient kingdoms and heritage sites.</p>
+          <ul class="services-included">
+            <li>🏨 Cinnamon Lodge</li>
+            <li>🍽️ Tropical Village Dining</li>
+            <li>🎭 Kandy Cultural Show</li>
+            <li>🛍️ Dambulla Heritage Market</li>
+          </ul>
+          <div class="price-location">
+            <span class="price">Active</span>
+          </div>
+          <div class="discount-status">
+            <div class="discount">💸 15% Off on your bills</div>
+          </div>
+          <div class="date-range"><strong>Valid:</strong> May 1 - Sep 30, 2025</div>
+          <a href="#" class="btn-register">Register for Package</a>
+        </div>
+      </div> -->
+
+      <!-- <div class="package-card">
     <img src="/ExploreEase/public/images/ella.jpg" alt="Ella Adventure" class="package-image">
     <div class="package-details">
       <h2>Ella Nature & Adventure Escape</h2>
@@ -51,8 +81,11 @@
         <li>🛍️ Local Handicraft Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 28,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Ella</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 20% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> Jun 1 - Oct 31, 2025</div>
       <div class="terms"><small>* 5-day free cancellation</small></div>
@@ -61,7 +94,6 @@
     </div>
   </div>
 
-  <!-- Package 3 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/galle.jpg" alt="Galle Tour" class="package-image">
     <div class="package-details">
@@ -74,8 +106,11 @@
         <li>🛍️ Galle Fort Bazaar</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 40,500</span>
+        <span class="price">Active</span>
         <span class="location">Galle</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 15 - Dec 15, 2025</div>
       <div class="terms"><small>* Full refund before 10 days</small></div>
@@ -84,7 +119,6 @@
     </div>
   </div>
 
-  <!-- Package 4 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/nuwaraeliya.jpg" alt="Nuwara Eliya" class="package-image">
     <div class="package-details">
@@ -97,8 +131,11 @@
         <li>🛍️ Local Fresh Market Visit</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 38,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Nuwara Eliya</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Aug 31, 2025</div>
       <div class="terms"><small>* Cancellation within 5 days</small></div>
@@ -107,7 +144,6 @@
     </div>
   </div>
 
-  <!-- Package 5 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/yala.jpg" alt="Yala Safari" class="package-image">
     <div class="package-details">
@@ -120,8 +156,11 @@
         <li>🛍️ Eco Craft Store</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 45,000</span>
+        <span class="price">Active</span>
         <span class="location">Yala</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Nov 30, 2025</div>
       <div class="terms"><small>* 10-day cancellation window</small></div>
@@ -130,7 +169,6 @@
     </div>
   </div>
 
-  <!-- Package 6 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/kandy.jpg" alt="Kandy City" class="package-image">
     <div class="package-details">
@@ -143,8 +181,11 @@
         <li>🛍️ Kandy Handloom Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 32,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Kandy</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* 7-day cancellation</small></div>
@@ -153,7 +194,6 @@
     </div>
   </div>
 
-  <!-- Package 7 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/bentota.jpg" alt="Bentota Beach" class="package-image">
     <div class="package-details">
@@ -166,8 +206,11 @@
         <li>🛍️ Coastal Boutique Shopping</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 50,000</span>
+        <span class="price">Active</span>
         <span class="location">Bentota</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 20% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* 10% early booking discount</small></div>
@@ -176,7 +219,6 @@
     </div>
   </div>
 
-  <!-- Package 8 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/trinco.jpg" alt="Trincomalee" class="package-image">
     <div class="package-details">
@@ -189,8 +231,11 @@
         <li>🛍️ Nilaveli Beach Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 42,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Trincomalee</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Oct 31, 2025</div>
       <div class="terms"><small>* 7-day cancellation</small></div>
@@ -200,7 +245,6 @@
   </div>
 
 
-  <!-- Package 9 -->
   <div class="package-card">
     <img src="/ExploreEase/public/images/colombo.jpg" alt="Colombo City" class="package-image">
     <div class="package-details">
@@ -213,22 +257,26 @@
         <li>🛍️ ODEL & One Galle Face Mall</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 48,000</span>
+        <span class="price">Active</span>
         <span class="location">Colombo</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* No refund after 7 days</small></div>
       <a href="#" class="btn-register">Register for Package</a>
       <div class="reviews">★★★★☆ (55 Reviews)</div>
     </div>
-  </div>
+  </div> -->
 
-</div>
+    </div>
 
-   
-    
+
+
   </section>
-  <?php require_once __DIR__ . '/logedFooter.php'; ?> 
+  <?php require_once __DIR__ . '/logedFooter.php'; ?>
 
 </body>
+
 </html>

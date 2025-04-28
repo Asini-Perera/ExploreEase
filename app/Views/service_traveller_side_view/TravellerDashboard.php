@@ -25,6 +25,7 @@
 
         <a href="#bookings">Bookings</a>
         <a href="#reviews">Reviews</a>
+        <a href="/ExploreEase">Logout</a>
       </nav>
     </aside>
 
@@ -76,7 +77,20 @@
       <section class="section" id="packages">
         <h2>Added Packages</h2>
         <div class="card-list">
-          <div class="card">
+          <?php if (empty($registerPackages)) : ?>
+            <p>No packages available.</p>
+          <?php else : ?>
+            <?php foreach ($registerPackages as $registerPackage) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($registerPackage['Name']); ?></h3>
+                <p><?php echo htmlspecialchars($registerPackage['Description']); ?></p>
+                <p>Discount: <strong><?php echo htmlspecialchars($registerPackage['Discount']); ?>% off</strong></p>
+                <p>Start Date: <strong><?php echo htmlspecialchars($registerPackage['StartDate']); ?></strong></p>
+                <p>End Date: <strong><?php echo htmlspecialchars($registerPackage['EndDate']); ?></strong></p>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+          <!-- <div class="card">
             <h3>Cultural Triangle Tour</h3>
             <p>Sigiriya, Dambulla, Kandy - 4 Days</p>
           </div>
@@ -95,7 +109,7 @@
           <div class="card">
             <h3>Wildlife Safari</h3>
             <p>Yala National Park - 2 Days</p>
-          </div>
+          </div> -->
 
         </div>
         <a href="http://localhost/ExploreEase/TravellerPackageList" class="btn-add">Click here to Add Packages</a>
@@ -105,19 +119,27 @@
       <section class="section" id="bookings">
         <h2>Bookings</h2>
         <div class="card-list">
-          <div class="card">
-            <h3>ABC Hotel</h3>
-            <p>Booking Date: 15-May-2025</p>
-            <p>Room No : 2 </p>
-          </div>
-          <div class="card">
-            <h3>Mountain Resort</h3>
-            <p>Booking Date: 20-May-2025</p>
-            <p>Table No : 3 </p>
-
-          </div>
+          <?php if (empty($futureBookings) && empty($pastBookings)) : ?>
+            <p>No bookings available.</p>
+          <?php elseif (empty($futureBookings) && !empty($pastBookings)) : ?>
+            <?php foreach (array_slice($pastBookings, 0, 6) as $pastBooking) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($pastBooking['Name']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($pastBooking['BookingDate']); ?></p>
+              </div>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <?php foreach ($futureBookings as $futureBooking) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($futureBooking['Name']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($futureBooking['BookingDate']); ?></p>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
         </div>
-        <a href="http://localhost/ExploreEase/travllerBooking" class="btn-add">View Bookings</a>
+        <?php if (!empty($futureBookings) || !empty($pastBookings)) : ?>
+          <a href="http://localhost/ExploreEase/travllerBooking" class="btn-add">View All Bookings</a>
+        <?php endif; ?>
       </section>
 
       <!-- Reviews Section -->
