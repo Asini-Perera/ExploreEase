@@ -40,7 +40,8 @@
                 <div class="discount">💸 <?= number_format($package['Discount'], 2) ?>% off on your bills</div>
               </div>
               <div class="date-range"><strong>Valid:</strong> <?= $package['StartDate'] ?> - <?= $package['EndDate'] ?></div>
-              <a href="#" class="btn-register">Register for Package</a>
+
+              <a href="http://localhost/ExploreEase/traveler/registerPackage?id=<?= $package['PackageID'] ?>" class="btn-register">Register for Package</a>
             </div>
           </div>
         <?php endforeach; ?>

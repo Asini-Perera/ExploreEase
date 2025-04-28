@@ -137,3 +137,4 @@ $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
 $router->add('traveler/editProfile', 'TravelerController@editProfile');  // Edit profile for traveler
+$router->add('traveler/registerPackage', 'TravelerController@registerPackage');  // Register package for traveler

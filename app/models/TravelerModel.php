@@ -107,4 +107,13 @@ class TravelerModel
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function registerPackage($travelerID, $packageID)
+    {
+        $sql = "INSERT INTO packagecustomer (TravelerID, PackageID) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('ii', $travelerID, $packageID);
+        $stmt->execute();
+        return true;
+    }
 }
