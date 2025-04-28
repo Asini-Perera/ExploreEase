@@ -26,7 +26,7 @@ class CulturalEventOrganizerController
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
             $action = isset($_GET['action']) ? $_GET['action'] : null;
 
-            $allowedPages = ['dashboard', 'profile', 'event', 'bookings', 'reviews'];
+            $allowedPages = ['dashboard', 'profile', 'event', 'bookings', 'reviews','images'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404'; // Default to 404 if page is not allowed
 
             if ($mainContent == 'dashboard') {
@@ -119,6 +119,17 @@ class CulturalEventOrganizerController
                 $reviews = $eventModel->getReviews($_SESSION['OrganizerID']);
                 if (isset($_GET['action']) && $_GET['action'] == 'reply') {
                     $verifiedAction = 'reply';
+                } else {
+                    $verifiedAction = null;
+                }
+            } elseif ($mainContent == 'images') {
+                $images = $this->viewImage();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteImage();
                 } else {
                     $verifiedAction = null;
                 }
@@ -645,4 +656,60 @@ class CulturalEventOrganizerController
             exit();
         }
     }
+
+    public function addImage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $image = $_FILES['rest-image'];
+            $eventID = $_SESSION['EventID'];
+
+            $culturaleventModel = new CulturalEventOrganizerModel($this->conn);
+            $imageID = $culturaleventModel->addImage($title, $eventID);
+
+
+            // If image is uploaded, set the image path
+            if ($imageID && $image['name']) {
+                $culturaleventModel->setEventImgPath($imageID, $image);
+            }
+
+            if ($imageID) {
+                $_SESSION['success'] = "Image added successfully!";
+            } else {
+                $_SESSION['error'] = "Failed to add image!";
+            }
+
+            header('Location: ../culturaleventorganizer/dashboard?page=images');
+            exit();
+        }
+    }
+
+    public function viewImage()
+    {
+        $culturaleventModel = new CulturalEventOrganizerModel($this->conn);
+        $images = $culturaleventModel->getImage($_SESSION['EventID']);
+
+        return $images;
+    }
+
+    public function deleteImage()
+    {
+        if (isset($_GET['id'])) {
+            $imageID = $_GET['id'];
+
+            $culturaleventModel = new CulturalEventOrganizerModel($this->conn);
+            $deletion = $culturaleventModel->deleteImage($imageID);
+
+            if($deletion){
+                $_SESSION['success'] = "Photo deleted successfully!";
+            }else{
+                $_SESSION['error'] = "Failed to delete photo!";
+            }
+
+            header('Location: ../culturaleventorganizer/dashboard?page=images');
+            exit();
+        }
+    }
+
+
 }

@@ -432,24 +432,7 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalEvents'];
     }
 
-    // public function getTotalPosts($organizerID)
-    // {
-    //     $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-
-    //     // Check if prepare was successful
-    //     if (!$stmt) {
-    //         // Log the error for debugging
-    //         error_log("MySQL prepare error: " . $this->conn->error);
-    //         return 0; // Return a default value
-    //     }
-
-    //     $stmt->bind_param('i', $organizerID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_assoc()['TotalPosts'];
-    // }
+    
 
     public function getTotalRatings($organizerID)
     {
@@ -470,27 +453,7 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalRatings'];
     }
 
-    // public function getTotalRevenue($organizerID)
-    // {
-    //     $sql = "SELECT SUM(Amount) as TotalRevenue 
-    //             FROM culturaleventbooking ceb
-    //             JOIN culturalevent ce ON ceb.EventID = ce.EventID
-    //             WHERE ce.OrganizerID = ?";
-    //     $stmt = $this->conn->prepare($sql);
-
-    //     // Check if prepare was successful
-    //     if (!$stmt) {
-    //         // Log the error for debugging
-    //         error_log("MySQL prepare error: " . $this->conn->error);
-    //         return 0; // Return a default value
-    //     }
-
-    //     $stmt->bind_param('i', $organizerID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_assoc()['TotalRevenue'];
-    // }
+    
 
     public function getTotalCustomers($organizerID)
     {
@@ -510,25 +473,6 @@ class CulturalEventOrganizerModel
 
         return $result->fetch_assoc()['TotalCustomers'];
     }
-
-    // public function getTotalFeedbacks($organizerID)
-    // {
-    //     $sql = "SELECT COUNT(*) as TotalFeedbacks FROM feedback WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
-    //     $stmt = $this->conn->prepare($sql);
-
-    //     // Check if prepare was successful
-    //     if (!$stmt) {
-    //         // Log the error for debugging
-    //         error_log("MySQL prepare error: " . $this->conn->error);
-    //         return 0; // Return a default value
-    //     }
-
-    //     $stmt->bind_param('i', $organizerID);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-
-    //     return $result->fetch_assoc()['TotalFeedbacks'];
-    // }
 
 
     public function setEventImage($eventID, $fileName)
@@ -790,4 +734,115 @@ class CulturalEventOrganizerModel
         $stmt->bind_param('si', $response, $reviewID);
         return $stmt->execute();
     }
+
+    
+    //images 
+
+    public function addImage($title, $eventID)
+    {
+        $sql = "INSERT INTO culturaleventimages (Title,  EventID) VALUES ( ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $eventID);
+        $stmt->execute();
+
+        // Get the ImageID
+        $sql = "SELECT ImageID FROM culturaleventimages WHERE Title = ? AND EventID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $$eventID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ImageID = $result->fetch_assoc()['ImageID'];
+
+        return $ImageID;
+    }
+
+
+
+    public function getImage($eventID)
+    {
+        $sql = "SELECT * FROM culturaleventimages WHERE EventID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $eventID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function getImageItem($imageID)
+    {
+        $sql = "SELECT * FROM culturaleventimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function deleteImage($imageID)
+    {
+        $sql = "DELETE FROM culturaleventimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $sucees =$stmt->execute();
+
+        return $sucees;
+    }
+
+
+    public function setEventImgPath($imageID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $imageID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/culturalevent_images/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/culturalevent_images/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE culturaleventimages SET ImgPath = ? WHERE ImageID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $imageID);
+            $stmt->execute();
+        }
+    }
+
+    public function getEventImgPath($imageID)
+    {
+        $sql = "SELECT ImgPath FROM culturaleventimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
+
+
+
+
 }
