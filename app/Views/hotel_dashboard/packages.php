@@ -33,7 +33,7 @@
 
     <!-- My Packages Section -->
     <div class="section-header">
-        <h2>My Packages</h2>
+        <h2>My Partnership Packages</h2>
     </div>
 
     <?php if(empty($packages)): ?>

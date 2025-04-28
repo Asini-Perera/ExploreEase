@@ -700,9 +700,3 @@ CREATE TABLE PackageCustomer (
     FOREIGN KEY (PackageID) REFERENCES Package(PackageID),
     FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
 );
-
--- Add CreatedBy column to Package table if it doesn't exist
-ALTER TABLE Package 
-ADD COLUMN CreatedBy INT,
-ADD CONSTRAINT fk_package_creator 
-FOREIGN KEY (CreatedBy) REFERENCES Hotel(HotelID);

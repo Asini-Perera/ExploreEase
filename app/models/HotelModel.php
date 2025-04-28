@@ -629,10 +629,10 @@ class HotelModel
     /**
      * Create a new package
      */
-    public function createPackage($name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId, $createdBy)
+    public function createPackage($name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId)
     {
-        $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID, CreatedBy) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
@@ -640,8 +640,7 @@ class HotelModel
             return false;
         }
         
-        // Fix: Add 'i' to the parameter type string for $createdBy
-        $stmt->bind_param("ssdssssiiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId, $createdBy);
+        $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
         
         // Add error logging to diagnose issues
         if (!$stmt->execute()) {
@@ -705,7 +704,13 @@ class HotelModel
                 LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
-                WHERE p.CreatedBy = ? 
+                WHERE 
+                    (p.Owner = 'hotel' AND p.HotelID = ?) OR
+                    (p.Owner != 'hotel' AND (
+                        p.RestaurantID IS NOT NULL OR 
+                        p.ShopID IS NOT NULL OR 
+                        p.EventID IS NOT NULL
+                    ))
                 ORDER BY p.StartDate DESC";
         
         $stmt = $this->conn->prepare($sql);

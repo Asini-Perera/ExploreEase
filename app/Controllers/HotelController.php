@@ -657,11 +657,10 @@ class HotelController
             
             // Save package to database
             $hotelModel = new HotelModel($this->conn);
-            $createdBy = $_SESSION['HotelID'];
             
             $success = $hotelModel->createPackage(
                 $name, $description, $discount, $startDate, $endDate, 
-                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $eventID, $createdBy
+                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $eventID
             );
             
             if ($success) {
