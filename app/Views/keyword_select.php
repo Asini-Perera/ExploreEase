@@ -14,7 +14,7 @@
 <body>
     <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
     <main>
-        <section class="explore-section" aria-labelledby="main-heading">
+        
             <header class="hero-container">
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/07f99c8b75a628dd8375eeb83fa2e5bbc9a50211e8eb020e2f7cb24ee36dfb2c?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="Scenic landscape of Sri Lanka" class="hero-image" />
                 <div class="hero-content">
@@ -37,20 +37,25 @@
                     </form>
                 </div>
                 <section class="filters-section" aria-labelledby="destination-filters">
-                    <?php foreach ($categories as $category) : ?>
-                        <nav aria-label="Destination type filters">
-                            <h2 id="destination-filters" class="section-title"><?= htmlspecialchars($category['CategoryName']) ?></h2>
-                            <ul class="filter-list" role="list">
-                                <?php foreach ($category['keywords'] as $keyword) : ?>
-                                    <li><button class="option-group" type="button">
-                                            <input type="checkbox" name="amenities" value="<?= htmlspecialchars($keyword['KeywordID']) ?>" aria-labelledby="<?= htmlspecialchars($keyword['KName']) ?>-label" />
-                                            <span><?= htmlspecialchars($keyword['KName']) ?></span>
-                                        </button>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </nav>
+    <?php foreach ($categories as $category) : ?>
+        <nav aria-label="Destination type filters">
+            <h2 id="destination-filters" class="section-title"><?= htmlspecialchars($category['CategoryName']) ?></h2>
+            <ul class="filter-list" role="list">
+                <div class="filter-column">
+                    <?php foreach ($category['keywords'] as $keyword) : ?>
+                        <li>
+                            <button class="option-group" type="button">
+                                <input type="checkbox" name="amenities" value="<?= htmlspecialchars($keyword['KeywordID']) ?>" aria-labelledby="<?= htmlspecialchars($keyword['KName']) ?>-label" />
+                                <span><?= htmlspecialchars($keyword['KName']) ?></span>
+                            </button>
+                        </li>
                     <?php endforeach; ?>
+                </div>
+            </ul>
+        </nav>
+    <?php endforeach; ?>
+
+
                     <!-- <nav aria-label="Destination type filters">
                         <h2 id="destination-filters" class="section-title">Where would you prefer to stay?</h2>
 
@@ -85,7 +90,7 @@
                             </li>
                         </ul>
                     </nav> -->
-                </section>
+            </section>
 
 
                 <div class="next-button-container">

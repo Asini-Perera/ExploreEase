@@ -43,7 +43,7 @@
 
                     <div class="service-one">
                         <div class="service">
-                            <a href="viewall/hotel">
+                            <a>
                                 <img src="public/images/hotel1-image.png" alt="hotels">
                             </a>
                             <h3>Hotels</h3>
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="service">
-                            <a href="viewall/resturant">
+                            <a>
                                 <img src="public/images/restuarant-image.png" alt="resturants">
                             </a>
                             <h3>Resturants</h3>
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="service">
-                            <a href="viewall/culturalevent">
+                            <a>
                                 <img src="public/images/cultural-event.png" alt="cultural events">
                             </a>
                             <h3>Cultural Events</h3>
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="service">
-                            <a href="viewall/heritagemarket">
+                            <a>
                                 <img src="public/images/shop-image.png" alt="heritage">
                             </a>
                             <h3>Heritage Markets</h3>
