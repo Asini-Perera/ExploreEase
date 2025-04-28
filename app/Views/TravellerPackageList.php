@@ -18,7 +18,7 @@
 
       <?php if (empty($packages)) : ?>
         <div class="no-packages-message">
-          <h2>No packages available at the moment.</h2>
+          <h2>No new packages available at the moment.</h2>
         </div>
       <?php else : ?>
         <?php foreach ($packages as $package) : ?>

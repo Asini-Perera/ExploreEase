@@ -131,7 +131,7 @@ class HomeModel
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function getAllPackages()
+    public function getAllPackages($travelerID)
     {
         $sql = "
         SELECT 
@@ -155,12 +155,22 @@ class HomeModel
         LEFT JOIN 
             culturalevent ce ON p.EventID = ce.EventID
         WHERE 
-            p.IsVerified = 1 AND p.EndDate >= CURDATE()
+            p.IsVerified = 1 
+            AND p.EndDate >= CURDATE()
+            AND NOT EXISTS (
+                SELECT 1 
+                FROM packagecustomer pc 
+                WHERE pc.PackageID = p.PackageID 
+                AND pc.TravelerID = ?
+            )
         ORDER BY
             p.StartDate ASC
     ";
 
-        $result = $this->conn->query($sql);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $travelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $packages = $result->fetch_all(MYSQLI_ASSOC);
         return $packages;
     }

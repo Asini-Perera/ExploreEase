@@ -77,7 +77,20 @@
       <section class="section" id="packages">
         <h2>Added Packages</h2>
         <div class="card-list">
-          <div class="card">
+          <?php if (empty($registerPackages)) : ?>
+            <p>No packages available.</p>
+          <?php else : ?>
+            <?php foreach ($registerPackages as $registerPackage) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($registerPackage['Name']); ?></h3>
+                <p><?php echo htmlspecialchars($registerPackage['Description']); ?></p>
+                <p>Discount: <strong><?php echo htmlspecialchars($registerPackage['Discount']); ?>% off</strong></p>
+                <p>Start Date: <strong><?php echo htmlspecialchars($registerPackage['StartDate']); ?></strong></p>
+                <p>End Date: <strong><?php echo htmlspecialchars($registerPackage['EndDate']); ?></strong></p>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+          <!-- <div class="card">
             <h3>Cultural Triangle Tour</h3>
             <p>Sigiriya, Dambulla, Kandy - 4 Days</p>
           </div>
@@ -96,7 +109,7 @@
           <div class="card">
             <h3>Wildlife Safari</h3>
             <p>Yala National Park - 2 Days</p>
-          </div>
+          </div> -->
 
         </div>
         <a href="http://localhost/ExploreEase/TravellerPackageList" class="btn-add">Click here to Add Packages</a>

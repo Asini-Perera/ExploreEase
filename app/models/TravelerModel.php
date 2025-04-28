@@ -116,4 +116,14 @@ class TravelerModel
         $stmt->execute();
         return true;
     }
+
+    public function getTravelerPackages($travelerID)
+    {
+        $sql = "SELECT p.*, pc.* FROM package p INNER JOIN packagecustomer pc ON p.PackageID = pc.PackageID WHERE pc.TravelerID = ? AND p.EndDate >= CURDATE() ORDER BY p.StartDate ASC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $travelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
