@@ -21,6 +21,10 @@
         </li>
 
         <li>
+            <a href="?page=verifypackage" class="<?= $mainContent == 'verifypackage' ? 'active' : '' ?>"><i class="fa-solid fa-box"></i>Verify Packages</a>
+        </li>
+
+        <li>
             <a href="?page=profile" class="<?= $mainContent == 'profile' ? 'active' : '' ?>"><i class="fa-solid fa-user"></i>Profile</a>
         </li>
 

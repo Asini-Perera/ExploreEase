@@ -1,8 +1,10 @@
 <link rel="stylesheet" href="../public/css/culturalevent_dashboard/add_event.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHabPak9APZk-8qvZs4j_qNkTl_Pk0aF8"></script>
+
 
 <div class="form-content">
     <h1>Add New Event</h1>
-    
+
     <form method="post" action="../culturaleventorganizer/addEvent" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Event Name:</label>
@@ -37,6 +39,12 @@
             <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" step="0.01" required>
         </div>
         <div class="form-group">
+            <label>Pin Hotel Location on Map</label>
+            <div id="map"></div>
+        </div>
+        <input type="hidden" id="latitude" name="latitude" value="0" required>
+        <input type="hidden" id="longitude" name="longitude" value="0" required>
+        <div class="form-group">
             <label for="status">Status:</label>
             <select name="status" id="status" class="form-control" required>
                 <option value="">Select status</option>
@@ -54,3 +62,5 @@
         <button type="button" id="discard-event" onclick="window.history.back();">Discard</button>
     </form>
 </div>
+
+<script src="../public/js/get_location.js"></script>

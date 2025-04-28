@@ -39,6 +39,7 @@ $longitude = $_SESSION['longitude'] ?? null;
                 </nav> -->
                 <section aria-labelledby="top-attractions-heading">
                     <h2 id="top-attractions-heading">Nearest places</h2>
+                    <p style="font-style: italic; color: gray;">Note: Distances are calculated as the crow flies and differ from actual travel distances.</p>
                     <ul class="attractions-list">
                         <?php foreach ($places as $place) : ?>
                             <li>
@@ -47,7 +48,20 @@ $longitude = $_SESSION['longitude'] ?? null;
                                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
                                     </a>
                                     <h3><?= htmlspecialchars($place['Name']) ?></h3>
-                                    <p><?= htmlspecialchars($place['type']) ?></p>
+                                    <p>
+                                        <?php
+                                        if ($place['type'] === 'heritagemarket') {
+                                            echo 'Heritage Market';
+                                        } elseif ($place['type'] === 'hotel') {
+                                            echo 'Hotel';
+                                        } elseif ($place['type'] === 'restaurant') {
+                                            echo 'Restaurant';
+                                        } else {
+                                            echo htmlspecialchars($place['type']);
+                                        }
+                                        ?>
+                                    </p>
+                                    <p><?= htmlspecialchars($place['Distance']) ?> km</p>
 
                                 </article>
                             </li>

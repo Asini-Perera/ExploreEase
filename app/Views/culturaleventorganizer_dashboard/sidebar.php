@@ -13,10 +13,6 @@
         </li>
 
         <li>
-            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>"><i class="fa-solid fa-newspaper"></i>Posts</a>
-        </li>
-
-        <li>
             <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>"><i class="fa-solid fa-book"></i>Bookings</a>
         </li>
 
@@ -27,7 +23,7 @@
         <li>
             <a href="?page=images" class="<?= $mainContent == 'images' ? 'active' : '' ?>"><i class="fa-solid fa-images"></i>Images</a>
         </li>
-        
+
         <li>
             <a href="../logout"><i class="fa-solid fa-sign-out-alt"></i>Logout</a>
         </li>
