@@ -26,14 +26,14 @@ class CulturalEventOrganizerController
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
             $action = isset($_GET['action']) ? $_GET['action'] : null;
 
-            $allowedPages = ['dashboard', 'profile', 'event', 'post', 'bookings', 'reviews'];
+            $allowedPages = ['dashboard', 'profile', 'event', 'bookings', 'reviews'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404'; // Default to 404 if page is not allowed
 
             if ($mainContent == 'dashboard') {
                 $eventModel = new CulturalEventOrganizerModel($this->conn);
                 $TotalBookings = $eventModel->getTotalBookings($_SESSION['OrganizerID']);
                 $TotalEvents = $eventModel->getTotalEvents($_SESSION['OrganizerID']);
-                $TotalPosts = $eventModel->getTotalPosts($_SESSION['OrganizerID']);
+                // $TotalPosts = $eventModel->getTotalPosts($_SESSION['OrganizerID']);
                 $TotalRatings = $eventModel->getTotalRatings($_SESSION['OrganizerID']);
                 // $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
                 // $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
@@ -45,11 +45,14 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'change-password';
                 }
             } elseif ($mainContent == 'event') {
-                // $events = $this->viewEvent();
+                $events = $this->viewEvent();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
+                    $eventID = isset($_GET['id']) ? $_GET['id'] : 0;
+                    $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                    $event = $organizerModel->getEventItem($eventID);
                     $verifiedAction = 'edit';
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
@@ -57,23 +60,23 @@ class CulturalEventOrganizerController
                 } else {
                     $verifiedAction = null;
                 }
-            } elseif ($mainContent == 'post') {
-                $posts = $this->viewPost();
-                $action = isset($_GET['action']) ? $_GET['action'] : null;
-                if ($action == 'add') {
-                    $verifiedAction = 'add';
-                } elseif ($action == 'edit') {
-                    $verifiedAction = 'edit';
+                // } elseif ($mainContent == 'post') {
+                //     $posts = $this->viewPost();
+                //     $action = isset($_GET['action']) ? $_GET['action'] : null;
+                //     if ($action == 'add') {
+                //         $verifiedAction = 'add';
+                //     } elseif ($action == 'edit') {
+                //         $verifiedAction = 'edit';
 
-                    $postID = isset($_GET['id']) ? $_GET['id'] : null;
-                    $organizerModel = new CulturalEventOrganizerModel($this->conn);
-                    $postItem = $organizerModel->getPostItem($postID);
-                } elseif ($action == 'delete') {
-                    $verifiedAction = null;
-                    $this->deletePost();
-                } else {
-                    $verifiedAction = null;
-                }
+                //         $postID = isset($_GET['id']) ? $_GET['id'] : null;
+                //         $organizerModel = new CulturalEventOrganizerModel($this->conn);
+                //         $postItem = $organizerModel->getPostItem($postID);
+                //     } elseif ($action == 'delete') {
+                //         $verifiedAction = null;
+                //         $this->deletePost();
+                //     } else {
+                //         $verifiedAction = null;
+                //     }
             } elseif ($mainContent == 'bookings') {
                 $bookings = $this->viewBookings();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -229,15 +232,9 @@ class CulturalEventOrganizerController
             $image = isset($_FILES['image']) && $_FILES['image']['name'] ? $_FILES['image'] : null;
 
 
-            // Validate event belongs to this organizer
-            $eventModel = new CulturalEventOrganizerModel($this->conn);
-            // $eventData = $eventModel->getEvent($eventID);
 
-            if (empty($eventData) || $eventData[0]['OrganizerID'] != $organizerID) {
-                $_SESSION['error'] = "You don't have permission to edit this event";
-                header('Location: ../culturaleventorganizer/dashboard?page=event');
-                exit();
-            }
+            $eventModel = new CulturalEventOrganizerModel($this->conn);
+
 
             // Update event in database with all required parameters
             $success = $eventModel->updateEvent($eventID, $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status);
@@ -271,9 +268,9 @@ class CulturalEventOrganizerController
     public function viewEvent()
     {
         $organizerModel = new CulturalEventOrganizerModel($this->conn);
-        // $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
+        $events = $organizerModel->getAllEvents($_SESSION['OrganizerID']);
 
-        // return $events;
+        return $events;
     }
 
 

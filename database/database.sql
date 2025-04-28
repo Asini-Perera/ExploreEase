@@ -724,3 +724,9 @@ CREATE TABLE PackageCustomer (
     FOREIGN KEY (PackageID) REFERENCES Package(PackageID),
     FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
 );
+
+-- Add ImgPath column to CulturalEvent table
+ALTER TABLE
+    CulturalEvent
+ADD
+    ImgPath VARCHAR(255);
