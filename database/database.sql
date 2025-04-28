@@ -726,3 +726,9 @@ ALTER TABLE
 ADD
     ImageID INT AUTO_INCREMENT PRIMARY KEY;
 
+-- Add ImgPath column to CulturalEvent table
+ALTER TABLE
+    CulturalEvent
+ADD
+    ImgPath VARCHAR(255);
+

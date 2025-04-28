@@ -116,37 +116,37 @@
                     <p>Enjoy a refreshing swim in our outdoor pool.</p>
                 </div>
 
-        <div class="facility">
-            <img src="../public/images/gym.jpg" alt="Gym" class="facility-image">
-            <h3>Fitness Center</h3>
-            <p>Stay fit and healthy with our state-of-the-art gym facilities.</p>
-        </div>
+                <div class="facility">
+                    <img src="../public/images/gym.jpg" alt="Gym" class="facility-image">
+                    <h3>Fitness Center</h3>
+                    <p>Stay fit and healthy with our state-of-the-art gym facilities.</p>
+                </div>
 
-        <div class="facility">
-            <img src="../public/images/spa.jpg" alt="Spa" class="facility-image">
-            <h3>Spa</h3>
-            <p>Relax and rejuvenate with our luxurious spa treatments.</p>
-        </div>
+                <div class="facility">
+                    <img src="../public/images/spa.jpg" alt="Spa" class="facility-image">
+                    <h3>Spa</h3>
+                    <p>Relax and rejuvenate with our luxurious spa treatments.</p>
+                </div>
 
-        <div class="facility">
-            <img src="../public/images/restaurant-image (2).jpg" alt="Restaurant" class="facility-image">
-            <h3>Restaurant</h3>
-            <p>Indulge in gourmet dining at our on-site restaurant.</p>
-        </div>
+                <div class="facility">
+                    <img src="../public/images/restaurant-image (2).jpg" alt="Restaurant" class="facility-image">
+                    <h3>Restaurant</h3>
+                    <p>Indulge in gourmet dining at our on-site restaurant.</p>
+                </div>
 
-        <div class="facility">
-            <img src="../public/images/conference.jpg" alt="Conference Room" class="facility-image">
-            <h3>Conference Room</h3>
-            <p>Host your meetings and events in our well-equipped conference room.</p>
-        </div>
+                <div class="facility">
+                    <img src="../public/images/conference.jpg" alt="Conference Room" class="facility-image">
+                    <h3>Conference Room</h3>
+                    <p>Host your meetings and events in our well-equipped conference room.</p>
+                </div>
 
-        <div class="facility">
-            <img src="../public/images/bar.jpg" alt="Bar" class="facility-image">
-            <h3>Bar</h3>
-            <p>Unwind with a drink at our stylish bar.</p>
-        </div>
-    </div>
-</section>
+                <div class="facility">
+                    <img src="../public/images/bar.jpg" alt="Bar" class="facility-image">
+                    <h3>Bar</h3>
+                    <p>Unwind with a drink at our stylish bar.</p>
+                </div>
+            </div>
+        </section>
 
 
         <!-- Info Section -->
@@ -229,34 +229,34 @@
                         <p>The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change.</p>
                     </div>
 
-            <div class="need-to-know">
-                <div class="top">
-                    <img src="../public/images/idea.png" alt="need to know">
-                    <h3>You Need to Know</h3>
-                </div>
-                <p>Extra-person charges may apply and vary depending on property policy</p>
-                <p>Government-issued photo identification and a credit card, debit card, or cash deposit may be required at check-in for incidental charges</p>
-                <p>Special requests are subject to availability upon check-in and may incur additional charges; special requests cannot be guaranteed</p>
-                <p>This property accepts credit cards, debit cards, and cash</p>
-                <p>This property uses a grey water recycling system</p>
-                <p>Safety features at this property include a fire extinguisher, a security system, and a first aid kit</p>
-                <p>Please note that cultural norms and guest policies may differ by country and by property; the policies listed are provided by the property</p>
-            </div>
+                    <div class="need-to-know">
+                        <div class="top">
+                            <img src="../public/images/idea.png" alt="need to know">
+                            <h3>You Need to Know</h3>
+                        </div>
+                        <p>Extra-person charges may apply and vary depending on property policy</p>
+                        <p>Government-issued photo identification and a credit card, debit card, or cash deposit may be required at check-in for incidental charges</p>
+                        <p>Special requests are subject to availability upon check-in and may incur additional charges; special requests cannot be guaranteed</p>
+                        <p>This property accepts credit cards, debit cards, and cash</p>
+                        <p>This property uses a grey water recycling system</p>
+                        <p>Safety features at this property include a fire extinguisher, a security system, and a first aid kit</p>
+                        <p>Please note that cultural norms and guest policies may differ by country and by property; the policies listed are provided by the property</p>
+                    </div>
 
-            <div class="we-should-mention">
-                <div class="top">
-                    <h3>We Should Mention</h3>
+                    <div class="we-should-mention">
+                        <div class="top">
+                            <h3>We Should Mention</h3>
+                        </div>
+                        <p>Pool access available from 6:00 AM to 9:00 PM</p>
+                        <p>Reservations are required for massage services and spa treatments; reservations can be made by contacting the property prior to arrival, using the contact information on the booking confirmation</p>
+                        <p>Only registered guests are allowed in the guestrooms</p>
+                        <p>The property has connecting/adjoining rooms, which are subject to availability and can be requested by contacting the property using the number on the booking confirmation</p>
+                        <p>No pets and no service animals are allowed at this property</p>
+                        <p>Parking height restrictions apply</p>
+                    </div>
                 </div>
-                <p>Pool access available from 6:00 AM to 9:00 PM</p>
-                <p>Reservations are required for massage services and spa treatments; reservations can be made by contacting the property prior to arrival, using the contact information on the booking confirmation</p>
-                <p>Only registered guests are allowed in the guestrooms</p>
-                <p>The property has connecting/adjoining rooms, which are subject to availability and can be requested by contacting the property using the number on the booking confirmation</p>
-                <p>No pets and no service animals are allowed at this property</p>
-                <p>Parking height restrictions apply</p>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <section class="rooms" id="rooms">
             <h2 class="page-title">Rooms</h2>
@@ -353,14 +353,16 @@
                                     <h3 class="product-name">Room Type: <?php echo htmlspecialchars($Room['Type']); ?></h3>
                                     <p class="product-price">Total Price: <?php echo htmlspecialchars($Room['TotalPrice']); ?></p>
                                     <p class="product-price">Max Occupancy: <?php echo htmlspecialchars($Room['MaxOccupancy']); ?></p>
-                                    <form method="POST" action="../hotel/bookRoom">
+                                    <form method="POST" action="../hotel/redirectToPayment">
                                         <input type="hidden" name="RoomID" value="<?php echo htmlspecialchars($Room['RoomID']); ?>">
                                         <input type="hidden" name="HotelID" value="<?php echo htmlspecialchars($hotel['HotelID']); ?>">
                                         <input type="hidden" name="TravelerID" value="<?php echo htmlspecialchars($_SESSION['TravelerID']); ?>">
                                         <input type="hidden" name="checkIn" value="<?php echo htmlspecialchars($Room['CheckInDate']); ?>">
                                         <input type="hidden" name="checkOut" value="<?php echo htmlspecialchars($Room['CheckOutDate']); ?>">
+                                        <input type="hidden" name="TotalPrice" value="<?php echo htmlspecialchars($Room['TotalPrice']); ?>">
                                         <button type="submit" class="select-room-btn">Select Room</button>
                                     </form>
+
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -369,8 +371,8 @@
                 </section>
             <?php else : ?>
                 <section class="available-rooms" id="available-rooms">
-                    <h2 class="page-title">Available Rooms</h2>
-                    <p>No available rooms to display.</p>
+                    <h2 class="page-title" style="color: red; text-align: center; margin-top: 20px;">No available rooms to display.</h2>
+                    <?php unset($_SESSION['AvailableRooms']); ?>
                 </section>
             <?php endif; ?>
         <?php endif; ?>

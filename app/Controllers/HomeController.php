@@ -101,6 +101,8 @@ class HomeController
         $travellerModel = new TravelerModel($this->conn);
         $travellerID = $_SESSION['TravelerID'] ?? null;
         $reviews = $travellerModel->getTravelerReviews($travellerID);
+        $futureBookings = $travellerModel->getTravelerFutureBookings($travellerID);
+        $pastBookings = $travellerModel->getTravelerPastBookings($travellerID);
         require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
     }
 
@@ -112,6 +114,10 @@ class HomeController
 
     public function travllerBooking()
     {
+        $travellerModel = new TravelerModel($this->conn);
+        $travellerID = $_SESSION['TravelerID'] ?? null;
+        $futureBookings = $travellerModel->getTravelerFutureBookings($travellerID);
+        $pastBookings = $travellerModel->getTravelerPastBookings($travellerID);
         require_once __DIR__ . '/../Views/travllerBooking.php';
     }
 
@@ -130,15 +136,15 @@ class HomeController
 
 
 
-     public function TravellerPackageList()
+    public function TravellerPackageList()
     {
         require_once __DIR__ . '/../Views/TravellerPackageList.php';
     }
 
 
-    
 
-     public function saveReview()
+
+    public function saveReview()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
@@ -267,4 +273,10 @@ class HomeController
         }
     }
 
+    public function viewallHeritageMarket()
+    {
+        // $homeModel = new HomeModel($this->conn);
+        // $heritageMarkets = $homeModel->getAllHeritageMarkets();
+        require_once __DIR__ . '/../Views/heritageMarket/heritageMarketView.php';
+    }
 }

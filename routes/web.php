@@ -1,5 +1,6 @@
 <?php
 
+use app\Controllers\HotelController;
 use app\Controllers\RestaurantController;
 
 $router->add('login', 'LoginController@index');  // Login page
@@ -35,6 +36,7 @@ $router->add('travllerBooking', 'HomeController@travllerBooking');
 $router->add('travellerReview', 'HomeController@travellerReview');
 $router->add('Contactus', 'HomeController@Contactus');
 $router->add('TravellerPackageList', 'HomeController@TravellerPackageList'); // Traveller package list
+$router->add('viewall/heritagemarket', 'HomeController@viewallHeritageMarket');  // View all heritage markets
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -100,6 +102,10 @@ $router->add('hotel/packages', 'HotelController@packages');  // View packages fo
 $router->add('hotel/addPackage', 'HotelController@addPackage');  // Add package for hotel
 $router->add('hotel/checkAvailableRooms', 'HotelController@checkAvailableRooms');  // Check available rooms for hotel
 $router->add('hotel/bookRoom', 'HotelController@bookRoom');  // Book room for hotel
+$router->add('hotel/redirectToPayment', 'HotelController@redirectToPayment');  // Redirect to payment page for hotel
+$router->add('hotel/paymentSuccess', 'HotelController@paymentSuccess');
+$router->add('hotel/paymentCancel', 'HotelController@paymentCancel');
+$router->add('hotel/paymentGatewayPage', 'HotelController@paymentGatewayPage');  // Payment gateway page for hotel
 
 
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard

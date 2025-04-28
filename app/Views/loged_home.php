@@ -6,28 +6,28 @@
         <title>Home page</title>
         <link rel="stylesheet" type="text/css" href="public/css/home.css">
         <link rel="stylesheet" type="text/css" href="public/css/footer.css">
-       
-     
+
+
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </head>
 
     <header>
-        
-             <?php require_once __DIR__ . "/loggedNavbar.php"; ?>
-            <!-- home-main -->
-            <div class="main">
-                <div class="welcome-container">
 
-                    <h2 class="welcome">Welcome to ExploreEase</h2>
-                    <p class="description">Make your journy easier on our platform....</p>
+        <?php require_once __DIR__ . "/loggedNavbar.php"; ?>
+        <!-- home-main -->
+        <div class="main">
+            <div class="welcome-container">
 
-                    <button class="explore-btn">Explore</button>
-                </div>
+                <h2 class="welcome">Welcome to ExploreEase</h2>
+                <p class="description">Make your journy easier on our platform....</p>
 
-
+                <button class="explore-btn">Explore</button>
             </div>
+
+
+        </div>
         </div>
     </header>
 
@@ -43,26 +43,34 @@
 
                     <div class="service-one">
                         <div class="service">
-                            <img src="public/images/hotel1-image.png" alt="hotels">
+                            <a href="viewall/hotel">
+                                <img src="public/images/hotel1-image.png" alt="hotels">
+                            </a>
                             <h3>Hotels</h3>
                             <p>Find the best hotels in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/restuarant-image.png" alt="resturants">
+                            <a href="viewall/resturant">
+                                <img src="public/images/restuarant-image.png" alt="resturants">
+                            </a>
                             <h3>Resturants</h3>
                             <p>Find the best resturants in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/cultural-event.png" alt="cultural events">
+                            <a href="viewall/culturalevent">
+                                <img src="public/images/cultural-event.png" alt="cultural events">
+                            </a>
                             <h3>Cultural Events</h3>
                             <p>Find the best cultural events in Sri Lanka</p>
                         </div>
 
                         <div class="service">
-                            <img src="public/images/shop-image.png" alt="heritage">
-                            <h3>Heritage</h3>
+                            <a href="viewall/heritagemarket">
+                                <img src="public/images/shop-image.png" alt="heritage">
+                            </a>
+                            <h3>Heritage Markets</h3>
                             <p>Find the best heritage sites in Sri Lanka</p>
                         </div>
                     </div>
