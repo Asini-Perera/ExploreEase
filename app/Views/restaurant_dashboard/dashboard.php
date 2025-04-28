@@ -27,8 +27,8 @@
     <div class="tile">
         <div class="tile-content">
             <div class="tile-text">
-                <h2>Total Posts</h2>
-                <h1></h1>
+                <h2>Total Images</h2>
+                <h1><?php echo $TotalImages; ?></h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/revenue.jpeg" alt="Traveler">
@@ -39,7 +39,7 @@
         <div class="tile-content">
             <div class="tile-text">
                 <h2>Total Packages</h2>
-                <h1>$32</h1>
+                <h1>0</h1>
             </div>
             <div class="tile-image">
                 <img src="../public/images/revenue2.jpeg" alt="Restaurant">

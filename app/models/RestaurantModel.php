@@ -502,27 +502,28 @@ class RestaurantModel
             return 0.0;
         }
     }
-    // public function getTotalReviews($restaurantId) {
-    //     $sql = "SELECT COUNT(*) AS totalReviews
-    //             FROM restaurantfeedback 
-    //             WHERE RestaurantID = ?";
+    public function getTotalImages($restaurantId) {
+        $sql = "SELECT COUNT(*) AS totalImages
+                FROM restaurantimages 
+                WHERE RestaurantID = ?";
 
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $restaurantId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalReviews'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("i", $restaurantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result) {
+                return $result->fetch_assoc()['totalImages'];
+            } else {
+                error_log("SQL Error: " . $this->conn->error);
+                return 0;
+            }
+        } else {
+            error_log("SQL Prepare Error: " . $this->conn->error);
+            return 0;
+        }
+    }
 
  
 

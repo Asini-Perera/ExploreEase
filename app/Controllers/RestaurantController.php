@@ -43,7 +43,7 @@ class RestaurantController
                 $restaurantModel = new RestaurantModel($this->conn);
                 $TotalBookings = $restaurantModel->getTotalBookings($_SESSION['RestaurantID']);
                 $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
-                // $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
+                $TotalImages = $restaurantModel->getTotalImages($_SESSION['RestaurantID']);
                 $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
                 $AverageRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
                 // $TotalPackages = $restaurantModel->getTotalPackages($_SESSION['RestaurantID']);
