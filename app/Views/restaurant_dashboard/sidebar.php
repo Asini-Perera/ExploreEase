@@ -25,6 +25,10 @@
         </li>
 
         <li>
+            <a href="?page=packages" class="<?= $mainContent == 'packages' ? 'active' : '' ?>"><i class="fa-solid fa-cubes"></i>Packages</a>
+        </li>
+
+        <li>
             <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>"><i class="fa-solid fa-star"></i>Reviews</a>
         </li>
 

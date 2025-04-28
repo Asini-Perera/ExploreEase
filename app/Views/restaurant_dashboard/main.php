@@ -35,6 +35,8 @@
                 require_once __DIR__ . "/$verifiedAction" . "_booking_list.php";
             } elseif ($mainContent == 'reviews' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_reviews.php";
+            } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_package.php';
             } else {
                 require_once __DIR__ . "/$mainContent.php";
             }

@@ -33,15 +33,22 @@ class RestaurantController
     {
         if (isset($_SESSION['RestaurantID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
-            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings', 'booking_list', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'menu', 'post', 'bookings', 'booking_list', 'reviews', 'packages'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
+
+            // Check if this is a package action
+            $action = isset($_GET['action']) ? $_GET['action'] : null;
+            if ($page == 'packages' && $action == 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->createPackage();
+                return; // Stop execution after processing
+            }
 
             // Check if the user is allowed to perform the action
             if ($mainContent == 'dashboard') {
                 $restaurantModel = new RestaurantModel($this->conn);
                 $TotalBookings = $restaurantModel->getTotalBookings($_SESSION['RestaurantID']);
                 $TotalReviews = $restaurantModel->getTotalReviews($_SESSION['RestaurantID']);
-                $TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
+                //$TotalPosts = $restaurantModel->getTotalPosts($_SESSION['RestaurantID']);
                 $TotalMenus = $restaurantModel->getTotalMenus($_SESSION['RestaurantID']);
                 $AverageRatings = $restaurantModel->getAverageRating($_SESSION['RestaurantID']);
                 // $TotalPackages = $restaurantModel->getTotalPackages($_SESSION['RestaurantID']);
@@ -116,6 +123,86 @@ class RestaurantController
                     $verifiedAction = 'add';
                 } elseif ($action == 'reply') {
                     $verifiedAction = 'reply';
+                } else {
+                    $verifiedAction = null;
+                }
+            } elseif ($mainContent == 'packages') {
+                $restaurantModel = new RestaurantModel($this->conn);
+                
+                // Always load the list of packages created by this restaurant
+                $packages = $restaurantModel->getPackages($_SESSION['RestaurantID']);
+                
+                // Fetch all package users
+                $packageUsers = $restaurantModel->getAllPackageUsers($_SESSION['RestaurantID']);
+                
+                // Organize users by package
+                $packageUsersByPackage = [];
+                foreach ($packageUsers as $user) {
+                    if (!isset($packageUsersByPackage[$user['PackageID']])) {
+                        $packageUsersByPackage[$user['PackageID']] = [];
+                    }
+                    $packageUsersByPackage[$user['PackageID']][] = $user;
+                }
+                
+                // Always load service providers for the request buttons
+                $hotels = $restaurantModel->getAllServiceProviders('Hotel');
+                $restaurants = $restaurantModel->getAllServiceProviders('Restaurant');
+                $culturalEvents = $restaurantModel->getAllServiceProviders('CulturalEvent');
+                $heritageMarkets = $restaurantModel->getAllServiceProviders('HeritageMarket');
+                
+                if ($action == 'add') {
+                    $verifiedAction = 'add';
+                } elseif ($action == 'edit') {
+                    $verifiedAction = 'edit';
+                    // Fetch package details when editing
+                    if (isset($_GET['id'])) {
+                        $packageID = $_GET['id'];
+                        $package = $restaurantModel->getPackage($packageID);
+                        
+                        if ($package) {
+                            // Store package details in session for the edit form
+                            $_SESSION['PackageID'] = $package['PackageID'];
+                            $_SESSION['Name'] = $package['Name'];
+                            $_SESSION['Description'] = $package['Description'];
+                            $_SESSION['Discount'] = $package['Discount'];
+                            $_SESSION['StartDate'] = $package['StartDate'];
+                            $_SESSION['EndDate'] = $package['EndDate'];
+                            $_SESSION['Owner'] = $package['Owner'];
+                            $_SESSION['ImgPath'] = $package['ImgPath'];
+                            
+                            // Store the appropriate ID based on owner type
+                            switch($package['Owner']) {
+                                case 'hotel':
+                                    $_SESSION['HotelID'] = $package['HotelID'];
+                                    break;
+                                case 'restaurant':
+                                    $_SESSION['RestaurantID'] = $package['RestaurantID'];
+                                    break;
+                                case 'heritagemarket':
+                                    $_SESSION['ShopID'] = $package['ShopID'];
+                                    break;
+                                case 'culturaleventorganizer':
+                                    $_SESSION['EventID'] = $package['EventID'];
+                                    break;
+                            }
+                        }
+                    }
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    if (isset($_GET['id'])) {
+                        $packageID = $_GET['id'];
+                        $success = $restaurantModel->deletePackage($packageID, $_SESSION['RestaurantID']);
+                        
+                        if ($success) {
+                            $_SESSION['success'] = "Package deleted successfully";
+                        } else {
+                            $_SESSION['error'] = "Failed to delete package";
+                        }
+                        
+                        // Redirect to avoid resubmission
+                        header('Location: ../restaurant/dashboard?page=packages');
+                        exit();
+                    }
                 } else {
                     $verifiedAction = null;
                 }
@@ -486,5 +573,92 @@ class RestaurantController
 
 
         header('Location: ../restaurant/dashboard?page=bookings');
+    }
+
+    public function createPackage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate required fields
+            if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) || 
+                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['partner_ids'])) {
+                $_SESSION['error'] = "All required fields must be filled";
+                header('Location: ../restaurant/dashboard?page=packages&action=add');
+                exit();
+            }
+            
+            // Get form data
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $discount = $_POST['discount'];
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+            
+            // Get the selected partners data
+            $selectedTypes = !empty($_POST['selectedTypes']) ? json_decode($_POST['selectedTypes'], true) : [];
+            
+            // Handle image upload if provided
+            $imgPath = null;
+            if (isset($_FILES['packageImage']) && $_FILES['packageImage']['name']) {
+                $restaurantModel = new RestaurantModel($this->conn);
+                $imgPath = $restaurantModel->uploadPackageImage($_FILES['packageImage']);
+                
+                if (!$imgPath) {
+                    $_SESSION['error'] = "Failed to upload image. Please try again.";
+                    header('Location: ../restaurant/dashboard?page=packages&action=add');
+                    exit();
+                }
+            }
+            
+            // Create a single package with the current restaurant as owner
+            $restaurantModel = new RestaurantModel($this->conn);
+            
+            // Initialize all partner IDs
+            $hotelID = null;
+            $shopID = null;
+            $eventID = null;
+            $partnerRestaurantID = null;
+            
+            // Set the appropriate partner IDs from selections
+            if (!empty($selectedTypes)) {
+                // Set hotel partner if selected
+                if (!empty($selectedTypes['hotel'])) {
+                    $hotelID = $selectedTypes['hotel'][0]; // Use the first selected hotel
+                }
+                
+                // Set heritage market partner if selected
+                if (!empty($selectedTypes['heritagemarket'])) {
+                    $shopID = $selectedTypes['heritagemarket'][0]; // Use the first selected market
+                }
+                
+                // Set cultural event partner if selected
+                if (!empty($selectedTypes['culturaleventorganizer'])) {
+                    $eventID = $selectedTypes['culturaleventorganizer'][0]; // Use the first selected event
+                }
+                
+                // Set partner restaurant if selected
+                if (!empty($selectedTypes['restaurant'])) {
+                    $partnerRestaurantID = $selectedTypes['restaurant'][0]; // Use the first selected restaurant
+                }
+            }
+            
+            // Current restaurant is always the owner
+            $restaurantID = $_SESSION['RestaurantID'];
+            $owner = 'restaurant';
+            
+            // Create a single package with all selected partners
+            $success = $restaurantModel->createPackage(
+                $name, $description, $discount, $startDate, $endDate, 
+                $imgPath, $owner, $hotelID, $restaurantID, $shopID, $eventID
+            );
+            
+            if ($success) {
+                $_SESSION['success'] = "Package created successfully!";
+                header('Location: ../restaurant/dashboard?page=packages');
+            } else {
+                $_SESSION['error'] = "Failed to create package. Please try again.";
+                header('Location: ../restaurant/dashboard?page=packages&action=add');
+            }
+            exit();
+        }
     }
 }

@@ -478,85 +478,264 @@ class RestaurantModel
             return 0.0;
         }
     }
-    // public function getTotalReviews($restaurantId) {
-    //     $sql = "SELECT COUNT(*) AS totalReviews
-    //             FROM restaurantfeedback 
-    //             WHERE RestaurantID = ?";
 
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $restaurantId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalReviews'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
-
-
-
-
-    // public function getTotalRatings($restaurantId) {
-    //     $sql = "SELECT COUNT(*) AS totalRatings 
-    //             FROM restaurantfeedback rf
-    //             JOIN Room r ON hf.RestaurantID = r.RoomID
-    //             WHERE r.RestaurantID = ?";
-
-    //     $stmt = $this->conn->prepare($sql);
-    //     if ($stmt) {
-    //         $stmt->bind_param("i", $hotelId);
-    //         $stmt->execute();
-    //         $result = $stmt->get_result();
-    //         if ($result) {
-    //             return $result->fetch_assoc()['totalRatings'];
-    //         } else {
-    //             error_log("SQL Error: " . $this->conn->error);
-    //             return 0;
-    //         }
-    //     } else {
-    //         error_log("SQL Prepare Error: " . $this->conn->error);
-    //         return 0;
-    //     }
-    // }
-
-    public function getTotalPosts($restaurantId)
+    /**
+     * Get all service providers by type
+     * 
+     * @param string $type Type of service provider
+     * @return array Array of service providers
+     */
+    public function getAllServiceProviders($type)
     {
-        $sql = "SELECT COUNT(*) AS totalPosts 
-                FROM restaurantpost  
-                WHERE RestaurantID = ?";
-
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("i", $restaurantId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result) {
-                return $result->fetch_assoc()['totalPosts'];
-            } else {
-                error_log("SQL Error: " . $this->conn->error);
-                return 0;
-            }
-        } else {
-            error_log("SQL Prepare Error: " . $this->conn->error);
-            return 0;
+        $query = "";
+        switch ($type) {
+            case 'Hotel':
+                $query = "SELECT h.HotelID as ID, h.Name, h.Address, h.ContactNo as Phone, h.Email, h.Website, h.Description 
+                         FROM hotel h";
+                break;
+            case 'Restaurant':
+                $query = "SELECT r.RestaurantID as ID, r.Name, r.Address, r.ContactNo as Phone, r.Email, r.Website, r.Description 
+                         FROM restaurant r 
+                         WHERE r.RestaurantID != ?";
+                break;
+            case 'CulturalEvent':
+                $query = "SELECT c.OrganizerID as ID, c.Name, c.Address, c.ContactNo as Phone, c.Email, '' as Website, '' as Description 
+                         FROM culturaleventorganizer c";
+                break;
+            case 'HeritageMarket':
+                $query = "SELECT h.ShopID as ID, h.Name, h.Address, h.ContactNo as Phone, h.Email, '' as Website, h.Description 
+                         FROM heritagemarket h";
+                break;
         }
+
+        if (!empty($query)) {
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
+                return [];
+            }
+            
+            // Only bind session restaurant ID for restaurant query to exclude current restaurant
+            if ($type == 'Restaurant') {
+                $stmt->bind_param("i", $_SESSION['RestaurantID']);
+            }
+            
+            $result = $stmt->execute();
+            if (!$result) {
+                error_log("SQL Execute Error: " . $stmt->error);
+                return [];
+            }
+            
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        
+        return [];
     }
 
-    public function bookingWithoutTableNo($restaurantId)
+    /**
+     * Create a new package
+     */
+    public function createPackage($name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId)
     {
-        $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND (TableNumber IS NULL OR TableNumber = 0)";
+        $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $restaurantId);
+        if (!$stmt) {
+            error_log("SQL Error in createPackage: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
+        
+        if (!$stmt->execute()) {
+            error_log("SQL Execute Error in createPackage: " . $stmt->error);
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Upload package image and return the path
+     */
+    public function uploadPackageImage($file) 
+    {
+        // Get temp image path
+        $tempImgPath = $file['tmp_name'];
+        
+        if (empty($tempImgPath)) {
+            return null;
+        }
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $file['name'];
+
+        // Get the file extension
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = 'package_' . uniqid() . '.' . $extension;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/package/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/package/' . $newFileName;
+
+        return $moving ? $imgPath : null;
+    }
+
+    /**
+     * Get all packages created by a specific restaurant
+     */
+    public function getPackages($restaurantId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE 
+                    (p.Owner = 'restaurant' AND p.RestaurantID = ?) OR
+                    (p.Owner != 'restaurant' AND (
+                        p.HotelID IS NOT NULL OR 
+                        p.ShopID IS NOT NULL OR 
+                        p.EventID IS NOT NULL
+                    ))
+                ORDER BY p.StartDate DESC";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackages: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $restaurantId);
         $stmt->execute();
         $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
+    /**
+     * Get a single package by ID
+     */
+    public function getPackage($packageId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE p.PackageID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackage: " . $this->conn->error);
+            return null;
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+
+    /**
+     * Delete a package by ID
+     */
+    public function deletePackage($packageId, $restaurantId)
+    {
+        // Before deleting the package, delete related records from PackageCustomer
+        $sql = "DELETE FROM PackageCustomer WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $packageId);
+            $stmt->execute();
+        }
+        
+        // Now delete the package
+        $sql = "DELETE FROM Package WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("SQL Error in deletePackage: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        return $stmt->execute();
+    }
+
+    /**
+     * Get all travelers who have used a specific package
+     */
+    public function getPackageUsers($packageId)
+    {
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath 
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                WHERE pc.PackageID = ?
+                ORDER BY t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackageUsers: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Get all users across all packages for this restaurant
+     */
+    public function getAllPackageUsers($restaurantId)
+    {
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath, p.Name as PackageName
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                JOIN Package p ON pc.PackageID = p.PackageID
+                WHERE p.RestaurantID = ? OR (p.Owner != 'restaurant' AND (
+                    p.HotelID IS NOT NULL OR 
+                    p.ShopID IS NOT NULL OR 
+                    p.EventID IS NOT NULL
+                ))
+                ORDER BY p.Name, t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $restaurantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
