@@ -26,10 +26,14 @@
                             <span class="price"><?= number_format($package['Discount'], 2) ?>% OFF</span>
                         </div>
                         <div class="date-range"><strong>Valid:</strong> <?= $package['StartDate'] ?> - <?= $package['EndDate'] ?></div>
-                        <div class="button-group">
-                            <button type="button" name="action" value="verify" class="btn-action confirm-btn">Verify</button>
-                            <button type="button" name="action" value="reject" class="btn-action cancel-btn">Reject</button>
-                        </div>
+                        <form method="post" action="../admin/verifyPackage">
+                            <input type="hidden" name="package_id" value="<?= $package['PackageID'] ?>">
+                            <div class="button-group">
+                                <button type="button" name="action" value="verify" class="btn-action verify-btn">Verify</button>
+                                <button type="button" name="action" value="reject" class="btn-action reject-btn">Reject</button>
+                                <input type="hidden" name="action" value="">
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -63,7 +67,7 @@
 </div>
 
 <dialog id="openDialog-verify">
-    <p>Are you sure do you want to verify this user?</p>
+    <p>Are you sure do you want to verify this package?</p>
     <div class="dialog-buttons">
         <button id="confirm-verify" class="confirm-btn">Yes</button>
         <button id="cancel-verify" class="cancel-btn">No</button>
@@ -71,7 +75,7 @@
 </dialog>
 
 <dialog id="openDialog-reject">
-    <p>Are you sure do you want to reject this user?</p>
+    <p>Are you sure do you want to reject this package?</p>
     <div class="dialog-buttons">
         <button id="confirm-reject" class="confirm-btn">Yes</button>
         <button id="cancel-reject" class="cancel-btn">No</button>
@@ -193,19 +197,19 @@
         border: none;
     }
 
-    .confirm-btn {
+    .verify-btn {
         background-color: #6fa857;
     }
 
-    .cancel-btn {
+    .reject-btn {
         background-color: #d9534f;
     }
 
-    .confirm-btn:hover {
+    .verify-btn:hover {
         background-color: #225522;
     }
 
-    .cancel-btn:hover {
+    .reject-btn:hover {
         background-color: #c9302c;
     }
 

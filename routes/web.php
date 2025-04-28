@@ -53,6 +53,7 @@ $router->add('admin/waiting', 'AdminController@waiting');  // Admin waiting page
 $router->add('admin/dashboard', 'AdminController@dashboard');  // Admin dashboard
 $router->add('admin/update', 'AdminController@updateProfile');  // Admin update profile process
 $router->add('admin/verifyUser', 'AdminController@verifyUser');  // Admin user verify & reject process
+$router->add('admin/verifyPackage', 'AdminController@verifyPackage');  // Admin package verify & reject process
 $router->add('admin/changepassword', 'AdminController@changePassword');  // Admin change password process
 $router->add('admin/logout', 'AdminController@logout');  // Admin logout
 

@@ -222,4 +222,24 @@ class AdminModel
         $packages = $result->fetch_all(MYSQLI_ASSOC);
         return $packages;
     }
+
+    public function verifyPackage($packageID)
+    {
+        $sql = "UPDATE Package SET IsVerified = 1 WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $packageID);
+        $stmt->execute();
+
+        return true;
+    }
+
+    public function rejectPackage($packageID)
+    {
+        $sql = "DELETE FROM Package WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $packageID);
+        $stmt->execute();
+
+        return true;
+    }
 }
