@@ -39,6 +39,7 @@ $longitude = $_SESSION['longitude'] ?? null;
                 </nav> -->
                 <section aria-labelledby="top-attractions-heading">
                     <h2 id="top-attractions-heading">Nearest places</h2>
+                    <p style="font-style: italic; color: gray;">Note: Distances are calculated as the crow flies and differ from actual travel distances.</p>
                     <ul class="attractions-list">
                         <?php foreach ($places as $place) : ?>
                             <li>
