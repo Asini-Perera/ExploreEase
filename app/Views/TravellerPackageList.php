@@ -28,8 +28,11 @@
         <li>🛍️ Dambulla Heritage Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 35,000</span>
+        <span class="price">Active</span>
         <span class="location">Sigiriya, Dambulla</span>
+      </div>
+       <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Sep 30, 2025</div>
       <div class="terms"><small>* 7-day free cancellation</small></div>
@@ -51,8 +54,11 @@
         <li>🛍️ Local Handicraft Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 28,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Ella</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 20% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> Jun 1 - Oct 31, 2025</div>
       <div class="terms"><small>* 5-day free cancellation</small></div>
@@ -74,8 +80,11 @@
         <li>🛍️ Galle Fort Bazaar</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 40,500</span>
+        <span class="price">Active</span>
         <span class="location">Galle</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 15 - Dec 15, 2025</div>
       <div class="terms"><small>* Full refund before 10 days</small></div>
@@ -97,8 +106,11 @@
         <li>🛍️ Local Fresh Market Visit</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 38,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Nuwara Eliya</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Aug 31, 2025</div>
       <div class="terms"><small>* Cancellation within 5 days</small></div>
@@ -120,8 +132,11 @@
         <li>🛍️ Eco Craft Store</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 45,000</span>
+        <span class="price">Active</span>
         <span class="location">Yala</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Nov 30, 2025</div>
       <div class="terms"><small>* 10-day cancellation window</small></div>
@@ -143,8 +158,11 @@
         <li>🛍️ Kandy Handloom Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 32,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Kandy</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* 7-day cancellation</small></div>
@@ -166,8 +184,11 @@
         <li>🛍️ Coastal Boutique Shopping</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 50,000</span>
+        <span class="price">Active</span>
         <span class="location">Bentota</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 20% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* 10% early booking discount</small></div>
@@ -189,8 +210,11 @@
         <li>🛍️ Nilaveli Beach Market</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 42,000</span>
+        <span class="price">Upcoming</span>
         <span class="location">Trincomalee</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 10% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Oct 31, 2025</div>
       <div class="terms"><small>* 7-day cancellation</small></div>
@@ -213,8 +237,11 @@
         <li>🛍️ ODEL & One Galle Face Mall</li>
       </ul>
       <div class="price-location">
-        <span class="price">LKR 48,000</span>
+        <span class="price">Active</span>
         <span class="location">Colombo</span>
+      </div>
+      <div class="discount-status">
+        <div class="discount">💸 15% Off on your bills</div>
       </div>
       <div class="date-range"><strong>Valid:</strong> May 1 - Dec 31, 2025</div>
       <div class="terms"><small>* No refund after 7 days</small></div>

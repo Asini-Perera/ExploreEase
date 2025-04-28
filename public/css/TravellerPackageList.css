@@ -130,3 +130,28 @@ body {
     font-size: 14px;
     color: #777;
 }
+
+.discount-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.discount {
+    background: linear-gradient(135deg, #f9e79f, #f7dc6f);
+    color: #355e3b;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.discount:hover {
+    background: linear-gradient(135deg, #f7dc6f, #f9e79f);
+    transform: scale(1.05);
+}
