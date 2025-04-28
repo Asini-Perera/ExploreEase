@@ -54,33 +54,33 @@ class HomeModel
         $sql = "
         (SELECT h.HotelID AS ID, h.Name, h.Tagline, h.Description, h.Latitude, h.Longitude,
                'hotel' AS type,
-               (6371 * acos(cos(radians(?)) * cos(radians(h.Latitude)) * cos(radians(h.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(h.Latitude)))) AS distance
+               ROUND((6371 * acos(cos(radians(?)) * cos(radians(h.Latitude)) * cos(radians(h.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(h.Latitude)))), 2) AS Distance
         FROM hotel h
         INNER JOIN hotelkeyword hk ON h.HotelID = hk.HotelID
         WHERE (hk.KeywordID IN ($placeholders) AND hk.IsVerified = 1 AND h.IsVerified = 1)
-        HAVING distance < 100)
+        HAVING Distance < 100)
 
         UNION
 
         (SELECT r.RestaurantID AS ID, r.Name, r.Tagline, r.Description, r.Latitude, r.Longitude,
                'restaurant' AS type,
-               (6371 * acos(cos(radians(?)) * cos(radians(r.Latitude)) * cos(radians(r.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(r.Latitude)))) AS distance
+               ROUND((6371 * acos(cos(radians(?)) * cos(radians(r.Latitude)) * cos(radians(r.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(r.Latitude)))), 2) AS Distance
         FROM restaurant r
         INNER JOIN restaurantkeyword rk ON r.RestaurantID = rk.RestaurantID
         WHERE (rk.KeywordID IN ($placeholders) AND rk.IsVerified = 1 AND r.IsVerified = 1)
-        HAVING distance < 100)
+        HAVING Distance < 100)
 
         UNION
 
         (SELECT s.ShopID AS ID, s.Name, s.Tagline, s.Description, s.Latitude, s.Longitude,
                'heritagemarket' AS type,
-               (6371 * acos(cos(radians(?)) * cos(radians(s.Latitude)) * cos(radians(s.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(s.Latitude)))) AS distance
+               ROUND((6371 * acos(cos(radians(?)) * cos(radians(s.Latitude)) * cos(radians(s.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(s.Latitude)))), 2) AS Distance
         FROM heritagemarket s
         INNER JOIN heritagemarketkeyword sk ON s.ShopID = sk.ShopID
         WHERE (sk.KeywordID IN ($placeholders) AND sk.IsVerified = 1 AND s.IsVerified = 1)
-        HAVING distance < 100)
+        HAVING Distance < 100)
 
-        ORDER BY distance ASC
+        ORDER BY Distance ASC
         ";
 
         $stmt = $this->conn->prepare($sql);
