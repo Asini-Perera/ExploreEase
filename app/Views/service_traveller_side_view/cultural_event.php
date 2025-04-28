@@ -91,7 +91,7 @@
 
     </section>
 
-    <!-- <section class="info" id="info">
+    <section class="info" id="info">
         <div class="info-slider">
             <div class="info-list">
                 <div class="slide">
@@ -143,9 +143,9 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
-    <!-- <section class="memories" id="memories">
+    <section class="memories" id="memories">
         <div class="title">
             <h2 class="title-text">Our Memories</h2>
         </div>
@@ -169,7 +169,7 @@
                 <p class="memory-description">This unforgettable evening exemplified the unity and beauty of heritage through the vibrant art of Traditional Dancing.</p>
             </div>
         </div>
-    </section> -->
+    </section>
 
 
     <!-- bookings -->
