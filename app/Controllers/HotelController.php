@@ -32,9 +32,10 @@ class HotelController
                 return; // Stop execution after processing
             }
 
-            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews'];
+            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews', 'packages'];
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
+            // Add handling for packages page
             if ($mainContent == 'dashboard') {
                 $hotelModel = new HotelModel($this->conn);
 
@@ -182,6 +183,12 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
+            } elseif ($mainContent == 'packages') {
+                $hotelModel = new HotelModel($this->conn);
+                $hotels = $hotelModel->getAllServiceProviders('Hotel');
+                $restaurants = $hotelModel->getAllServiceProviders('Restaurant');
+                $culturalEvents = $hotelModel->getAllServiceProviders('CulturalEvent');
+                $heritageMarkets = $hotelModel->getAllServiceProviders('HeritageMarket');
             } else {
                 $verifiedAction = null;
             }

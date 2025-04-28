@@ -570,4 +570,59 @@ class HotelModel
         $stmt->bind_param('iiiss', $hotelID, $travelerID, $rating, $review, $date);
         return $stmt->execute();
     }
+
+    /**
+     * Get all service providers by type
+     * 
+     * @param string $type Type of service provider
+     * @return array Array of service providers
+     */
+    public function getAllServiceProviders($type)
+    {
+        $query = "";
+        switch ($type) {
+            case 'Hotel':
+                $query = "SELECT h.HotelID, h.Name as HotelName, h.Address, h.ContactNo as Phone, h.Email, h.Website, h.Description 
+                         FROM hotel h 
+                         WHERE h.HotelID != ?";
+                break;
+            case 'Restaurant':
+                $query = "SELECT r.RestaurantID as ID, r.Name, r.Address, r.ContactNo as Phone, r.Email, '' as Website, r.Description 
+                         FROM restaurant r";
+                break;
+            case 'CulturalEvent':
+                $query = "SELECT c.OrganizerID as ID, c.Name, c.Address, c.ContactNo as Phone, c.Email, '' as Website, '' as Description 
+                         FROM culturaleventorganizer c";
+                break;
+            case 'HeritageMarket':
+                $query = "SELECT h.ShopID as ID, h.Name, h.Address, h.ContactNo as Phone, h.Email, '' as Website, h.Description 
+                         FROM heritagemarket h";
+                break;
+        }
+
+        if (!empty($query)) {
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
+                return [];
+            }
+            
+            // Only bind session hotel ID for hotel query to exclude current hotel
+            if ($type == 'Hotel') {
+                $stmt->bind_param("i", $_SESSION['HotelID']);
+            }
+            
+            $result = $stmt->execute();
+            if (!$result) {
+                error_log("SQL Execute Error: " . $stmt->error);
+                return [];
+            }
+            
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        
+        return [];
+    }
 }
