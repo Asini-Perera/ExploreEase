@@ -35,10 +35,9 @@ class CulturalEventOrganizerController
                 $TotalEvents = $eventModel->getTotalEvents($_SESSION['OrganizerID']);
                 $TotalPosts = $eventModel->getTotalPosts($_SESSION['OrganizerID']);
                 $TotalRatings = $eventModel->getTotalRatings($_SESSION['OrganizerID']);
-                $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
-                $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
-            }
-            else if ($mainContent == 'profile') {
+                // $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
+                // $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
+            } else if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
@@ -46,13 +45,12 @@ class CulturalEventOrganizerController
                     $verifiedAction = 'change-password';
                 }
             } elseif ($mainContent == 'event') {
-                $events = $this->viewEvent();
+                // $events = $this->viewEvent();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'add') {
                     $verifiedAction = 'add';
                 } elseif ($action == 'edit') {
                     $verifiedAction = 'edit';
-
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deleteEvent();
@@ -70,7 +68,6 @@ class CulturalEventOrganizerController
                     $postID = isset($_GET['id']) ? $_GET['id'] : null;
                     $organizerModel = new CulturalEventOrganizerModel($this->conn);
                     $postItem = $organizerModel->getPostItem($postID);
-
                 } elseif ($action == 'delete') {
                     $verifiedAction = null;
                     $this->deletePost();
@@ -82,13 +79,13 @@ class CulturalEventOrganizerController
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {
                     $verifiedAction = 'edit';
-                    
+
                     // Fetch booking details when editing
                     if (isset($_GET['id'])) {
                         $bookingID = $_GET['id'];
                         $eventModel = new CulturalEventOrganizerModel($this->conn);
                         $booking = $eventModel->getBookingById($bookingID);
-                        
+
                         if ($booking) {
                             // Store booking details in session for the edit form
                             $_SESSION['BookingID'] = $booking['BookingID'];
@@ -98,7 +95,7 @@ class CulturalEventOrganizerController
                             $_SESSION['EventID'] = $booking['EventID'];
                             $_SESSION['TravelerID'] = $booking['TravelerID'];
                             $_SESSION['Amount'] = $booking['Amount'] ?? 0;
-                            
+
                             // Get traveler details
                             $traveler = $eventModel->getTravelerById($booking['TravelerID']);
                             if ($traveler) {
@@ -106,7 +103,7 @@ class CulturalEventOrganizerController
                             } else {
                                 $_SESSION['TravelerName'] = 'Unknown';
                             }
-                            
+
                             // Fetch all events for this organizer to populate the dropdown
                             $_SESSION['AvailableEvents'] = $eventModel->getAllEvents($_SESSION['OrganizerID']);
                         }
@@ -114,7 +111,7 @@ class CulturalEventOrganizerController
                 } else {
                     $verifiedAction = null;
                 }
-            }elseif ($mainContent == 'reviews') {
+            } elseif ($mainContent == 'reviews') {
                 $eventModel = new CulturalEventOrganizerModel($this->conn);
                 $reviews = $eventModel->getReviews($_SESSION['OrganizerID']);
                 if (isset($_GET['action']) && $_GET['action'] == 'reply') {
@@ -220,17 +217,20 @@ class CulturalEventOrganizerController
         }
     }
 
+
+   
+
     public function addEvent()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Log the beginning of the event addition process
                 error_log("Starting event addition process");
-                
+
                 // Check if form data is available
                 error_log("POST data: " . print_r($_POST, true));
                 error_log("FILES data: " . print_r($_FILES, true));
-                
+
                 $title = $_POST['title'] ?? '';
                 $address = $_POST['address'] ?? '';
                 $date = $_POST['date'] ?? '';
@@ -242,28 +242,28 @@ class CulturalEventOrganizerController
                 $status = $_POST['status'] ?? '';
                 $image = isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK ? $_FILES['image'] : null;
                 $organizerID = $_SESSION['OrganizerID'] ?? 0;
-                
+
                 // Basic validation
                 if (empty($title) || empty($address) || empty($date) || empty($organizerID)) {
                     error_log("Event addition failed: Missing required fields");
                     header('Location: dashboard?page=event&error=missing_fields');
                     exit();
                 }
-                
+
                 // Log the data being used
                 error_log("Event data: Title=$title, Address=$address, Date=$date, OrganizerID=$organizerID");
-                
+
                 $eventModel = new CulturalEventOrganizerModel($this->conn);
                 $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
-                
+
                 if (!$eventID) {
                     error_log("Failed to add event to database");
                     header('Location: dashboard?page=event&error=db_error');
                     exit();
                 }
-                
+
                 error_log("Event added successfully with ID: $eventID");
-                
+
                 // If image is uploaded, set the image path
                 if ($eventID && $image) {
                     $result = $eventModel->setEventImage($eventID, $image);
@@ -273,7 +273,7 @@ class CulturalEventOrganizerController
                         error_log("Failed to add image for event ID: $eventID");
                     }
                 }
-                
+
                 // Redirect with success parameter
                 header('Location: dashboard?page=event&success=added');
                 exit();
@@ -296,7 +296,7 @@ class CulturalEventOrganizerController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Log the form data for debugging
             error_log("Update Event POST data: " . print_r($_POST, true));
-            
+
             // Get form data
             $eventID = $_POST['event_id'];
             $title = $_POST['title'];
@@ -310,15 +310,15 @@ class CulturalEventOrganizerController
             $capacity = isset($_POST['capacity']) ? (int)$_POST['capacity'] : 0;
             $status = isset($_POST['status']) ? $_POST['status'] : 'Active';
             $organizerID = $_SESSION['OrganizerID'];
-            
+
             // Handle image upload if provided
             $image = isset($_FILES['image']) && $_FILES['image']['name'] ? $_FILES['image'] : null;
 
 
             // Validate event belongs to this organizer
             $eventModel = new CulturalEventOrganizerModel($this->conn);
-            $eventData = $eventModel->getEvent($eventID);
-            
+            // $eventData = $eventModel->getEvent($eventID);
+
             if (empty($eventData) || $eventData[0]['OrganizerID'] != $organizerID) {
                 $_SESSION['error'] = "You don't have permission to edit this event";
                 header('Location: ../culturaleventorganizer/dashboard?page=event');
@@ -342,7 +342,7 @@ class CulturalEventOrganizerController
             } else {
                 $_SESSION['error'] = "Failed to update event";
             }
-            
+
             header('Location: ../culturaleventorganizer/dashboard?page=event');
             exit();
         } else {
@@ -351,15 +351,15 @@ class CulturalEventOrganizerController
             exit();
         }
     }
-    
+
 
 
     public function viewEvent()
     {
         $organizerModel = new CulturalEventOrganizerModel($this->conn);
-        $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
+        // $events = $organizerModel->getEvent($_SESSION['OrganizerID']);
 
-        return $events;
+        // return $events;
     }
 
 
@@ -384,14 +384,13 @@ class CulturalEventOrganizerController
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
 
-            
+
             // Get individual social media links
             $facebookLink = $_POST['facebook_link'] ?? '';
             $instagramLink = $_POST['instagram_link'] ?? '';
             $tiktokLink = $_POST['tiktok_link'] ?? '';
             $youtubeLink = $_POST['youtube_link'] ?? '';
             
-
 
             $profileImage = isset($_FILES['profile_image']) ? $_FILES['profile_image'] : null;
 
@@ -400,7 +399,7 @@ class CulturalEventOrganizerController
             if ($email !== $currentEmail) {
                 $signupModel = new SignupModel($this->conn);
                 $user = $signupModel->getUserByEmail($email);
-                
+
                 // Email exists and belongs to someone else
                 if ($user) {
                     header('Location: ../culturaleventorganizer/dashboard?page=profile&action=edit&error=email-exists');
@@ -411,11 +410,11 @@ class CulturalEventOrganizerController
             $organizerModel = new CulturalEventOrganizerModel($this->conn);
 
             $organizerModel->updateOrganizer(
-                $organizerID, 
-                $name, 
-                $email, 
-                $contactNo, 
-                $description, 
+                $organizerID,
+                $name,
+                $email,
+                $contactNo,
+                $description,
                 $facebookLink,
                 $instagramLink,
                 $tiktokLink,
@@ -433,7 +432,7 @@ class CulturalEventOrganizerController
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
             $_SESSION['FacebookLink'] = $facebookLink;
-            $_SESSION['InstagramLink'] = $gramLink;
+            $_SESSION['InstagramLink'] = $instagramLink;
             $_SESSION['TikTokLink'] = $tiktokLink;
             $_SESSION['YouTubeLink'] = $youtubeLink;
             $_SESSION['ProfileImage'] = $organizerModel->getImgPath($organizerID);
@@ -476,7 +475,7 @@ class CulturalEventOrganizerController
             // Debug information - log what we're receiving
             error_log("POST data: " . print_r($_POST, true));
             error_log("FILES data: " . print_r($_FILES, true));
-            
+
             // Check if all required fields are provided
             if (empty($_POST['title']) || empty($_POST['description'])) {
                 $_SESSION['error'] = "Title and description are required!";
@@ -504,7 +503,7 @@ class CulturalEventOrganizerController
                 // Log what we're trying to do
                 error_log("Attempting to set post image for post ID: $postID");
                 $result = $organizerModel->setPostImagePath($postID, $image);
-                
+
                 if (!$result) {
                     error_log("Failed to set image path for post ID: $postID");
                     $_SESSION['error'] = "Post was added but image upload failed. Please try editing the post to add an image.";
@@ -530,7 +529,7 @@ class CulturalEventOrganizerController
 
         return $posts;
     }
-    
+
     public function updatePost()
     {
         // Check if user is logged in
@@ -615,14 +614,14 @@ class CulturalEventOrganizerController
     {
         if (isset($_SESSION['OrganizerID'])) {
             $bookings = $this->viewBookings();
-            
+
             // Debug the bookings data structure
             if (!empty($bookings)) {
                 error_log("Booking sample: " . print_r($bookings[0], true));
             } else {
                 error_log("No bookings found for organizer ID: " . $_SESSION['OrganizerID']);
             }
-            
+
             require_once __DIR__ . '/../Views/culturaleventorganizer_dashboard/bookings.php';
         } else {
             header('Location: ../login');
@@ -634,7 +633,7 @@ class CulturalEventOrganizerController
     {
         $eventModel = new CulturalEventOrganizerModel($this->conn);
         $bookings = $eventModel->getBookings($_SESSION['OrganizerID']);
-        
+
         return $bookings;
     }
 
@@ -648,7 +647,7 @@ class CulturalEventOrganizerController
             $status = isset($_POST['status']) ? $_POST['status'] : 'Pending';
             $eventID = isset($_POST['eventID']) ? (int)$_POST['eventID'] : 0;
             $travelerID = isset($_POST['travelerID']) ? (int)$_POST['travelerID'] : 0;
-            
+
             // Better amount handling - treat empty strings as null
             $amount = null;
             if (isset($_POST['amount']) && $_POST['amount'] !== '') {
@@ -658,7 +657,7 @@ class CulturalEventOrganizerController
                     $amount = null;
                 }
             }
-            
+
             // Log the booking data for debugging
             error_log("Updating booking ID: $bookingID with data: " . json_encode([
                 'date' => $date,
@@ -668,16 +667,16 @@ class CulturalEventOrganizerController
                 'travelerID' => $travelerID,
                 'amount' => $amount
             ]));
-            
+
             // Basic validation
             if (!$bookingID || !$date || !$eventID) {
                 $_SESSION['error'] = "Missing required booking information";
                 header('Location: ../culturaleventorganizer/dashboard?page=bookings');
                 exit();
             }
-            
+
             $eventModel = new CulturalEventOrganizerModel($this->conn);
-            
+
             // Validate ownership - essential security check
             $isValid = $eventModel->validateBookingOwnership($bookingID, $_SESSION['OrganizerID']);
             if (!$isValid) {
@@ -685,16 +684,16 @@ class CulturalEventOrganizerController
                 header('Location: ../culturaleventorganizer/dashboard?page=bookings');
                 exit();
             }
-            
+
             // Perform the update
             $success = $eventModel->updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount);
-            
+
             if ($success) {
                 $_SESSION['success'] = "Booking updated successfully!";
             } else {
                 $_SESSION['error'] = "Failed to update booking. Please try again.";
             }
-            
+
             // Clear all session variables related to booking editing
             unset($_SESSION['BookingID']);
             unset($_SESSION['Date']);
@@ -705,7 +704,7 @@ class CulturalEventOrganizerController
             unset($_SESSION['TravelerName']);
             unset($_SESSION['Amount']);
             unset($_SESSION['AvailableEvents']);
-            
+
             header('Location: ../culturaleventorganizer/dashboard?page=bookings');
             exit();
         } else {
@@ -713,7 +712,7 @@ class CulturalEventOrganizerController
             exit();
         }
     }
-    
+
     public function reviewResponse()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -722,13 +721,13 @@ class CulturalEventOrganizerController
 
             $eventModel = new CulturalEventOrganizerModel($this->conn);
             $success = $eventModel->addReviewResponse($reviewID, $response);
-            
+
             if ($success) {
                 $_SESSION['success'] = "Response submitted successfully!";
             } else {
                 $_SESSION['error'] = "Failed to submit response. Please try again.";
             }
-            
+
             header('Location: ../culturaleventorganizer/dashboard?page=reviews');
             exit();
         }

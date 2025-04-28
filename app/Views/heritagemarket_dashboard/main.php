@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <?php include_once __DIR__ . '/../alert.php'; ?>
+
     <!-- Header -->
     <?php include_once __DIR__ . '/header.php'; ?>
 

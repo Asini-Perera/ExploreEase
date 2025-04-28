@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <?php include_once __DIR__ . '/../alert.php'; ?>
+
     <!-- Header -->
     <?php include_once __DIR__ . '/header.php'; ?>
 
@@ -31,13 +33,19 @@
                 require_once __DIR__ . "/$verifiedAction" . "_post.php";
             } elseif ($mainContent == 'bookings' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_bookings.php";
-            }elseif ($mainContent == 'booking_list' && $verifiedAction != null) {
+            } elseif ($mainContent == 'booking_list' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_booking_list.php";
+<<<<<<< HEAD
             } elseif ($mainContent == 'reviews' && $verifiedAction != null) {
                 require_once __DIR__ . "/$verifiedAction" . "_reviews.php";
             } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
                 require_once __DIR__ . '/add_package.php';
             } else {
+=======
+            }elseif ($mainContent == 'images' && $verifiedAction != null) {
+                require_once __DIR__ . "/$verifiedAction" . "_images.php";
+            }  else {
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
                 require_once __DIR__ . "/$mainContent.php";
             }
             ?>

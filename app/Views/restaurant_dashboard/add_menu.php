@@ -2,9 +2,9 @@
 
 <div class="form-content">
     <h1>Menu Items</h1>
-    
+
     <form method="post" action="../restaurant/addMenu" enctype="multipart/form-data">
-        <input type="hidden" name="menuID" value="<?= htmlspecialchars($menuItem['$MenuID']) ?>">
+
 
         <div class="form-group">
             <label for="title">Food Name:</label>
@@ -28,15 +28,15 @@
         <div class="form-group">
             <label for="image">Image:</label>
             <input type="file" id="menu-image" name="menu-image" accept="image/*">
-            </div>
+        </div>
 
         <div class="form-group">
             <label for="popular-dish">Is this popular dish:</label>
-            <input type="radio" name="popular-dish" class="popular_food"  value="1"> Yes
+            <input type="radio" name="popular-dish" class="popular_food" value="1"> Yes
             <input type="radio" name="popular-dish" class="not_popular" value="0" default> No
         </div>
 
-        <button type="submit" name="add_manu" class="menu_btn">Add Menu</button>
+        <button type="submit" name="add_menu" class="menu_btn">Add Menu</button>
 
 
     </form>

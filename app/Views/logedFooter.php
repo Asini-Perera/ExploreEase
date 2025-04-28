@@ -1,5 +1,5 @@
 <!-- footer.php -->
-  <link rel="stylesheet" href="public/css/logedFooter.css?v=1">
+  <link rel="stylesheet" href="/ExploreEase/public/css/logedFooter.css?v=1">
 
 
 <footer>

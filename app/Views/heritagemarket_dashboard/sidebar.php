@@ -31,9 +31,25 @@
         </li>
         
         <li>
+<<<<<<< HEAD
             <a href="../logout">
                 <i class="fa-solid fa-sign-out-alt"></i>Logout
             </a>
+=======
+            <a href="?page=product" class="<?= $mainContent == 'product' ? 'active' : '' ?>"><i class="fa-solid fa-shopping-basket"></i>Products</a>
+        </li>
+
+        <li>
+            <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>"><i class="fa-solid fa-star"></i>Reviews</a>
+        </li>
+
+        <li>
+            <a href="?page=images" class="<?= $mainContent == 'images' ? 'active' : '' ?>"><i class="fa-solid fa-images"></i>Images</a>
+        </li>
+        
+        <li>
+            <a href="../logout"><i class="fa-solid fa-sign-out-alt"></i>Logout</a>
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
         </li>
     </ul>
 </div>

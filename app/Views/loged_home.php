@@ -6,43 +6,16 @@
         <title>Home page</title>
         <link rel="stylesheet" type="text/css" href="public/css/home.css">
         <link rel="stylesheet" type="text/css" href="public/css/footer.css">
-        <link rel="stylesheet" type="text/css" href="public/css/usermenue.css">
-        <script src="public/js/usermenue.js"></script>
+       
+     
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
     </head>
 
     <header>
-        <div class="navigation">
-        <div class="wrapper">
-            <nav class="navbar">
-                <img class="logo" src="public/images/logo.png" >
-                <ul class="nav-list">
-    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-    <li class="nav-item"><a href="#services-features" class="nav-link">Services</a></li>
-    <li class="nav-item"><a href="#about-us" class="nav-link">About Us</a></li>
-    <li class="nav-item"><a href="/contactus" class="nav-link">Contact Us</a></li>
-
-    <li class="nav-item user-menu-container">
-    <a href="#" class="user-link" id="user-icon-link">
-        <img src="public/images/user-icon-vector-png-6.png" alt="User Icon" class="user-icon" />
-    </a>
-    <div class="dropdown-menu" id="user-dropdown">
-        <a href="/dashboard">Dashboard</a>
-        <a href="/ExploreEase">Logout</a>
-    </div>
-</li>
-
-</ul>
-
-                
-            </nav>
-        </div>
-
-                </nav>
-            </div>
-
+        
+             <?php require_once __DIR__ . "/loggedNavbar.php"; ?>
             <!-- home-main -->
             <div class="main">
                 <div class="welcome-container">

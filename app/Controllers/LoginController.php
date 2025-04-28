@@ -121,8 +121,6 @@ class LoginController
                         $_SESSION['Name'] = $user['Name'];
                         $_SESSION['ContactNo'] = $user['ContactNo'];
                         $_SESSION['Description'] = $user['Description'];
-                        $_SESSION['WeekdayOpenHours'] = $user['WeekdayOpenHours'];
-                        $_SESSION['WeekendOpenHours'] = $user['WeekendOpenHours'];
                         $_SESSION['FacebookLink'] = $user['FacebookLink'];
                         $_SESSION['InstagramLink'] = $user['InstagramLink'];
                         $_SESSION['TikTokLink'] = $user['TikTokLink'];

@@ -121,4 +121,13 @@ class HomeModel
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function getHeritageMarketById($id)
+    {
+        $sql = "SELECT * FROM heritagemarket WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }

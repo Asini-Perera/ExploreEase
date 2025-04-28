@@ -24,6 +24,7 @@ class HeritageMarketController
     {
         if (isset($_SESSION['ShopID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard'; // Default page is dashboard
+<<<<<<< HEAD
             $action = isset($_GET['action']) ? $_GET['action'] : null;
             
             // Check if this is a package creation action (form submission)
@@ -33,6 +34,9 @@ class HeritageMarketController
             }
             
             $allowed_pages = ['dashboard', 'profile', 'product', 'reviews', 'packages'];
+=======
+            $allowed_pages = ['dashboard', 'profile', 'product', 'reviews','images'];
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
@@ -58,6 +62,7 @@ class HeritageMarketController
             } elseif ($mainContent == 'reviews') {
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
                 $reviews = $heritageMarketModel->getReviews($_SESSION['ShopID']);
+<<<<<<< HEAD
             } elseif ($mainContent == 'packages') {
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
                 
@@ -138,6 +143,18 @@ class HeritageMarketController
                 } else {
                     $verifiedAction = null;
                 }
+=======
+            }elseif($mainContent == 'images'){ 
+                $imagess = $this -> viewImage();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add'){
+                    $verifiedAction = 'add';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteImage();
+                } 
+
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
             }
 
             require_once __DIR__ . '/../Views/heritagemarket_dashboard/main.php';
@@ -305,6 +322,7 @@ class HeritageMarketController
         require_once __DIR__ . '/../Views/heritageMarket/products.php';
     }
 
+<<<<<<< HEAD
     public function createPackage()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -388,6 +406,47 @@ class HeritageMarketController
                 $_SESSION['error'] = "Failed to create package. Please try again.";
                 header('Location: ../heritagemarket/dashboard?page=packages&action=add');
             }
+=======
+    //images
+    public function addImage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $image = $_FILES['rest-image'];
+            $heritagemarketID = $_SESSION['ShopID'];
+
+            $heritagemarketModel = new HeritageMarketModel($this->conn);
+            $imageID = $heritagemarketModel->addImage($title, $heritagemarketID);
+
+            
+            // If image is uploaded, set the image path
+            if($imageID && $image['name']) {
+                $heritagemarketModel->setShopImgPath($imageID, $image);
+            }
+
+            header('Location: ../heritagemarket/dashboard?page=images');
+            exit();
+        }
+    }
+
+    public function viewImage()
+    {
+        $heritagemarketModel = new HeritageMarketModel($this->conn);
+        $images= $heritagemarketModel->getImage($_SESSION['ShopID']);
+
+        return $images;
+    }
+
+    public function deleteImage()
+    {
+        if (isset($_GET['id'])) {
+            $imageID = $_GET['id'];
+
+            $heritagemarketModel = new HeritageMarketModel($this->conn);
+            $heritagemarketModel->deleteImage($imageID);
+
+            header('Location: ../heritagemarket/dashboard?page=images');
+>>>>>>> cc271b72a003c69515347da7af55f09154ca5813
             exit();
         }
     }

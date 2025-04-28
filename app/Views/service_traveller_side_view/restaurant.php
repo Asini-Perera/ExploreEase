@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../Navbar.php"; ?>
+    <?php require_once __DIR__ . "/../loggedNavbar.php"; ?>
     <div class="main-container">
 
         <header>
@@ -108,24 +108,35 @@
 
 
         </section>
+
+
         <!-- Food Section -->
         <section class="food" id="food">
             <div class="food-heading">
                 <span>Popular Dishes</span>
                 <h3>Our Delicious Food</h3>
             </div>
-        
-<!-- Food Section -->
-<section class="food" id="food">
-    <div class="food-heading">
-        <span>Popular Dishes</span>
-        <h3>Our Delicious Food</h3>
-    </div>
 
             <div class="food-slider">
                 <div class="food-list">
+                    <?php if (!empty($PopularDishes)) : ?>
+                        <?php foreach ($PopularDishes as $dish) : ?>
+                            <div class="slide">
+                                <img src="<?php echo htmlspecialchars($dish['ImgPath'] ?? 'default_image.png'); ?>" alt="<?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?>" class="food-img">
+                                <div class="food-info">
+                                    <h3><?php echo htmlspecialchars($dish['FoodName'], ENT_QUOTES); ?></h3>
+                                    <div class="price">RS.<?php echo htmlspecialchars($dish['Price'], ENT_QUOTES); ?></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <div class="slide">
+                            <p>No popular dishes available.</p>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Food Item -->
-                    <div class="slide">
+                    <!-- <div class="slide">
                         <img src="../public/images/burger.jpg" alt="burger" class="food-img">
                         <div class="food-info">
                             <h3>Burger</h3>
@@ -187,7 +198,7 @@
                             <h3>Raspberry White Chocolate Mousse</h3>
                             <div class="price">RS.450.00</div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -199,7 +210,7 @@
             <div>
                 <h1 class="menu_headin">Menu</h1>
                 <p class="menu_description">Our menu is a celebration of both classic and innovative flavors, offering a variety of dishes that will captivate your taste buds and elevate your dining experience. From delicate appetizers to indulgent entrees and decadent desserts, every bite is designed to delight.</p>
-                <button class="menu_btn"><a href="http://localhost/ExploreEase/service/menu" class="full_menu-link">Discover Menu PDF</a></button>
+                <button class="menu_btn"><a href="<?php echo $restaurant['MenuPDF']; ?>" class="full_menu-link">Discover Menu PDF</a></button>
             </div>
 
             <img class="menu_img" src="../public/images/menu.jpg" alt="menu">
@@ -217,50 +228,49 @@
 
 
 
-    <div class="booking-form">
-        <form action="">
-    <h3 class="booking-heading">Book a Table</h3>
+            <div class="booking-form">
+                <form action="">
+                    <h3 class="booking-heading">Book a Table</h3>
 
-    <div class="input-group">
-        <input type="text" name="customer_name" placeholder="Your Name" class="input-field" required>
-        <input type="email" name="email" placeholder="Your Email" class="input-field" required>
-    </div>
+                    <div class="input-group">
+                        <input type="text" name="customer_name" placeholder="Your Name" class="input-field" required>
+                        <input type="email" name="email" placeholder="Your Email" class="input-field" required>
+                    </div>
 
-    <div class="input-group">
-        <input type="text" placeholder="Phone Number" class="input-field" required>
-        <input type="date" name="date_booking" placeholder="Select Date" class="input-field" required>
-    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Phone Number" class="input-field" required>
+                        <input type="date" name="date_booking" placeholder="Select Date" class="input-field" required>
+                    </div>
 
-    <div class="input-group">
-        <input type="time" name="time_booking" value="--:--" class="input-field booking-time" required>
-        <input type="number" name="no_people" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
-    </div>
-
-    
-<textarea 
-    name="special_Request"
-    placeholder="Special Requests (optional)" 
-    class="input-field textarea-field"
-    rows="4"
-></textarea>
-          
-     <input type="hidden" name="restaurant_id" value="<?= $restaurant['RestaurantID'] ?>">
-     <input type="hidden" name="traveler_id" value="<?= $_SESSION['TravelerID'] ?>">
+                    <div class="input-group">
+                        <input type="time" name="time_booking" value="--:--" class="input-field booking-time" required>
+                        <input type="number" name="no_people" min="1" max="25" placeholder="Number of Guests" class="input-field num-guests" required>
+                    </div>
 
 
-    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
-</form>
+                    <textarea
+                        name="special_Request"
+                        placeholder="Special Requests (optional)"
+                        class="input-field textarea-field"
+                        rows="4"></textarea>
+
+                    <input type="hidden" name="restaurant_id" value="<?= $restaurant['RestaurantID'] ?>">
+                    <input type="hidden" name="traveler_id" value="<?= $_SESSION['TravelerID'] ?>">
 
 
-        <!-- Popup Confirmation -->
-        <div class="popup" id="popup">
-            <div class="popup-content">
-                <h3>Thank you for booking a table with us!</h3>
-                <p>Your booking has been confirmed. We will send you your table number shortly. We look forward to welcoming you to our restaurant.</p>
-                <button id="ok" class="popup-btn" onclick="closePopup()">OK</button>
+                    <button type="submit" class="book-btn" onclick="openPopup()">Book Now</button>
+                </form>
 
 
-            </div>
+                <!-- Popup Confirmation -->
+                <div class="popup" id="popup">
+                    <div class="popup-content">
+                        <h3>Thank you for booking a table with us!</h3>
+                        <p>Your booking has been confirmed. We will send you your table number shortly. We look forward to welcoming you to our restaurant.</p>
+                        <button id="ok" class="popup-btn" onclick="closePopup()">OK</button>
+
+
+                    </div>
         </section>
 
 
