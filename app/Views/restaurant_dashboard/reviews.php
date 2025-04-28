@@ -2,7 +2,8 @@
 
 <h1>Reviews</h1>
 
-<div class="menu-container">
+<div class="reviews-container">
+
     <table>
         <thead>
             <tr>
@@ -24,25 +25,29 @@
                     <td><?= htmlspecialchars($feedback['Rating']) ?></td>
                     <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
                     <td><?= htmlspecialchars($feedback['Response']) ?></td>
-                    <td class="action-buttons">
-                        <button class="reply-btn" id="sendReply" onclick="openPopup()">Reply</button>
+                    <td class="action-buttons" onclick="openReplyDialog('<?= htmlspecialchars($feedback['Comment'], ENT_QUOTES) ?>', <?= $feedback['FeedbackID'] ?>)">
+                        <button class="reply-btn"> 
+                            Reply  
+                             
+                        </button>
                     </td>
 
-                    <div class="popup" id="popup">
-                    <div class="modal-content">
-                        <form action="../../controllers/TableBookingController.php?action=sendTableNo" method="POST" id="tableNoForm">
-                        <input type="hidden" name="review_id" id="reviewIdInput" value="<?= htmlspecialchars($feedback['FeedbackID']) ?>">
-                        <span class="close-btn">&times;</span>
+                    <dialog id="replyDialog">
+                        <form method="POST" id="replyForm" action="?page=reviews&action=reply">
+                            <p><strong>Comment </strong></p>
+                            <textarea id="originalComment" readonly></textarea>
 
-                        <h3>Add Reply</h3>
-                        
-                        <textarea placeholder="Add reply here" >
+                            <p><strong>Reply </strong></p>
+                            <textarea name="reply" class="reply" required></textarea>
 
-                        </textarea>
-                        
-                        <button type="submit" id="submitReply" onclick="closePopup()" >Ok</button>
+                            <input type="hidden" name="reviewID" id="review_id">
+
+                            <div style="margin-top: 10px; text-align: right;">
+                                <button type="submit" class="confirm-btn">Submit</button>
+                                <button type="button" class="cancel-btn" onclick="document.getElementById('replyDialog').close()">Cancel</button>
+                            </div>
                         </form>
-                    </div>
+                    </dialog>
                     </tr>
                 <?php endforeach; ?>
 
@@ -57,5 +62,14 @@
 
 
         </tbody>
-    </table>
+    </table> 
 </div>
+
+<script>
+    function openReplyDialog(comment, feedbackId) {
+        const dialog = document.getElementById('replyDialog');
+        document.getElementById('originalComment').value = comment;
+        document.getElementById('review_id').value = feedbackId;
+        dialog.showModal();
+    }
+</script>

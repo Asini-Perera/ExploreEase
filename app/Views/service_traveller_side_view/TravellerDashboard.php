@@ -88,7 +88,6 @@
             <h3>Hill Country Adventure</h3>
             <p>Ella & Nuwara Eliya - 3 Days</p>
           </div>
-
           <div class="card">
             <h3>Colombo City Escape</h3>
             <p>Colombo & Negombo - 2 Days</p>
@@ -150,6 +149,7 @@
           <a href="http://localhost/ExploreEase/travellerReview" class="btn-add">View All Reviews</a>
         <?php endif; ?>
       </section>
+
 
 
 
