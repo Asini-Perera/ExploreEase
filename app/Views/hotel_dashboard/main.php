@@ -40,8 +40,9 @@
                 require_once __DIR__ . '/edit_booking.php';
             } elseif ($mainContent == 'reviews' && $verifiedAction == 'reply') {
                 require_once __DIR__ . '/reply_review.php';            
-            } elseif ($mainContent == 'packages') {
-                require_once __DIR__ . '/packages.php';
+            } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_package.php';
+            
             } else {
                 // Check if the requested file exists
                 $file_path = __DIR__ . "/$mainContent.php";

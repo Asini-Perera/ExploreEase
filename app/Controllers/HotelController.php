@@ -189,6 +189,11 @@ class HotelController
                 $restaurants = $hotelModel->getAllServiceProviders('Restaurant');
                 $culturalEvents = $hotelModel->getAllServiceProviders('CulturalEvent');
                 $heritageMarkets = $hotelModel->getAllServiceProviders('HeritageMarket');
+                if ($action == 'add'){
+                    $verifiedAction = 'add';
+                } else {
+                    $verifiedAction = null;
+                }
             } else {
                 $verifiedAction = null;
             }

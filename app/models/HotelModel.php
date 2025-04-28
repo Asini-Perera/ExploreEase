@@ -625,4 +625,33 @@ class HotelModel
         
         return [];
     }
+
+    /**
+     * Add a new package 
+     * 
+     * @param string $title Package title
+     * @param string $description Package description
+     * @param int $serviceProviderId ID of the service provider
+     * @param string $providerType Type of provider (hotel, restaurant, etc.)
+     * @param float $discount Discount percentage
+     * @param string $validFrom Start date of validity period
+     * @param string $validTo End date of validity period
+     * @param string $remarks Additional notes
+     * @param int $hotelID ID of the hotel creating this package
+     * @return bool Success or failure
+     */
+    public function addPackage($title, $description, $serviceProviderId, $providerType, $discount, $validFrom, $validTo, $remarks, $hotelID)
+    {
+        $sql = "INSERT INTO packages (Title, Description, ServiceProviderID, ProviderType, Discount, ValidFrom, ValidTo, Remarks, CreatedBy) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in addPackage: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param('ssisssssi', $title, $description, $serviceProviderId, $providerType, $discount, $validFrom, $validTo, $remarks, $hotelID);
+        return $stmt->execute();
+    }
 }
