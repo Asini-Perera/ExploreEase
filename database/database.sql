@@ -653,8 +653,7 @@ ALTER TABLE
     DROP COLUMN TikTokLink,
     DROP COLUMN YoutubeLink;
 
-
-    -- Add Package Table
+-- Add Package Table
 CREATE TABLE Package (
     PackageID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100) NOT NULL,
@@ -731,4 +730,3 @@ ALTER TABLE
     CulturalEvent
 ADD
     ImgPath VARCHAR(255);
-
