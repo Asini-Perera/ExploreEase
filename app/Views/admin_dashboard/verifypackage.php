@@ -21,7 +21,7 @@
                 <div class="date-range"><strong>Valid:</strong> May 1 - Sep 30, 2025</div>
                 <div class="button-group">
                     <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Delete</a>
+                    <a href="#" class="btn-action cancel-btn">Reject</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <div class="date-range"><strong>Valid:</strong> Jun 1 - Oct 31, 2025</div>
                 <div class="button-group">
                     <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Delete</a>
+                    <a href="#" class="btn-action cancel-btn">Reject</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <div class="date-range"><strong>Valid:</strong> May 15 - Dec 15, 2025</div>
                 <div class="button-group">
                     <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Delete</a>
+                    <a href="#" class="btn-action cancel-btn">Reject</a>
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 <div class="date-range"><strong>Valid:</strong> May 1 - Aug 31, 2025</div>
                 <div class="button-group">
                     <a href="#" class="btn-action confirm-btn">Verify</a>
-                    <a href="#" class="btn-action cancel-btn">Delete</a>
+                    <a href="#" class="btn-action cancel-btn">Reject</a>
                 </div>
             </div>
         </div>
@@ -171,10 +171,10 @@
 
     .price-location {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        justify-content: center;
         margin-bottom: 12px;
     }
+
 
     .price {
         background-color: rgba(34, 85, 34, 0.933);
