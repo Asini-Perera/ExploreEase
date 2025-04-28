@@ -653,6 +653,7 @@ ALTER TABLE
     DROP COLUMN TikTokLink,
     DROP COLUMN YoutubeLink;
 
+
     -- Add Package Table
 CREATE TABLE Package (
     PackageID INT AUTO_INCREMENT PRIMARY KEY,
@@ -700,3 +701,28 @@ CREATE TABLE PackageCustomer (
     FOREIGN KEY (PackageID) REFERENCES Package(PackageID),
     FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
 );
+
+-- Remove TravelerKeyword table
+DROP TABLE IF EXISTS TravelerKeyword;
+
+-- Add Title column to RestaurantImages table
+ALTER TABLE
+    RestaurantImages
+ADD
+    Title VARCHAR(255) NOT NULL;
+
+-- Remove CulturalEventOrganizerPost table
+DROP TABLE IF EXISTS CulturalEventOrganizerPost;
+
+-- Remove RestaurantPost table
+DROP TABLE IF EXISTS RestaurantPost;
+
+-- Remove HotelPost table
+DROP TABLE IF EXISTS HotelPost;
+
+-- Add ImageID column to RestaurantImages table
+ALTER TABLE
+    RestaurantImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY;
+

@@ -65,7 +65,7 @@
         </div>
         <div class="form-group">
             <label for="menupdf">Menu PDF</label>
-            <input type="file" id="menupdf" name="menupdf">
+            <input type="file" id="menupdf" name="menupdf" accept=".pdf">
         </div>
 
         <div class="action-buttons">

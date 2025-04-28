@@ -32,7 +32,9 @@ class HotelController
                 return; // Stop execution after processing
             }
 
-            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews', 'packages'];
+
+            $allowed_pages = ['dashboard', 'profile', 'room', 'post', 'bookings', 'reviews','images', 'packages'];
+
             $mainContent = in_array($page, $allowed_pages) ? $page : '404';
 
             // Add handling for packages page
@@ -183,6 +185,7 @@ class HotelController
                 } else {
                     $verifiedAction = null;
                 }
+
             } elseif ($mainContent == 'packages') {
                 $hotelModel = new HotelModel($this->conn);
                 
@@ -270,6 +273,21 @@ class HotelController
                     $verifiedAction = null;
                 }
             } else {
+
+            }elseif($mainContent == 'images'){ 
+                $imagess = $this -> viewImage();
+                $action = isset($_GET['action']) ? $_GET['action'] : null;
+                if($action == 'add'){
+                    $verifiedAction = 'add';
+                } elseif ($action == 'delete') {
+                    $verifiedAction = null;
+                    $this->deleteImage();
+                } else {
+                    $verifiedAction = null;
+                }
+
+        } else {
+
                 $verifiedAction = null;
             }
 
@@ -627,6 +645,7 @@ class HotelController
             exit();
         }
     }
+
     
     public function createPackage()
     {
@@ -682,6 +701,86 @@ class HotelController
                 $_SESSION['error'] = "Failed to create package. Please try again.";
                 header('Location: ../hotel/dashboard?page=packages&action=add');
             }
+
+
+    public function checkAvailableRooms()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $hotelID = $_POST['HotelID'];
+            $checkInDate = $_POST['check-in'];
+            $checkOutDate = $_POST['check-out'];
+            $guests = $_POST['guests'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $availableRooms = $hotelModel->getAvailableRooms($hotelID, $checkInDate, $checkOutDate, $guests);
+
+            // Store available rooms in session for later use
+            $_SESSION['AvailableRooms'] = $availableRooms;
+
+            header('Location: ../link/service?type=hotel&id=' . $hotelID . '#available-rooms');
+            exit();
+        }
+    }
+
+    public function bookRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $roomID = $_POST['RoomID'];
+            $travelerID = $_POST['TravelerID'];
+            $hotelID = $_POST['HotelID'];
+            $checkInDate = $_POST['checkIn'];
+            $checkOutDate = $_POST['checkOut'];
+            $date = date('Y-m-d');
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->bookRoom($roomID, $travelerID, $checkInDate, $checkOutDate, $date);
+
+            header('Location: ../link/service?type=hotel&id=' . $hotelID);
+            exit();
+        }
+    }
+
+    
+    //images
+    public function addImage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $image = $_FILES['rest-image'];
+            $hotelID = $_SESSION['HotelID'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $imageID = $hotelModel->addImage($title, $hotelID);
+
+            
+            // If image is uploaded, set the image path
+            if($imageID && $image['name']) {
+                $hotelModel->setHotelImgPath($imageID, $image);
+            }
+
+            header('Location: ../hotel/dashboard?page=images');
+            exit();
+        }
+    }
+
+    public function viewImage()
+    {
+        $heritagemarketModel = new HotelModel($this->conn);
+        $images= $heritagemarketModel->getImage($_SESSION['HotelID']);
+
+        return $images;
+    }
+
+    public function deleteImage()
+    {
+        if (isset($_GET['id'])) {
+            $imageID = $_GET['id'];
+
+            $hotelModel = new HotelModel($this->conn);
+            $hotelModel->deleteImage($imageID);
+
+            header('Location: ../hotel/dashboard?page=images');
+
             exit();
         }
     }

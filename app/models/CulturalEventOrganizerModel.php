@@ -453,7 +453,7 @@ class CulturalEventOrganizerModel
 
     public function getTotalRatings($organizerID)
     {
-        $sql = "SELECT COUNT(*) as TotalRatings FROM rating WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+        $sql = "SELECT COUNT(*) as TotalRatings FROM culturaleventorganizerfeedback WHERE OrganizerID = ?";
         $stmt = $this->conn->prepare($sql);
 
         // Check if prepare was successful
@@ -470,27 +470,27 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalRatings'];
     }
 
-    public function getTotalRevenue($organizerID)
-    {
-        $sql = "SELECT SUM(Amount) as TotalRevenue 
-                FROM culturaleventbooking ceb
-                JOIN culturalevent ce ON ceb.EventID = ce.EventID
-                WHERE ce.OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
+    // public function getTotalRevenue($organizerID)
+    // {
+    //     $sql = "SELECT SUM(Amount) as TotalRevenue 
+    //             FROM culturaleventbooking ceb
+    //             JOIN culturalevent ce ON ceb.EventID = ce.EventID
+    //             WHERE ce.OrganizerID = ?";
+    //     $stmt = $this->conn->prepare($sql);
 
-        // Check if prepare was successful
-        if (!$stmt) {
-            // Log the error for debugging
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return 0; // Return a default value
-        }
+    //     // Check if prepare was successful
+    //     if (!$stmt) {
+    //         // Log the error for debugging
+    //         error_log("MySQL prepare error: " . $this->conn->error);
+    //         return 0; // Return a default value
+    //     }
 
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    //     $stmt->bind_param('i', $organizerID);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
 
-        return $result->fetch_assoc()['TotalRevenue'];
-    }
+    //     return $result->fetch_assoc()['TotalRevenue'];
+    // }
 
     public function getTotalCustomers($organizerID)
     {
@@ -511,24 +511,24 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalCustomers'];
     }
 
-    public function getTotalFeedbacks($organizerID)
-    {
-        $sql = "SELECT COUNT(*) as TotalFeedbacks FROM feedback WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
-        $stmt = $this->conn->prepare($sql);
+    // public function getTotalFeedbacks($organizerID)
+    // {
+    //     $sql = "SELECT COUNT(*) as TotalFeedbacks FROM feedback WHERE EventID IN (SELECT EventID FROM culturalevent WHERE OrganizerID = ?)";
+    //     $stmt = $this->conn->prepare($sql);
 
-        // Check if prepare was successful
-        if (!$stmt) {
-            // Log the error for debugging
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return 0; // Return a default value
-        }
+    //     // Check if prepare was successful
+    //     if (!$stmt) {
+    //         // Log the error for debugging
+    //         error_log("MySQL prepare error: " . $this->conn->error);
+    //         return 0; // Return a default value
+    //     }
 
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    //     $stmt->bind_param('i', $organizerID);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
 
-        return $result->fetch_assoc()['TotalFeedbacks'];
-    }
+    //     return $result->fetch_assoc()['TotalFeedbacks'];
+    // }
 
 
     public function setEventImage($eventID, $fileName)

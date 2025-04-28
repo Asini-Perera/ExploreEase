@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <?php require_once __DIR__ . '/Navbar.php'; ?>
+    <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
     <section class="search-header" >
 
         <div class="search" style=" justify-items: center; ">
