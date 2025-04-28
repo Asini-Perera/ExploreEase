@@ -28,26 +28,74 @@
         </div>
 
         <div class="form-group">
-            <label for="provider_type">Partner Type*</label>
-            <select id="provider_type" name="owner" required onchange="loadServiceProviders()">
-                <option value="">Select Partner Type</option>
-                <option value="hotel">Hotel</option>
-                <option value="restaurant">Restaurant</option>
-                <option value="heritagemarket">Heritage Market</option>
-                <option value="culturaleventorganizer">Cultural Event</option>
+            <label for="service_provider">Partners* (Select multiple)</label>
+            <select id="service_provider" name="partner_ids[]" multiple required size="6">
+                <?php 
+                    // Combine all service providers into one array
+                    $allProviders = [];
+                    
+                    // Add hotels
+                    if (!empty($hotels)) {
+                        foreach ($hotels as $provider) {
+                            $allProviders[] = [
+                                'id' => $provider['HotelID'] ?? $provider['ID'],
+                                'name' => $provider['HotelName'] ?? $provider['Name'],
+                                'type' => 'hotel'
+                            ];
+                        }
+                    }
+                    
+                    // Add restaurants
+                    if (!empty($restaurants)) {
+                        foreach ($restaurants as $provider) {
+                            $allProviders[] = [
+                                'id' => $provider['RestaurantID'] ?? $provider['ID'],
+                                'name' => $provider['Name'],
+                                'type' => 'restaurant'
+                            ];
+                        }
+                    }
+                    
+                    // Add heritage markets
+                    if (!empty($heritageMarkets)) {
+                        foreach ($heritageMarkets as $provider) {
+                            $allProviders[] = [
+                                'id' => $provider['ShopID'] ?? $provider['ID'],
+                                'name' => $provider['Name'],
+                                'type' => 'heritagemarket'
+                            ];
+                        }
+                    }
+                    
+                    // Add cultural events
+                    if (!empty($culturalEvents)) {
+                        foreach ($culturalEvents as $provider) {
+                            $allProviders[] = [
+                                'id' => $provider['OrganizerID'] ?? $provider['ID'],
+                                'name' => $provider['Name'],
+                                'type' => 'culturaleventorganizer'
+                            ];
+                        }
+                    }
+                    
+                    // Sort providers alphabetically by name
+                    usort($allProviders, function($a, $b) {
+                        return strcmp($a['name'], $b['name']);
+                    });
+                    
+                    // Output options
+                    foreach ($allProviders as $provider) {
+                        echo '<option value="' . $provider['id'] . '" data-type="' . $provider['type'] . '">' 
+                           . htmlspecialchars($provider['name']) 
+                           . ' (' . ucfirst($provider['type']) . ')'
+                           . '</option>';
+                    }
+                ?>
             </select>
-        </div>
-
-        <div class="form-group">
-            <label for="service_provider">Partner*</label>
-            <select id="service_provider" name="partner_id" required>
-                <option value="">First select a partner type</option>
-            </select>
-            <!-- Hidden input fields to store the specific IDs -->
-            <input type="hidden" id="hotelID" name="hotelID" value="">
-            <input type="hidden" id="restaurantID" name="restaurantID" value="">
-            <input type="hidden" id="shopID" name="shopID" value="">
-            <input type="hidden" id="eventID" name="eventID" value="">
+            <small>Hold Ctrl (or Cmd on Mac) to select multiple partners</small>
+            
+            <!-- Hidden input fields to store the type information -->
+            <input type="hidden" id="selectedTypes" name="selectedTypes" value="">
         </div>
         
         <div class="form-group">
@@ -106,35 +154,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('packageForm');
 
     saveButton.addEventListener('click', () => {
-        // Clear all hidden ID fields
-        document.getElementById('hotelID').value = '';
-        document.getElementById('restaurantID').value = '';
-        document.getElementById('shopID').value = '';
-        document.getElementById('eventID').value = '';
+        // Get all selected partners
+        const selectElement = document.getElementById('service_provider');
+        const selectedOptions = Array.from(selectElement.selectedOptions);
         
-        // Set the appropriate ID field based on partner type
-        const partnerId = document.getElementById('service_provider').value;
-        const partnerType = document.getElementById('provider_type').value;
-        
-        if (partnerId && partnerType) {
-            switch(partnerType) {
-                case 'hotel':
-                    document.getElementById('hotelID').value = partnerId;
-                    break;
-                case 'restaurant':
-                    document.getElementById('restaurantID').value = partnerId;
-                    break;
-                case 'heritagemarket':
-                    document.getElementById('shopID').value = partnerId;
-                    break;
-                case 'culturaleventorganizer':
-                    document.getElementById('eventID').value = partnerId;
-                    break;
-            }
-            dialog.showModal(); // Show the confirmation dialog
-        } else {
-            alert('Please select a partner type and a specific partner.');
+        if (selectedOptions.length === 0) {
+            alert('Please select at least one partner.');
+            return;
         }
+        
+        // Store the types of all selected partners
+        const selectedTypes = {};
+        selectedOptions.forEach(option => {
+            const type = option.getAttribute('data-type');
+            const id = option.value;
+            if (!selectedTypes[type]) {
+                selectedTypes[type] = [];
+            }
+            selectedTypes[type].push(id);
+        });
+        
+        // Store the selected types in the hidden input
+        document.getElementById('selectedTypes').value = JSON.stringify(selectedTypes);
+        
+        dialog.showModal(); // Show the confirmation dialog
     });
 
     confirmButton.addEventListener('click', () => {
@@ -146,43 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dialog.close(); // Close the dialog on "No"
     });
 });
-
-function loadServiceProviders() {
-    const providerType = document.getElementById('provider_type').value;
-    const providerSelect = document.getElementById('service_provider');
-    providerSelect.innerHTML = '<option value="">Loading partners...</option>';
-    
-    // Get providers based on type
-    let providers = [];
-    
-    switch(providerType) {
-        case 'hotel':
-            providers = <?= json_encode($hotels ?? []) ?>;
-            break;
-        case 'restaurant':
-            providers = <?= json_encode($restaurants ?? []) ?>;
-            break;
-        case 'culturaleventorganizer':
-            providers = <?= json_encode($culturalEvents ?? []) ?>;
-            break;
-        case 'heritagemarket':
-            providers = <?= json_encode($heritageMarkets ?? []) ?>;
-            break;
-        default:
-            providers = [];
-    }
-    
-    // Populate dropdown
-    providerSelect.innerHTML = '<option value="">Select a partner</option>';
-    providers.forEach(provider => {
-        const name = provider.HotelName || provider.Name;
-        const id = provider.HotelID || provider.ID;
-        const option = document.createElement('option');
-        option.value = id;
-        option.textContent = name;
-        providerSelect.appendChild(option);
-    });
-}
 </script>
 
 </body>

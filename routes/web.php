@@ -86,7 +86,6 @@ $router->add('hotel/replyReview', 'HotelController@replyReview');  // Process re
 $router->add('hotel/packages', 'HotelController@packages');  // View packages for hotel
 $router->add('hotel/addPackage', 'HotelController@addPackage');  // Add package for hotel
 
-
 $router->add('heritagemarket/dashboard', 'HeritageMarketController@dashboard');  // Heritage Market dashboard
 $router->add('heritagemarket/addProduct', 'HeritageMarketController@addProduct');  // Add product for heritage market
 $router->add('heritagemarket/editProduct', 'HeritageMarketController@editProduct');  // Edit product for heritage market

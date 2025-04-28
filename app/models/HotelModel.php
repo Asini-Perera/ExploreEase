@@ -758,23 +758,24 @@ class HotelModel
      */
     public function deletePackage($packageId, $hotelId)
     {
-        // First check if this hotel created the package
-        $sql = "SELECT CreatedBy FROM Package WHERE PackageID = ?";
+        // Before deleting the package, delete related records from PackageCustomer
+        $sql = "DELETE FROM PackageCustomer WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $packageId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $package = $result->fetch_assoc();
-        
-        if (!$package || $package['CreatedBy'] != $hotelId) {
-            return false; // Not authorized to delete
+        if ($stmt) {
+            $stmt->bind_param("i", $packageId);
+            $stmt->execute();
         }
         
-        // Now delete the package
+        // Now delete the package directly without authorization checks
         $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $packageId);
         
+        if (!$stmt) {
+            error_log("SQL Error in deletePackage: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param("i", $packageId);
         return $stmt->execute();
     }
 
