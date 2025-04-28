@@ -3,7 +3,7 @@
 <div class="form-content">
     <h1>Menu Items</h1>
 
-    <form method="post" action="../restaurant/addMenu" enctype="multipart/form-data">
+    <form method="post" action="../restaurant/addMenu" enctype="multipart/form-data" id="updateForm">
 
 
         <div class="form-group">
@@ -36,8 +36,41 @@
             <input type="radio" name="popular-dish" class="not_popular" value="0" default> No
         </div>
 
-        <button type="submit" name="add_menu" class="menu_btn">Add Menu</button>
+        <button type="button" name="add_menu" class="menu_btn">Add Menu</button>
 
 
+        <dialog id="openDialog">
+            <p>Are you sure you want to add this item?</p>
+            <div class="dialog-buttons">
+                <button id="confirm" class="confirm-btn">Yes</button>
+                <button id="cancel" class="cancel-btn">No</button>
+            </div>
+        </dialog>
     </form>
 </div>
+
+
+
+
+
+<script>
+    const dialog = document.getElementById('openDialog');
+    const confirmButton = document.getElementById('confirm');
+    const cancelButton = document.getElementById('cancel');
+    const saveButton = document.querySelector('.menu_btn');
+    const form = document.getElementById('updateForm');
+
+    saveButton.addEventListener('click', () => {
+        dialog.showModal(); // Show the confirmation dialog
+    });
+
+    confirmButton.addEventListener('click', () => {
+        dialog.close();
+        form.submit(); // Submit the form when "Yes" is clicked
+    });
+
+    cancelButton.addEventListener('click', () => {
+        dialog.close(); // Close the dialog on "No"
+        window.location.href = 'http://localhost/ExploreEase/restaurant/dashboard?page=menu'; // Redirect without saving
+    });
+</script>
