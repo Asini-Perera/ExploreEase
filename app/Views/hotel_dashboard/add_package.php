@@ -16,33 +16,38 @@
 
 <div class="edit-booking-card">
     <h2>Create Partnership Package</h2>
-    <form method="POST" action="?page=packages&action=create" id="packageForm">
+    <form method="POST" action="?page=packages&action=create" id="packageForm" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="title">Package Title*</label>
-            <input type="text" id="title" name="title" required>
+            <label for="name">Package Name*</label>
+            <input type="text" id="name" name="name" required>
         </div>
 
         <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description">
+            <label for="description">Description*</label>
+            <textarea id="description" name="description" rows="3" required></textarea>
         </div>
 
         <div class="form-group">
-            <label for="provider_type">Service Provider Type*</label>
-            <select id="provider_type" name="provider_type" required onchange="loadServiceProviders()">
-                <option value="">Select Provider Type</option>
+            <label for="provider_type">Partner Type*</label>
+            <select id="provider_type" name="owner" required onchange="loadServiceProviders()">
+                <option value="">Select Partner Type</option>
                 <option value="hotel">Hotel</option>
                 <option value="restaurant">Restaurant</option>
-                <option value="cultural">Cultural Event</option>
-                <option value="heritage">Heritage Market</option>
+                <option value="heritagemarket">Heritage Market</option>
+                <option value="culturaleventorganizer">Cultural Event</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="service_provider">Service Provider*</label>
-            <select id="service_provider" name="service_provider" required>
-                <option value="">First select a provider type</option>
+            <label for="service_provider">Partner*</label>
+            <select id="service_provider" name="partner_id" required>
+                <option value="">First select a partner type</option>
             </select>
+            <!-- Hidden input fields to store the specific IDs -->
+            <input type="hidden" id="hotelID" name="hotelID" value="">
+            <input type="hidden" id="restaurantID" name="restaurantID" value="">
+            <input type="hidden" id="shopID" name="shopID" value="">
+            <input type="hidden" id="eventID" name="eventID" value="">
         </div>
         
         <div class="form-group">
@@ -51,18 +56,19 @@
         </div>
 
         <div class="form-group">
-            <label for="valid_from">Valid From*</label>
-            <input type="date" id="valid_from" name="valid_from" required>
+            <label for="startDate">Valid From*</label>
+            <input type="date" id="startDate" name="startDate" required>
         </div>
 
         <div class="form-group">
-            <label for="valid_to">Valid To*</label>
-            <input type="date" id="valid_to" name="valid_to" required>
+            <label for="endDate">Valid To*</label>
+            <input type="date" id="endDate" name="endDate" required>
         </div>
 
         <div class="form-group">
-            <label for="remarks">Remarks</label>
-            <input type="text" id="remarks" name="remarks">
+            <label for="packageImage">Package Image</label>
+            <input type="file" id="packageImage" name="packageImage" accept="image/*">
+            <small>Choose an image to represent this package (optional)</small>
         </div>
 
         <div class="form-actions">
@@ -82,14 +88,14 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Set minimum date for valid_from to today
+    // Set minimum date for startDate to today
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('valid_from').setAttribute('min', today);
-    document.getElementById('valid_to').setAttribute('min', today);
+    document.getElementById('startDate').setAttribute('min', today);
+    document.getElementById('endDate').setAttribute('min', today);
     
-    // Ensure valid_to is after valid_from
-    document.getElementById('valid_from').addEventListener('change', function() {
-        document.getElementById('valid_to').setAttribute('min', this.value);
+    // Ensure endDate is after startDate
+    document.getElementById('startDate').addEventListener('change', function() {
+        document.getElementById('endDate').setAttribute('min', this.value);
     });
     
     // Dialog handling
@@ -100,7 +106,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('packageForm');
 
     saveButton.addEventListener('click', () => {
-        dialog.showModal(); // Show the confirmation dialog
+        // Clear all hidden ID fields
+        document.getElementById('hotelID').value = '';
+        document.getElementById('restaurantID').value = '';
+        document.getElementById('shopID').value = '';
+        document.getElementById('eventID').value = '';
+        
+        // Set the appropriate ID field based on partner type
+        const partnerId = document.getElementById('service_provider').value;
+        const partnerType = document.getElementById('provider_type').value;
+        
+        if (partnerId && partnerType) {
+            switch(partnerType) {
+                case 'hotel':
+                    document.getElementById('hotelID').value = partnerId;
+                    break;
+                case 'restaurant':
+                    document.getElementById('restaurantID').value = partnerId;
+                    break;
+                case 'heritagemarket':
+                    document.getElementById('shopID').value = partnerId;
+                    break;
+                case 'culturaleventorganizer':
+                    document.getElementById('eventID').value = partnerId;
+                    break;
+            }
+            dialog.showModal(); // Show the confirmation dialog
+        } else {
+            alert('Please select a partner type and a specific partner.');
+        }
     });
 
     confirmButton.addEventListener('click', () => {
@@ -116,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadServiceProviders() {
     const providerType = document.getElementById('provider_type').value;
     const providerSelect = document.getElementById('service_provider');
-    providerSelect.innerHTML = '<option value="">Loading providers...</option>';
+    providerSelect.innerHTML = '<option value="">Loading partners...</option>';
     
     // Get providers based on type
     let providers = [];
@@ -128,10 +162,10 @@ function loadServiceProviders() {
         case 'restaurant':
             providers = <?= json_encode($restaurants ?? []) ?>;
             break;
-        case 'cultural':
+        case 'culturaleventorganizer':
             providers = <?= json_encode($culturalEvents ?? []) ?>;
             break;
-        case 'heritage':
+        case 'heritagemarket':
             providers = <?= json_encode($heritageMarkets ?? []) ?>;
             break;
         default:
@@ -139,7 +173,7 @@ function loadServiceProviders() {
     }
     
     // Populate dropdown
-    providerSelect.innerHTML = '<option value="">Select a provider</option>';
+    providerSelect.innerHTML = '<option value="">Select a partner</option>';
     providers.forEach(provider => {
         const name = provider.HotelName || provider.Name;
         const id = provider.HotelID || provider.ID;

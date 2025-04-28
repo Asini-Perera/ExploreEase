@@ -627,31 +627,149 @@ class HotelModel
     }
 
     /**
-     * Add a new package 
-     * 
-     * @param string $title Package title
-     * @param string $description Package description
-     * @param int $serviceProviderId ID of the service provider
-     * @param string $providerType Type of provider (hotel, restaurant, etc.)
-     * @param float $discount Discount percentage
-     * @param string $validFrom Start date of validity period
-     * @param string $validTo End date of validity period
-     * @param string $remarks Additional notes
-     * @param int $hotelID ID of the hotel creating this package
-     * @return bool Success or failure
+     * Create a new package
      */
-    public function addPackage($title, $description, $serviceProviderId, $providerType, $discount, $validFrom, $validTo, $remarks, $hotelID)
+    public function createPackage($name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId, $createdBy)
     {
-        $sql = "INSERT INTO packages (Title, Description, ServiceProviderID, ProviderType, Discount, ValidFrom, ValidTo, Remarks, CreatedBy) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID, CreatedBy) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
-            error_log("SQL Error in addPackage: " . $this->conn->error);
+            error_log("SQL Error in createPackage: " . $this->conn->error);
             return false;
         }
         
-        $stmt->bind_param('ssisssssi', $title, $description, $serviceProviderId, $providerType, $discount, $validFrom, $validTo, $remarks, $hotelID);
+        // Fix: Add 'i' to the parameter type string for $createdBy
+        $stmt->bind_param("ssdssssiiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId, $createdBy);
+        
+        // Add error logging to diagnose issues
+        if (!$stmt->execute()) {
+            error_log("SQL Execute Error in createPackage: " . $stmt->error);
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Upload package image and return the path
+     */
+    public function uploadPackageImage($file) 
+    {
+        // Get temp image path
+        $tempImgPath = $file['tmp_name'];
+        
+        if (empty($tempImgPath)) {
+            return null;
+        }
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $file['name'];
+
+        // Get the file extension
+        $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = 'package_' . uniqid() . '.' . $extension;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/package/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/package/' . $newFileName;
+
+        return $moving ? $imgPath : null;
+    }
+
+    /**
+     * Get all packages created by a specific hotel
+     */
+    public function getPackages($hotelId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE p.CreatedBy = ? 
+                ORDER BY p.StartDate DESC";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackages: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $hotelId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Get a single package by ID
+     */
+    public function getPackage($packageId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE p.PackageID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackage: " . $this->conn->error);
+            return null;
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+
+    /**
+     * Delete a package by ID
+     */
+    public function deletePackage($packageId, $hotelId)
+    {
+        // First check if this hotel created the package
+        $sql = "SELECT CreatedBy FROM Package WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $package = $result->fetch_assoc();
+        
+        if (!$package || $package['CreatedBy'] != $hotelId) {
+            return false; // Not authorized to delete
+        }
+        
+        // Now delete the package
+        $sql = "DELETE FROM Package WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $packageId);
+        
         return $stmt->execute();
     }
 }

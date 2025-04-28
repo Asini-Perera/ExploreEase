@@ -12,8 +12,86 @@
 <div class="menu-container">
     <div class="top">
         <h1>Packages</h1>
-        <a href="?page=packages&action=add" class="create-btn">Create Package</a>
+        <div class="button-group">
+            <a href="?page=packages&action=add" class="create-btn">Create New Package</a>
+        </div>
     </div>
+
+    <?php if(isset($_SESSION['success'])): ?>
+        <div class="success-message">
+            <?= $_SESSION['success'] ?>
+            <?php unset($_SESSION['success']); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if(isset($_SESSION['error'])): ?>
+        <div class="error-message">
+            <?= $_SESSION['error'] ?>
+            <?php unset($_SESSION['error']); ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- My Packages Section -->
+    <div class="section-header">
+        <h2>My Packages</h2>
+    </div>
+
+    <?php if(empty($packages)): ?>
+        <div class="empty-state">
+            <p>You haven't created any partnership packages yet.</p>
+            <p>Create packages to offer special deals with other service providers.</p>
+        </div>
+    <?php else: ?>
+        <div class="package-grid">
+            <?php foreach($packages as $package): 
+                // Determine package status
+                $today = date('Y-m-d');
+                $status = '';
+                $statusClass = '';
+                if ($package['EndDate'] < $today) {
+                    $status = 'Expired';
+                    $statusClass = 'expired';
+                } elseif ($package['StartDate'] > $today) {
+                    $status = 'Upcoming';
+                    $statusClass = 'upcoming';
+                } else {
+                    $status = 'Active';
+                    $statusClass = 'active';
+                }
+                
+                // Default image if none provided
+                $packageImage = !empty($package['ImgPath']) ? $package['ImgPath'] : '../public/images/default-package.jpg';
+            ?>
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="<?= $packageImage ?>" alt="<?= htmlspecialchars($package['Name']) ?>">
+                        <span class="package-badge <?= $statusClass ?>"><?= $status ?></span>
+                    </div>
+                    <div class="package-content">
+                        <h3><?= htmlspecialchars($package['Name']) ?></h3>
+                        <p class="package-partner">
+                            <strong>Partner:</strong> <?= htmlspecialchars($package['PartnerName']) ?>
+                            <span class="partner-type">(<?= ucfirst($package['Owner']) ?>)</span>
+                        </p>
+                        <p class="package-discount"><strong>Discount:</strong> <?= htmlspecialchars($package['Discount']) ?>%</p>
+                        <p class="package-validity"><strong>Valid:</strong> <?= date('M d, Y', strtotime($package['StartDate'])) ?> - <?= date('M d, Y', strtotime($package['EndDate'])) ?></p>
+                        <p class="package-description"><?= nl2br(htmlspecialchars(substr($package['Description'], 0, 100))) ?><?= strlen($package['Description']) > 100 ? '...' : '' ?></p>
+                        
+                        <div class="package-actions">
+                            <a href="?page=packages&action=edit&id=<?= $package['PackageID'] ?>" class="edit-btn">Edit</a>
+                            <button class="delete-btn" data-id="<?= $package['PackageID'] ?>">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Service Providers Section -->
+    <div class="section-header">
+        <h2>Available Service Providers</h2>
+    </div>
+
     <div class="search-container">
         <form method="GET">
             <input type="text" name="query" placeholder="Search by name or email" value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
@@ -29,11 +107,10 @@
         <a href="?page=packages&provider=restaurant" class="<?= ($_GET['provider'] ?? '') == 'restaurant' ? 'active' : '' ?>">Restaurants</a>
         <a href="?page=packages&provider=cultural" class="<?= ($_GET['provider'] ?? '') == 'cultural' ? 'active' : '' ?>">Cultural Events</a>
         <a href="?page=packages&provider=heritage" class="<?= ($_GET['provider'] ?? '') == 'heritage' ? 'active' : '' ?>">Heritage Markets</a>
-        <a href="?page=packages&provider=traveler" class="<?= ($_GET['provider'] ?? '') == 'traveler' ? 'active' : '' ?>">Travelers</a>
     </div>
 
-    <!-- Table View -->
-    <table>
+    <!-- Provider Table -->
+    <table class="provider-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -58,9 +135,6 @@
                     break;
                 case 'heritage':
                     $currentProviders = $heritageMarkets ?? [];
-                    break;
-                case 'traveler':
-                    $currentProviders = $travelers ?? [];
                     break;
                 case 'hotel':
                 default:
@@ -106,23 +180,58 @@
             <?php endif; ?>
         </tbody>
     </table>
+</div>
 
-    <!-- Add JavaScript for handling request button clicks -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle request button clicks
-            const requestButtons = document.querySelectorAll('.request-btn');
-            requestButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const providerName = this.getAttribute('data-provider');
-                    const providerEmail = this.getAttribute('data-email');
-                    
-                    // You can customize this to integrate with your actual request system
-                    alert(`Partnership request sent to ${providerName}. They will be notified via email at ${providerEmail}.`);
-                });
+<!-- Dialog for package deletion -->
+<dialog id="deleteDialog">
+    <p>Are you sure you want to delete this package?</p>
+    <div class="dialog-buttons">
+        <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+        <button id="cancelDelete" class="cancel-btn">Cancel</button>
+    </div>
+</dialog>
+
+<!-- Add JavaScript for handling actions -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle request button clicks
+        const requestButtons = document.querySelectorAll('.request-btn');
+        requestButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const providerName = this.getAttribute('data-provider');
+                const providerEmail = this.getAttribute('data-email');
+                
+                // You can customize this to integrate with your actual request system
+                alert(`Partnership request sent to ${providerName}. They will be notified via email at ${providerEmail}.`);
             });
         });
-    </script>
-</div>
+
+        // Handle delete button clicks
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        const dialog = document.getElementById('deleteDialog');
+        const confirmBtn = document.getElementById('confirmDelete');
+        const cancelBtn = document.getElementById('cancelDelete');
+        let packageToDelete = null;
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                packageToDelete = this.getAttribute('data-id');
+                dialog.showModal();
+            });
+        });
+
+        confirmBtn.addEventListener('click', function() {
+            if (packageToDelete) {
+                window.location.href = `?page=packages&action=delete&id=${packageToDelete}`;
+            }
+            dialog.close();
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            packageToDelete = null;
+            dialog.close();
+        });
+    });
+</script>
 </body>
 </html>
