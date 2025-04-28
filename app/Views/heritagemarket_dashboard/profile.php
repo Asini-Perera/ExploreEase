@@ -38,12 +38,31 @@
                 <td><?php echo $_SESSION['Website']; ?></td>
             </tr>
             <tr>
-                <th>SM Link</th>
-                <td><?php echo $_SESSION['SMLink']; ?></td>
+                <th>Tagline</th>
+                <td><?php echo $_SESSION['Tagline']; ?></td>
             </tr>
             <tr>
-                <th>OpenHours</th>
-                <td><?php echo $_SESSION['OpenHours']; ?></td>
+                <th>Weekend Open Hours</th>
+                <td><?php echo $_SESSION['WeekendOpenHours']; ?></td>
+            </tr>
+            <tr>
+                <th>Weekday Open Hours</th>
+                <td><?php echo $_SESSION['WeekdayOpenHours']; ?></td>
+            <tr>
+                <th>Facebook Link</th>
+                <td><?php echo $_SESSION['FacebookLink']; ?></td>
+            </tr>
+            <tr>
+                <th>Instagram Link</th>
+                <td><?php echo $_SESSION['InstagramLink']; ?></td>
+            </tr>
+            <tr>
+                <th>TikTok Link</th>
+                <td><?php echo $_SESSION['TikTokLink']; ?></td>
+            </tr>
+            <tr>
+                <th>Youtube Link</th>
+                <td><?php echo $_SESSION['YoutubeLink']; ?></td>
             </tr>
         </tbody>
     </table>

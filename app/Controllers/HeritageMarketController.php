@@ -230,8 +230,16 @@ class HeritageMarketController
             $contactNo = $_POST['contact_no'];
             $description = $_POST['description'];
             $website = $_POST['website'];
-            $sm_link = $_POST['sm_link'];
-            $open_hours = $_POST['open_hours'];
+            $tagline = $_POST['tagline'];
+            $weekdaysOpenHours = $_POST['weekday_open_hours'];
+            $weekendsOpenHours = $_POST['weekend_open_hours'];
+            $facebookLink = $_POST['facebook_link'];
+            $instagramLink = $_POST['instagram_link'];
+            $tiktokLink = $_POST['tiktok_link'];
+            $youtubeLink = $_POST['youtube_link'];
+
+
+
 
             // Check if the email is already exists and it's not the same as the current one
             $signupModel = new SignupModel($this->conn);
@@ -243,7 +251,7 @@ class HeritageMarketController
             }
 
             $hotelModel = new HeritagemarketModel($this->conn);
-            $hotelModel->updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours);
+            $hotelModel->updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $tagline, $weekdaysOpenHours, $weekendsOpenHours, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink);
 
             $_SESSION['Email'] = $email;
             $_SESSION['Name'] = $name;
@@ -251,8 +259,13 @@ class HeritageMarketController
             $_SESSION['ContactNo'] = $contactNo;
             $_SESSION['Description'] = $description;
             $_SESSION['Website'] = $website;
-            $_SESSION['SMLink'] = $sm_link;
-            $_SESSION['OpenHours'] = $open_hours;
+            $_SESSION['Tagline'] = $tagline;
+            $_SESSION['WeekendOpenHours'] = $weekendsOpenHours;
+            $_SESSION['WeekdayOpenHours'] = $weekdaysOpenHours;
+            $_SESSION['FacebookLink'] = $facebookLink;
+            $_SESSION['InstagramLink'] = $instagramLink;
+            $_SESSION['TikTokLink'] = $tiktokLink;
+            $_SESSION['YoutubeLink'] = $youtubeLink;
 
             header('Location: ../heritagemarket/dashboard?page=profile');
             exit();

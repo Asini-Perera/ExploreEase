@@ -88,13 +88,14 @@ class HeritageMarketModel
     }
 
     //update profile
-    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours)
+    public function updateHeritage($heritageID, $email, $name,  $address, $contactNo, $description,  $website, $tagline, $weekdaysOpenHours, $weekendsOpenHours, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink)
     {
-        $sql = "UPDATE heritagemarket SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, SMLink = ?,OpenHours = ? WHERE ShopID = ?";
+        $sql = "UPDATE heritagemarket SET Email = ?, Name = ?, Address = ?, ContactNo = ?, Description = ?, Website = ?, Tagline = ?, WeekdayOpenHours = ?, WeekendOpenHours = ?, FacebookLink = ?, InstagramLink = ?, TikTokLink = ?, YouTubeLink = ? WHERE ShopID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssssssi', $email, $name,  $address, $contactNo, $description,  $website, $sm_link, $open_hours, $heritageID);
+        $stmt->bind_param('sssssssssssssi', $email, $name,  $address, $contactNo, $description,  $website, $tagline, $weekdaysOpenHours, $weekendsOpenHours, $facebookLink, $instagramLink, $tiktokLink, $youtubeLink, $heritageID);
         $stmt->execute();
     }
+
 
     public function checkCurrentPassword($heritageID, $currentPassword)
     {
