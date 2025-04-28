@@ -730,3 +730,33 @@ ALTER TABLE
     CulturalEvent
 ADD
     ImgPath VARCHAR(255);
+
+-- Add ImageID column to RestaurantImages table
+ALTER TABLE
+    RestaurantImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY;
+
+-- Add ImageID column to HotelImages table
+ALTER TABLE
+    HotelImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY,
+ADD
+    Title VARCHAR(255) NOT NULL;
+
+-- Add ImageID column to CulturaleventImages table
+ALTER TABLE
+    CulturalEventImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY,
+ADD
+    Title VARCHAR(255) NOT NULL;
+
+-- Add ImageID column to HeritageMarketImages table
+ALTER TABLE
+    HeritageMarketImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY,
+ADD
+    Title VARCHAR(255) NOT NULL;
