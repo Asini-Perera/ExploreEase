@@ -153,7 +153,7 @@ class AdminController
     {
         if (isset($_SESSION['AdminID'])) {
             $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-            $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'search', 'profile'];
+            $allowedPages = ['dashboard', 'verifyuser', 'viewkeyword', 'verifykeyword', 'verifypackage', 'search', 'profile'];
             $mainContent = in_array($page, $allowedPages) ? $page : '404';
 
             if ($mainContent == 'dashboard') {
