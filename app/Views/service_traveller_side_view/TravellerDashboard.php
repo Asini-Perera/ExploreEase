@@ -98,7 +98,7 @@
           </div>
 
         </div>
-        <a href="/add-package" class="btn-add">Click here to Add Packages</a>
+        <a href="http://localhost/ExploreEase/TravellerPackageList" class="btn-add">Click here to Add Packages</a>
       </section>
 
       <!-- Bookings Section -->

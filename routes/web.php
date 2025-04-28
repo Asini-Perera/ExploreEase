@@ -34,6 +34,7 @@ $router->add('loggedNavbar', 'HomeController@loggednavbar');
 $router->add('travllerBooking', 'HomeController@travllerBooking');
 $router->add('travellerReview', 'HomeController@travellerReview');
 $router->add('Contactus', 'HomeController@Contactus');
+$router->add('TravellerPackageList', 'HomeController@TravellerPackageList'); // Traveller package list
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users
 $router->add('keyword/save', 'KeywordController@saveKeywords');  // Save keywords for users
@@ -79,8 +80,8 @@ $router->add('restaurant/review/reply', 'RestaurantController@deleteReview');   
 $router->add('restaurant/reviewForm', 'RestaurantController@reviewForm');  // Restaurant review form
 $router->add('restaurant/addReview', 'RestaurantController@addReview');  // Restaurant review  add
 $router->add('restaurant/images', 'RestaurantController@images');  // Restaurant images
-$router->add('restaurant/addImage','RestaurantController@addImage');//add image
-$router->add('restaurant/deleteImage','RestaurantController@deleteImage'); // delete image
+$router->add('restaurant/addImage', 'RestaurantController@addImage'); //add image
+$router->add('restaurant/deleteImage', 'RestaurantController@deleteImage'); // delete image
 $router->add('restaurant/sendTableNo', 'RestaurantController@sendTableNo');  // Send table number for restaurant booking
 
 
@@ -126,4 +127,3 @@ $router->add('culturaleventorganizer/update', 'CulturalEventOrganizerController@
 $router->add('culturaleventorganizer/changepassword', 'CulturalEventOrganizerController@changePassword');  // Change password for cultural event organizer
 
 $router->add('traveler/editProfile', 'TravelerController@editProfile');  // Edit profile for traveler
-
