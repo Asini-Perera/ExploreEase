@@ -53,7 +53,7 @@ class HeritageMarketController
                 $heritageMarketModel = new HeritageMarketModel($this->conn);
                 $reviews = $heritageMarketModel->getReviews($_SESSION['ShopID']);
             }elseif($mainContent == 'images'){ 
-                $imagess = $this -> viewImage();
+                $images = $this -> viewImage();
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if($action == 'add'){
                     $verifiedAction = 'add';
