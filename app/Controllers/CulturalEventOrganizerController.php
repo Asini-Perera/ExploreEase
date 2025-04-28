@@ -156,6 +156,8 @@ class CulturalEventOrganizerController
                 $description = $_POST['description'] ?? '';
                 $capacity = $_POST['capacity'] ?? 0;
                 $price = $_POST['price'] ?? 0;
+                $latitude = $_POST['latitude'] ?? 0;
+                $longitude = $_POST['longitude'] ?? 0;
                 $status = $_POST['status'] ?? '';
                 $image = isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK ? $_FILES['image'] : null;
                 $organizerID = $_SESSION['OrganizerID'] ?? 0;
@@ -171,7 +173,7 @@ class CulturalEventOrganizerController
                 error_log("Event data: Title=$title, Address=$address, Date=$date, OrganizerID=$organizerID");
 
                 $eventModel = new CulturalEventOrganizerModel($this->conn);
-                $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+                $eventID = $eventModel->addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude);
 
                 if (!$eventID) {
                     error_log("Failed to add event to database");

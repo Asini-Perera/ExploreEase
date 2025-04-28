@@ -38,7 +38,7 @@ h1 {
     height: auto;
 }
 
-select{
+select {
     width: 75%;
     height: 25px;
     font-size: 12px;
@@ -74,5 +74,9 @@ button:focus {
     margin-top: 5px;
 }
 
-
-
+#map {
+    height: 400px;
+    width: 100%;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}

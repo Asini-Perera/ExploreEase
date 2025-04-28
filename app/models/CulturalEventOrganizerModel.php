@@ -25,14 +25,14 @@ class CulturalEventOrganizerModel
 
 
 
-    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
+    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude)
     {
         try {
             // Log the SQL operation starting
             error_log("Adding new event for organizer ID: $organizerID");
 
-            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`, `Latitude`, `Longitude`) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($sql);
 
@@ -41,7 +41,7 @@ class CulturalEventOrganizerModel
                 return false;
             }
 
-            $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+            $stmt->bind_param('ssssssidsidd', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude);
 
             $result = $stmt->execute();
 
