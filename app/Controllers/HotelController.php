@@ -645,11 +645,10 @@ class HotelController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate required fields
-            if (
-                empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) ||
-                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['owner']) ||
-                empty($_POST['partner_id'])
-            ) {
+
+            if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['discount']) || 
+                empty($_POST['startDate']) || empty($_POST['endDate']) || empty($_POST['partner_ids'])) {
+
                 $_SESSION['error'] = "All required fields must be filled";
                 header('Location: ../hotel/dashboard?page=packages&action=add');
                 exit();
@@ -661,6 +660,12 @@ class HotelController
             $discount = $_POST['discount'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
+
+            
+            // Get the selected partners data
+            $selectedTypes = !empty($_POST['selectedTypes']) ? json_decode($_POST['selectedTypes'], true) : [];
+            
+
             $owner = $_POST['owner'];
 
             // Get the appropriate ID based on owner type
@@ -668,6 +673,7 @@ class HotelController
             $restaurantID = !empty($_POST['restaurantID']) ? $_POST['restaurantID'] : null;
             $shopID = !empty($_POST['shopID']) ? $_POST['shopID'] : null;
             $eventID = !empty($_POST['eventID']) ? $_POST['eventID'] : null;
+
 
             // Handle image upload if provided
             $imgPath = null;
@@ -682,8 +688,44 @@ class HotelController
                 }
             }
 
-            // Save package to database
+            
+            // Create a single package with the current hotel as owner
             $hotelModel = new HotelModel($this->conn);
+            
+            // Initialize all partner IDs
+            $restaurantID = null;
+            $shopID = null;
+            $eventID = null;
+            $partnerHotelID = null;
+            
+            // Set the appropriate partner IDs from selections
+            if (!empty($selectedTypes)) {
+                // Set restaurant partner if selected
+                if (!empty($selectedTypes['restaurant'])) {
+                    $restaurantID = $selectedTypes['restaurant'][0]; // Use the first selected restaurant
+                }
+                
+                // Set heritage market partner if selected
+                if (!empty($selectedTypes['heritagemarket'])) {
+                    $shopID = $selectedTypes['heritagemarket'][0]; // Use the first selected market
+                }
+                
+                // Set cultural event partner if selected
+                if (!empty($selectedTypes['culturaleventorganizer'])) {
+                    $eventID = $selectedTypes['culturaleventorganizer'][0]; // Use the first selected event
+                }
+                
+                // Set partner hotel if selected
+                if (!empty($selectedTypes['hotel'])) {
+                    $partnerHotelID = $selectedTypes['hotel'][0]; // Use the first selected hotel
+                }
+            }
+            
+            // Current hotel is always the owner
+            $hotelID = $_SESSION['HotelID'];
+            $owner = 'hotel';
+            
+            // Create a single package with all selected partners
 
             $success = $hotelModel->createPackage(
                 $name,
@@ -700,7 +742,7 @@ class HotelController
             );
 
             if ($success) {
-                $_SESSION['success'] = "Package created successfully";
+                $_SESSION['success'] = "Package created successfully!";
                 header('Location: ../hotel/dashboard?page=packages');
             } else {
                 $_SESSION['error'] = "Failed to create package. Please try again.";

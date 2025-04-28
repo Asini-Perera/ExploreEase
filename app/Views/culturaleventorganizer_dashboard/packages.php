@@ -109,7 +109,6 @@
                         <td><?= htmlspecialchars($provider['Address'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($provider['Phone'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($provider['Email'] ?? 'N/A') ?></td>
-                    </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
