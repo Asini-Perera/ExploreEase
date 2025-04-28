@@ -105,30 +105,27 @@
       <section class="section" id="bookings">
         <h2>Bookings</h2>
         <div class="card-list">
-          <?php if (empty($bookings)) : ?>
+          <?php if (empty($futureBookings) && empty($pastBookings)) : ?>
             <p>No bookings available.</p>
-          <?php else : ?>
-            <?php foreach ($bookings as $booking) : ?>
+          <?php elseif (empty($futureBookings) && !empty($pastBookings)) : ?>
+            <?php foreach (array_slice($pastBookings, 0, 6) as $pastBooking) : ?>
               <div class="card">
-                <h3><?php echo htmlspecialchars($booking['Name']); ?></h3>
-                <p>Booking Date: <?php echo htmlspecialchars($booking['BookingDate']); ?></p>
-
+                <h3><?php echo htmlspecialchars($pastBooking['Name']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($pastBooking['BookingDate']); ?></p>
+              </div>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <?php foreach ($futureBookings as $futureBooking) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($futureBooking['Name']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($futureBooking['BookingDate']); ?></p>
               </div>
             <?php endforeach; ?>
           <?php endif; ?>
-          <!-- <div class="card">
-            <h3>ABC Hotel</h3>
-            <p>Booking Date: 15-May-2025</p>
-            <p>Room No : 2 </p>
-          </div>
-          <div class="card">
-            <h3>Mountain Resort</h3>
-            <p>Booking Date: 20-May-2025</p>
-            <p>Table No : 3 </p>
-
-          </div> -->
         </div>
-        <a href="http://localhost/ExploreEase/travllerBooking" class="btn-add">View Bookings</a>
+        <?php if (!empty($futureBookings) || !empty($pastBookings)) : ?>
+          <a href="http://localhost/ExploreEase/travllerBooking" class="btn-add">View All Bookings</a>
+        <?php endif; ?>
       </section>
 
       <!-- Reviews Section -->

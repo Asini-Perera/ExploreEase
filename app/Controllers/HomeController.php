@@ -101,7 +101,8 @@ class HomeController
         $travellerModel = new TravelerModel($this->conn);
         $travellerID = $_SESSION['TravelerID'] ?? null;
         $reviews = $travellerModel->getTravelerReviews($travellerID);
-        $bookings = $travellerModel->getTravelerBookings($travellerID);
+        $futureBookings = $travellerModel->getTravelerFutureBookings($travellerID);
+        $pastBookings = $travellerModel->getTravelerPastBookings($travellerID);
         require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
     }
 
