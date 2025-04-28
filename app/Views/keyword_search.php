@@ -45,10 +45,11 @@ $longitude = $_SESSION['longitude'] ?? null;
                             <li>
                                 <article>
                                     <a href="../link/service?type=<?= urlencode($place['type']) ?>&id=<?= urlencode($place['ID']) ?>">
+                                        <img src="../public/images/map-icon.png" alt="Galle Face Green" loading="lazy">
 
-
-                                        <h3><?= htmlspecialchars($place['Name']) ?></h3>
                                     </a>
+                                    <h3><?= htmlspecialchars($place['Name']) ?></h3>
+
                                     <p>
                                         <?php
                                         if ($place['type'] === 'heritagemarket') {
