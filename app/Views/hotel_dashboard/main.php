@@ -23,7 +23,10 @@
         <!-- Main Content -->
         <div class="main-content">
             <?php
-            if ($mainContent == 'profile' && $action == 'edit') {
+            // Inside the main-content handling section, add packages content handling
+            if ($mainContent == 'dashboard') {
+                require_once __DIR__ . '/dashboard.php';
+            } elseif ($mainContent == 'profile' && $action == 'edit') {
                 require_once __DIR__ . '/edit_profile.php';
             } elseif ($mainContent == 'profile' && $action == 'change-password') {
                 require_once __DIR__ . '/profile_changepassword.php';
@@ -38,7 +41,11 @@
             } elseif ($mainContent == 'bookings' && $verifiedAction == 'edit') {
                 require_once __DIR__ . '/edit_booking.php';
             } elseif ($mainContent == 'reviews' && $verifiedAction == 'reply') {
-                require_once __DIR__ . '/reply_review.php';
+                require_once __DIR__ . '/reply_review.php';            
+            } elseif ($mainContent == 'packages'&& $verifiedAction == 'add') {
+                require_once __DIR__ . '/add_package.php';
+            
+
             } else {
                 // Check if the requested file exists
                 $file_path = __DIR__ . "/$mainContent.php";
@@ -55,4 +62,3 @@
 </body>
 
 </html>
-</ul>
