@@ -676,3 +676,51 @@ ALTER TABLE
     RestaurantImages
 ADD
     ImageID INT AUTO_INCREMENT PRIMARY KEY;
+
+-- Add Package Table
+CREATE TABLE Package (
+    PackageID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description TEXT NOT NULL,
+    Discount DECIMAL(4, 2) NOT NULL,
+    StartDate DATE NOT NULL,
+    EndDate DATE NOT NULL,
+    ImgPath VARCHAR(255),
+    Owner ENUM(
+        'hotel',
+        'restaurant',
+        'heritagemarket',
+        'culturaleventorganizer'
+    ) NOT NULL,
+    HotelID INT,
+    RestaurantID INT,
+    ShopID INT,
+    EventID INT,
+    FOREIGN KEY (HotelID) REFERENCES Hotel(HotelID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+    FOREIGN KEY (ShopID) REFERENCES HeritageMarket(ShopID),
+    FOREIGN KEY (EventID) REFERENCES CulturalEvent(EventID)
+);
+
+-- Add PackageRequest Table
+CREATE TABLE PackageRequest (
+    RequestID INT AUTO_INCREMENT PRIMARY KEY,
+    PackageID INT NOT NULL,
+    SPID INT NOT NULL,
+    SPType ENUM(
+        'hotel',
+        'restaurant',
+        'heritagemarket',
+        'culturalevent'
+    ) NOT NULL,
+    Status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    FOREIGN KEY (PackageID) REFERENCES Package(PackageID)
+);
+
+-- Add PackageCustomer Table
+CREATE TABLE PackageCustomer (
+    PackageID INT NOT NULL,
+    TravelerID INT NOT NULL,
+    FOREIGN KEY (PackageID) REFERENCES Package(PackageID),
+    FOREIGN KEY (TravelerID) REFERENCES Traveler(TravelerID)
+);
