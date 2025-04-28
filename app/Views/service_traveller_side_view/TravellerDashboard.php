@@ -128,7 +128,7 @@
           <?php if (empty($reviews)) : ?>
             <p>No reviews available.</p>
           <?php else : ?>
-            <?php foreach ($reviews as $review) : ?>
+            <?php foreach (array_slice($reviews, 0, 6) as $review) : ?>
               <div class="card">
                 <h3><?php echo htmlspecialchars($review['Name']); ?></h3>
                 <div class="rating">
@@ -145,28 +145,10 @@
               </div>
             <?php endforeach; ?>
           <?php endif; ?>
-          <!-- <div class="card">
-            <h3>ABC Resort</h3>
-            <div class="rating">
-              ★★★★☆
-            </div>
-            <p>"Amazing experience!"</p>
-            <div class="response">
-              <p>"Thank you for your feedback!"</p>
-            </div>
-          </div>
-          <div class="card">
-            <h3>ABC Restaurant</h3>
-            <div class="rating">
-              ★★★☆☆
-            </div>
-            <p>"Good food but service could improve."</p>
-            <div class="response">
-              <p>"Thank you for your feedback!"</p>
-            </div>
-          </div> -->
         </div>
-
+        <?php if (count($reviews) > 6) : ?>
+          <a href="http://localhost/ExploreEase/travellerReview" class="btn-add">View All Reviews</a>
+        <?php endif; ?>
       </section>
 
 

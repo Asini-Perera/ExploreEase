@@ -30,6 +30,7 @@ $router->add('reviews', 'HomeController@siteReview');
 $router->add('TravellerDashboard', 'HomeController@TravellerDashboard');
 $router->add('loggedNavbar', 'HomeController@loggednavbar');
 $router->add('travllerBooking', 'HomeController@travllerBooking');
+$router->add('travellerReview', 'HomeController@travellerReview');
 $router->add('Contactus', 'HomeController@Contactus');
 
 $router->add('keyword', 'KeywordController@loadKeywordPage'); // Keyword page for users

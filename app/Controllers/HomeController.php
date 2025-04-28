@@ -115,6 +115,14 @@ class HomeController
         require_once __DIR__ . '/../Views/travllerBooking.php';
     }
 
+    public function travellerReview()
+    {
+        $travellerModel = new TravelerModel($this->conn);
+        $travellerID = $_SESSION['TravelerID'] ?? null;
+        $reviews = $travellerModel->getTravelerReviews($travellerID);
+        require_once __DIR__ . '/../Views/travellerReview.php';
+    }
+
     public function Contactus()
     {
         require_once __DIR__ . '/../Views/Contactus.php';
