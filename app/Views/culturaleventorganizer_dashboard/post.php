@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../public/css/culturalevent_dashboard/post_list.css">
 
-<div class="menu-container">
+<div class="-container">
     <div class="top">
             <h1>Post List</h1><span></span>
 
@@ -22,13 +22,21 @@
         <tbody>
             <?php foreach ($posts as $post) : ?>
                 <tr>
-                    <td><?= $post['Title'] ?></td>
-                    <td><?= $post['Description'] ?></td>
-                    <td><?= $post['Date'] ?></td>
-                    <td><img src="<?= $post['ImgPath'] ?>" class="food-img"></td>
-                    <td class="action-buttons">
-                        <button class="edit-btn"><a href="?page=post&action=edit&id=<?= $post['PostID'] ?>">Edit</a></button>
-                        <button class="delete-btn"><a href="?page=post&action=delete&id=<?= $post['PostID'] ?>">Delete</a></button>
+                <td><?= htmlspecialchars($post['Title']) ?></td>
+                    <td><?= htmlspecialchars($post['Description']) ?></td>
+                    <td><?= htmlspecialchars($post['Date']) ?></td>
+                    <td data-label="Image">
+                        <?php if (!empty($post['ImgPath'])): ?>
+                            <img src="<?= htmlspecialchars($post['ImgPath']) ?>" class="post-img" alt="Post Image" style="width: 100px; height: 100px; object-fit: cover;">
+                        <?php else: ?>
+                            <img src="../public/images/default-post.png" class="post-img" alt="Default Post Image" style="width: 100px; height: 100px; object-fit: cover;">
+                        <?php endif; ?>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="action-buttons">
+                            <a href="?page=post&action=edit&id=<?= $post['PostID'] ?>" class="edit-btn">Edit</a>
+                            <a href="?page=post&action=delete&id=<?= $post['PostID'] ?>" class="delete-btn">Delete</a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>

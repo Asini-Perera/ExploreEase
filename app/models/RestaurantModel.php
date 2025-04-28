@@ -218,7 +218,6 @@ class RestaurantModel
         return $PostID;
     }
 
-
     public function getPost($restaurantID)
     {
         $sql = "SELECT * FROM restaurantpost WHERE RestaurantID = ?";
@@ -359,9 +358,10 @@ class RestaurantModel
 
     public function getReview($restaurantID)
     {
-        $sql = " SELECT rf.* , t.FirstName, t.LastName FROM restaurantfeedback rf
+        $sql = " SELECT rf.* , t.FirstName, t.LastName, t.ImgPath FROM restaurantfeedback rf
                 INNER JOIN traveler t ON rf.TravelerID = t.TravelerID
-                WHERE rf.RestaurantID = ?";
+                WHERE rf.RestaurantID = ?
+                ORDER BY rf.Response IS NULL DESC, rf.Date DESC";
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
@@ -390,6 +390,125 @@ class RestaurantModel
         $stmt->bind_param('si', $reply, $reviewID);
         $stmt->execute();
     }
+
+   
+    public function getReviewItem($reviewID)
+    {
+        $sql = "SELECT * FROM restaurantfeedback WHERE FeedbackID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $reviewID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
+  
+    //images 
+
+    public function addImage($title ,$restaurantID)
+    {
+        $sql = "INSERT INTO restaurantimages (Title,  RestaurantID) VALUES ( ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si',$title , $restaurantID);
+        $stmt->execute();
+        
+        // Get the ImageID
+        $sql = "SELECT ImageID FROM restaurantimages WHERE Title = ? AND RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ImageID = $result->fetch_assoc()['ImageID'];
+        
+        return $ImageID;
+    }
+ 
+
+    
+    public function getImage($restaurantID)
+    {
+        $sql = "SELECT * FROM restaurantimages WHERE RestaurantID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    
+    public function getImageItem($imageID)
+    {
+        $sql = "SELECT * FROM restaurantimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+
+    }
+
+    public function deleteImage($imageID)
+    {
+        $sql = "DELETE FROM restaurantimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+    }
+
+
+    public function setRestImgPath($imageID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $imageID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/restaurant_images/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/restaurant_images/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE restaurantimages SET ImgPath = ? WHERE ImageID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $imageID);
+            $stmt->execute();
+        }
+    }
+
+    public function getRestImgPath($imageID)
+    {
+        $sql = "SELECT ImgPath FROM restaurantimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
+  
 
 
 
@@ -551,6 +670,17 @@ class RestaurantModel
     public function bookingWithoutTableNo($restaurantId)
     {
         $sql = "SELECT * FROM tablebooking WHERE RestaurantID = ? AND (TableNumber IS NULL OR TableNumber = 0)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $restaurantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPopularDishes($restaurantId)
+    {
+        $sql = "SELECT * FROM menu WHERE RestaurantID = ? AND IsPopular = 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $restaurantId);
         $stmt->execute();

@@ -21,8 +21,10 @@
         $id = $_GET['id'] ?? null;
         ?>
         <div class="review-form-container">
+
             <form action="http://localhost/ExploreEase/review/save?type=<?= urlencode($type) ?>&id=<?= urlencode($id) ?>" method="POST" class="review-form">
                 <!-- <div class="form-group">
+
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
