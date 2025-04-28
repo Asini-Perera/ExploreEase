@@ -14,8 +14,8 @@
     <?php require_once __DIR__ . "/../loggedNavbar.php"; ?>
     <header>
         <div class="container">
-            <h1 class="c-name">ABC Cultural Center</h1>
-            <h3 class="describe">Where Tradition Meets Celebration</h3>
+            <h1 class="c-name"><?php echo $culturalEvent['Name']; ?></h1>
+            <h3 class="describe"><?php echo $culturalEvent['Description']; ?></h3>
         </div>
     </header>
 
@@ -78,7 +78,7 @@
         </div>
         <div class="about">
             <div class="content">
-                <h3 class="abt-title">Welcome to ABC Cultural Center</h3>
+                <h3 class="abt-title">Welcome to <?php echo $culturalEvent['Name']; ?></h3>
                 <p class="description">
                     Immerse yourself in the vibrant world of art, culture, and traditions. At ABC Cultural Center, we celebrate heritage through captivating festivals, performances, and enriching workshops.
                 </p>
@@ -172,26 +172,26 @@
     </section>
 
 
-<!-- bookings -->
-<section class="bookings" id="bookings">
-    <div class="bookings-content">
-        <img src="../public/images/ticket.png" alt="Ticket" class="booking-image">
-        <div class="ticket-purchase">
-            <form action="">
-                <h3 class="booking-heading">Buy a Ticket</h3>
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="tel" placeholder="Phone" pattern="[0-9]{10}" required>
-                <input type="text" placeholder="Event Name" required>
-                <input type="date" required>
-                <input type="time" class="booking-time" required>
-                <label for="num_tickets" class="num-tickets">Number of Tickets</label>
-                <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
-                <button type="submit" class="book-button">Purchase Now</button>
-            </form>
+    <!-- bookings -->
+    <section class="bookings" id="bookings">
+        <div class="bookings-content">
+            <img src="../public/images/ticket.png" alt="Ticket" class="booking-image">
+            <div class="ticket-purchase">
+                <form action="">
+                    <h3 class="booking-heading">Buy a Ticket</h3>
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Phone" pattern="[0-9]{10}" required>
+                    <input type="text" placeholder="Event Name" required>
+                    <input type="date" required>
+                    <input type="time" class="booking-time" required>
+                    <label for="num_tickets" class="num-tickets">Number of Tickets</label>
+                    <input type="number" min="1" max="25" placeholder="Guests" class="num-members" required>
+                    <button type="submit" class="book-button">Purchase Now</button>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- reviews -->
     <section class="reviews" id="reviews">

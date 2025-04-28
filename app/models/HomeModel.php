@@ -80,23 +80,32 @@ class HomeModel
         WHERE (sk.KeywordID IN ($placeholders) AND sk.IsVerified = 1 AND s.IsVerified = 1)
         HAVING Distance < 100)
 
+        UNION 
+
+        (SELECT e.EventID AS ID, e.Name, e.Capacity, e.Description, e.Latitude, e.Longitude,
+               'culturalevent' AS type,
+               ROUND((6371 * acos(cos(radians(?)) * cos(radians(e.Latitude)) * cos(radians(e.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(e.Latitude)))), 2) AS Distance
+        FROM culturalevent e
+        HAVING Distance < 100)
+
         ORDER BY Distance ASC
         ";
 
         $stmt = $this->conn->prepare($sql);
 
-        // Merge parameters: lat/lon x3 + keywords x3
+        // Merge parameters: lat/lon x3 + keywords for each UNION block
         $params = array_merge(
             [$latitude, $longitude, $latitude],
             $keywordIDs,
             [$latitude, $longitude, $latitude],
             $keywordIDs,
             [$latitude, $longitude, $latitude],
-            $keywordIDs
+            $keywordIDs,
+            [$latitude, $longitude, $latitude]
         );
 
-        // Create type string: 3 'd' + keyword count * 3 'i'
-        $types = str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs));
+        // Create type string: 3 'd' + keyword count * 3 'i' for each UNION block
+        $types = str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3) . str_repeat('i', count($keywordIDs)) . str_repeat('d', 3);
 
         $stmt->bind_param($types, ...$params);
         $stmt->execute();
@@ -173,5 +182,14 @@ class HomeModel
         $result = $stmt->get_result();
         $packages = $result->fetch_all(MYSQLI_ASSOC);
         return $packages;
+    }
+
+    public function getCulturalEventById($id)
+    {
+        $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 }

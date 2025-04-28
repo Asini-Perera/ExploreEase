@@ -503,7 +503,7 @@ class RestaurantModel
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Get all service providers by type
      * 
@@ -535,30 +535,30 @@ class RestaurantModel
 
         if (!empty($query)) {
             $stmt = $this->conn->prepare($query);
-            
+
             if (!$stmt) {
                 error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
                 return [];
             }
-            
+
             // Only bind session restaurant ID for restaurant query to exclude current restaurant
             if ($type == 'Restaurant') {
                 $stmt->bind_param("i", $_SESSION['RestaurantID']);
             }
-            
+
             $result = $stmt->execute();
             if (!$result) {
                 error_log("SQL Execute Error: " . $stmt->error);
                 return [];
             }
-            
+
             $result = $stmt->get_result();
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        
+
         return [];
     }
-=======
+
     //     $stmt = $this->conn->prepare($sql);
     //     if ($stmt) {
     //         $stmt->bind_param("i", $restaurantId);
@@ -600,7 +600,7 @@ class RestaurantModel
     //         return 0;
     //     }
     // }
->>>>>>> cc271b72a003c69515347da7af55f09154ca5813
+
 
     /**
      * Create a new package
@@ -609,31 +609,31 @@ class RestaurantModel
     {
         $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in createPackage: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
-        
+
         if (!$stmt->execute()) {
             error_log("SQL Execute Error in createPackage: " . $stmt->error);
             return false;
         }
-        
+
         return true;
     }
 
     /**
      * Upload package image and return the path
      */
-    public function uploadPackageImage($file) 
+    public function uploadPackageImage($file)
     {
         // Get temp image path
         $tempImgPath = $file['tmp_name'];
-        
+
         if (empty($tempImgPath)) {
             return null;
         }
@@ -682,17 +682,17 @@ class RestaurantModel
                 WHERE 
                     (p.Owner = 'restaurant' AND p.RestaurantID = ?)
                 ORDER BY p.StartDate DESC";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackages: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $restaurantId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -709,17 +709,17 @@ class RestaurantModel
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
                 WHERE p.PackageID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackage: " . $this->conn->error);
             return null;
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
 
@@ -735,16 +735,16 @@ class RestaurantModel
             $stmt->bind_param("i", $packageId);
             $stmt->execute();
         }
-        
+
         // Now delete the package
         $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("SQL Error in deletePackage: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param("i", $packageId);
         return $stmt->execute();
     }
@@ -759,17 +759,17 @@ class RestaurantModel
                 JOIN Traveler t ON pc.TravelerID = t.TravelerID 
                 WHERE pc.PackageID = ?
                 ORDER BY t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -788,17 +788,17 @@ class RestaurantModel
                     p.EventID IS NOT NULL
                 ))
                 ORDER BY p.Name, t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $restaurantId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

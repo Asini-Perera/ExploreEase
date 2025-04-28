@@ -221,13 +221,13 @@ class HomeController
                 } else {
                     echo "Heritage Market not found.";
                 }
-                // } elseif ($type === 'cultural_event') {
-                //     $culturalEvent = $homeModel->getCulturalEventById($id);
-                //     if ($culturalEvent) {
-                //         require_once __DIR__ . '/../Views/service_traveller_side_view/cultural_event.php';
-                //     } else {
-                //         echo "Cultural Event not found.";
-                //     }
+            } elseif ($type === 'culturalevent') {
+                $culturalEvent = $homeModel->getCulturalEventById($id);
+                if ($culturalEvent) {
+                    require_once __DIR__ . '/../Views/service_traveller_side_view/cultural_event.php';
+                } else {
+                    echo "Cultural Event not found.";
+                }
             } else {
                 echo "Invalid service type.";
             }

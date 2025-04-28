@@ -219,7 +219,7 @@ class HeritageMarketModel
         $stmt->execute();
     }
 
-<<<<<<< HEAD
+
     /**
      * Get all service providers by type
      * 
@@ -251,27 +251,27 @@ class HeritageMarketModel
 
         if (!empty($query)) {
             $stmt = $this->conn->prepare($query);
-            
+
             if (!$stmt) {
                 error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
                 return [];
             }
-            
+
             // Only bind session shop ID for heritage market query to exclude current shop
             if ($type == 'HeritageMarket') {
                 $stmt->bind_param("i", $_SESSION['ShopID']);
             }
-            
+
             $result = $stmt->execute();
             if (!$result) {
                 error_log("SQL Execute Error: " . $stmt->error);
                 return [];
             }
-            
+
             $result = $stmt->get_result();
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        
+
         return [];
     }
 
@@ -282,32 +282,32 @@ class HeritageMarketModel
     {
         $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in createPackage: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
-        
+
         // Add error logging to diagnose issues
         if (!$stmt->execute()) {
             error_log("SQL Execute Error in createPackage: " . $stmt->error);
             return false;
         }
-        
+
         return true;
     }
 
     /**
      * Upload package image and return the path
      */
-    public function uploadPackageImage($file) 
+    public function uploadPackageImage($file)
     {
         // Get temp image path
         $tempImgPath = $file['tmp_name'];
-        
+
         if (empty($tempImgPath)) {
             return null;
         }
@@ -356,17 +356,17 @@ class HeritageMarketModel
                 WHERE 
                     (p.Owner = 'heritagemarket' AND p.ShopID = ?)
                 ORDER BY p.StartDate DESC";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackages: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $shopId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -383,17 +383,17 @@ class HeritageMarketModel
                 LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
                 LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
                 WHERE p.PackageID = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackage: " . $this->conn->error);
             return null;
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_assoc();
     }
 
@@ -409,16 +409,16 @@ class HeritageMarketModel
             $stmt->bind_param("i", $packageId);
             $stmt->execute();
         }
-        
+
         // Now delete the package directly without authorization checks
         $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-        
+
         if (!$stmt) {
             error_log("SQL Error in deletePackage: " . $this->conn->error);
             return false;
         }
-        
+
         $stmt->bind_param("i", $packageId);
         return $stmt->execute();
     }
@@ -433,17 +433,17 @@ class HeritageMarketModel
                 JOIN Traveler t ON pc.TravelerID = t.TravelerID 
                 WHERE pc.PackageID = ?
                 ORDER BY t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $packageId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -462,128 +462,121 @@ class HeritageMarketModel
                     p.EventID IS NOT NULL
                 ))
                 ORDER BY p.Name, t.FirstName";
-        
+
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {
             error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
             return [];
         }
-        
+
         $stmt->bind_param("i", $shopId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-=======
-     //images 
 
-     public function addImage($title ,$heritagemarketID)
-     {
-         $sql = "INSERT INTO heritagemarketimages (Title,  ShopID) VALUES ( ?, ?)";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('si',$title , $heritagemarketID);
-         $stmt->execute();
-         
-         // Get the ImageID
-         $sql = "SELECT ImageID FROM heritagemarketimages WHERE Title = ? AND ShopID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('si', $title, $heritagemarketID);
-         $stmt->execute();
-         $result = $stmt->get_result();
-         $ImageID = $result->fetch_assoc()['ImageID'];
-         
-         return $ImageID;
-     }
-  
- 
-     
-     public function getImage($heritagemarketID)
-     {
-         $sql = "SELECT * FROM heritagemarketimages WHERE ShopID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $heritagemarketID);
-         $stmt->execute();
-         $result = $stmt->get_result();
- 
-         return $result->fetch_all(MYSQLI_ASSOC);
-     }
- 
-     
-     public function getImageItem($imageID)
-     {
-         $sql = "SELECT * FROM heritagemarketimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-         $result = $stmt->get_result();
- 
-         return $result->fetch_assoc();
- 
-     }
- 
-     public function deleteImage($imageID)
-     {
-         $sql = "DELETE FROM heritagemarketimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-     }
- 
- 
-     public function setShopImgPath($imageID, $fileName)
-     {
-         // Get temp image path
-         $tempImgPath = $fileName['tmp_name'];
- 
-         // Get the file name (original file name from the upload)
-         $originalFileName = $fileName['name'];
- 
-         // Get the file extention
-         $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
- 
-         // Create a new file name
-         $newFileName = $imageID . '.' . $extention;
- 
-         // Define the target directory
-         $targetDir = __DIR__ . '/../../public/images/database/heritagemarket_images/';
- 
-         // Check the directory exists and create it
-         if (!is_dir($targetDir)) {
-             mkdir($targetDir, 0777, false);
-         }
- 
-         // Create the image path
-         $imgDir = $targetDir . $newFileName;
- 
-         // Move the image to the target directory
-         $moving = move_uploaded_file($tempImgPath, $imgDir);
- 
-         // Define the image path
-         $imgPath = '/ExploreEase/public/images/database/heritagemarket_images/' . $newFileName;
- 
-         // Enter the image path to the database
-         if ($moving) {
-             $sql = "UPDATE heritagemarketimages SET ImgPath = ? WHERE ImageID = ?";
-             $stmt = $this->conn->prepare($sql);
-             $stmt->bind_param('si', $imgPath, $imageID);
-             $stmt->execute();
-         }
-     }
- 
-     public function getRestImgPath($imageID)
-     {
-         $sql = "SELECT ImgPath FROM heritagemarketimages WHERE ImageID = ?";
-         $stmt = $this->conn->prepare($sql);
-         $stmt->bind_param('i', $imageID);
-         $stmt->execute();
-         $result = $stmt->get_result();
-         return $result->fetch_assoc()['ImgPath'];
-     }
-   
- 
- 
- 
- 
->>>>>>> cc271b72a003c69515347da7af55f09154ca5813
+    //images 
+
+    public function addImage($title, $heritagemarketID)
+    {
+        $sql = "INSERT INTO heritagemarketimages (Title,  ShopID) VALUES ( ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $heritagemarketID);
+        $stmt->execute();
+
+        // Get the ImageID
+        $sql = "SELECT ImageID FROM heritagemarketimages WHERE Title = ? AND ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('si', $title, $heritagemarketID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ImageID = $result->fetch_assoc()['ImageID'];
+
+        return $ImageID;
+    }
+
+
+
+    public function getImage($heritagemarketID)
+    {
+        $sql = "SELECT * FROM heritagemarketimages WHERE ShopID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $heritagemarketID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function getImageItem($imageID)
+    {
+        $sql = "SELECT * FROM heritagemarketimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function deleteImage($imageID)
+    {
+        $sql = "DELETE FROM heritagemarketimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+    }
+
+
+    public function setShopImgPath($imageID, $fileName)
+    {
+        // Get temp image path
+        $tempImgPath = $fileName['tmp_name'];
+
+        // Get the file name (original file name from the upload)
+        $originalFileName = $fileName['name'];
+
+        // Get the file extention
+        $extention = pathinfo($originalFileName, PATHINFO_EXTENSION);
+
+        // Create a new file name
+        $newFileName = $imageID . '.' . $extention;
+
+        // Define the target directory
+        $targetDir = __DIR__ . '/../../public/images/database/heritagemarket_images/';
+
+        // Check the directory exists and create it
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777, false);
+        }
+
+        // Create the image path
+        $imgDir = $targetDir . $newFileName;
+
+        // Move the image to the target directory
+        $moving = move_uploaded_file($tempImgPath, $imgDir);
+
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/heritagemarket_images/' . $newFileName;
+
+        // Enter the image path to the database
+        if ($moving) {
+            $sql = "UPDATE heritagemarketimages SET ImgPath = ? WHERE ImageID = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('si', $imgPath, $imageID);
+            $stmt->execute();
+        }
+    }
+
+    public function getRestImgPath($imageID)
+    {
+        $sql = "SELECT ImgPath FROM heritagemarketimages WHERE ImageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $imageID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['ImgPath'];
+    }
 }
