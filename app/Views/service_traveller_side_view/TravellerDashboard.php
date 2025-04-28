@@ -105,7 +105,18 @@
       <section class="section" id="bookings">
         <h2>Bookings</h2>
         <div class="card-list">
-          <div class="card">
+          <?php if (empty($bookings)) : ?>
+            <p>No bookings available.</p>
+          <?php else : ?>
+            <?php foreach ($bookings as $booking) : ?>
+              <div class="card">
+                <h3><?php echo htmlspecialchars($booking['Name']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($booking['BookingDate']); ?></p>
+
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+          <!-- <div class="card">
             <h3>ABC Hotel</h3>
             <p>Booking Date: 15-May-2025</p>
             <p>Room No : 2 </p>
@@ -115,7 +126,7 @@
             <p>Booking Date: 20-May-2025</p>
             <p>Table No : 3 </p>
 
-          </div>
+          </div> -->
         </div>
         <a href="http://localhost/ExploreEase/travllerBooking" class="btn-add">View Bookings</a>
       </section>

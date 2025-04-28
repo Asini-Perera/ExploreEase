@@ -77,4 +77,19 @@ class TravelerModel
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getTravelerBookings($TravelerID)
+    {
+        $sql = "SELECT h.Name, rb.CheckInDate AS BookingDate FROM roombooking rb INNER JOIN room ro ON rb.RoomID = ro.RoomID INNER JOIN hotel h ON ro.HotelID = h.HotelID WHERE rb.TravelerID = ?
+        UNION ALL
+        SELECT r.Name, tb.BookingDate AS BookingDate FROM tablebooking tb INNER JOIN restaurant r ON tb.RestaurantID = r.RestaurantID WHERE tb.TravelerID = ?
+        UNION ALL
+        SELECT c.Name, c.Date AS BookingDate FROM culturaleventbooking cb INNER JOIN culturalevent c ON cb.EventID = c.EventID WHERE cb.TravelerID = ?
+        ORDER BY BookingDate ASC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('iii', $TravelerID, $TravelerID, $TravelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
