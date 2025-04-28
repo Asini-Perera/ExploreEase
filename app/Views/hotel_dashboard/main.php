@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <?php include_once __DIR__ . '/../alert.php'; ?>
+
     <!-- Header -->
     <?php include_once __DIR__ . '/header.php'; ?>
 
@@ -32,11 +34,11 @@
             } elseif ($mainContent == 'post' && $verifiedAction == 'edit') {
                 require_once __DIR__ . '/edit_post.php';
             } elseif ($mainContent == 'post' && $verifiedAction == 'add') {
-                require_once __DIR__ . '/add_post.php';          
+                require_once __DIR__ . '/add_post.php';
             } elseif ($mainContent == 'bookings' && $verifiedAction == 'edit') {
                 require_once __DIR__ . '/edit_booking.php';
             } elseif ($mainContent == 'reviews' && $verifiedAction == 'reply') {
-                require_once __DIR__ . '/reply_review.php';            
+                require_once __DIR__ . '/reply_review.php';
             } else {
                 // Check if the requested file exists
                 $file_path = __DIR__ . "/$mainContent.php";

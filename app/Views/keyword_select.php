@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/Navbar.php'; ?>
+    <?php require_once __DIR__ . '/loggedNavbar.php'; ?>
     <main>
         <section class="explore-section" aria-labelledby="main-heading">
             <header class="hero-container">

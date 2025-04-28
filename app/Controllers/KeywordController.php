@@ -126,11 +126,19 @@ class KeywordController
 
             $keywordModel = new KeywordModel($this->conn);
             if ($action === 'verify') {
-                $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
-                // $_SESSION['success'] = 'Keyword verified successfully';
+                $success = $keywordModel->verifyKeyword($keywordID, $service, $serviceProviderID);
+                if ($success) {
+                    $_SESSION['success'] = 'Keyword verified successfully';
+                } else {
+                    $_SESSION['error'] = 'Failed to verify keyword';
+                }
             } elseif ($action === 'reject') {
-                $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
-                // $_SESSION['error'] = 'Keyword rejected successfully';
+                $success = $keywordModel->rejectKeyword($keywordID, $service, $serviceProviderID);
+                if ($success) {
+                    $_SESSION['success'] = 'Keyword rejected successfully';
+                } else {
+                    $_SESSION['error'] = 'Failed to reject keyword';
+                }
             }
 
             header('Location: ../admin/dashboard?page=verifykeyword&user=' . $service);

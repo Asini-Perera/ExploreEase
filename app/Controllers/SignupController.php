@@ -82,6 +82,8 @@ class SignupController
                 $_SESSION['LastName'] = $user['LastName'];
                 $_SESSION['Gender'] = $user['Gender'];
                 $_SESSION['ImgPath'] = $user['ImgPath'];
+                $_SESSION['DOB'] = $user['DOB'];
+                $_SESSION['ContactNo'] = $user['ContactNo'];
                 header('Location: ../loged_home');
                 exit();
             } else {

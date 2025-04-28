@@ -35,8 +35,8 @@ class CulturalEventOrganizerController
                 $TotalEvents = $eventModel->getTotalEvents($_SESSION['OrganizerID']);
                 $TotalPosts = $eventModel->getTotalPosts($_SESSION['OrganizerID']);
                 $TotalRatings = $eventModel->getTotalRatings($_SESSION['OrganizerID']);
-                $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
-                $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
+                // $TotalRevenue = $eventModel->getTotalRevenue($_SESSION['OrganizerID']);
+                // $TotalFeedbacks = $eventModel->getTotalFeedbacks($_SESSION['OrganizerID']);
             } else if ($mainContent == 'profile') {
                 $action = isset($_GET['action']) ? $_GET['action'] : null;
                 if ($action == 'edit') {

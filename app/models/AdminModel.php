@@ -97,6 +97,8 @@ class AdminModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssssi', $firstName, $lastName, $email, $contactNo, $AdminID);
         $stmt->execute();
+
+        return true;
     }
 
     public function checkCurrentPassword($AdminID, $password)
@@ -119,6 +121,8 @@ class AdminModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('si', $newPassword, $AdminID);
         $stmt->execute();
+
+        return true;
     }
 
     public function getTotalUsers($user)
@@ -197,6 +201,8 @@ class AdminModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
+
+        return true;
     }
 
     public function rejectUser($email, $userType)
@@ -205,5 +211,7 @@ class AdminModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
+
+        return true;
     }
 }
