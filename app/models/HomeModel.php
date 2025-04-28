@@ -130,4 +130,48 @@ class HomeModel
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function getAllPackages($travelerID)
+    {
+        $sql = "
+        SELECT 
+            p.*,
+            h.Name AS HotelName,
+            r.Name AS RestaurantName,
+            hm.Name AS HeritageMarketName,
+            ce.Name AS EventName,
+            CASE 
+                WHEN p.StartDate > CURDATE() THEN 'Upcoming'
+                ELSE 'Active'
+            END AS Status
+        FROM 
+            Package p
+        LEFT JOIN 
+            hotel h ON p.HotelID = h.HotelID
+        LEFT JOIN 
+            restaurant r ON p.RestaurantID = r.RestaurantID
+        LEFT JOIN 
+            heritagemarket hm ON p.ShopID = hm.ShopID
+        LEFT JOIN 
+            culturalevent ce ON p.EventID = ce.EventID
+        WHERE 
+            p.IsVerified = 1 
+            AND p.EndDate >= CURDATE()
+            AND NOT EXISTS (
+                SELECT 1 
+                FROM packagecustomer pc 
+                WHERE pc.PackageID = p.PackageID 
+                AND pc.TravelerID = ?
+            )
+        ORDER BY
+            p.StartDate ASC
+    ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $travelerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $packages = $result->fetch_all(MYSQLI_ASSOC);
+        return $packages;
+    }
 }

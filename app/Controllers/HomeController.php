@@ -103,6 +103,7 @@ class HomeController
         $reviews = $travellerModel->getTravelerReviews($travellerID);
         $futureBookings = $travellerModel->getTravelerFutureBookings($travellerID);
         $pastBookings = $travellerModel->getTravelerPastBookings($travellerID);
+        $registerPackages = $travellerModel->getTravelerPackages($travellerID);
         require_once __DIR__ . '/../Views/service_traveller_side_view/TravellerDashboard.php';
     }
 
@@ -138,6 +139,9 @@ class HomeController
 
     public function TravellerPackageList()
     {
+        $homeModel = new HomeModel($this->conn);
+        $travelerID = $_SESSION['TravelerID'];
+        $packages = $homeModel->getAllPackages($travelerID);
         require_once __DIR__ . '/../Views/TravellerPackageList.php';
     }
 

@@ -230,6 +230,9 @@ class AdminController
                 if ($profileAction === '404') {
                     $mainContent = '404';
                 }
+            } elseif ($mainContent == 'verifypackage') {
+                $adminModel = new AdminModel($this->conn);
+                $packages = $adminModel->getUnverifiedPackages();
             }
 
             // Load the main dashboard layout
@@ -390,6 +393,36 @@ class AdminController
                 header('Location: ../admin/dashboard?page=profile&action=changepassword');
                 exit();
             }
+        }
+    }
+
+    public function verifyPackage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $packageID = $_POST['package_id'];
+            $action = $_POST['action'];
+
+            $adminModel = new AdminModel($this->conn);
+            $success = false;
+
+            if ($action === 'verify') {
+                $success = $adminModel->verifyPackage($packageID);
+                if ($success) {
+                    $_SESSION['success'] = "Package verified successfully.";
+                } else {
+                    $_SESSION['error'] = "Verification failed.";
+                }
+            } elseif ($action === 'reject') {
+                $success = $adminModel->rejectPackage($packageID);
+                if ($success) {
+                    $_SESSION['success'] = "Package removed successfully.";
+                } else {
+                    $_SESSION['error'] = "Removal failed.";
+                }
+            }
+
+            header('Location: ../admin/dashboard?page=verifypackage');
+            exit();
         }
     }
 

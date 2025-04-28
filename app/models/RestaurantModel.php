@@ -196,7 +196,7 @@ class RestaurantModel
         $sql = "DELETE FROM menu WHERE MenuID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $menuID);
-        $sucees =$stmt->execute();
+        $sucees = $stmt->execute();
 
         return $sucees;
     }
@@ -226,9 +226,9 @@ class RestaurantModel
         $stmt->bind_param('ii', $travelerID, $restaurantID);
         $stmt->execute();
         $result = $stmt->get_result();
-        $feedbackID = $result->fetch_assoc()['FeedbackID'];
+        $bookingID = $result->fetch_assoc()['BookingID'];
 
-        return $feedbackID;
+        return $bookingID;
     }
 
     public function getBookings($restaurantID)
@@ -359,7 +359,7 @@ class RestaurantModel
         $sql = "DELETE FROM restaurantimages WHERE ImageID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $imageID);
-        $sucees =$stmt->execute();
+        $sucees = $stmt->execute();
 
         return $sucees;
     }
@@ -524,7 +524,7 @@ class RestaurantModel
     //     }
     // }
 
- 
+
 
     // public function getTotalPosts($restaurantId)
     // {
@@ -560,9 +560,9 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-   
 
-    
+
+
     //posts
     // public function addPost($title, $description, $restaurantID)
     // {

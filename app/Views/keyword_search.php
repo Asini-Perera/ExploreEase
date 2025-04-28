@@ -45,9 +45,11 @@ $longitude = $_SESSION['longitude'] ?? null;
                             <li>
                                 <article>
                                     <a href="../link/service?type=<?= urlencode($place['type']) ?>&id=<?= urlencode($place['ID']) ?>">
-                                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c357e84f788a8987722a2333aa2b59d3729cd04b5922ac958422ecbeb48613e1?placeholderIfAbsent=true&apiKey=133f3dae0e9c43f59e9b763518a0651f" alt="<?= htmlspecialchars($place['Name']) ?>" loading="lazy">
+                                        <img src="../public/images/map-icon.png" alt="Galle Face Green" loading="lazy">
+
                                     </a>
                                     <h3><?= htmlspecialchars($place['Name']) ?></h3>
+
                                     <p>
                                         <?php
                                         if ($place['type'] === 'heritagemarket') {
