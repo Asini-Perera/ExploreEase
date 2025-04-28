@@ -297,7 +297,7 @@ class RestaurantModel
         return $result;
     }
 
-   
+
     public function getReviewItem($reviewID)
     {
         $sql = "SELECT * FROM restaurantfeedback WHERE FeedbackID = ?";
@@ -307,18 +307,17 @@ class RestaurantModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc();
-
     }
-  
+
     //images 
 
-    public function addImage($title ,$restaurantID)
+    public function addImage($title, $restaurantID)
     {
         $sql = "INSERT INTO restaurantimages (Title,  RestaurantID) VALUES ( ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('si',$title , $restaurantID);
+        $stmt->bind_param('si', $title, $restaurantID);
         $stmt->execute();
-        
+
         // Get the ImageID
         $sql = "SELECT ImageID FROM restaurantimages WHERE Title = ? AND RestaurantID = ?";
         $stmt = $this->conn->prepare($sql);
@@ -326,12 +325,12 @@ class RestaurantModel
         $stmt->execute();
         $result = $stmt->get_result();
         $ImageID = $result->fetch_assoc()['ImageID'];
-        
+
         return $ImageID;
     }
- 
 
-    
+
+
     public function getImage($restaurantID)
     {
         $sql = "SELECT * FROM restaurantimages WHERE RestaurantID = ?";
@@ -343,7 +342,7 @@ class RestaurantModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    
+
     public function getImageItem($imageID)
     {
         $sql = "SELECT * FROM restaurantimages WHERE ImageID = ?";
@@ -353,7 +352,6 @@ class RestaurantModel
         $result = $stmt->get_result();
 
         return $result->fetch_assoc();
-
     }
 
     public function deleteImage($imageID)
@@ -416,7 +414,7 @@ class RestaurantModel
         $result = $stmt->get_result();
         return $result->fetch_assoc()['ImgPath'];
     }
-  
+
 
 
 
@@ -528,28 +526,28 @@ class RestaurantModel
 
  
 
-    public function getTotalPosts($restaurantId)
-    {
-        $sql = "SELECT COUNT(*) AS totalPosts 
-                FROM restaurantpost  
-                WHERE RestaurantID = ?";
+    // public function getTotalPosts($restaurantId)
+    // {
+    //     $sql = "SELECT COUNT(*) AS totalPosts 
+    //             FROM restaurantpost  
+    //             WHERE RestaurantID = ?";
 
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("i", $restaurantId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result) {
-                return $result->fetch_assoc()['totalPosts'];
-            } else {
-                error_log("SQL Error: " . $this->conn->error);
-                return 0;
-            }
-        } else {
-            error_log("SQL Prepare Error: " . $this->conn->error);
-            return 0;
-        }
-    }
+    //     $stmt = $this->conn->prepare($sql);
+    //     if ($stmt) {
+    //         $stmt->bind_param("i", $restaurantId);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+    //         if ($result) {
+    //             return $result->fetch_assoc()['totalPosts'];
+    //         } else {
+    //             error_log("SQL Error: " . $this->conn->error);
+    //             return 0;
+    //         }
+    //     } else {
+    //         error_log("SQL Prepare Error: " . $this->conn->error);
+    //         return 0;
+    //     }
+    // }
 
     public function bookingWithoutTableNo($restaurantId)
     {

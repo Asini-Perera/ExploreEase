@@ -15,7 +15,7 @@
 
                  <li class="nav-item user-menu-container">
                      <a href="#" class="user-link" id="user-icon-link">
-                         <img src="/ExploreEase/public/images/user-icon-vector-png-6.png" alt="User Icon" class="user-icon" />
+                         <img src="<?php echo htmlspecialchars($_SESSION['ImgPath'] ?? ''); ?>" alt="User Icon" class="user-icon" />
                      </a>
                      <div class="dropdown-menu" id="user-dropdown">
                          <a href="http://localhost/ExploreEase/TravellerDashboard">Dashboard</a>
@@ -29,5 +29,6 @@
          </nav>
      </div>
 
-     </nav>
  </div>
+
+ <?php include_once __DIR__ . "/alert.php"; ?>

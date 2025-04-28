@@ -656,11 +656,9 @@ ALTER TABLE
 -- Remove TravelerKeyword table
 DROP TABLE IF EXISTS TravelerKeyword;
 
--- Add ImageID and Title column to RestaurantImages table
+-- Add Title column to RestaurantImages table
 ALTER TABLE
     RestaurantImages
-ADD
-    ImageID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 ADD
     Title VARCHAR(255) NOT NULL;
 
@@ -672,3 +670,9 @@ DROP TABLE IF EXISTS RestaurantPost;
 
 -- Remove HotelPost table
 DROP TABLE IF EXISTS HotelPost;
+
+-- Add ImageID column to RestaurantImages table
+ALTER TABLE
+    RestaurantImages
+ADD
+    ImageID INT AUTO_INCREMENT PRIMARY KEY;
