@@ -58,7 +58,7 @@ class HomeModel
         FROM hotel h
         INNER JOIN hotelkeyword hk ON h.HotelID = hk.HotelID
         WHERE (hk.KeywordID IN ($placeholders) AND hk.IsVerified = 1 AND h.IsVerified = 1)
-        HAVING Distance < 100)
+        HAVING Distance < 150)
 
         UNION
 
@@ -68,7 +68,7 @@ class HomeModel
         FROM restaurant r
         INNER JOIN restaurantkeyword rk ON r.RestaurantID = rk.RestaurantID
         WHERE (rk.KeywordID IN ($placeholders) AND rk.IsVerified = 1 AND r.IsVerified = 1)
-        HAVING Distance < 100)
+        HAVING Distance < 150)
 
         UNION
 
@@ -78,7 +78,7 @@ class HomeModel
         FROM heritagemarket s
         INNER JOIN heritagemarketkeyword sk ON s.ShopID = sk.ShopID
         WHERE (sk.KeywordID IN ($placeholders) AND sk.IsVerified = 1 AND s.IsVerified = 1)
-        HAVING Distance < 100)
+        HAVING Distance < 150)
 
         UNION 
 
@@ -86,7 +86,7 @@ class HomeModel
                'culturalevent' AS type,
                ROUND((6371 * acos(cos(radians(?)) * cos(radians(e.Latitude)) * cos(radians(e.Longitude) - radians(?)) + sin(radians(?)) * sin(radians(e.Latitude)))), 2) AS Distance
         FROM culturalevent e
-        HAVING Distance < 100)
+        HAVING Distance < 150)
 
         ORDER BY Distance ASC
         ";
