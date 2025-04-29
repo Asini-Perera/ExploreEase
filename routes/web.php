@@ -28,7 +28,7 @@ $router->add('review/save', 'HomeController@saveReview');  // Save review proces
 $router->add('filter/keyword', 'HomeController@filterKeyword');  // Filter by keyword process
 $router->add('link/service', 'HomeController@linkService');  // Link service page for displaying
 $router->add('review', 'HomeController@addReview');  // Add review page for users
-$router->add('review/save', 'HomeController@saveServiceReview');  // Save review process
+$router->add('review/saveService', 'HomeController@saveServiceReview');  // Save review process
 $router->add('reviews', 'HomeController@siteReview');
 $router->add('TravellerDashboard', 'HomeController@TravellerDashboard');
 $router->add('loggedNavbar', 'HomeController@loggednavbar');
