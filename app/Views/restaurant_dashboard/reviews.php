@@ -20,34 +20,34 @@
             <?php if (!empty($reviews) && is_array($reviews)): ?>
                 <?php foreach ($reviews as $feedback): ?>
                     <tr>
-                       <td><?= htmlspecialchars($feedback['FirstName'].' '. $feedback['LastName']) ?></td>
-                    <td><?= date('d-m-Y', strtotime($feedback['Date'])) ?></td>
-                    <td><?= htmlspecialchars($feedback['Rating']) ?></td>
-                    <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
-                    <td><?= htmlspecialchars($feedback['Response']) ?></td>
-                    <td class="action-buttons" onclick="openReplyDialog('<?= htmlspecialchars($feedback['Comment'], ENT_QUOTES) ?>', <?= $feedback['FeedbackID'] ?>)">
-                        <button class="reply-btn"> 
-                            Reply  
-                             
-                        </button>
-                    </td>
+                        <td><?= htmlspecialchars($feedback['FirstName'] . ' ' . $feedback['LastName']) ?></td>
+                        <td><?= date('d-m-Y', strtotime($feedback['Date'])) ?></td>
+                        <td><?= htmlspecialchars($feedback['Rating']) ?></td>
+                        <td><?= nl2br(htmlspecialchars($feedback['Comment'])) ?></td>
+                        <td><?= $feedback['Response'] ?? '' ?></td>
+                        <td class="action-buttons" onclick="openReplyDialog('<?= htmlspecialchars($feedback['Comment'], ENT_QUOTES) ?>', <?= $feedback['FeedbackID'] ?>)">
+                            <button class="reply-btn">
+                                Reply
 
-                    <dialog id="replyDialog">
-                        <form method="POST" id="replyForm" action="?page=reviews&action=reply">
-                            <p><strong>Comment </strong></p>
-                            <textarea id="originalComment" readonly></textarea>
+                            </button>
+                        </td>
 
-                            <p><strong>Reply </strong></p>
-                            <textarea name="reply" class="reply" required></textarea>
+                        <dialog id="replyDialog">
+                            <form method="POST" id="replyForm" action="?page=reviews&action=reply">
+                                <p><strong>Comment </strong></p>
+                                <textarea id="originalComment" readonly></textarea>
 
-                            <input type="hidden" name="reviewID" id="review_id">
+                                <p><strong>Reply </strong></p>
+                                <textarea name="reply" class="reply" required></textarea>
 
-                            <div style="margin-top: 10px; text-align: right;">
-                                <button type="submit" class="confirm-btn">Submit</button>
-                                <button type="button" class="cancel-btn" onclick="document.getElementById('replyDialog').close()">Cancel</button>
-                            </div>
-                        </form>
-                    </dialog>
+                                <input type="hidden" name="reviewID" id="review_id">
+
+                                <div style="margin-top: 10px; text-align: right;">
+                                    <button type="submit" class="confirm-btn">Submit</button>
+                                    <button type="button" class="cancel-btn" onclick="document.getElementById('replyDialog').close()">Cancel</button>
+                                </div>
+                            </form>
+                        </dialog>
                     </tr>
                 <?php endforeach; ?>
 
@@ -62,7 +62,7 @@
 
 
         </tbody>
-    </table> 
+    </table>
 </div>
 
 <script>

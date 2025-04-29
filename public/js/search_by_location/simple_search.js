@@ -17,7 +17,7 @@ function filterServices(selectedCategory) {
     return;
   }
 
-  const filtered = servicesData.filter(service => 
+  const filtered = servicesData.filter(service =>
     service.city === selectedCity && service.category === selectedCategory
   );
 

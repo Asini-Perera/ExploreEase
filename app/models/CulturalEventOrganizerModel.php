@@ -25,14 +25,16 @@ class CulturalEventOrganizerModel
 
 
 
-    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID)
+
+    public function addEvent($title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude)
+
     {
         try {
             // Log the SQL operation starting
             error_log("Adding new event for organizer ID: $organizerID");
 
-            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO culturalevent (`Name`, `Address`, `Date`, `StartTime`, `EndTime`, `Description`, `Capacity`, `TicketPrice`, `Status`, `OrganizerID`, `Latitude`, `Longitude`) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($sql);
 
@@ -41,7 +43,7 @@ class CulturalEventOrganizerModel
                 return false;
             }
 
-            $stmt->bind_param('ssssssidsi', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID);
+            $stmt->bind_param('ssssssidsidd', $title, $address, $date, $start_time, $end_time, $description, $capacity, $price, $status, $organizerID, $latitude, $longitude);
 
             $result = $stmt->execute();
 
@@ -209,11 +211,11 @@ class CulturalEventOrganizerModel
     // }
 
 
-    public function getEventItem($postID)
+    public function getEventItem($eventID)
     {
-        $sql = "SELECT * FROM culturaleventorganizerpost WHERE PostID = ?";
+        $sql = "SELECT * FROM culturalevent WHERE EventID = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $postID);
+        $stmt->bind_param('i', $eventID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -432,24 +434,24 @@ class CulturalEventOrganizerModel
         return $result->fetch_assoc()['TotalEvents'];
     }
 
-    public function getTotalPosts($organizerID)
-    {
-        $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
-        $stmt = $this->conn->prepare($sql);
+    // public function getTotalPosts($organizerID)
+    // {
+    //     $sql = "SELECT COUNT(*) as TotalPosts FROM culturaleventorganizerpost WHERE OrganizerID = ?";
+    //     $stmt = $this->conn->prepare($sql);
 
-        // Check if prepare was successful
-        if (!$stmt) {
-            // Log the error for debugging
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return 0; // Return a default value
-        }
+    //     // Check if prepare was successful
+    //     if (!$stmt) {
+    //         // Log the error for debugging
+    //         error_log("MySQL prepare error: " . $this->conn->error);
+    //         return 0; // Return a default value
+    //     }
 
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    //     $stmt->bind_param('i', $organizerID);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
 
-        return $result->fetch_assoc()['TotalPosts'];
-    }
+    //     return $result->fetch_assoc()['TotalPosts'];
+    // }
 
     public function getTotalRatings($organizerID)
     {
@@ -530,28 +532,105 @@ class CulturalEventOrganizerModel
     //     return $result->fetch_assoc()['TotalFeedbacks'];
     // }
 
-
-    public function setEventImage($eventID, $fileName)
+    public function getAllServiceProviders($type)
     {
-        // Log the start of image upload process
-        error_log("Starting to set image for event ID: $eventID");
+        $query = "";
+        switch ($type) {
+            case 'Hotel':
+                $query = "SELECT h.HotelID as ID, h.Name, h.Address, h.ContactNo as Phone, h.Email, h.Website, h.Description 
+                         FROM hotel h";
+                break;
+            case 'Restaurant':
+                $query = "SELECT r.RestaurantID as ID, r.Name, r.Address, r.ContactNo as Phone, r.Email, '' as Website, r.Description 
+                         FROM restaurant r";
+                break;
+            case 'CulturalEvent':
+                $query = "SELECT c.OrganizerID as ID, c.Name, c.Address, c.ContactNo as Phone, c.Email, '' as Website, '' as Description 
+                         FROM culturaleventorganizer c 
+                         WHERE c.OrganizerID != ?";
+                break;
+            case 'HeritageMarket':
+                $query = "SELECT h.ShopID as ID, h.Name, h.Address, h.ContactNo as Phone, h.Email, '' as Website, h.Description 
+                         FROM heritagemarket h";
+                break;
+        }
 
+        if (!empty($query)) {
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("SQL Error in getAllServiceProviders: " . $this->conn->error . " for query: " . $query);
+                return [];
+            }
+            
+            // Only bind session organizer ID for cultural event query to exclude current organizer
+            if ($type == 'CulturalEvent') {
+                $stmt->bind_param("i", $_SESSION['OrganizerID']);
+            }
+            
+            $result = $stmt->execute();
+            if (!$result) {
+                error_log("SQL Execute Error: " . $stmt->error);
+                return [];
+            }
+            
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        
+        return [];
+    }
+
+    /**
+     * Create a new package
+     */
+    public function createPackage($name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId)
+    {
+        $sql = "INSERT INTO Package (Name, Description, Discount, StartDate, EndDate, ImgPath, Owner, HotelID, RestaurantID, ShopID, EventID) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in createPackage: " . $this->conn->error);
+            return false;
+        }
+        
+        $stmt->bind_param("ssdssssiiii", $name, $description, $discount, $startDate, $endDate, $imgPath, $owner, $hotelId, $restaurantId, $shopId, $eventId);
+        
+        // Add error logging to diagnose issues
+        if (!$stmt->execute()) {
+            error_log("SQL Execute Error in createPackage: " . $stmt->error);
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Upload package image and return the path
+     */
+    public function uploadPackageImage($file) 
+    {
         // Get temp image path
-        $tempImgPath = $fileName['tmp_name'];
+        $tempImgPath = $file['tmp_name'];
+        
+        if (empty($tempImgPath)) {
+            return null;
+        }
 
         // Get the file name (original file name from the upload)
-        $originalFileName = $fileName['name'];
+        $originalFileName = $file['name'];
 
         // Get the file extension
         $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
         // Create a new file name
-        $newFileName = 'event_' . $eventID . '.' . $extension;
+        $newFileName = 'package_' . uniqid() . '.' . $extension;
 
         // Define the target directory
-        $targetDir = __DIR__ . '/../../public/images/database/culturalevent/';
+        $targetDir = __DIR__ . '/../../public/images/database/package/';
 
-        // Check if the directory exists and create it if not
+        // Check the directory exists and create it
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
@@ -562,211 +641,145 @@ class CulturalEventOrganizerModel
         // Move the image to the target directory
         $moving = move_uploaded_file($tempImgPath, $imgDir);
 
-        // Define the image path for the database
-        $imgPath = '/ExploreEase/public/images/database/culturalevent/' . $newFileName;
+        // Define the image path
+        $imgPath = '/ExploreEase/public/images/database/package/' . $newFileName;
 
-        // Update the database with the image path
-        if ($moving) {
-            $sql = "UPDATE culturalevent SET ImgPath = ? WHERE EventID = ?";
-            $stmt = $this->conn->prepare($sql);
+        return $moving ? $imgPath : null;
+    }
 
-            $stmt->bind_param('si', $imgPath, $eventID);
+    /**
+     * Get all packages created by a specific cultural event organizer
+     */
+    public function getPackages($organizerId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE 
+                    (p.Owner = 'culturaleventorganizer' AND p.EventID = ?)
+                ORDER BY p.StartDate DESC";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackages: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $organizerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Get a single package by ID
+     */
+    public function getPackage($packageId)
+    {
+        $sql = "SELECT p.*, 
+                COALESCE(h.Name, r.Name, hm.Name, c.Name) as PartnerName 
+                FROM Package p 
+                LEFT JOIN Hotel h ON p.HotelID = h.HotelID 
+                LEFT JOIN Restaurant r ON p.RestaurantID = r.RestaurantID 
+                LEFT JOIN HeritageMarket hm ON p.ShopID = hm.ShopID 
+                LEFT JOIN CulturalEventOrganizer c ON p.EventID = c.OrganizerID 
+                WHERE p.PackageID = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackage: " . $this->conn->error);
+            return null;
+        }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_assoc();
+    }
+
+    /**
+     * Delete a package by ID
+     */
+    public function deletePackage($packageId, $organizerId)
+    {
+        // Before deleting the package, delete related records from PackageCustomer
+        $sql = "DELETE FROM PackageCustomer WHERE PackageID = ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $packageId);
             $stmt->execute();
-            $stmt->close();
         }
-    }
-
-    public function getBookings($organizerID)
-    {
-        error_log("Fetching bookings for organizer ID: $organizerID");
-
-        // Let's check if we have any bookings in the table at all
-        $checkSql = "SELECT COUNT(*) as count FROM culturaleventbooking";
-        $checkStmt = $this->conn->prepare($checkSql);
-
-        if (!$checkStmt) {
-            error_log("MySQL prepare error for count check: " . $this->conn->error);
-            return [];
-        }
-
-        $checkStmt->execute();
-        $checkResult = $checkStmt->get_result();
-        $totalCount = $checkResult->fetch_assoc()['count'];
-        error_log("Total bookings in culturaleventbooking table: $totalCount");
-
-        // Now proceed with the actual query
-        $sql = "SELECT ceb.*, ce.Name as EventName, t.FirstName, t.LastName 
-                FROM culturaleventbooking ceb
-                JOIN culturalevent ce ON ceb.EventID = ce.EventID
-                LEFT JOIN traveler t ON ceb.TravelerID = t.TravelerID
-                WHERE ce.OrganizerID = ?
-                ORDER BY ceb.Date DESC";
-
-        error_log("Executing SQL: " . str_replace('?', $organizerID, $sql));
-
+        
+        // Now delete the package directly
+        $sql = "DELETE FROM Package WHERE PackageID = ?";
         $stmt = $this->conn->prepare($sql);
-
+        
         if (!$stmt) {
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return [];
-        }
-
-        $stmt->bind_param('i', $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $bookings = $result->fetch_all(MYSQLI_ASSOC);
-        $count = count($bookings);
-        error_log("Found $count bookings for organizer ID: $organizerID");
-
-        return $bookings;
-    }
-
-    public function getBookingById($bookingID)
-    {
-        $sql = "SELECT * FROM culturaleventbooking WHERE BookingID = ?";
-        $stmt = $this->conn->prepare($sql);
-
-        if (!$stmt) {
-            error_log("MySQL prepare error in getBookingById: " . $this->conn->error);
-            return null;
-        }
-
-        $stmt->bind_param('i', $bookingID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc();
-    }
-
-    public function getTravelerById($travelerID)
-    {
-        $sql = "SELECT * FROM traveler WHERE TravelerID = ?";
-        $stmt = $this->conn->prepare($sql);
-
-        if (!$stmt) {
-            error_log("MySQL prepare error in getTravelerById: " . $this->conn->error);
-            return null;
-        }
-
-        $stmt->bind_param('i', $travelerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc();
-    }
-
-    public function validateBookingOwnership($bookingID, $organizerID)
-    {
-        $sql = "SELECT COUNT(*) as count 
-                FROM culturaleventbooking ceb
-                JOIN culturalevent ce ON ceb.EventID = ce.EventID
-                WHERE ceb.BookingID = ? AND ce.OrganizerID = ?";
-
-        $stmt = $this->conn->prepare($sql);
-
-        if (!$stmt) {
-            error_log("MySQL prepare error in validateBookingOwnership: " . $this->conn->error);
+            error_log("SQL Error in deletePackage: " . $this->conn->error);
             return false;
         }
-
-        $stmt->bind_param('ii', $bookingID, $organizerID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-
-        return $row['count'] > 0;
+        
+        $stmt->bind_param("i", $packageId);
+        return $stmt->execute();
     }
 
-    public function updateBooking($bookingID, $date, $quantity, $status, $eventID, $amount = null)
+    /**
+     * Get all travelers who have used a specific package
+     */
+    public function getPackageUsers($packageId)
     {
-        try {
-            // Validate parameters
-            if (!$bookingID || !$date || !$eventID) {
-                error_log("Missing required booking parameters");
-                return false;
-            }
-
-            // Validate numeric parameters
-            if (!is_numeric($bookingID) || !is_numeric($eventID) || !is_numeric($quantity)) {
-                error_log("Invalid numeric parameters in updateBooking");
-                return false;
-            }
-
-            if ($amount !== null && !is_numeric($amount)) {
-                error_log("Invalid amount parameter in updateBooking: $amount");
-                return false;
-            }
-
-            // Type cast to ensure correct data types
-            $bookingID = (int)$bookingID;
-            $eventID = (int)$eventID;
-            $quantity = (int)$quantity;
-            if ($amount !== null) {
-                $amount = (float)$amount;
-            }
-
-            // Log what we're about to do
-            error_log("Attempting to update booking ID: $bookingID with data: " . json_encode([
-                'date' => $date,
-                'quantity' => $quantity,
-                'status' => $status,
-                'eventID' => $eventID,
-                'amount' => $amount
-            ]));
-
-            // Check if the connection is still valid
-            if (!$this->conn || $this->conn->connect_error) {
-                error_log("Database connection error in updateBooking");
-                return false;
-            }
-
-            // Prepare SQL based on whether amount is provided
-            if ($amount !== null) {
-                $sql = "UPDATE culturaleventbooking 
-                        SET Date = ?, Quantity = ?, Status = ?, EventID = ?, Amount = ? 
-                        WHERE BookingID = ?";
-                $stmt = $this->conn->prepare($sql);
-
-                if (!$stmt) {
-                    error_log("SQL prepare error: " . $this->conn->error);
-                    return false;
-                }
-
-                $stmt->bind_param('sisidi', $date, $quantity, $status, $eventID, $amount, $bookingID);
-            } else {
-                $sql = "UPDATE culturaleventbooking 
-                        SET Date = ?, Quantity = ?, Status = ?, EventID = ? 
-                        WHERE BookingID = ?";
-                $stmt = $this->conn->prepare($sql);
-
-                if (!$stmt) {
-                    error_log("SQL prepare error: " . $this->conn->error);
-                    return false;
-                }
-
-                $stmt->bind_param('sisii', $date, $quantity, $status, $eventID, $bookingID);
-            }
-
-            // Execute the update
-            if (!$stmt->execute()) {
-                error_log("SQL execute error: " . $stmt->error);
-                return false;
-            }
-
-            // Check if any rows were affected
-            $affected = $stmt->affected_rows;
-            $stmt->close();
-
-            // Log the result
-            error_log("Update completed. Affected rows: $affected");
-
-            // Return true if rows were affected or if no changes were needed
-            return ($affected >= 0);
-        } catch (\Exception $e) {
-            error_log("Exception in updateBooking: " . $e->getMessage() . "\nStack Trace: " . $e->getTraceAsString());
-            return false;
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath 
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                WHERE pc.PackageID = ?
+                ORDER BY t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getPackageUsers: " . $this->conn->error);
+            return [];
         }
+        
+        $stmt->bind_param("i", $packageId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Get all users across all packages for this organizer
+     */
+    public function getAllPackageUsers($organizerId)
+    {
+        $sql = "SELECT pc.*, t.TravelerID, t.FirstName, t.LastName, t.Email, t.ContactNo, t.ImgPath, p.Name as PackageName
+                FROM PackageCustomer pc 
+                JOIN Traveler t ON pc.TravelerID = t.TravelerID 
+                JOIN Package p ON pc.PackageID = p.PackageID
+                WHERE p.EventID = ? OR (p.Owner != 'culturaleventorganizer' AND (
+                    p.HotelID IS NOT NULL OR 
+                    p.RestaurantID IS NOT NULL OR 
+                    p.ShopID IS NOT NULL
+                ))
+                ORDER BY p.Name, t.FirstName";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("SQL Error in getAllPackageUsers: " . $this->conn->error);
+            return [];
+        }
+        
+        $stmt->bind_param("i", $organizerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getReviews($organizerID)

@@ -60,4 +60,21 @@ class TravelerController
             exit();
         }
     }
+
+    public function registerPackage()
+    {
+        $packageID = $_GET['id'];
+        $travelerID = $_SESSION['TravelerID'];
+
+        $travelerModel = new TravelerModel($this->conn);
+        $success = $travelerModel->registerPackage($travelerID, $packageID);
+
+        if ($success) {
+            $_SESSION['success'] = "Registered to the package successfully.";
+        } else {
+            $_SESSION['error'] = "Failed to register to the package. Please try again.";
+        }
+        header("Location: ../TravellerDashboard");
+        exit();
+    }
 }

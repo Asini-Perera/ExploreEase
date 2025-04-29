@@ -30,13 +30,34 @@
             <input type="text" id="website" name="website" value="<?php echo $_SESSION['Website']; ?>">
         </div>
         <div class="form-group">
-            <label for="sm_link">Social Media Link</label>
-            <input type="text" id="sm_link" name="sm_link" value="<?php echo $_SESSION['SMLink']; ?>">
+            <label for="tagline">Tagline</label>
+            <input type="text" id="tagline" name="tagline" value="<?php echo $_SESSION['Tagline']; ?>">
         </div>
         <div class="form-group">
-            <label for="open_hours">Open Hours</label>
-            <input type="text" id="open_hours" name="open_hours" value="<?php echo $_SESSION['OpenHours']; ?>">
+            <label for="weekend_open_hours">Weekend Open Hours</label>
+            <input type="text" id="weekend_open_hours" name="weekend_open_hours" value="<?php echo $_SESSION['WeekendOpenHours']; ?>">
         </div>
+        <div class="form-group">
+            <label for="weekday_open_hours">Weekday Open Hours</label>
+            <input type="text" id="weekday_open_hours" name="weekday_open_hours" value="<?php echo $_SESSION['WeekdayOpenHours']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="facebook_link">Facebook Link</label>
+            <input type="text" id="facebook_link" name="facebook_link" value="<?php echo $_SESSION['FacebookLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="instagram_link">Instagram Link</label>
+            <input type="text" id="instagram_link" name="instagram_link" value="<?php echo $_SESSION['InstagramLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="tiktok_link">TikTok Link</label>
+            <input type="text" id="tiktok_link" name="tiktok_link" value="<?php echo $_SESSION['TikTokLink']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="youtube_link">YouTube Link</label>
+            <input type="text" id="youtube_link" name="youtube_link" value="<?php echo $_SESSION['YoutubeLink']; ?>">
+        </div>
+
 
         <div class="action-buttons">
             <button type="button" class="discard-btn" onclick="window.history.back()">Discard</button>

@@ -51,47 +51,47 @@
                     <div class="gallery-one">
                         <div>
                             <div class="gallery-img">
-                                <img src="../public/images/hilton(2).jpg" alt="hotel-image" class="gallery1-image1">
+                                <img src="../public/images/pottery.jpg" alt="hotel-image" class="gallery1-image1">
                             </div>
 
                             <div class="gallery-img">
-                                <img src="../public/images/hilton(3).jpg" alt="hotel-image" class="gallery1-image2">
+                                <img src="../public/images/artGallery.jpg" alt="hotel-image" class="gallery1-image2">
                             </div>
                         </div>
 
                         <div>
                             <div class="gallery-img">
-                                <img src="../public/images/hilton(1).jpg" alt="hotel-image" class="gallery-main">
+                                <img src="../public/images/rush.webp" alt="hotel-image" class="gallery-main">
                             </div>
 
 
                         </div>
                         <div>
                             <div class="gallery-img">
-                                <img src="../public/images/hilton(4).jpg" alt="hotel-image" class="gallery1-image3">
+                                <img src="../public/images/handcraft.jpg" alt="hotel-image" class="gallery1-image3">
                             </div>
 
                             <div class="gallery-img">
-                                <img src="../public/images/hilton(5).jpg" alt="hotel-image" class="gallery1-image4">
+                                <img src="../public/images/gallecraft.jpg" alt="hotel-image" class="gallery1-image4">
                             </div>
                         </div>
                     </div>
 
                     <div class="gallery-two">
                         <div class="gallery-img">
-                            <img src="../public/images/hilton(6).jpg" alt="hotel-image" class="gallery2-image1">
+                            <img src="../public/images/pottery1.jpg" alt="hotel-image" class="gallery2-image1">
                         </div>
 
                         <div class="gallery-img">
-                            <img src="../public/images/hilton(4).jpg" alt="hotel-image" class="gallery2-image2">
+                            <img src="../public/images/rush.webp" alt="hotel-image" class="gallery2-image2">
                         </div>
 
                         <div class="gallery-img">
-                            <img src="../public/images/hilton (7).jpg" alt="hotel-image" class="gallery2-image3">
+                            <img src="../public/images/gallecraft.jpg" alt="hotel-image" class="gallery2-image3">
                         </div>
 
                         <div class="gallery-img">
-                            <img src="../public/images/hilton (8).jpg" alt="hotel-image" class="gallery2-image4">
+                            <img src="../public/images/pottery.jpg" alt="hotel-image" class="gallery2-image4">
                         </div>
                     </div>
                 </div>
