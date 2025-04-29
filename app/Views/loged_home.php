@@ -179,7 +179,7 @@
                 <div class="fea-1">
 
                     <div>
-                        <img src="public/images/locations.png" alt="location icon">
+                        <img src="public/images/location.webp" alt="location icon">
                     </div>
 
                     <div class="details">
