@@ -12,9 +12,7 @@
             <a href="?page=room" class="<?= $mainContent == 'room' ? 'active' : '' ?>"><i class="fa-solid fa-bed"></i>Rooms</a>
         </li>
 
-        <!-- <li>
-            <a href="?page=post" class="<?= $mainContent == 'post' ? 'active' : '' ?>"><i class="fa-solid fa-pencil-alt"></i>Posts</a>
-        </li> -->
+
 
         <li>
             <a href="?page=bookings" class="<?= $mainContent == 'bookings' ? 'active' : '' ?>"><i class="fa-solid fa-calendar-check"></i>Bookings</a>
@@ -28,10 +26,7 @@
             <a href="?page=reviews" class="<?= $mainContent == 'reviews' ? 'active' : '' ?>"><i class="fa-solid fa-star"></i>Reviews</a>
         </li>
 
-        <li>
-            <a href="?page=images" class="<?= $mainContent == 'images' ? 'active' : '' ?>"><i class="fa-solid fa-images"></i>Images</a>
-        </li>
-        
+
         <li>
             <a href="../logout"><i class="fa-solid fa-sign-out-alt"></i>Logout</a>
         </li>
